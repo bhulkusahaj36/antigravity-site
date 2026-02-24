@@ -32,6 +32,8 @@ app.http('articles', {
                 // If it doesn't have an ID, give it a timestamp-based ID
                 if (!articleData.id) {
                     articleData.id = Date.now().toString();
+                } else {
+                    articleData.id = String(articleData.id); // Cosmos DB requires string IDs
                 }
 
                 const c = getContainer();

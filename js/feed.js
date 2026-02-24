@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Build article object
             const article = {
-                id: Date.now(),
+                id: String(Date.now()),
                 title,
                 content,
                 author: document.getElementById('add-author').value.trim() || 'અજ્ઞાત',
