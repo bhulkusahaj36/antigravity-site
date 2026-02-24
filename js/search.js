@@ -2,7 +2,7 @@
 // SEARCH PAGE
 // ============================================================
 
-function doSearch() {
+async function doSearch() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
 
     // Advanced filters
@@ -12,7 +12,15 @@ function doSearch() {
     const dateVal = getDateValue('br');
 
     // Combine static ARTICLES and dynamically added hk_articles
-    const dynamicArticles = JSON.parse(localStorage.getItem('hk_articles') || '[]');
+    let dynamicArticles = [];
+    try {
+        const res = await fetch('/api/articles');
+        if (res.ok) {
+            dynamicArticles = await res.json();
+        }
+    } catch (err) {
+        console.error("Failed to load articles from API:", err);
+    }
     let results = [...ARTICLES, ...dynamicArticles];
 
     // Helper to check overlap between array of selections and a single string OR array property from article

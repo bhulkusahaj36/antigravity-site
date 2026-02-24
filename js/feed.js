@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addFeedback = document.getElementById('add-feedback');
 
     if (addForm) {
-        addForm.addEventListener('submit', e => {
+        addForm.addEventListener('submit', async e => {
             e.preventDefault();
             const title = document.getElementById('add-title').value.trim();
             const content = document.getElementById('add-content').value.trim();
@@ -36,19 +36,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 category: Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v).join(',') || 'bhakti',
             };
 
-            // Save to localStorage
-            const stored = JSON.parse(localStorage.getItem('hk_articles') || '[]');
-            stored.unshift(article);
-            localStorage.setItem('hk_articles', JSON.stringify(stored));
+            // Save to Azure API
+            try {
+                const response = await fetch('/api/articles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(article)
+                });
 
-            showFeedback(addFeedback, 'success', '✓ પ્રસંગ સફળતાપૂર્વક ઉમેરાયો!');
-            addForm.reset();
+                if (response.ok) {
+                    showFeedback(addFeedback, 'success', '✓ પ્રસંગ સફળતાપૂર્વક ઉમેરાયો!');
+                    addForm.reset();
 
-            // Hide all conditional fields
-            document.querySelectorAll('#panel-add .feed-conditional').forEach(el => { el.style.display = 'none'; });
-            document.querySelectorAll('#panel-add [name="add-date-type"][value="none"]').forEach(r => { r.checked = true; });
-            document.getElementById('add-date-single').style.display = 'none';
-            document.getElementById('add-date-range').style.display = 'none';
+                    // Hide all conditional fields
+                    document.querySelectorAll('#panel-add .feed-conditional').forEach(el => { el.style.display = 'none'; });
+                    document.querySelectorAll('#panel-add [name="add-date-type"][value="none"]').forEach(r => { r.checked = true; });
+                    document.getElementById('add-date-single').style.display = 'none';
+                    document.getElementById('add-date-range').style.display = 'none';
+                } else {
+                    showFeedback(addFeedback, 'error', 'Error saving article to the database.');
+                }
+            } catch (error) {
+                console.error("API error:", error);
+                showFeedback(addFeedback, 'error', 'Error connecting to the database: ' + error.message);
+            }
+
         });
     }
 
@@ -90,13 +102,21 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function runFilter() {
+    async function runFilter() {
         const source = document.getElementById('br-source').value;
         const topic = document.getElementById('br-topic').value;
         const prasang = document.getElementById('br-prasang').value;
         const dateVal = getDateValue('br');
 
-        let articles = JSON.parse(localStorage.getItem('hk_articles') || '[]');
+        let articles = [];
+        try {
+            const res = await fetch('/api/articles');
+            if (res.ok) {
+                articles = await res.json();
+            }
+        } catch (error) {
+            console.error("Failed to load articles from database:", error);
+        }
 
         // Also include static ARTICLES from data.js if available
         if (typeof ARTICLES !== 'undefined') articles = [...ARTICLES, ...articles];
