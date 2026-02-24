@@ -196,6 +196,11 @@ img {
   border-color: var(--gold-400);
 }
 
+/* Hide logo on home page — hero image acts as the branding */
+.home-page .nav-logo {
+  display: none;
+}
+
 .nav-toggle {
   display: none;
   background: none;
