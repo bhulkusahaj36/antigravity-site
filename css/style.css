@@ -77,6 +77,8 @@ body {
   font-size: 16px;
   line-height: 1.7;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -1106,7 +1108,7 @@ img {
   background: var(--navy-800);
   border-top: 1px solid rgba(212, 160, 23, 0.12);
   padding: 2.5rem 0;
-  margin-top: 2rem;
+  margin-top: auto;
 }
 
 .footer-inner {
