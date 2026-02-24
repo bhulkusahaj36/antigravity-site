@@ -824,9 +824,12 @@ img {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-family: var(--font-en);
+  font-size: 0.95rem;
+  /* Increased size slightly */
+  color: var(--text-secondary);
+  /* Swapped from muted to secondary for better brightness */
+  font-family: var(--font-gu-sans);
+  /* Ensure font supports the Gujarati script cleanly */
 }
 
 .article-featured-img {
@@ -984,14 +987,17 @@ img {
 }
 
 .share-btn {
-  font-family: var(--font-en);
-  font-size: 0.85rem;
+  font-family: var(--font-gu-sans);
+  font-size: 0.95rem;
   font-weight: 600;
   padding: 0.4rem 1rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--card-border);
-  background: var(--card-bg);
-  color: var(--text-secondary);
+  border: 1px solid var(--gold-600);
+  /* Adds a subtle gold border instead of dark */
+  background: rgba(212, 160, 23, 0.08);
+  /* Fills with a dark gold */
+  color: var(--gold-400);
+  /* Makes text pop */
   cursor: pointer;
   transition: all var(--transition);
   text-decoration: none;
