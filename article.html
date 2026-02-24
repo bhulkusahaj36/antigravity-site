@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="gu">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="articlePageTitle">લેખ – હરિપ્રબોધ કથામૃત</title>
+    <meta name="description" id="articlePageMeta" content="ભક્તિ સાહિત્ય – હરિપ્રબોધ કથામૃત" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="categories.html" class="nav-link">Feed</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ARTICLE DETAIL -->
+    <main class="article-main" id="articleMain">
+        <div class="container article-layout">
+
+            <article class="article-body" id="articleContent">
+                <!-- Populated by JS -->
+            </article>
+
+            <aside class="article-sidebar">
+                <div class="sidebar-card" id="relatedSection">
+                    <h3 class="sidebar-title">સંબંધિત લેખ</h3>
+                    <ul class="related-list" id="relatedList"></ul>
+                    <a href="#" class="more-link" id="moreCategoryLink">આ વિભાગ જુઓ</a>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- SHARE BAR -->
+    <div class="share-bar" id="shareBar">
+        <div class="container share-inner">
+            <span class="share-label">શેર:</span>
+            <button class="share-btn" id="copyLink">લિંક કૉપિ</button>
+            <a class="share-btn" id="whatsappShare" target="_blank" rel="noopener">WhatsApp</a>
+            <a class="share-btn" id="facebookShare" target="_blank" rel="noopener">Facebook</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધ કથામૃત</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="categories.html">Feed</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/article.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+
+</html>

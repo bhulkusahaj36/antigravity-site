@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="gu">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feed – હરિપ્રબોધ કથામૃત</title>
+    <meta name="description" content="હરિપ્રબોધ કથામૃત – પ્રસંગ અને લેખ ઉમેરો." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/feed.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="categories.html" class="nav-link active">Feed</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">Feed</h1>
+            <p class="page-subtitle">પ્રસંગ અને લેખ ઉમેરો અથવા બ્રાઉઝ કરો</p>
+        </div>
+    </section>
+
+    <section class="section feed-section">
+        <div class="container">
+
+            <!-- ══════════════════════════════════════════
+                 ADD NEW ENTRY FORM
+            ══════════════════════════════════════════ -->
+            <div class="feed-panel active" id="panel-add">
+                <form id="addForm" class="feed-form" novalidate>
+
+                    <div class="feed-section-label">સ્ત્રોત વિગત</div>
+                    <div class="feed-row">
+
+                        <!-- SOURCE -->
+                        <div class="feed-field">
+                            <label class="feed-label" for="add-source">સ્ત્રોત</label>
+                            <select id="add-source" class="feed-select" data-conditional="add-source" multiple>
+                                <option value="">પસંદ કરો...</option>
+                                <option value="swamiji">સ્વામીજી પરાવાણી</option>
+                                <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
+                                <option value="santo">સંતો પરવાણી</option>
+                                <option value="bhakto">ભક્તોની પરાવાણી</option>
+                                <option value="granth">ગ્રંથ</option>
+                            </select>
+                            <input type="text" id="add-source-santo-text" class="feed-input feed-conditional"
+                                data-show-for="add-source=santo" placeholder="સંત નું નામ દાખલ કરો..."
+                                style="display:none" />
+                            <input type="text" id="add-source-bhakto-text" class="feed-input feed-conditional"
+                                data-show-for="add-source=bhakto" placeholder="ભક્ત નું નામ દાખલ કરો..."
+                                style="display:none" />
+                            <select id="add-source-granth-select" class="feed-select feed-conditional"
+                                data-show-for="add-source=granth" style="display:none" multiple>
+                                <option value="">ગ્રંથ પસંદ કરો...</option>
+                                <option value="jivan">જીવનચરિત્ર</option>
+                                <option value="saras">સરસ એક સહજાનંદ</option>
+                                <option value="chaitanya">ચૈતન્ય ધોધ</option>
+                                <option value="sudha">સુધાસિંધુ એક સહજાનંદ</option>
+                                <option value="ambarish">અંબરીશ ઉપનિષદ</option>
+                                <option value="anirdeshi">અનિર્દેશી અમૃત</option>
+                                <option value="amrutpathey">અમૃતપાથેય</option>
+                                <option value="aatampathey">આતમપાથેય</option>
+                                <option value="manan">મનન ચિંતન</option>
+                                <option value="pardarshi">પારદર્શી પરવાણી</option>
+                                <option value="sahrudayi">સહ્રદયી</option>
+                                <option value="chinmay">ચિન્મય ધોધ</option>
+                                <option value="samarth">સમર્થની સાધુતા</option>
+                            </select>
+                        </div>
+
+                        <!-- TOPICS -->
+                        <div class="feed-field">
+                            <label class="feed-label" for="add-topic">વિષય</label>
+                            <select id="add-topic" class="feed-select" data-conditional="add-topic" multiple>
+                                <option value="">પસંદ કરો...</option>
+                                <option value="mahima">મહિમા</option>
+                                <option value="nishtha">નિષ્ઠા</option>
+                                <option value="seva">સેવા</option>
+                                <option value="bhagvadi">ભગવદી</option>
+                                <option value="bhakti">ભક્તિનો મહિમા</option>
+                                <option value="saralata">સરળતા</option>
+                                <option value="swadharm">સ્વધર્મ</option>
+                                <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
+                                <option value="bhajan">ભજન</option>
+                                <option value="vachanamrut">વચનામૃત</option>
+                                <option value="swamini">સ્વામીની વાતો</option>
+                                <option value="shikshapatri">શિક્ષાપત્રી</option>
+                                <option value="samagam">સમાગમ</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <input type="text" id="add-topic-other-text" class="feed-input feed-conditional"
+                                data-show-for="add-topic=other" placeholder="વિષય દાખલ કરો..." style="display:none" />
+                        </div>
+
+                        <!-- PRASANG OF -->
+                        <div class="feed-field">
+                            <label class="feed-label" for="add-prasang">પ્રસંગ of</label>
+                            <select id="add-prasang" class="feed-select" data-conditional="add-prasang" multiple>
+                                <option value="">પસંદ કરો...</option>
+                                <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
+                                <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
+                                <option value="bhagatji">ભગતજી મહારાજ</option>
+                                <option value="yogiji">યોગીજી મહારાજ</option>
+                                <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
+                                <option value="hariprasad">હરિપ્રસાદ સ્વામીજી</option>
+                                <option value="prabodh">પ્રબોધ સ્વામીજી</option>
+                                <option value="bhakto">ભક્તો</option>
+                            </select>
+                            <input type="text" id="add-prasang-bhakto-text" class="feed-input feed-conditional"
+                                data-show-for="add-prasang=bhakto" placeholder="ભક્ત નું નામ..." style="display:none" />
+                        </div>
+
+                    </div>
+
+                    <!-- PRASANG DATE -->
+                    <div class="feed-field feed-field-full">
+                        <label class="feed-label">પ્રસંગ તારીખ</label>
+                        <div class="date-radio-group">
+                            <label class="date-radio-label">
+                                <input type="radio" name="add-date-type" value="none" checked /> ખબર નહીં
+                            </label>
+                            <label class="date-radio-label">
+                                <input type="radio" name="add-date-type" value="date" /> તારીખ
+                            </label>
+                            <label class="date-radio-label">
+                                <input type="radio" name="add-date-type" value="range" /> તારીખ રેન્જ
+                            </label>
+                        </div>
+                        <div id="add-date-single" class="date-inputs" style="display:none">
+                            <input type="date" class="feed-input" id="add-date-val" />
+                        </div>
+                        <div id="add-date-range" class="date-inputs date-range-row" style="display:none">
+                            <input type="date" class="feed-input" id="add-date-from" />
+                            <span class="date-to-label">To</span>
+                            <input type="date" class="feed-input" id="add-date-to" />
+                        </div>
+                    </div>
+
+                    <div class="feed-divider"></div>
+                    <div class="feed-section-label">લેખ</div>
+
+                    <div class="feed-field feed-field-full">
+                        <label class="feed-label" for="add-title">શિરોનામ</label>
+                        <input type="text" id="add-title" class="feed-input" placeholder="પ્રસંગ શિરોનામ..." />
+                    </div>
+                    <div class="feed-field feed-field-full">
+                        <label class="feed-label" for="add-content">સંદેશ / પ્રસંગ</label>
+                        <textarea id="add-content" class="feed-input feed-textarea" rows="7"
+                            placeholder="અહીં પ્રસંગ લખો..."></textarea>
+                    </div>
+                    <div class="feed-field feed-field-half">
+                        <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
+                        <input type="text" id="add-author" class="feed-input" placeholder="લેખક નું નામ..." />
+                    </div>
+
+                    <div class="feed-actions">
+                        <button type="submit" class="btn btn-primary">પ્રસંગ સંગ્રહ કરો</button>
+                        <button type="reset" class="btn btn-outline">સાફ કરો</button>
+                    </div>
+                    <div id="add-feedback" class="form-feedback" style="display:none"></div>
+
+                </form>
+            </div>
+
+
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધ કથામૃત</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="categories.html">Feed</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/feed.js"></script>
+    <script src="js/particles.js"></script>
+
+</body>
+
+</html>

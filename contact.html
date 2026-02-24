@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="gu">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>સંપર્ક – હરિપ્રબોધ કથામૃત</title>
+    <meta name="description" content="હરિપ્રબોધ કથામૃત સાથે સંપર્ક કરો." />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="categories.html" class="nav-link">Feed</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-hero">
+        <div class="container">
+            <h1 class="page-title">સંપર્ક</h1>
+            <p class="page-subtitle">અમારી સાથે જોડાઓ</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container contact-layout">
+
+            <div class="contact-form-wrap">
+                <h2 class="section-title">સંદેશ મોકલો</h2>
+                <form id="contactForm" class="contact-form" novalidate>
+                    <div class="form-group">
+                        <label for="contactName">નામ</label>
+                        <input type="text" id="contactName" name="name" class="form-input" placeholder="તમારું નામ"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">ઈ-મેઈલ</label>
+                        <input type="email" id="contactEmail" name="email" class="form-input"
+                            placeholder="yourname@example.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">સંદેશ</label>
+                        <textarea id="contactMessage" name="message" class="form-input form-textarea" rows="6"
+                            placeholder="તમારો સંદેશ..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="contactSubmit">મોકલો</button>
+                    <div class="form-feedback" id="formFeedback" style="display:none"></div>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h2 class="section-title">સંપર્ક વિગત</h2>
+                <p class="contact-info-text">ધાર્મિક સૂચનો, લેખ સ્વીકૃતિ, અથવા કોઈ પ્રશ્ન માટે સ્વાગત છે.</p>
+                <div class="contact-detail-item">
+                    <span class="contact-detail-label">ઈ-મેઈલ</span>
+                    <a href="mailto:info@hariprabodham.com" class="contact-detail-value">info@hariprabodham.com</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધ કથામૃત</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="categories.html">Feed</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/contact.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+
+</html>

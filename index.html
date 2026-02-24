@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="gu">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>હરિપ્રબોધ કથામૃત</title>
+    <meta name="description" content="હરિપ્રબોધ કથામૃત" />
+    <meta property="og:title" content="હરિપ્રબોધ કથામૃત" />
+    <meta property="og:description" content="ગુજરાતી ભક્તિ સાહિત્ય અને ધાર્મિક લેખ" />
+    <meta property="og:type" content="website" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="categories.html" class="nav-link">Feed</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <p class="hero-eyebrow">॥ બસ એક તું રાજી થા ॥</p>
+            <h1 class="hero-title">હરિપ્રબોધ કથામૃત</h1>
+            <p class="hero-subtitle">"હૈયામાં ટોપ સુરુચિ રાખનારને કથાવાર્તા સમજવામાં જરાય તકલીફ ન પડે."</p>
+            <p class="hero-subtitle">(ગુરુહરિ હરિપ્રસાદ સ્વામીજી મહારાજ)</p>
+            <div class="hero-quote" id="heroQuote">
+                <span class="quote-mark">"</span>
+                <span id="quoteText">વ્યક્તિની જેટલી સરસ સુરચિ એટલો જ એનો વિકાસ સરસ.</span>
+                <span class="quote-mark">"</span>
+                <span class="quote-author">- ગુરુહરિ હરિપ્રસાદ સ્વામીજી મહારાજ</span>
+            </div>
+            <div class="hero-actions">
+                <a href="#articles" class="btn btn-primary">Read More</a>
+                <a href="search.html" class="btn btn-outline">Search</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED ARTICLES -->
+    <section class="section featured-section" id="featured">
+        <div class="container">
+            <h2 class="section-title">Featured</h2>
+            <div class="cards-grid featured-grid" id="featuredGrid"></div>
+        </div>
+    </section>
+
+    <!-- CATEGORY HIGHLIGHTS -->
+    <section class="section categories-highlight" id="catHighlight">
+        <div class="container">
+            <h2 class="section-title">Categories</h2>
+            <div class="category-chips" id="categoryChips"></div>
+        </div>
+    </section>
+
+    <!-- LATEST ARTICLES -->
+    <section class="section articles-section" id="articles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Latest</h2>
+                <div class="sort-controls">
+                    <label for="sortSelect" class="sort-label">Sort:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="latest">New</option>
+                        <option value="featured">Featured</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cards-grid" id="articlesGrid"></div>
+            <div class="pagination" id="pagination"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધ કથામૃત</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="categories.html">Feed</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+
+</html>
