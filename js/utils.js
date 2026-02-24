@@ -21,7 +21,9 @@ function initNav() {
 
 // Format a date string as Gujarati-style readable date
 function formatDate(iso) {
+    if (!iso) return '';
     const d = new Date(iso);
+    if (isNaN(d.getTime())) return iso; // return raw if not a valid ISO string (e.g., date range string)
     return d.toLocaleDateString('gu-IN', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
@@ -38,16 +40,28 @@ function getCategory(id) {
 
 // Build a single article card element
 function buildCard(article) {
-    const cat = getCategoryName(article.category);
+    const cat = getCategoryName(article.category || 'bhakti');
+    const displayDate = article.date ? article.date : (article.publishDate || '');
+
+    // Format date, handle range object if present
+    let dateStr = '';
+    if (typeof displayDate === 'object' && displayDate !== null) {
+        dateStr = (displayDate.from || '') + (displayDate.to ? ' – ' + displayDate.to : '');
+    } else {
+        dateStr = displayDate ? formatDate(displayDate) : '';
+    }
+
+    const displayExcerpt = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 140) + '...' : '');
+
     const el = document.createElement('div');
     el.className = 'article-card card-animate';
     el.innerHTML = `
     <div class="card-top">
       <span class="category-badge">${cat}</span>
-      <span class="card-date">${formatDate(article.publishDate)}</span>
+      <span class="card-date">${dateStr}</span>
     </div>
     <h3 class="card-title">${article.title}</h3>
-    <p class="card-excerpt">${article.excerpt}</p>
+    <p class="card-excerpt">${displayExcerpt}</p>
     <div class="card-footer">
       <a href="article.html?id=${article.id}" class="read-more">વધુ વાંચો</a>
     </div>

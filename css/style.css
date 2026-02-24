@@ -213,7 +213,9 @@ img {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: #000000;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.95)),
+    url('../images/guruhari.png') center top / cover no-repeat;
   overflow: hidden;
   padding-top: 64px;
 }
