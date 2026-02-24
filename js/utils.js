@@ -19,11 +19,27 @@ function initNav() {
     }
 }
 
-// Format a date string as Gujarati-style readable date
+// Format a date as relative time (e.g. '2 mins ago', 'Today', 'Yesterday') or full Gujarati date
 function formatDate(iso) {
     if (!iso) return '';
     const d = new Date(iso);
-    if (isNaN(d.getTime())) return iso; // return raw if not a valid ISO string (e.g., date range string)
+    if (isNaN(d.getTime())) return iso;
+
+    const now = new Date();
+    const diffMs = now - d;
+    const diffSec = Math.floor(diffMs / 1000);
+    const diffMin = Math.floor(diffSec / 60);
+    const diffHr = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHr / 24);
+
+    if (diffSec < 60) return 'હમણાં જ';
+    if (diffMin < 60) return `${diffMin} મિનિટ પહેલા`;
+    if (diffHr < 24) return `${diffHr} કલાક પહેલા`;
+    if (diffDay === 1) return 'ગઈ કાલે';
+    if (diffDay === 0) return 'આજે';
+    if (diffDay < 7) return `${diffDay} દિવસ પહેલા`;
+
+    // Older than a week — show full date
     return d.toLocaleDateString('gu-IN', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
@@ -40,7 +56,9 @@ function getCategory(id) {
 
 // Build a single article card element
 function buildCard(article) {
-    const cat = getCategoryName(article.category || 'bhakti');
+    // Use first topic/category tag only (avoid 'seva,other' combined display)
+    const primaryCat = (article.topic || article.category || 'bhakti').split(',')[0].trim();
+    const cat = getCategoryName(primaryCat);
     const displayDate = article.date ? article.date : (article.publishDate || '');
 
     // Format date, handle range object if present
