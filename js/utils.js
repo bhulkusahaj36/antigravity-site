@@ -76,7 +76,6 @@ function buildCard(article) {
     el.innerHTML = `
     <div class="card-top">
       <span class="category-badge">${cat}</span>
-      <span class="card-date">${dateStr}</span>
     </div>
     <h3 class="card-title">${article.title}</h3>
     <p class="card-excerpt">${displayExcerpt}</p>
