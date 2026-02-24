@@ -1,0 +1,54 @@
+{
+    "$schema": "https://github.com/Azure/data-api-builder/releases/download/v0.11.0/dab.draft.schema.json",
+    "data-source": {
+        "database-type": "cosmosdb_nosql",
+        "connection-string": "@env('COSMOS_CONNECTION_STRING')",
+        "options": {
+            "database": "antigravity"
+        }
+    },
+    "runtime": {
+        "rest": {
+            "enabled": true,
+            "path": "/api"
+        },
+        "graphql": {
+            "enabled": true,
+            "path": "/graphql"
+        },
+        "host": {
+            "mode": "development",
+            "cors": {
+                "origins": [
+                    "*"
+                ],
+                "allow-credentials": true
+            }
+        }
+    },
+    "entities": {
+        "Article": {
+            "source": {
+                "type": "container",
+                "object": "articles"
+            },
+            "permissions": [
+                {
+                    "role": "anonymous",
+                    "actions": [
+                        "read"
+                    ]
+                },
+                {
+                    "role": "authenticated",
+                    "actions": [
+                        "create",
+                        "read",
+                        "update",
+                        "delete"
+                    ]
+                }
+            ]
+        }
+    }
+}
