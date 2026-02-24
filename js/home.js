@@ -20,8 +20,30 @@ function getSorted(articles) {
 function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
-    const featured = ALL_ARTICLES.filter(a => a.featured).slice(0, 3);
+
+    // Count prasang occurrences across all articles
+    const prasangCount = {};
+    ALL_ARTICLES.forEach(a => {
+        const vals = (a.prasang || '').split(',').map(s => s.trim()).filter(Boolean);
+        vals.forEach(p => { prasangCount[p] = (prasangCount[p] || 0) + 1; });
+    });
+
+    // Get top 5 prasangs by article count
+    const top5Prasangs = Object.entries(prasangCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([p]) => p);
+
+    // Gather one representative article per top prasang
+    const featured = top5Prasangs.map(p =>
+        ALL_ARTICLES.find(a => (a.prasang || '').split(',').map(s => s.trim()).includes(p))
+    ).filter(Boolean);
+
     grid.innerHTML = '';
+    if (featured.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted)">કોઈ featured લeখ નથી.</p>';
+        return;
+    }
     featured.forEach(a => grid.appendChild(buildCard(a)));
 }
 
@@ -36,11 +58,26 @@ function renderCategoryChips() {
     allChip.href = 'categories.html';
     container.appendChild(allChip);
 
-    CATEGORIES.forEach(cat => {
+    // Count articles per topic
+    const topicCount = {};
+    ALL_ARTICLES.forEach(a => {
+        const vals = (a.topic || a.category || '').split(',').map(s => s.trim()).filter(Boolean);
+        vals.forEach(t => { topicCount[t] = (topicCount[t] || 0) + 1; });
+    });
+
+    // Get top 5 topics with most articles
+    const top5Topics = Object.entries(topicCount)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([t]) => t);
+
+    top5Topics.forEach(topicId => {
+        // Try to find matching CATEGORY by id, else show raw id
+        const cat = CATEGORIES.find(c => c.id === topicId);
         const chip = document.createElement('a');
         chip.className = 'category-chip';
-        chip.textContent = cat.name;
-        chip.href = `category-detail.html?id=${cat.id}`;
+        chip.textContent = cat ? cat.name : topicId;
+        chip.href = `category-detail.html?id=${topicId}`;
         container.appendChild(chip);
     });
 }
@@ -85,6 +122,7 @@ async function loadHomeArticles() {
         const response = await fetch('/api/articles?t=' + Date.now());
         if (response.ok) {
             ALL_ARTICLES = await response.json();
+            renderCategoryChips(); // Now data-driven
             renderFeatured();
             renderArticles();
         } else {
@@ -96,11 +134,9 @@ async function loadHomeArticles() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Only category chips and quotes are static now
-    renderCategoryChips();
     initRotatingQuote();
 
-    // Fetch live articles
+    // Fetch live articles — chips, featured, and latest all rendered after
     loadHomeArticles();
 
     const sortSel = document.getElementById('sortSelect');
