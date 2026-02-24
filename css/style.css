@@ -133,7 +133,6 @@ img {
   right: 0;
   z-index: 100;
   background: transparent;
-  border-bottom: 1px solid rgba(245, 158, 11, 0.3);
   transition: background var(--transition), box-shadow var(--transition);
 }
 
@@ -224,7 +223,7 @@ img {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('../images/hero-bg.svg') center / cover no-repeat;
+  background: url('../images/hero-bg.svg') center 25% / cover no-repeat;
   opacity: 0.35;
   z-index: 0;
 }
