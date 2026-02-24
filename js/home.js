@@ -5,17 +5,22 @@
 const ITEMS_PER_PAGE = 4;
 let currentPage = 1;
 let sortMode = 'latest';
+let ALL_ARTICLES = [];
 
 function getSorted(articles) {
     const list = [...articles];
     if (sortMode === 'featured') return list.filter(a => a.featured);
-    return list.sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+    return list.sort((a, b) => {
+        let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
+        let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
+        return dB - dA;
+    });
 }
 
 function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
-    const featured = ARTICLES.filter(a => a.featured).slice(0, 3);
+    const featured = ALL_ARTICLES.filter(a => a.featured).slice(0, 3);
     grid.innerHTML = '';
     featured.forEach(a => grid.appendChild(buildCard(a)));
 }
@@ -43,7 +48,7 @@ function renderCategoryChips() {
 function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
-    const sorted = getSorted(ARTICLES);
+    const sorted = getSorted(ALL_ARTICLES);
     const total = Math.ceil(sorted.length / ITEMS_PER_PAGE);
     const slice = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
@@ -75,11 +80,28 @@ function initRotatingQuote() {
     }, 4000);
 }
 
+async function loadHomeArticles() {
+    try {
+        const response = await fetch('/api/articles');
+        if (response.ok) {
+            ALL_ARTICLES = await response.json();
+            renderFeatured();
+            renderArticles();
+        } else {
+            console.error("Failed to fetch articles:", response.status);
+        }
+    } catch (error) {
+        console.error("Error fetching articles API:", error);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    renderFeatured();
+    // Only category chips and quotes are static now
     renderCategoryChips();
-    renderArticles();
     initRotatingQuote();
+
+    // Fetch live articles
+    loadHomeArticles();
 
     const sortSel = document.getElementById('sortSelect');
     if (sortSel) {
