@@ -134,27 +134,35 @@
 
                     </div>
 
-                    <!-- PRASANG DATE -->
-                    <div class="feed-field feed-field-full">
-                        <label class="feed-label">પ્રસંગ તારીખ</label>
-                        <div class="date-radio-group">
-                            <label class="date-radio-label">
-                                <input type="radio" name="add-date-type" value="none" checked /> ખબર નહીં
-                            </label>
-                            <label class="date-radio-label">
-                                <input type="radio" name="add-date-type" value="date" /> તારીખ
-                            </label>
-                            <label class="date-radio-label">
-                                <input type="radio" name="add-date-type" value="range" /> તારીખ રેન્જ
-                            </label>
+                    <div class="feed-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
+                        <!-- PRASANG DATE -->
+                        <div class="feed-field">
+                            <label class="feed-label">પ્રસંગ તારીખ</label>
+                            <div class="date-radio-group">
+                                <label class="date-radio-label">
+                                    <input type="radio" name="add-date-type" value="none" checked /> ખબર નહીં
+                                </label>
+                                <label class="date-radio-label">
+                                    <input type="radio" name="add-date-type" value="date" /> તારીખ
+                                </label>
+                                <label class="date-radio-label">
+                                    <input type="radio" name="add-date-type" value="range" /> તારીખ રેન્જ
+                                </label>
+                            </div>
+                            <div id="add-date-single" class="date-inputs" style="display:none">
+                                <input type="date" class="feed-input" id="add-date-val" />
+                            </div>
+                            <div id="add-date-range" class="date-inputs date-range-row" style="display:none">
+                                <input type="date" class="feed-input" id="add-date-from" />
+                                <span class="date-to-label">To</span>
+                                <input type="date" class="feed-input" id="add-date-to" />
+                            </div>
                         </div>
-                        <div id="add-date-single" class="date-inputs" style="display:none">
-                            <input type="date" class="feed-input" id="add-date-val" />
-                        </div>
-                        <div id="add-date-range" class="date-inputs date-range-row" style="display:none">
-                            <input type="date" class="feed-input" id="add-date-from" />
-                            <span class="date-to-label">To</span>
-                            <input type="date" class="feed-input" id="add-date-to" />
+
+                        <!-- LOCATION -->
+                        <div class="feed-field">
+                            <label class="feed-label" for="add-location">સ્થળ (Location)</label>
+                            <input type="text" id="add-location" class="feed-input" placeholder="સ્થળ દાખલ કરો..." />
                         </div>
                     </div>
 

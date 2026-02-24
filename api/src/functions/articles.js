@@ -1,10 +1,19 @@
 const { app } = require('@azure/functions');
 const { CosmosClient } = require('@azure/cosmos');
 
-const connectionString = process.env.AzureCosmosDBConnectionString;
-const client = new CosmosClient(connectionString);
-const database = client.database("antigravity");
-const container = database.container("articles");
+let container;
+
+function getContainer() {
+    if (container) return container;
+    const connectionString = process.env.AzureCosmosDBConnectionString;
+    if (!connectionString) {
+        throw new Error("Missing AzureCosmosDBConnectionString in Environment Variables");
+    }
+    const client = new CosmosClient(connectionString);
+    const database = client.database("antigravity");
+    container = database.container("articles");
+    return container;
+}
 
 app.http('articles', {
     methods: ['GET', 'POST', 'DELETE'],
@@ -12,7 +21,8 @@ app.http('articles', {
     handler: async (request, context) => {
         try {
             if (request.method === 'GET') {
-                const { resources } = await container.items.readAll().fetchAll();
+                const c = getContainer();
+                const { resources } = await c.items.readAll().fetchAll();
                 return { jsonBody: resources };
             }
 
@@ -24,7 +34,8 @@ app.http('articles', {
                     articleData.id = Date.now().toString();
                 }
 
-                const { resource } = await container.items.create(articleData);
+                const c = getContainer();
+                const { resource } = await c.items.create(articleData);
                 return { status: 201, jsonBody: resource };
             }
 
@@ -34,7 +45,8 @@ app.http('articles', {
                     return { status: 400, body: "Please pass an id on the query string" };
                 }
 
-                await container.item(id, id).delete();
+                const c = getContainer();
+                await c.item(id, id).delete();
                 return { status: 204 };
             }
 

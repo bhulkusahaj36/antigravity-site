@@ -120,7 +120,7 @@ function initUIComponents() {
         valueSpan.className = 'cs-value';
 
         trigger.appendChild(valueSpan);
-        trigger.innerHTML += ARROW_SVG;
+        trigger.insertAdjacentHTML('beforeend', ARROW_SVG);
 
         const optList = document.createElement('ul');
         optList.className = 'cs-options';

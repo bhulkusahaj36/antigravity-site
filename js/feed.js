@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 topic: Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v).join(','),
                 prasang: Array.from(document.getElementById('add-prasang').selectedOptions).map(o => o.value).filter(v => v).join(','),
                 date: getDateValue('add'),
+                location: document.getElementById('add-location') ? document.getElementById('add-location').value.trim() : '',
                 featured: false,
                 category: Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v).join(',') || 'bhakti',
             };
@@ -54,7 +55,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.getElementById('add-date-single').style.display = 'none';
                     document.getElementById('add-date-range').style.display = 'none';
                 } else {
-                    showFeedback(addFeedback, 'error', 'Error saving article to the database.');
+                    const errorText = await response.text();
+                    showFeedback(addFeedback, 'error', 'Error saving article to the database: ' + errorText);
                 }
             } catch (error) {
                 console.error("API error:", error);
