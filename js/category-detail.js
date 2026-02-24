@@ -42,7 +42,7 @@ function renderCatArticles() {
 
 async function loadCategoryArticles() {
     try {
-        const response = await fetch('/api/articles');
+        const response = await fetch('/api/articles?t=' + Date.now());
         if (response.ok) {
             ALL_ARTICLES = await response.json();
 

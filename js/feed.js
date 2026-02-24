@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let articles = [];
         try {
-            const res = await fetch('/api/articles');
+            const res = await fetch('/api/articles?t=' + Date.now());
             if (res.ok) {
                 articles = await res.json();
             }
