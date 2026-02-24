@@ -3,15 +3,22 @@ const { CosmosClient } = require('@azure/cosmos');
 
 let container;
 
-function getContainer() {
+async function getContainer() {
     if (container) return container;
     const connectionString = process.env.AzureCosmosDBConnectionString;
     if (!connectionString) {
         throw new Error("Missing AzureCosmosDBConnectionString in Environment Variables");
     }
     const client = new CosmosClient(connectionString);
-    const database = client.database("antigravity");
-    container = database.container("articles");
+
+    // Dynamically create Database and Container if they don't exist yet
+    const { database } = await client.databases.createIfNotExists({ id: "antigravity" });
+    const { container: dbContainer } = await database.containers.createIfNotExists({
+        id: "articles",
+        partitionKey: { paths: ["/id"] }
+    });
+
+    container = dbContainer;
     return container;
 }
 
@@ -21,7 +28,7 @@ app.http('articles', {
     handler: async (request, context) => {
         try {
             if (request.method === 'GET') {
-                const c = getContainer();
+                const c = await getContainer();
                 const { resources } = await c.items.readAll().fetchAll();
                 return { jsonBody: resources };
             }
@@ -36,7 +43,7 @@ app.http('articles', {
                     articleData.id = String(articleData.id); // Cosmos DB requires string IDs
                 }
 
-                const c = getContainer();
+                const c = await getContainer();
                 const { resource } = await c.items.create(articleData);
                 return { status: 201, jsonBody: resource };
             }
@@ -47,7 +54,7 @@ app.http('articles', {
                     return { status: 400, body: "Please pass an id on the query string" };
                 }
 
-                const c = getContainer();
+                const c = await getContainer();
                 await c.item(id, id).delete();
                 return { status: 204 };
             }
