@@ -1,0 +1,13 @@
+{
+    "name": "antigravity-api",
+    "version": "1.0.0",
+    "description": "Serverless API for Antigravity",
+    "scripts": {
+        "start": "func start"
+    },
+    "dependencies": {
+        "@azure/cosmos": "^4.0.0",
+        "@azure/functions": "^4.0.0"
+    },
+    "devDependencies": {}
+}
