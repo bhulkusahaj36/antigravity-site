@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
       <h1 class="article-title-h1">${article.title}</h1>
       <div class="article-meta-row">
-        ${article.author ? `<span>લેखક: ${article.author}</span>` : ''}
+        ${article.author ? `<span>: ${article.author}</span>` : ''}
         ${article.location ? `<span>&nbsp;•&nbsp;સ્થળ: ${article.location}</span>` : ''}
       </div>
     </header>
@@ -107,8 +107,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(url).then(() => {
-        copyBtn.textContent = 'કૉपी थयुं';
-        setTimeout(() => { copyBtn.textContent = 'लिंक कॉपि'; }, 2000);
+        copyBtn.textContent = 'કોપી થયું';
+        setTimeout(() => { copyBtn.textContent = 'કોપી થયું'; }, 2000);
       });
     });
   }
