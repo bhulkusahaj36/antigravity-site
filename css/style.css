@@ -254,24 +254,32 @@ img {
 
   .hero-title {
     margin-top: 1rem;
-    margin-bottom: 2rem;
-    /* push quote box heavily below */
+    margin-bottom: 0.5rem;
+    /* reduce margin since scale is smaller */
   }
 
   .hero-calligraphy {
-    transform: scale(1.5) translateY(0);
-    /* reduce scale on mobile */
+    transform: scale(1.15) translateY(-0.5rem);
+    /* smaller scale so it doesn't overlap quote box */
   }
 
   .hero-top-img {
-    transform: scale(1.0) translateY(0);
-    /* reset mobile portrait scale */
+    max-height: 40vh;
+    /* take less DOM height on mobile to fit quote and buttons */
+    transform: scale(1.15) translateY(0);
     opacity: 0.8;
   }
 
   .hero-eyebrow {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     margin-top: 1rem;
+  }
+
+  .hero-quote {
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 }
 
