@@ -502,6 +502,11 @@ img {
   min-width: 0;
 }
 
+/* Single column card list in prasang results */
+.prasang-main .cards-grid {
+  grid-template-columns: 1fr;
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .prasang-layout {
