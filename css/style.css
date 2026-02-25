@@ -294,10 +294,8 @@ img {
   /* Slightly larger as it bridges the images */
   color: var(--gold-500);
   letter-spacing: 0.15em;
-  margin-top: 0;
-  /* No extra spacing between portrait and text */
-  margin-bottom: 1rem;
-  /* Tiny gap between text and Kathamrut image */
+  margin-bottom: 0.2rem;
+  /* Minimal gap between text and Kathamrut image */
   position: relative;
   z-index: 3;
   /* Ensure it stays above both overlapping SVGs */
@@ -308,8 +306,8 @@ img {
 .hero-title {
   margin-top: -2rem;
   /* Move the whole group upwards */
-  margin-bottom: -8rem;
-  /* Keep quote tight beneath */
+  margin-bottom: -14rem;
+  /* Pull quote box tightly under the calligraphy */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   flex-direction: column;
