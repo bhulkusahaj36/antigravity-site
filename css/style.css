@@ -348,12 +348,12 @@ img {
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
-  transform: scale(1.1);
-  /* Reduced scale so portrait stays within overflow:hidden */
+  transform: scale(1.6) translateY(1rem);
+  /* Large scale portrait slightly lowered */
   margin-bottom: -2rem;
   pointer-events: none;
-  opacity: 1.0;
-  /* Full opacity to ensure it's visible against dark bg */
+  opacity: 0.45;
+  /* Back to somewhat transparent */
 }
 
 .hero-calligraphy {
