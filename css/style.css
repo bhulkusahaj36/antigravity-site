@@ -351,6 +351,8 @@ img {
   z-index: 1;
   transform: scale(1.6) translateY(3rem);
   /* Lower portrait further down */
+  transform-origin: top center;
+  /* Scale grows downward, top never gets clipped */
   margin-bottom: -2rem;
   pointer-events: none;
   opacity: 0.45;
