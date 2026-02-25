@@ -252,7 +252,8 @@ img {
 
   /* Layered overlapping layout properly scaled for mobile */
   .hero-title {
-    margin-top: 0;
+    margin-top: -3.5rem;
+    /* Push entire image/text stack UP */
     margin-bottom: -3.5rem;
     display: flex;
     flex-direction: column;
