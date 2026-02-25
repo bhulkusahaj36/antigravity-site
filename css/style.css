@@ -243,6 +243,13 @@ img {
 @media (max-width: 768px) {
   .hero::before {
     background-position: center 5%;
+    opacity: 0.6;
+    /* highlight image more */
+  }
+
+  #bgCanvas {
+    opacity: 0.3;
+    /* dim the background dots */
   }
 }
 
