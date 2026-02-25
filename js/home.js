@@ -111,7 +111,7 @@ function renderFeatured() {
 
     top5Prasangs.forEach(p => {
         const label = PRASANG_LABELS[p] || p;
-        const card = buildAvatarCard(p, label, 'prasang', `search.html?prasang=${p}`);
+        const card = buildAvatarCard(p, label, 'prasang', `prasang.html?prasang=${p}`);
         grid.appendChild(card);
     });
 }

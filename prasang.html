@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="gu">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>પ્રસંગ – હરિપ્રબોધમ કથામૃત</title>
+    <meta name="description" content="હરિપ્રબોધમ કથામૃત – પ્રસંગ અનુસાર લેખ" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/feed.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-logo">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="search.html" class="nav-link">Search</a></li>
+                <li><a href="categories.html" class="nav-link">Feed</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PRASANG HEADER -->
+    <section class="page-hero prasang-hero" id="prasangHero">
+        <div class="container">
+            <a href="index.html" class="back-link">← Home</a>
+            <div class="prasang-hero-inner">
+                <div class="avatar-img-wrap prasang-hero-avatar" id="prasangAvatar">
+                    <span class="avatar-fallback" id="prasangFallback"></span>
+                </div>
+                <div>
+                    <h1 class="page-title" id="prasangTitle">પ્રસંગ</h1>
+                    <p class="prasang-count" id="prasangCount"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN LAYOUT: Sidebar + Results -->
+    <section class="section">
+        <div class="container">
+            <div class="prasang-layout">
+
+                <!-- SIDEBAR FILTERS -->
+                <aside class="prasang-sidebar">
+                    <div class="sidebar-title">ફિલ્ટર</div>
+
+                    <!-- TOPIC -->
+                    <div class="feed-field">
+                        <label class="feed-label" for="pf-topic">વિષય</label>
+                        <select id="pf-topic" class="feed-select" multiple>
+                            <option value="">બધા</option>
+                            <option value="mahima">મહિમા</option>
+                            <option value="nishtha">નિષ્ઠા</option>
+                            <option value="seva">સેવા</option>
+                            <option value="bhagvadi">ભગવદી</option>
+                            <option value="bhakti">ભક્તિનો મહિમા</option>
+                            <option value="saralata">સરળતા</option>
+                            <option value="swadharm">સ્વધર્મ</option>
+                            <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
+                            <option value="bhajan">ભજન</option>
+                            <option value="vachanamrut">વચનામૃત</option>
+                            <option value="swamini">સ્વામીની વાતો</option>
+                            <option value="shikshapatri">શિક્ષાપત્રી</option>
+                            <option value="samagam">સમાગમ</option>
+                            <option value="katha-varta">કથા-વાર્તા</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- SOURCE -->
+                    <div class="feed-field" style="margin-top: 1rem;">
+                        <label class="feed-label" for="pf-source">સ્ત્રોત</label>
+                        <select id="pf-source" class="feed-select" multiple>
+                            <option value="">બધા</option>
+                            <option value="swamiji">સ્વામીજી પરાવાણી</option>
+                            <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
+                            <option value="santo">સંતો પરવાણી</option>
+                            <option value="bhakto">ભક્તોની પરાવાણી</option>
+                            <option value="granth">ગ્રંથ</option>
+                            <option value="vicharan">વિચરણ રિપોર્ટ</option>
+                            <option value="patrika">પત્રિકા</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-outline" id="pfResetBtn" style="margin-top: 1.25rem; width: 100%;">
+                        ફિલ્ટર્સ સાફ કરો
+                    </button>
+                </aside>
+
+                <!-- ARTICLE RESULTS -->
+                <div class="prasang-main">
+                    <div class="cards-grid" id="prasangResults"></div>
+                    <div class="empty-state" id="prasangEmpty" style="display:none">
+                        <p>કોઈ લેખ મળ્યો નહીં.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="search.html">Search</a>
+                <a href="categories.html">Feed</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/prasang.js"></script>
+    <script src="js/particles.js"></script>
+</body>
+
+</html>

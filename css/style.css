@@ -436,6 +436,84 @@ img {
 }
 
 /* ============================================================
+   PRASANG RESULTS PAGE
+   ============================================================ */
+.prasang-hero {
+  padding: 1.5rem 0 2rem;
+}
+
+.prasang-hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.prasang-hero-avatar {
+  width: 90px !important;
+  height: 90px !important;
+  flex-shrink: 0;
+}
+
+.prasang-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.prasang-count {
+  font-family: var(--font-gu-sans);
+  font-size: 0.9rem;
+  color: var(--gold-500);
+  margin-top: 0.25rem;
+}
+
+/* Two-column layout */
+.prasang-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Sidebar */
+.prasang-sidebar {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  position: sticky;
+  top: 80px;
+}
+
+.sidebar-title {
+  font-family: var(--font-gu-sans);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* Main content area */
+.prasang-main {
+  min-width: 0;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .prasang-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .prasang-sidebar {
+    position: static;
+  }
+}
+
+/* ============================================================
    SECTIONS
    ============================================================ */
 .section {
