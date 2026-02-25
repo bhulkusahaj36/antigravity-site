@@ -305,33 +305,26 @@ img {
   /* pull down to remove bottom whitespace */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
+  flex-direction: column;
+  /* Stack top image above main calligraphy */
   align-items: center;
-  /* Center images vertically with each other */
+  /* Center images horizontally */
   justify-content: center;
-  gap: 1.5rem;
-  /* Spacing between the three images */
+  gap: 0.5rem;
+  /* Spacing between the two images */
   width: 100%;
 }
 
-.hero-side-img {
+.hero-top-img {
+  height: 250px;
+  /* Large center top image */
   object-fit: contain;
   filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.4));
   flex-shrink: 0;
 }
 
-.left-img {
-  height: 100px;
-  margin-bottom: 3rem;
-  /* Pushes the image vertically higher relative to the center baseline */
-}
-
-.right-img {
-  height: 200px;
-  /* User requested right image to be noticeably bigger */
-}
-
 .hero-calligraphy {
-  max-width: 60vw;
+  max-width: 90vw;
   /* Take up center space */
   width: 100%;
   max-height: 1000px;
@@ -1678,19 +1671,14 @@ img {
 
   /* Mobile Hero Calligraphy Layout Updates */
   .hero-title {
-    gap: 0.5rem;
+    gap: 0.25rem;
   }
 
-  .left-img {
-    height: 40px;
-    margin-bottom: 1.5rem;
-  }
-
-  .right-img {
-    height: 90px;
+  .hero-top-img {
+    height: 120px;
   }
 
   .hero-calligraphy {
-    max-width: 55vw;
+    max-width: 95vw;
   }
 }
