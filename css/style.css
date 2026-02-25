@@ -308,11 +308,7 @@ img {
   align-items: center;
   justify-content: center;
   gap: 0;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-  /* Centers the absolute 100vw width */
+  width: 100%;
 }
 
 .hero-top-img {
