@@ -60,8 +60,13 @@ function buildAvatarCard(id, label, imgFolder, href) {
     const img = new Image();
     img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
     img.onerror = () => {
-        // Fallback: show first character
-        wrap.innerHTML = `<span class="avatar-fallback">${label.charAt(0)}</span>`;
+        // Try .svg if .jpg failed
+        if (!img.src.endsWith('.svg')) {
+            img.src = `images/${imgFolder}/${id}.svg`;
+        } else {
+            // Final fallback: show first character
+            wrap.innerHTML = `<span class="avatar-fallback">${label.replace(/\n/g, '').charAt(0)}</span>`;
+        }
     };
     img.src = `images/${imgFolder}/${id}.jpg`;
     img.alt = label;
