@@ -250,6 +250,28 @@ img {
     opacity: 0.4;
     /* dim the background dots */
   }
+
+  .hero-title {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    /* push quote box heavily below */
+  }
+
+  .hero-calligraphy {
+    transform: scale(1.5) translateY(0);
+    /* reduce scale on mobile */
+  }
+
+  .hero-top-img {
+    transform: scale(1.0) translateY(0);
+    /* reset mobile portrait scale */
+    opacity: 0.8;
+  }
+
+  .hero-eyebrow {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
 }
 
 /* Decorative horizontal rule */
