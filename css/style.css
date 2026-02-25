@@ -281,8 +281,8 @@ img {
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 2rem 1.25rem 6rem;
-  /* more bottom padding to push content into the darker bottom zone */
+  padding: 1rem 1.25rem 2rem;
+  /* tightened padding to remove space below buttons */
   max-width: 820px;
   margin: 0 auto;
   width: 100%;
@@ -294,9 +294,10 @@ img {
   /* Slightly larger as it bridges the images */
   color: var(--gold-500);
   letter-spacing: 0.15em;
-  margin-top: -1rem;
-  /* Push eyebrow down slightly to align with the lowered portrait */
-  margin-bottom: -5rem;
+  margin-top: -3.5rem;
+  /* Pull eyebrow higher up behind the portrait */
+  margin-bottom: -3.5rem;
+  /* Prevent overlap with calligraphy */
   position: relative;
   z-index: 3;
   /* Ensure it stays above both overlapping SVGs */
@@ -305,9 +306,10 @@ img {
 }
 
 .hero-title {
-  margin-top: 3rem;
-  /* Pull entire container down to clear the top navbar */
-  margin-bottom: -6rem;
+  margin-top: 1rem;
+  /* Pull entire container up slightly */
+  margin-bottom: -11rem;
+  /* Pull quote box tightly up to the calligraphy */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   flex-direction: column;
