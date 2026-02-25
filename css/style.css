@@ -300,42 +300,51 @@ img {
 
 .hero-title {
   margin-top: -1rem;
-  margin-bottom: 0;
+  margin-bottom: 3rem;
+  /* Add some space at the bottom for the huge scaling */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   flex-direction: column;
-  /* Stack top image above main calligraphy */
   align-items: center;
-  /* Center images horizontally */
   justify-content: center;
   gap: 0;
-  /* Spacing between the two images */
-  width: 100%;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  /* Centers the absolute 100vw width */
 }
 
 .hero-top-img {
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
   height: auto;
   max-height: 55vh;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
+  transform: scale(1.6);
+  /* Visually scale up image past its blank padding */
+  margin-bottom: -4rem;
+  /* Absorb visual gap scaled image creates */
+  pointer-events: none;
 }
 
 .hero-calligraphy {
-  max-width: 90vw;
-  /* Take up center space */
+  max-width: 1200px;
   width: 100%;
   height: auto;
-  max-height: 350px;
+  max-height: 450px;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) drop-shadow(0 0 30px rgba(245, 158, 11, 0.2));
-  margin-top: -6rem;
-  /* Massive negative margin to close built-in SVG gap */
+  margin-top: -4rem;
+  /* Overlap physically to pull closer to top image */
+  transform: scale(1.6);
+  /* Force scale beyond its borders */
   z-index: 2;
   position: relative;
+  pointer-events: none;
 }
 
 .sr-only {
@@ -1119,6 +1128,7 @@ img {
   padding: 0.75rem 1rem;
   outline: none;
   transition: border-color var(--transition);
+  width: 100%;
 }
 
 .search-input::placeholder {
@@ -1683,11 +1693,13 @@ img {
   .hero-top-img {
     max-width: 100%;
     max-height: 40vh;
+    transform: scale(2.2);
+    margin-bottom: -5vh;
   }
 
   .hero-calligraphy {
     max-width: 95vw;
-    margin-top: -3rem;
-    /* Responsive negative margin */
+    margin-top: 0;
+    transform: scale(1.7);
   }
 }
