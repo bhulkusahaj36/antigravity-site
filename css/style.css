@@ -320,13 +320,11 @@ img {
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
-  transform: scale(1.6);
-  /* Visually scale up image past its blank padding */
+  transform: scale(1.6) translateY(-3rem);
+  /* Translate up to sit behind eyebrow text */
   margin-bottom: -5rem;
-  /* Absorb visual gap scaled image creates */
   pointer-events: none;
   opacity: 0.45;
-  /* Make the portrait background transparent to blend nicely */
 }
 
 .hero-calligraphy {
@@ -336,9 +334,9 @@ img {
   max-height: 450px;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) drop-shadow(0 0 30px rgba(245, 158, 11, 0.2));
-  margin-top: -1rem;
+  margin-top: -6rem;
+  /* Pull calligraphy higher to close gap created by translate */
   transform: scale(3.0);
-  /* Force scale 3x */
   z-index: 2;
   position: relative;
   pointer-events: none;
