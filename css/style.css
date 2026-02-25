@@ -244,47 +244,62 @@ img {
 @media (max-width: 768px) {
   .hero::before {
     opacity: 0.45;
-    /* highlight image more */
   }
 
   #bgCanvas {
     opacity: 0.4;
-    /* dim the background dots */
   }
 
-  .hero-title {
-    margin-top: 2rem;
-    /* Move entire block slightly down to give more top space */
-    margin-bottom: 2rem;
-    /* Ensure gap between calligraphy and quote box */
-  }
-
-  .hero-calligraphy {
-    transform: scale(1.15) translateY(-1rem);
-  }
-
+  /* Pull portrait out of the flex flow — treat it as a full-width background image */
   .hero-top-img {
-    max-height: 40vh;
-    transform: scale(1.4) translateY(-1rem);
-    /* Make face bigger but push it UP behind calligraphy */
-    transform-origin: top center;
-    opacity: 0.8;
+    position: absolute !important;
+    top: 64px;
+    /* sit flush under the navbar */
+    left: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 68vh !important;
+    max-height: none !important;
+    object-fit: cover !important;
+    object-position: top center;
+    transform: none !important;
+    transform-origin: initial !important;
+    margin-bottom: 0 !important;
+    opacity: 0.5;
+    z-index: 0;
   }
 
+  /* No more negative margins — content stacks cleanly at the bottom */
+  .hero-title {
+    position: relative;
+    z-index: 3;
+    margin-top: 0;
+    margin-bottom: 0;
+    gap: 0;
+  }
+
+  /* Eyebrow text: sits just above calligraphy */
   .hero-eyebrow {
-    margin-bottom: 2rem;
-    /* gap between eyebrow and calligraphy */
-    margin-top: 1.5rem;
-    /* gap between eyebrow and portrait face */
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
   }
 
+  /* Calligraphy: natural size for mobile, no extreme scale */
+  .hero-calligraphy {
+    max-width: 100%;
+    max-height: 200px;
+    transform: scale(1.0);
+    margin-top: 0;
+  }
+
+  /* Quote box: clean gap below calligraphy */
   .hero-quote {
     padding: 1rem 1.25rem;
-    margin-bottom: 1.5rem;
-    margin-top: 2rem;
-    /* Extra top margin ensures it sits firmly below calligraphy */
-    font-size: 0.95rem;
-    line-height: 1.5;
+    margin-top: 1.25rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.6;
   }
 }
 
@@ -330,7 +345,7 @@ img {
   /* Slightly larger as it bridges the images */
   color: var(--gold-500);
   letter-spacing: 0.15em;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   /* 2rem gap between text and Kathamrut image */
   position: relative;
   z-index: 3;
