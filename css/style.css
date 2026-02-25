@@ -829,6 +829,19 @@ img {
   scroll-snap-align: start;
 }
 
+/* Modifier for stacked single-column layout instead of horizontal scroll */
+.stacked-grid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+.stacked-grid .article-card {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
 .featured-grid {
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
