@@ -300,8 +300,8 @@ img {
 
 .hero-title {
   margin-top: -1rem;
-  margin-bottom: 3rem;
-  /* Add some space at the bottom for the huge scaling */
+  margin-bottom: -10rem;
+  /* Aggressive negative margin to close gap caused by 3x scaling the image below */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   flex-direction: column;
@@ -325,7 +325,7 @@ img {
   margin-bottom: -5rem;
   /* Absorb visual gap scaled image creates */
   pointer-events: none;
-  opacity: 0.75;
+  opacity: 0.45;
   /* Make the portrait background transparent to blend nicely */
 }
 
@@ -336,10 +336,9 @@ img {
   max-height: 450px;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) drop-shadow(0 0 30px rgba(245, 158, 11, 0.2));
-  margin-top: -4rem;
-  /* Overlap physically to pull closer to top image */
-  transform: scale(1.6);
-  /* Force scale beyond its borders */
+  margin-top: -1rem;
+  transform: scale(3.0);
+  /* Force scale 3x */
   z-index: 2;
   position: relative;
   pointer-events: none;
@@ -731,6 +730,7 @@ img {
    ============================================================ */
 .section {
   padding: 1rem 0;
+  /* Reduced padding to tighten layout */
 }
 
 .section-header {
@@ -771,9 +771,34 @@ img {
    ARTICLE CARDS
    ============================================================ */
 .cards-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
   gap: 1.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-500) var(--navy-800);
+  scroll-snap-type: x mandatory;
+}
+
+.cards-grid::-webkit-scrollbar {
+  height: 8px;
+}
+
+.cards-grid::-webkit-scrollbar-track {
+  background: var(--navy-800);
+  border-radius: 4px;
+}
+
+.cards-grid::-webkit-scrollbar-thumb {
+  background-color: var(--gold-500);
+  border-radius: 4px;
+}
+
+.cards-grid .article-card {
+  min-width: 320px;
+  width: 320px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
 .featured-grid {
@@ -1626,32 +1651,12 @@ img {
 
 @media (max-width: 480px) {
 
-  /* Make Latest articles side-scrollable on mobile like avatars */
-  .cards-grid {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    padding: 0.5rem 0 1.5rem;
-    scrollbar-width: none;
-    grid-template-columns: none;
-    /* override grid */
-    scroll-snap-type: x mandatory;
-  }
-
-  .cards-grid::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Ensure cards don't shrink and stay card-sized */
-  .article-card {
+  .cards-grid .article-card {
     min-width: 280px;
     width: 280px;
-    flex-shrink: 0;
-    scroll-snap-align: start;
-    margin-bottom: 0;
-    /* remove bottom shadow cutoff */
   }
 
+  /* Remove duplicate cards-grid overrides since it's global now */
   .featured-grid {
     display: flex;
     grid-template-columns: none;
@@ -1698,6 +1703,6 @@ img {
   .hero-calligraphy {
     max-width: 95vw;
     margin-top: 0;
-    transform: scale(1.7);
+    transform: scale(3.5);
   }
 }
