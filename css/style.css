@@ -294,10 +294,9 @@ img {
   /* Slightly larger as it bridges the images */
   color: var(--gold-500);
   letter-spacing: 0.15em;
-  margin-top: -5rem;
-  /* Pull eyebrow up alongside portrait */
-  margin-bottom: -3.5rem;
-  /* Tight against calligraphy */
+  margin-top: 1rem;
+  /* Space below calligraphy */
+  margin-bottom: 0;
   position: relative;
   z-index: 3;
   /* Ensure it stays above both overlapping SVGs */
@@ -328,8 +327,8 @@ img {
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
-  transform: scale(1.6) translateY(-2rem);
-  /* Translate up to sit behind eyebrow text */
+  transform: scale(1.6) translateY(0rem);
+  /* Portrait sits at natural position */
   margin-bottom: -2rem;
   pointer-events: none;
   opacity: 0.45;
