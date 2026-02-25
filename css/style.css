@@ -235,14 +235,13 @@ img {
   content: '';
   position: absolute;
   inset: 0;
-  background: url('../images/hero-bg.svg') center 15% / cover no-repeat;
+  /* background image removed per user request */
   opacity: 0.35;
   z-index: 0;
 }
 
 @media (max-width: 768px) {
   .hero::before {
-    background-position: center 5%;
     opacity: 0.45;
     /* highlight image more */
   }
