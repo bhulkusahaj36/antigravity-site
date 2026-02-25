@@ -64,14 +64,16 @@ function buildAvatarCard(id, label, imgFolder, href) {
         if (!img.src.endsWith('.svg')) {
             img.src = `images/${imgFolder}/${id}.svg`;
         } else {
-            // Final fallback: show first character
-            wrap.innerHTML = `<span class="avatar-fallback">${label.replace(/\n/g, '').charAt(0)}</span>`;
+            // Final fallback: show full name in circle
+            const cleanLabel = label.replace(/\n/g, ' ');
+            wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
         }
     };
     img.src = `images/${imgFolder}/${id}.jpg`;
     img.alt = label;
-    // Show fallback while loading
-    wrap.innerHTML = `<span class="avatar-fallback">${label.replace(/\n/g, '').charAt(0)}</span>`;
+    // Show full name while loading
+    const cleanLabel = label.replace(/\n/g, ' ');
+    wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
 
     const labelEl = document.createElement('span');
     labelEl.className = 'avatar-label';
