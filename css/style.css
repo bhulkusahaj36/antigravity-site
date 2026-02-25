@@ -250,56 +250,53 @@ img {
     opacity: 0.4;
   }
 
-  /* Pull portrait out of the flex flow — treat it as a full-width background image */
-  .hero-top-img {
-    position: absolute !important;
-    top: 64px;
-    /* sit flush under the navbar */
-    left: 0;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 68vh !important;
-    max-height: none !important;
-    object-fit: cover !important;
-    object-position: top center;
-    transform: none !important;
-    transform-origin: initial !important;
-    margin-bottom: 0 !important;
-    opacity: 0.5;
-    z-index: 0;
-  }
-
-  /* No more negative margins — content stacks cleanly at the bottom */
+  /* Layered overlapping layout properly scaled for mobile */
   .hero-title {
-    position: relative;
-    z-index: 3;
-    margin-top: 0;
-    margin-bottom: 0;
-    gap: 0;
+    margin-top: -1.5rem;
+    margin-bottom: -5.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
-  /* Eyebrow text: sits just above calligraphy */
+  .hero-top-img {
+    max-height: 40vh;
+    transform: scale(1.35) translateY(2rem);
+    /* Slightly larger portrait moved down */
+    transform-origin: top center;
+    margin-bottom: -1rem;
+    opacity: 0.6;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .hero-calligraphy {
+    max-width: 100%;
+    transform: scale(1.8) translateY(-1.5rem);
+    /* Scaled up on mobile, shifted up */
+    margin-top: -1rem;
+    z-index: 2;
+    pointer-events: none;
+  }
+
   .hero-eyebrow {
-    margin-top: 0;
-    margin-bottom: 0.6rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    z-index: 3;
     font-size: 0.95rem;
   }
 
-  /* Calligraphy: natural size for mobile, no extreme scale */
-  .hero-calligraphy {
-    max-width: 100%;
-    max-height: 200px;
-    transform: scale(1.0);
-    margin-top: 0;
-  }
-
-  /* Quote box: clean gap below calligraphy */
   .hero-quote {
     padding: 1rem 1.25rem;
-    margin-top: 1.25rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 4;
+    /* Sits above standard flow */
   }
 }
 
