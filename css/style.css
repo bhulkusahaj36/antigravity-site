@@ -299,42 +299,97 @@ img {
 
 .hero-subtitle {
   font-family: var(--font-gu-sans);
-  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.05rem);
   color: var(--text-secondary);
   max-width: 600px;
-  margin: 0 auto 2rem;
+  margin: 0 auto 0.5rem;
   animation: fadeInUp 0.7s 0.2s ease both;
+  display: none;
+  /* hide old subtitles — quote box is used instead */
 }
 
 .hero-quote {
   font-family: var(--font-gu);
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  color: var(--saffron-300);
-  font-style: italic;
-  background: rgba(245, 158, 11, 0.06);
-  border: 1px solid rgba(245, 158, 11, 0.22);
+  font-size: clamp(1.05rem, 2.2vw, 1.3rem);
+  color: #f5c96a;
+  background: rgba(245, 158, 11, 0.07);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: var(--radius-md);
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 2rem;
   margin: 0 auto 2.5rem;
-  max-width: 580px;
+  max-width: 620px;
   animation: fadeInUp 0.7s 0.3s ease both;
-  transition: opacity var(--transition);
+  line-height: 1.7;
 }
 
 .quote-mark {
-  font-size: 1.4em;
-  opacity: 0.4;
+  font-size: 1.3em;
+  color: var(--gold-500);
+  opacity: 0.7;
 }
 
 .quote-author {
   display: block;
-  margin-top: 0.4rem;
-  font-size: 0.82rem;
-  color: var(--saffron-500);
-  font-style: normal;
+  margin-top: 0.6rem;
+  font-size: 0.88rem;
   font-family: var(--font-gu-sans);
+  color: var(--gold-500);
   opacity: 0.85;
+  font-style: normal;
 }
+
+/* ============================================================
+   SKELETON LOADING
+   ============================================================ */
+@keyframes shimmer {
+  0% {
+    background-position: -600px 0;
+  }
+
+  100% {
+    background-position: 600px 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, var(--card-bg) 25%, rgba(255, 255, 255, 0.04) 50%, var(--card-bg) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  width: 70%;
+  height: 20px;
+}
+
+.skeleton-body1 {
+  width: 100%;
+}
+
+.skeleton-body2 {
+  width: 85%;
+}
+
+.skeleton-body3 {
+  width: 60%;
+}
+
 
 .hero-actions {
   display: flex;
