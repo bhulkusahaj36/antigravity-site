@@ -17,6 +17,7 @@ const PRASANG_LABELS = {
     hariprasad: 'હ.સ્વામીજી\nમહારાજ',
     prabodh: 'પ્રબોધ\nસ્વામીજી',
     bhakto: 'ભક્તો',
+    prabhudasbhai: 'પ્રભુદાસભાઈ',
 };
 
 // Topic display labels

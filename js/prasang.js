@@ -11,6 +11,7 @@ const PRASANG_LABELS_PG = {
     hariprasad: 'હ.સ્વામીજી મહારાજ',
     prabodh: 'પ્રબોધ સ્વામીજી',
     bhakto: 'ભક્તો',
+    prabhudasbhai: 'પ્રભુદાસભાઈ',
 };
 
 let ALL_ARTICLES_PG = [];
