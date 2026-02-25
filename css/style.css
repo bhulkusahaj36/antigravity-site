@@ -322,9 +322,11 @@ img {
   z-index: 1;
   transform: scale(1.6);
   /* Visually scale up image past its blank padding */
-  margin-bottom: -4rem;
+  margin-bottom: -5rem;
   /* Absorb visual gap scaled image creates */
   pointer-events: none;
+  opacity: 0.75;
+  /* Make the portrait background transparent to blend nicely */
 }
 
 .hero-calligraphy {
