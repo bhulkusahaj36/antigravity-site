@@ -86,14 +86,14 @@ function setHeader() {
     const img = new Image();
     img.onload = () => {
         fallback.style.display = 'none';
-        img.className = 'prasang-hero-img';
+        img.className = 'prasang-banner-avatar-img';
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
         wrap.appendChild(img);
     };
     img.onerror = () => {
         if (!img.src.endsWith('.svg')) {
             img.src = `images/prasang/${currentPrasang}.svg`;
         }
-        // else leave fallback text
     };
     img.src = `images/prasang/${currentPrasang}.jpg`;
     img.alt = label;

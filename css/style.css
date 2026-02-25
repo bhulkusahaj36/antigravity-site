@@ -438,34 +438,120 @@ img {
 /* ============================================================
    PRASANG RESULTS PAGE
    ============================================================ */
-.prasang-hero {
-  padding: 1.5rem 0 2rem;
+
+.prasang-banner {
+  position: relative;
+  margin-top: 64px;
+  padding: 2.5rem 0 2rem;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(212, 160, 23, 0.2);
 }
 
-.prasang-hero-inner {
+.prasang-banner-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(212, 160, 23, 0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.prasang-banner-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.prasang-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-gu-sans);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  padding: 0.3rem 0.9rem;
+  border: 1px solid var(--card-border);
+  border-radius: 999px;
+  background: var(--card-bg);
+  transition: all var(--transition);
+}
+
+.prasang-back-btn:hover {
+  color: var(--gold-400);
+  border-color: var(--gold-600);
+  background: rgba(212, 160, 23, 0.06);
+}
+
+.prasang-banner-content {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
+  gap: 2rem;
 }
 
-.prasang-hero-avatar {
-  width: 90px !important;
-  height: 90px !important;
+.prasang-banner-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid rgba(212, 160, 23, 0.55);
+  box-shadow: 0 0 0 6px rgba(212, 160, 23, 0.1), 0 8px 32px rgba(0, 0, 0, 0.5);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
 }
 
-.prasang-hero-img {
+.prasang-banner-avatar img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.prasang-count {
+.prasang-banner-fallback {
   font-family: var(--font-gu-sans);
-  font-size: 0.9rem;
-  color: var(--gold-500);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  text-align: center;
+  padding: 0 10px;
+  line-height: 1.3;
+}
+
+.prasang-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.prasang-banner-label {
+  font-family: var(--font-gu-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--gold-600);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.prasang-banner-title {
+  font-family: var(--font-gu);
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.prasang-banner-count {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-gu-sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--navy-900);
+  background: var(--gold-500);
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
   margin-top: 0.25rem;
 }
 
@@ -497,17 +583,14 @@ img {
   border-bottom: 1px solid var(--card-border);
 }
 
-/* Main content area */
 .prasang-main {
   min-width: 0;
 }
 
-/* Single column card list in prasang results */
 .prasang-main .cards-grid {
   grid-template-columns: 1fr;
 }
 
-/* Mobile responsive */
 @media (max-width: 768px) {
   .prasang-layout {
     grid-template-columns: 1fr;
@@ -515,6 +598,15 @@ img {
 
   .prasang-sidebar {
     position: static;
+  }
+
+  .prasang-banner-avatar {
+    width: 80px;
+    height: 80px;
+  }
+
+  .prasang-banner-content {
+    gap: 1.25rem;
   }
 }
 
