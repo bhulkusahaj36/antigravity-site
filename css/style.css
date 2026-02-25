@@ -290,18 +290,25 @@ img {
 
 .hero-eyebrow {
   font-family: var(--font-gu);
-  font-size: 0.95rem;
+  font-size: 1.1rem;
+  /* Slightly larger as it bridges the images */
   color: var(--gold-500);
   letter-spacing: 0.15em;
-  margin-bottom: 0.2rem;
+  margin-top: -1.5rem;
+  /* Pull into portrait bottom edge */
+  margin-bottom: -5.5rem;
+  /* Pull calligraphy tightly beneath it */
+  position: relative;
+  z-index: 3;
+  /* Ensure it stays above both overlapping SVGs */
   opacity: 0.85;
   animation: fadeInUp 0.6s ease both;
 }
 
 .hero-title {
-  margin-top: 5rem;
+  margin-top: 3rem;
   /* Push down to avoid overlapping the navbar with scaled image */
-  margin-bottom: -10rem;
+  margin-bottom: -6rem;
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   flex-direction: column;
@@ -320,9 +327,9 @@ img {
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
-  transform: scale(1.6) translateY(-3rem);
+  transform: scale(1.6) translateY(-2rem);
   /* Translate up to sit behind eyebrow text */
-  margin-bottom: -5rem;
+  margin-bottom: -2rem;
   pointer-events: none;
   opacity: 0.45;
 }
@@ -334,8 +341,8 @@ img {
   max-height: 450px;
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) drop-shadow(0 0 30px rgba(245, 158, 11, 0.2));
-  margin-top: -6rem;
-  /* Pull calligraphy higher to close gap created by translate */
+  margin-top: 0;
+  /* Calligraphy gap closed by eyebrow margin */
   transform: scale(3.0);
   z-index: 2;
   position: relative;
@@ -1687,6 +1694,11 @@ img {
   }
 
   /* Mobile Hero Calligraphy Layout Updates */
+  .hero-eyebrow {
+    margin-top: -1.5rem;
+    margin-bottom: -2rem;
+  }
+
   .hero-title {
     gap: 0;
   }
