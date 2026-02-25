@@ -7,6 +7,37 @@ let currentPage = 1;
 let sortMode = 'latest';
 let ALL_ARTICLES = [];
 
+// Prasang display labels (value → Gujarati name)
+const PRASANG_LABELS = {
+    bhagwan: 'ભગવાન સ્વામિ\nનારાયણ',
+    gunatit: 'ગુણાતીત\nાનંદ સ્વામી',
+    bhagatji: 'ભગતજી\nમહારાજ',
+    yogiji: 'યોગીજી\nમહારાજ',
+    shastriji: 'શાસ્ત્રીજી\nમહારાજ',
+    hariprasad: 'હ.સ્વામીજી\nમહારાજ',
+    prabodh: 'પ્રબોધ\nસ્વામીજી',
+    bhakto: 'ભક્તો',
+};
+
+// Topic display labels
+const TOPIC_LABELS = {
+    mahima: 'મહિમા',
+    nishtha: 'નિષ્ઠા',
+    seva: 'સેવા',
+    bhagvadi: 'ભગવદી',
+    bhakti: 'ભક્તિ',
+    saralata: 'સરળતા',
+    swadharm: 'સ્વધર્મ',
+    swadhyay: 'સ્વાધ્યાય',
+    bhajan: 'ભજન',
+    vachanamrut: 'વચનામૃત',
+    swamini: 'સ્વામીની',
+    shikshapatri: 'શિક્ષાપત્રી',
+    samagam: 'સમાગમ',
+    'katha-varta': 'કથા-વાર્તા',
+    other: 'અન્ય',
+};
+
 function getSorted(articles) {
     const list = [...articles];
     if (sortMode === 'featured') return list.filter(a => a.featured);
@@ -15,6 +46,35 @@ function getSorted(articles) {
         let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
         return dB - dA;
     });
+}
+
+// Build a circular avatar card element
+function buildAvatarCard(id, label, imgFolder, href) {
+    const card = document.createElement('a');
+    card.className = 'avatar-card';
+    card.href = href;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'avatar-img-wrap';
+
+    const img = new Image();
+    img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
+    img.onerror = () => {
+        // Fallback: show first character
+        wrap.innerHTML = `<span class="avatar-fallback">${label.charAt(0)}</span>`;
+    };
+    img.src = `images/${imgFolder}/${id}.jpg`;
+    img.alt = label;
+    // Show fallback while loading
+    wrap.innerHTML = `<span class="avatar-fallback">${label.replace(/\n/g, '').charAt(0)}</span>`;
+
+    const labelEl = document.createElement('span');
+    labelEl.className = 'avatar-label';
+    labelEl.textContent = label.replace(/\n/g, ' ');
+
+    card.appendChild(wrap);
+    card.appendChild(labelEl);
+    return card;
 }
 
 function renderFeatured() {
@@ -34,29 +94,26 @@ function renderFeatured() {
         .slice(0, 5)
         .map(([p]) => p);
 
-    // Gather one representative article per top prasang
-    const featured = top5Prasangs.map(p =>
-        ALL_ARTICLES.find(a => (a.prasang || '').split(',').map(s => s.trim()).includes(p))
-    ).filter(Boolean);
-
     grid.innerHTML = '';
-    if (featured.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-muted)">કોઈ featured લeখ નથી.</p>';
+    grid.className = 'avatar-row'; // Switch to avatar row layout
+
+    if (top5Prasangs.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted)">કોઈ Featured લeખ નથી.</p>';
         return;
     }
-    featured.forEach(a => grid.appendChild(buildCard(a)));
+
+    top5Prasangs.forEach(p => {
+        const label = PRASANG_LABELS[p] || p;
+        const card = buildAvatarCard(p, label, 'prasang', `search.html?prasang=${p}`);
+        grid.appendChild(card);
+    });
 }
 
 function renderCategoryChips() {
     const container = document.getElementById('categoryChips');
     if (!container) return;
     container.innerHTML = '';
-
-    const allChip = document.createElement('a');
-    allChip.className = 'category-chip active';
-    allChip.textContent = 'બધા';
-    allChip.href = 'categories.html';
-    container.appendChild(allChip);
+    container.className = 'avatar-row';
 
     // Count articles per topic
     const topicCount = {};
@@ -72,13 +129,9 @@ function renderCategoryChips() {
         .map(([t]) => t);
 
     top5Topics.forEach(topicId => {
-        // Try to find matching CATEGORY by id, else show raw id
-        const cat = CATEGORIES.find(c => c.id === topicId);
-        const chip = document.createElement('a');
-        chip.className = 'category-chip';
-        chip.textContent = cat ? cat.name : topicId;
-        chip.href = `category-detail.html?id=${topicId}`;
-        container.appendChild(chip);
+        const label = TOPIC_LABELS[topicId] || topicId;
+        const card = buildAvatarCard(topicId, label, 'categories', `category-detail.html?id=${topicId}`);
+        container.appendChild(card);
     });
 }
 
