@@ -299,9 +299,9 @@ img {
 }
 
 .hero-title {
-  margin-top: -1rem;
+  margin-top: 5rem;
+  /* Push down to avoid overlapping the navbar with scaled image */
   margin-bottom: -10rem;
-  /* Aggressive negative margin to close gap caused by 3x scaling the image below */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   flex-direction: column;
