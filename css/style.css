@@ -300,14 +300,17 @@ img {
 }
 
 .hero-title {
-  margin-bottom: 0.5rem;
+  margin-top: -2.5rem;
+  /* pull up to remove top whitespace */
+  margin-bottom: -1rem;
+  /* pull down to remove bottom whitespace */
   animation: fadeInUp 0.7s 0.1s ease both;
   display: flex;
   justify-content: center;
 }
 
 .hero-calligraphy {
-  max-width: 90vw;
+  max-width: 95vw;
   width: 100%;
   max-height: 1000px;
   object-fit: contain;
