@@ -253,31 +253,36 @@ img {
   }
 
   .hero-title {
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
-    /* reduce margin since scale is smaller */
+    margin-top: 2rem;
+    /* Move entire block slightly down to give more top space */
+    margin-bottom: 2rem;
+    /* Ensure gap between calligraphy and quote box */
   }
 
   .hero-calligraphy {
-    transform: scale(1.15) translateY(-0.5rem);
-    /* smaller scale so it doesn't overlap quote box */
+    transform: scale(1.15) translateY(-1rem);
   }
 
   .hero-top-img {
     max-height: 40vh;
-    /* take less DOM height on mobile to fit quote and buttons */
-    transform: scale(1.15) translateY(0);
+    transform: scale(1.4) translateY(-1rem);
+    /* Make face bigger but push it UP behind calligraphy */
+    transform-origin: top center;
     opacity: 0.8;
   }
 
   .hero-eyebrow {
-    margin-bottom: 1.5rem;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
+    /* gap between eyebrow and calligraphy */
+    margin-top: 1.5rem;
+    /* gap between eyebrow and portrait face */
   }
 
   .hero-quote {
     padding: 1rem 1.25rem;
     margin-bottom: 1.5rem;
+    margin-top: 2rem;
+    /* Extra top margin ensures it sits firmly below calligraphy */
     font-size: 0.95rem;
     line-height: 1.5;
   }
