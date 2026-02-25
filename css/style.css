@@ -221,7 +221,8 @@ img {
    ============================================================ */
 .hero {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
+  /* strictly one screen tall so ::after yellow line stays at viewport bottom */
   display: flex;
   align-items: flex-end;
   /* Push content to bottom of hero */
@@ -348,8 +349,8 @@ img {
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
-  transform: scale(1.6) translateY(1rem);
-  /* Large scale portrait slightly lowered */
+  transform: scale(1.6) translateY(3rem);
+  /* Lower portrait further down */
   margin-bottom: -2rem;
   pointer-events: none;
   opacity: 0.45;
