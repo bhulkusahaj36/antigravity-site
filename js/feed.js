@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const content = document.getElementById('add-content').value.trim();
 
             if (!title || !content) {
-                showFeedback(addFeedback, 'error', 'શિરોનામ અને સંદેશ ભરવા જરૂરી છે.');
+                showFeedback(addFeedback, 'error', 'શીર્ષક અને સંદેશ ભરવા જરૂરી છે.');
                 return;
             }
 
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
         <div class="card-body">
           <div class="card-meta">
-            <span class="card-category">${a.source || 'સ્ત્રोत'}</span>
+            <span class="card-category">${a.source || 'સ્ત્રોત'}</span>
             ${a.date ? `<span class="card-date">${typeof a.date === 'object' ? a.date.from + ' – ' + a.date.to : a.date}</span>` : ''}
           </div>
           <h3 class="card-title">${a.title}</h3>
