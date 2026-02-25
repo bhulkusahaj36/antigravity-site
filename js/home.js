@@ -9,8 +9,8 @@ let ALL_ARTICLES = [];
 
 // Prasang display labels (value → Gujarati name)
 const PRASANG_LABELS = {
-    bhagwan: 'ભગવાન સ્વામિ\nનારાયણ',
-    gunatit: 'ગુણાતીત\nાનંદ સ્વામી',
+    bhagwan: 'ભગવાન સ્વામિનારાયણ',
+    gunatit: 'ગુણાતીતાનંદ સ્વામી',
     bhagatji: 'ભગતજી\nમહારાજ',
     yogiji: 'યોગીજી\nમહારાજ',
     shastriji: 'શાસ્ત્રીજી\nમહારાજ',
