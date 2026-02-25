@@ -201,6 +201,11 @@ img {
   display: none;
 }
 
+/* Push nav links to the right when logo is hidden */
+.home-page .nav-inner {
+  justify-content: flex-end;
+}
+
 .nav-toggle {
   display: none;
   background: none;
