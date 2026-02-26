@@ -291,7 +291,7 @@ img {
   .hero-calligraphy {
     max-width: 100%;
     transform: scale(3.2) translateY(0);
-    margin-top: -1rem;
+    margin-top: 0.1rem;
     z-index: 2;
     pointer-events: none;
   }
@@ -395,7 +395,7 @@ img {
   max-height: 450px;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(255, 179, 15, 0.7)) drop-shadow(0 0 45px rgba(255, 179, 15, 0.4));
-  margin-top: -1.5rem;
+  margin-top: 0.1rem;
   transform: scale(2.5) translateY(2rem);
   /* Pull calligraphy down to center on chest */
   z-index: 2;
