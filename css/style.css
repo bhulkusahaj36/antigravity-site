@@ -826,6 +826,8 @@ img {
   overflow-x: auto;
   padding: 0.5rem 1.5rem 1.5rem 0;
   /* Add right-padding to prevent clipping */
+  padding-right: 2.5rem;
+  /* Increased to ensure last item fully visible */
   scrollbar-width: thin;
   scrollbar-color: var(--gold-500) var(--navy-800);
   scroll-snap-type: x mandatory;
@@ -1005,6 +1007,8 @@ img {
   overflow-x: auto;
   padding: 0.5rem 1.5rem 1rem 0;
   /* Add right-padding to prevent clipping */
+  padding-right: 2.5rem;
+  /* Increased right padding to prevent outer circle clipping */
   scrollbar-width: none;
 }
 
