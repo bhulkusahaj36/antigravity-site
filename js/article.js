@@ -58,6 +58,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Use date property if present, otherwise fallback to id or publishDate
   const displayDate = article.date ? article.date : (article.publishDate || '');
 
+  // Format content to preserve paragraphs
+  let formattedContent = '';
+  if (article.content) {
+    // Split by newlines, trim whitespace, ignore empty lines, wrap in <p>
+    formattedContent = article.content
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0)
+      .map(line => `<p>${line}</p>`)
+      .join('');
+  }
+
   content.innerHTML = `
     <header class="article-header">
       <div class="article-cat-date">
@@ -73,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     ${article.featuredImage ? `<img src="${article.featuredImage}" alt="${article.title}" class="article-featured-img" loading="lazy" />` : ''}
 
-    <div class="article-content">${article.content || ''}</div>
+    <div class="article-content">${formattedContent}</div>
 
     ${article.tags && article.tags.length ? `
       <div class="article-tags">
