@@ -385,22 +385,10 @@ img {
   z-index: 2;
   position: relative;
   pointer-events: none;
-  left: -4%;
-  /* drag to left center */
-  animation: floatCalligraphy 6s ease-in-out infinite;
+  left: -18%;
+  /* Shift to the left center as requested by user */
 }
 
-@keyframes floatCalligraphy {
-
-  0%,
-  100% {
-    top: 0;
-  }
-
-  50% {
-    top: -15px;
-  }
-}
 
 .sr-only {
   position: absolute;
@@ -1788,5 +1776,7 @@ img {
     max-width: 95vw;
     margin-top: 0;
     transform: scale(3.5);
+    left: 0;
+    /* Reset the left shift on mobile */
   }
 }
