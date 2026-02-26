@@ -23,6 +23,7 @@ const PRASANG_LABELS = {
 // Topic display labels
 const TOPIC_LABELS = {
     mahima: 'મહિમા',
+    atmiyata: 'આત્મીયતા',
     nishtha: 'નિષ્ઠા',
     seva: 'સેવા',
     bhagvadi: 'ભગવદી',
