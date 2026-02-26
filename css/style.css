@@ -1800,7 +1800,7 @@ img {
   .hero-calligraphy {
     max-width: 95vw;
     margin-top: 0;
-    transform: scale(2.5);
+    transform: scale(2.5) translateY(-1rem;
     left: 0;
     /* Reset the left shift on mobile */
   }
