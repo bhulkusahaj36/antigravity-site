@@ -336,18 +336,7 @@ img {
 }
 
 .hero-eyebrow {
-  font-family: var(--font-gu);
-  font-size: 1.1rem;
-  /* Slightly larger as it bridges the images */
-  color: var(--gold-500);
-  letter-spacing: 0.15em;
-  margin-bottom: -5rem;
-  /* Push eyebrow down closer to calligraphy */
-  position: relative;
-  z-index: 3;
-  /* Ensure it stays above both overlapping SVGs */
-  opacity: 0.85;
-  animation: fadeInUp 0.6s ease both;
+  display: none;
 }
 
 .hero-title {
@@ -396,6 +385,21 @@ img {
   z-index: 2;
   position: relative;
   pointer-events: none;
+  left: -4%;
+  /* drag to left center */
+  animation: floatCalligraphy 6s ease-in-out infinite;
+}
+
+@keyframes floatCalligraphy {
+
+  0%,
+  100% {
+    top: 0;
+  }
+
+  50% {
+    top: -15px;
+  }
 }
 
 .sr-only {
