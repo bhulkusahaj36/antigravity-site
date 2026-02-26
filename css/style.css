@@ -1350,6 +1350,7 @@ img {
   font-size: 1.1rem;
   line-height: 1.9;
   color: var(--text-primary);
+  text-align: justify;
 }
 
 .article-content p {
