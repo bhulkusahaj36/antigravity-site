@@ -290,7 +290,7 @@ img {
 
   .hero-calligraphy {
     max-width: 100%;
-    transform: scale(1.4) translateY(0);
+    transform: scale(2.01) translateY(0);
     margin-top: -1rem;
     z-index: 2;
     pointer-events: none;
@@ -1782,7 +1782,7 @@ img {
 
   /* Mobile Hero Calligraphy Layout Updates */
   .hero-eyebrow {
-    margin-top: 1.5rem;
+    margin-top: 0.5rem;
     margin-bottom: 2rem;
   }
 
@@ -1800,7 +1800,7 @@ img {
   .hero-calligraphy {
     max-width: 95vw;
     margin-top: 0;
-    transform: scale(3.5);
+    transform: scale(2.5);
     left: 0;
     /* Reset the left shift on mobile */
   }
