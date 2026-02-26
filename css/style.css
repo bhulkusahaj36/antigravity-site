@@ -1799,7 +1799,7 @@ img {
 
   .hero-calligraphy {
     max-width: 95vw;
-    margin-top: -1;
+    margin-top: 0;
     transform: scale(2.5);
     left: 0;
     /* Reset the left shift on mobile */
