@@ -160,7 +160,10 @@
 .feed-textarea {
     resize: vertical;
     min-height: 160px;
-    line-height: 1.7;
+    font-family: var(--font-gu);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    padding: 1rem;
 }
 
 /* Conditional fields slide in -------------------------------- */
