@@ -396,7 +396,7 @@ img {
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(255, 179, 15, 0.7)) drop-shadow(0 0 45px rgba(255, 179, 15, 0.4));
   margin-top: -1.5rem;
-  transform: scale(1.7) translateY(2rem);
+  transform: scale(1.85) translateY(2rem);
   /* Pull calligraphy down to center on chest */
   z-index: 2;
   position: relative;
