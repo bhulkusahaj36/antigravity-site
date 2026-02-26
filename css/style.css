@@ -362,7 +362,7 @@ img {
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   flex-shrink: 0;
   z-index: 1;
-  transform: scale(2.2) translateY(3rem);
+  transform: scale(2.2) translateY(1.5rem);
   /* Make image a bit bigger and move it down */
   transform-origin: top center;
   /* Scale grows downward, top never gets clipped */
