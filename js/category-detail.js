@@ -28,7 +28,7 @@ function renderCatArticles() {
 
     grid.innerHTML = '';
     slice.forEach((a, i) => {
-        const card = buildCard(a);
+        const card = buildCard(a, true);
         card.style.animationDelay = `${i * 0.07}s`;
         grid.appendChild(card);
     });

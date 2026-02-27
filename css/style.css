@@ -445,7 +445,7 @@ img {
 
 .hero-quote {
   font-family: var(--font-gu);
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
   color: var(--saffron-200);
   background: rgba(18, 18, 18, 0.4);
   backdrop-filter: blur(20px);
@@ -453,9 +453,9 @@ img {
   border: 1px solid rgba(251, 191, 36, 0.2);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 12px 40px rgba(0, 0, 0, 0.7);
   border-radius: var(--radius-lg);
-  padding: 1.25rem 2rem;
+  padding: 1rem 1.5rem;
   margin: 0 auto 2.5rem;
-  max-width: 600px;
+  max-width: 500px;
   animation: fadeInUp 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   line-height: 1.8;
   letter-spacing: 0.03em;
