@@ -147,22 +147,19 @@ function renderCategoryChips() {
 function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
-    const sorted = getSorted(ALL_ARTICLES);
-    const total = Math.ceil(sorted.length / ITEMS_PER_PAGE);
-    const slice = sorted.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    // Keep only top 5 latest
+    const sorted = getSorted(ALL_ARTICLES).slice(0, 5);
 
     grid.innerHTML = '';
-    slice.forEach((a, i) => {
+    sorted.forEach((a, i) => {
         const card = buildCard(a);
         card.style.animationDelay = `${i * 0.07}s`;
         grid.appendChild(card);
     });
 
-    renderPagination('pagination', currentPage, total, (page) => {
-        currentPage = page;
-        renderArticles();
-        document.getElementById('articles').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    // Clear pagination for home page latest section
+    const paginationEl = document.getElementById('pagination');
+    if (paginationEl) paginationEl.innerHTML = '';
 }
 
 function initRotatingQuote() {
