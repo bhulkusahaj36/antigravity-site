@@ -1085,8 +1085,9 @@ img {
   gap: 0.75rem;
   overflow-x: auto;
   /* Add ample padding so hover scale/translate doesn't clip against the scroll container */
-  padding: 1.5rem 1.5rem 1.5rem 0.5rem;
-  padding-right: 2.5rem;
+  padding: 1.5rem 2.5rem 1.5rem 1.5rem;
+  /* Pull back margin visually aligns the container while allowing box-shadow space inside */
+  margin-left: -1rem;
   scrollbar-width: none;
 }
 
