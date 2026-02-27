@@ -445,7 +445,7 @@ img {
 
 .hero-quote {
   font-family: var(--font-gu);
-  font-size: clamp(1.1rem, 2.4vw, 1.4rem);
+  font-size: clamp(1rem, 2vw, 1.25rem);
   color: var(--saffron-200);
   background: rgba(18, 18, 18, 0.4);
   backdrop-filter: blur(20px);
@@ -453,9 +453,9 @@ img {
   border: 1px solid rgba(251, 191, 36, 0.2);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 12px 40px rgba(0, 0, 0, 0.7);
   border-radius: var(--radius-lg);
-  padding: 1.75rem 3rem;
+  padding: 1.25rem 2rem;
   margin: 0 auto 2.5rem;
-  max-width: 720px;
+  max-width: 600px;
   animation: fadeInUp 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   line-height: 1.8;
   letter-spacing: 0.03em;
@@ -1115,9 +1115,8 @@ img {
   width: 170px;
   height: 170px;
   border-radius: 50%;
-  border: 4px solid transparent;
-  background: linear-gradient(var(--bg-800), var(--bg-800)) padding-box,
-    linear-gradient(135deg, var(--saffron-200), var(--saffron-500)) border-box;
+  border: 3px solid var(--saffron-400);
+  background: var(--bg-800);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -1137,6 +1136,7 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
   border-radius: 50%;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
