@@ -1101,10 +1101,9 @@ img {
   cursor: pointer;
   text-decoration: none;
   flex-shrink: 0;
-  width: 170px;
-  /* Reduced from 230px */
+  width: 190px;
+  /* Increased back up slightly to prevent cramped content */
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  /* Bouncy tremendous effect */
 }
 
 .avatar-card:hover {
@@ -1113,11 +1112,10 @@ img {
 }
 
 .avatar-img-wrap {
-  width: 150px;
-  /* Reduced from 210px */
-  height: 150px;
+  width: 170px;
+  height: 170px;
   border-radius: 50%;
-  border: 3px solid transparent;
+  border: 4px solid transparent;
   background: linear-gradient(var(--bg-800), var(--bg-800)) padding-box,
     linear-gradient(135deg, var(--saffron-200), var(--saffron-500)) border-box;
   overflow: hidden;
@@ -1125,7 +1123,6 @@ img {
   align-items: center;
   justify-content: center;
   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 8px 16px rgba(0, 0, 0, 0.6);
-  /* Added inner shadow and drop shadow for depth */
   transition: transform var(--transition-bounce), box-shadow var(--transition);
   padding: 4px;
 }
@@ -1151,12 +1148,11 @@ img {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai.svg"] {
-  transform: scale(2.4) translateY(10%);
+  transform: scale(2.2) translateY(8%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai.svg"] {
-  transform: scale(2.6) translateY(10%);
-  /* Add hover scale for SVG too */
+  transform: scale(2.4) translateY(8%);
 }
 
 /* Fallback full-name text inside circle */
