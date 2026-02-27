@@ -1890,8 +1890,8 @@ img {
   }
 
   .avatar-img-wrap img {
-    filter: brightness(1.2);
-    /* Brighter portrait on mobile */
+    filter: brightness(1.30);
+    /* Extra Brighter portrait on mobile */
   }
 
   .avatar-label {
