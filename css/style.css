@@ -455,7 +455,9 @@ img {
   border-radius: var(--radius-lg);
   padding: 1rem 1.5rem;
   margin: 0 auto 2.5rem;
-  max-width: 500px;
+  width: fit-content;
+  max-width: 800px;
+  /* Allows up to ~14 words on one line before wrapping */
   animation: fadeInUp 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   line-height: 1.8;
   letter-spacing: 0.03em;
@@ -1101,7 +1103,7 @@ img {
   cursor: pointer;
   text-decoration: none;
   flex-shrink: 0;
-  width: 230px;
+  width: 170px;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -1111,8 +1113,8 @@ img {
 }
 
 .avatar-img-wrap {
-  width: 210px;
-  height: 210px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: 4px solid var(--saffron-400);
   background: var(--bg-800);
