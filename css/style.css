@@ -1136,14 +1136,16 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
-  /* Shifted further down from 20% */
+  object-position: center 25%;
+  /* Less extreme shift */
+  transform: scale(1.35);
+  /* Keep it zoomed just enough to prevent top edge clipping */
   border-radius: 50%;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .avatar-card:hover .avatar-img-wrap img {
-  transform: scale(1.12);
+  transform: scale(1.45);
   /* Image slowly zooms in on hover */
 }
 
