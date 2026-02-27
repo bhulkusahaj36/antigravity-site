@@ -57,11 +57,19 @@ async function doSearch() {
         );
     }
 
+    const hasSearch = q || sources.length > 0 || topics.length > 0 || prasangs.length > 0 || dateVal;
+
     const grid = document.getElementById('searchResults');
     const summary = document.getElementById('searchSummary');
     const empty = document.getElementById('emptyState');
 
     grid.innerHTML = '';
+
+    if (!hasSearch) {
+        summary.innerHTML = '';
+        empty.style.display = 'none';
+        return;
+    }
 
     if (results.length === 0) {
         summary.innerHTML = '';
@@ -70,20 +78,27 @@ async function doSearch() {
     }
 
     empty.style.display = 'none';
-    const label = q ? `"<strong>${q}</strong>"` : 'બધા';
+    const label = q ? `"<strong>${q}</strong>"` : 'ફિલ્ટર્સ';
     summary.innerHTML = `${results.length} પરિણામ ${label} માટે`;
 
     results.forEach((a, i) => {
-        // dynamic articles have missing excerpt, fallback to truncated content
-        const copy = { ...a };
-        if (!copy.excerpt && copy.content) {
-            copy.excerpt = copy.content.slice(0, 140) + '...';
-        }
-        if (!copy.publishDate && copy.date) {
-            copy.publishDate = typeof copy.date === 'object' ? copy.date.from : copy.date;
-        }
+        const excerptText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '').substring(0, 160) + '...' : '');
 
-        const card = buildCard(copy);
+        const card = document.createElement('div');
+        card.className = 'article-card card-animate';
+        card.innerHTML = `
+            <h3 class="card-title">${a.title}</h3>
+            <p class="card-excerpt" style="margin-top: 0.4rem;">${excerptText}</p>
+            <div class="card-footer">
+                <a href="article.html?id=${a.id}" class="read-more">વધુ વાંચો</a>
+            </div>
+        `;
+        card.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('read-more')) {
+                window.location.href = `article.html?id=${a.id}`;
+            }
+        });
+
         card.style.animationDelay = `${i * 0.07}s`;
         grid.appendChild(card);
     });
