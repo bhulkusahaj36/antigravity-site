@@ -87,19 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
         browseEmpty.style.display = articles.length ? 'none' : '';
         articles.forEach(a => {
             const card = document.createElement('div');
-            card.className = 'card';
+            card.className = 'article-card card-animate';
             card.innerHTML = `
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-category">${a.source || 'સ્ત્રોત'}</span>
-            ${a.date ? `<span class="card-date">${typeof a.date === 'object' ? a.date.from + ' – ' + a.date.to : a.date}</span>` : ''}
-          </div>
           <h3 class="card-title">${a.title}</h3>
-          <p class="card-excerpt">${a.content.slice(0, 140)}${a.content.length > 140 ? '...' : ''}</p>
           <div class="card-footer">
-            <span class="card-author">${a.author || ''}</span>
-          </div>
-        </div>`;
+            <a href="article.html?id=${a.id || ''}" class="read-more">વધુ વાંચો</a>
+          </div>`;
             browseGrid.appendChild(card);
         });
     }

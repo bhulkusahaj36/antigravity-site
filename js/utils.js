@@ -56,29 +56,10 @@ function getCategory(id) {
 
 // Build a single article card element
 function buildCard(article) {
-    // Use first topic/category tag only (avoid 'seva,other' combined display)
-    const primaryCat = (article.topic || article.category || 'bhakti').split(',')[0].trim();
-    const cat = getCategoryName(primaryCat);
-    const displayDate = article.date ? article.date : (article.publishDate || '');
-
-    // Format date, handle range object if present
-    let dateStr = '';
-    if (typeof displayDate === 'object' && displayDate !== null) {
-        dateStr = (displayDate.from || '') + (displayDate.to ? ' – ' + displayDate.to : '');
-    } else {
-        dateStr = displayDate ? formatDate(displayDate) : '';
-    }
-
-    const displayExcerpt = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 140) + '...' : '');
-
     const el = document.createElement('div');
     el.className = 'article-card card-animate';
     el.innerHTML = `
-    <div class="card-top">
-      <span class="category-badge">${cat}</span>
-    </div>
     <h3 class="card-title">${article.title}</h3>
-    <p class="card-excerpt">${displayExcerpt}</p>
     <div class="card-footer">
       <a href="article.html?id=${article.id}" class="read-more">વધુ વાંચો</a>
     </div>
