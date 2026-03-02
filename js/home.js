@@ -27,11 +27,12 @@ const TOPIC_LABELS = {
     nishtha: 'નિષ્ઠા',
     seva: 'સેવા',
     bhagvadi: 'ભગવદી',
-    bhakti: 'ભક્તિ',
+    bhakti: 'ભક્તોનો મહિમા',
     saralata: 'સરળતા',
     swadharm: 'સ્વધર્મ',
     swadhyay: 'સ્વાધ્યાય',
-    bhajan: 'ભજન',
+    bhajan: 'ભજન/સ્વામિનારાયણ મહામંત્ર',
+    svasarap: 'સ્વસારપ',
     vachanamrut: 'વચનામૃત',
     swamini: 'સ્વામીની',
     shikshapatri: 'શિક્ષાપત્રી',
@@ -97,21 +98,21 @@ function renderFeatured() {
         vals.forEach(p => { prasangCount[p] = (prasangCount[p] || 0) + 1; });
     });
 
-    // Get top 5 prasangs by article count
-    const top5Prasangs = Object.entries(prasangCount)
+    // Get top prasangs by article count, optionally limit to a high number so the scroller doesn't break
+    const topPrasangs = Object.entries(prasangCount)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
+        .slice(0, 20)
         .map(([p]) => p);
 
     grid.innerHTML = '';
     grid.className = 'avatar-row'; // Switch to avatar row layout
 
-    if (top5Prasangs.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-muted)">કોઈ Featured લeખ નથી.</p>';
+    if (topPrasangs.length === 0) {
+        grid.innerHTML = '<p style="color:var(--text-muted)">કોઈ Featured લેખ નથી.</p>';
         return;
     }
 
-    top5Prasangs.forEach(p => {
+    topPrasangs.forEach(p => {
         const label = PRASANG_LABELS[p] || p;
         const card = buildAvatarCard(p, label, 'prasang', `prasang.html?prasang=${p}`);
         grid.appendChild(card);
@@ -131,13 +132,13 @@ function renderCategoryChips() {
         vals.forEach(t => { topicCount[t] = (topicCount[t] || 0) + 1; });
     });
 
-    // Get top 5 topics with most articles
-    const top5Topics = Object.entries(topicCount)
+    // Get top topics with most articles
+    const topTopics = Object.entries(topicCount)
         .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
+        .slice(0, 20)
         .map(([t]) => t);
 
-    top5Topics.forEach(topicId => {
+    topTopics.forEach(topicId => {
         const label = TOPIC_LABELS[topicId] || topicId;
         const card = buildAvatarCard(topicId, label, 'categories', `category-detail.html?id=${topicId}`);
         container.appendChild(card);
