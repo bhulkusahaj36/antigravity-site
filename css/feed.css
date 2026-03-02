@@ -478,3 +478,57 @@
     margin-top: 0.5rem;
     animation: slideDown 0.2s ease both;
 }
+
+/* ============================================================
+   QUILL RICH TEXT EDITOR STYLES
+   ============================================================ */
+.ql-toolbar.ql-snow {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-top-left-radius: var(--radius-sm);
+    border-top-right-radius: var(--radius-sm);
+    font-family: var(--font-en);
+}
+
+.ql-toolbar.ql-snow .ql-stroke {
+    stroke: var(--saffron-400);
+}
+
+.ql-toolbar.ql-snow .ql-fill {
+    fill: var(--saffron-400);
+}
+
+.ql-toolbar.ql-snow .ql-picker {
+    color: var(--saffron-400);
+}
+
+.ql-toolbar.ql-snow button:hover .ql-stroke,
+.ql-toolbar.ql-snow button:focus .ql-stroke,
+.ql-toolbar.ql-snow button.ql-active .ql-stroke,
+.ql-toolbar.ql-snow .ql-picker-label:hover .ql-stroke,
+.ql-toolbar.ql-snow .ql-picker-label.ql-active .ql-stroke,
+.ql-toolbar.ql-snow .ql-picker-item:hover .ql-stroke,
+.ql-toolbar.ql-snow .ql-picker-item.ql-selected .ql-stroke {
+    stroke: var(--gold-400);
+}
+
+.ql-container.ql-snow {
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-top: none;
+    border-bottom-left-radius: var(--radius-sm);
+    border-bottom-right-radius: var(--radius-sm);
+    font-family: var(--font-gu);
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.ql-editor {
+    min-height: 250px;
+    line-height: 1.8;
+}
+
+.ql-editor::before {
+    color: var(--text-muted);
+    font-style: italic;
+}

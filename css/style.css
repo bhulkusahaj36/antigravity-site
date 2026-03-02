@@ -1080,6 +1080,51 @@ img {
 /* ============================================================
    AVATAR CARD ROW — used for Featured (prasang) and Categories
    ============================================================ */
+.avatar-row-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(17, 17, 17, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--saffron-400);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  transition: all var(--transition-bounce);
+  padding-bottom: 4px;
+  /* visually center the character */
+}
+
+.scroll-btn:hover {
+  background: var(--bg-800);
+  border-color: var(--saffron-400);
+  color: var(--gold-400);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+
+.scroll-btn.prev-btn {
+  left: -20px;
+}
+
+.scroll-btn.next-btn {
+  right: -20px;
+}
+
 .avatar-row {
   display: flex;
   gap: 0.75rem;
@@ -1902,6 +1947,10 @@ img {
   .hero-eyebrow {
     margin-top: 0.5rem;
     margin-bottom: 2rem;
+  }
+
+  .scroll-btn {
+    display: none;
   }
 
   .hero-title {

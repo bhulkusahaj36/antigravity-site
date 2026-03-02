@@ -11,11 +11,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const addForm = document.getElementById('addForm');
     const addFeedback = document.getElementById('add-feedback');
 
+    // Initialize Quill Rich Text Editor if container exists
+    let quill;
+    if (document.getElementById('editor-container')) {
+        quill = new Quill('#editor-container', {
+            theme: 'snow',
+            placeholder: 'અહીં પ્રસંગ લખો (બુલેટ પોઇન્ટ, બોલ્ડ, વગેરેનો ઉપયોગ કરી શકો છો)...',
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    ['clean']
+                ]
+            }
+        });
+    }
+
     if (addForm) {
         addForm.addEventListener('submit', async e => {
             e.preventDefault();
             const title = document.getElementById('add-title').value.trim();
-            const content = document.getElementById('add-content').value.trim();
+            let content = '';
+            if (quill) {
+                content = quill.getText().trim() === '' ? '' : quill.root.innerHTML;
+            } else {
+                content = document.getElementById('add-content') ? document.getElementById('add-content').value.trim() : '';
+            }
 
             if (!title || !content) {
                 showFeedback(addFeedback, 'error', 'શીર્ષક અને સંદેશ ભરવા જરૂરી છે.');
@@ -48,6 +70,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     showFeedback(addFeedback, 'success', '✓ પ્રસંગ સફળતાપૂર્વક ઉમેરાયો!');
                     addForm.reset();
+                    if (quill) {
+                        quill.setContents([]);
+                    }
 
                     // Hide all conditional fields
                     document.querySelectorAll('#panel-add .feed-conditional').forEach(el => { el.style.display = 'none'; });

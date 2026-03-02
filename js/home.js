@@ -207,4 +207,20 @@ document.addEventListener('DOMContentLoaded', () => {
             renderArticles();
         });
     }
+
+    // Set up avatar row scroll buttons
+    document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
+        const prevBtn = wrapper.querySelector('.prev-btn');
+        const nextBtn = wrapper.querySelector('.next-btn');
+        const row = wrapper.querySelector('.avatar-row');
+
+        if (prevBtn && nextBtn && row) {
+            prevBtn.addEventListener('click', () => {
+                row.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+            nextBtn.addEventListener('click', () => {
+                row.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+        }
+    });
 });

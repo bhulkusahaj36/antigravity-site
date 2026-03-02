@@ -13,6 +13,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
+    <!-- Quill Rich Text Editor -->
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -180,9 +182,8 @@
                         <input type="text" id="add-title" class="feed-input" placeholder="પ્રસંગ શિરોનામ..." />
                     </div>
                     <div class="feed-field feed-field-full">
-                        <label class="feed-label" for="add-content">સંદેશ / પ્રસંગ</label>
-                        <textarea id="add-content" class="feed-input feed-textarea" rows="15"
-                            placeholder="અહીં પ્રસંગ લખો..."></textarea>
+                        <label class="feed-label" for="editor-container">સંદેશ / પ્રસંગ</label>
+                        <div id="editor-container" style="height: 350px;"></div>
                     </div>
                     <div class="feed-field feed-field-half">
                         <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
@@ -219,6 +220,8 @@
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
+    <!-- Quill Rich Text Editor JS -->
+    <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
     <script src="js/feed.js"></script>
     <script src="js/particles.js"></script>
 
