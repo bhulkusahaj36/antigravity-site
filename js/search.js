@@ -81,6 +81,13 @@ async function doSearch() {
     const label = q ? `"<strong>${q}</strong>"` : 'ફિલ્ટર્સ';
     summary.innerHTML = `${results.length} પરિણામ ${label} માટે`;
 
+    // Sort by actual upload time (ID timestamp)
+    results.sort((a, b) => {
+        let dA = parseInt(a.id) || 0;
+        let dB = parseInt(b.id) || 0;
+        return dB - dA;
+    });
+
     results.forEach((a, i) => {
         const excerptText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '').substring(0, 160) + '...' : '');
 

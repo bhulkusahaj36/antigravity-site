@@ -45,8 +45,10 @@ function getSorted(articles) {
     const list = [...articles];
     if (sortMode === 'featured') return list.filter(a => a.featured);
     return list.sort((a, b) => {
-        let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
-        let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
+        // ID is generated via Date.now() when uploaded, representing true creation time.
+        // We use this instead of a.date (the date of the event) to show the true "Latest Added" feed.
+        let dA = parseInt(a.id) || 0;
+        let dB = parseInt(b.id) || 0;
         return dB - dA;
     });
 }

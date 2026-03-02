@@ -12,8 +12,8 @@ function getSortedCatArticles() {
     let list = ALL_ARTICLES.filter(a => a.category === catId);
     if (catSort === 'popular') list = list.filter(a => a.featured).concat(list.filter(a => !a.featured));
     else list.sort((a, b) => {
-        let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
-        let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
+        let dA = parseInt(a.id) || 0;
+        let dB = parseInt(b.id) || 0;
         return dB - dA;
     });
     return list;
