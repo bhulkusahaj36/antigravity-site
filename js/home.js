@@ -214,14 +214,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
         const prevBtn = wrapper.querySelector('.prev-btn');
         const nextBtn = wrapper.querySelector('.next-btn');
-        const row = wrapper.querySelector('.avatar-row');
 
-        if (prevBtn && nextBtn && row) {
+        if (prevBtn && nextBtn) {
             prevBtn.addEventListener('click', () => {
-                row.scrollBy({ left: -300, behavior: 'smooth' });
+                const row = wrapper.querySelector('.avatar-row');
+                if (row) row.scrollBy({ left: -300, behavior: 'smooth' });
             });
             nextBtn.addEventListener('click', () => {
-                row.scrollBy({ left: 300, behavior: 'smooth' });
+                const row = wrapper.querySelector('.avatar-row');
+                if (row) row.scrollBy({ left: 300, behavior: 'smooth' });
             });
         }
     });
