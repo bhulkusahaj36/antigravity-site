@@ -1165,16 +1165,30 @@ img {
   /* Royal double ring effect: Dark Inner + Gold Gradient Outer */
   background: linear-gradient(var(--bg-900), var(--bg-900)) padding-box,
     linear-gradient(135deg, #FDE68A 0%, #D4AF37 40%, #AA7222 60%, #F5D76E 100%) border-box;
-  padding: 5px;
-  /* Creates the dark inner ring between gold and image */
+  padding: 0;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  /* Clips zooming images perfectly */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), inset 0 4px 10px rgba(0, 0, 0, 0.5);
   transition: transform var(--transition-bounce), box-shadow var(--transition);
   transform: translateZ(0);
-  /* Hardware accel */
+}
+
+/* Enforce a permanent, uniform dark gap OVER the clipped edges of zooming images */
+.avatar-img-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 5px var(--bg-900);
+  pointer-events: none;
+  z-index: 5;
 }
 
 .avatar-card:hover .avatar-img-wrap {
