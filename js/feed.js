@@ -4,6 +4,54 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ==========================================
+    // ADMIN AUTHENTICATION
+    // ==========================================
+    const adminOverlay = document.getElementById('admin-login-overlay');
+    const adminDashboard = document.getElementById('admin-dashboard');
+    const loginForm = document.getElementById('adminLoginForm');
+    const loginError = document.getElementById('loginError');
+
+    // Add a Logout button dynamically to the navbar if we're on the admin page
+    if (adminDashboard) {
+        const navLinks = document.getElementById('navLinks');
+        if (navLinks && !document.getElementById('logoutBtn')) {
+            const li = document.createElement('li');
+            li.innerHTML = '<a href="#" id="logoutBtn" class="nav-link" style="color: #ef4444;">Logout</a>';
+            navLinks.appendChild(li);
+
+            document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                e.preventDefault();
+                localStorage.removeItem('hk_isAdmin');
+                window.location.reload();
+            });
+        }
+    }
+
+    if (adminOverlay && adminDashboard) {
+        if (localStorage.getItem('hk_isAdmin') === 'true') {
+            adminOverlay.style.display = 'none';
+            adminDashboard.style.display = 'block';
+        } else {
+            if (loginForm) {
+                loginForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const id = document.getElementById('adminId').value;
+                    const pass = document.getElementById('adminPassword').value;
+
+                    if (id === 'admin' && pass === 'hariamrut') {
+                        localStorage.setItem('hk_isAdmin', 'true');
+                        window.location.reload();
+                    } else {
+                        loginError.style.display = 'block';
+                    }
+                });
+            }
+            // Stop initialization of feed logics if not logged in (optional but safer)
+            return;
+        }
+    }
+
     wireDateRadio('add');
     wireDateRadio('br');
 
