@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="gu">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>શોધ – હરિપ્રબોધમ કથામૃત</title>
-    <meta name="description" content="હરિપ્રબોધમ કથામૃત – ગુજરાતી ભક્તિ લેખ શોધો." />
+    <title>àª¶à«‹àª§ â€“ àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</title>
+    <meta name="description" content="àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤ â€“ àª—à«àªœàª°àª¾àª¤à«€ àª­àª•à«àª¤àª¿ àª²à«‡àª– àª¶à«‹àª§à«‹." />
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/feed.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
+    <link rel="icon" type="image/png" href="images/favicon.png" />
 </head>
 
 <body>
@@ -21,7 +22,7 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-inner">
             <a href="index.html" class="nav-logo">
-                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
             </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
             <ul class="nav-links" id="navLinks">
@@ -35,7 +36,7 @@
     <section class="page-hero">
         <div class="container">
             <h1 class="page-title">Search</h1>
-            <p class="page-subtitle">બસ એક તું રાજી થા</p>
+            <p class="page-subtitle">àª¬àª¸ àªàª• àª¤à«àª‚ àª°àª¾àªœà«€ àª¥àª¾</p>
         </div>
     </section>
 
@@ -47,105 +48,105 @@
             </div>
 
             <div class="feed-form search-advanced-filters" style="margin-top: 1.5rem;">
-                <div class="feed-section-label">ફિલ્ટર</div>
+                <div class="feed-section-label">àª«àª¿àª²à«àªŸàª°</div>
                 <div class="feed-row">
                     <!-- SOURCE -->
                     <div class="feed-field">
-                        <label class="feed-label" for="br-source">સ્ત્રોત</label>
+                        <label class="feed-label" for="br-source">àª¸à«àª¤à«àª°à«‹àª¤</label>
                         <select id="br-source" class="feed-select" data-conditional="br-source" multiple>
-                            <option value="">બધા</option>
-                            <option value="swamiji">સ્વામીજી પરાવાણી</option>
-                            <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
-                            <option value="santo">સંતો પરવાણી</option>
-                            <option value="bhakto">ભક્તોની પરાવાણી</option>
-                            <option value="granth">ગ્રંથ</option>
-                            <option value="vicharan">વિચરણ રિપોર્ટ</option>
-                            <option value="patrika">પત્રિકા</option>
+                            <option value="">àª¬àª§àª¾</option>
+                            <option value="swamiji">àª¸à«àªµàª¾àª®à«€àªœà«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
+                            <option value="prabodh">àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
+                            <option value="santo">àª¸àª‚àª¤à«‹ àªªàª°àªµàª¾àª£à«€</option>
+                            <option value="bhakto">àª­àª•à«àª¤à«‹àª¨à«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
+                            <option value="granth">àª—à«àª°àª‚àª¥</option>
+                            <option value="vicharan">àªµàª¿àªšàª°àª£ àª°àª¿àªªà«‹àª°à«àªŸ</option>
+                            <option value="patrika">àªªàª¤à«àª°àª¿àª•àª¾</option>
                         </select>
                         <input type="text" id="br-source-santo-text" class="feed-input feed-conditional"
-                            data-show-for="br-source=santo" placeholder="સંત નું નામ..." style="display:none" />
+                            data-show-for="br-source=santo" placeholder="àª¸àª‚àª¤ àª¨à«àª‚ àª¨àª¾àª®..." style="display:none" />
                         <input type="text" id="br-source-bhakto-text" class="feed-input feed-conditional"
-                            data-show-for="br-source=bhakto" placeholder="ભક્ત નું નામ..." style="display:none" />
+                            data-show-for="br-source=bhakto" placeholder="àª­àª•à«àª¤ àª¨à«àª‚ àª¨àª¾àª®..." style="display:none" />
                         <select id="br-source-granth-select" class="feed-select feed-conditional"
                             data-show-for="br-source=granth" style="display:none" multiple>
-                            <option value="">ગ્રંથ પસંદ કરો...</option>
-                            <option value="jivan">જીવનચરિત્ર</option>
-                            <option value="saras">સરસ એક સહજાનંદ</option>
-                            <option value="chaitanya">ચૈતન્ય ધોધ</option>
-                            <option value="sudha">સુધાસિંધુ એક સહજાનંદ</option>
-                            <option value="ambarish">અંબરીશ ઉપનિષદ</option>
-                            <option value="anirdeshi">અનિર્દેશી અમૃત</option>
-                            <option value="amrutpathey">અમૃતપાથેય</option>
-                            <option value="aatampathey">આતમપાથેય</option>
-                            <option value="manan">મનન ચિંતન</option>
-                            <option value="pardarshi">પારદર્શી પરવાણી</option>
-                            <option value="sahrudayi">સહ્રદયી</option>
-                            <option value="chinmay">ચિન્મય ધોધ</option>
-                            <option value="samarth">સમર્થની સાધુતા</option>
-                            <option value="aksharjatan">અક્ષરજતન</option>
-                            <option value="anya">અન્ય</option>
+                            <option value="">àª—à«àª°àª‚àª¥ àªªàª¸àª‚àª¦ àª•àª°à«‹...</option>
+                            <option value="jivan">àªœà«€àªµàª¨àªšàª°àª¿àª¤à«àª°</option>
+                            <option value="saras">àª¸àª°àª¸ àªàª• àª¸àª¹àªœàª¾àª¨àª‚àª¦</option>
+                            <option value="chaitanya">àªšà«ˆàª¤àª¨à«àª¯ àª§à«‹àª§</option>
+                            <option value="sudha">àª¸à«àª§àª¾àª¸àª¿àª‚àª§à« àªàª• àª¸àª¹àªœàª¾àª¨àª‚àª¦</option>
+                            <option value="ambarish">àª…àª‚àª¬àª°à«€àª¶ àª‰àªªàª¨àª¿àª·àª¦</option>
+                            <option value="anirdeshi">àª…àª¨àª¿àª°à«àª¦à«‡àª¶à«€ àª…àª®à«ƒàª¤</option>
+                            <option value="amrutpathey">àª…àª®à«ƒàª¤àªªàª¾àª¥à«‡àª¯</option>
+                            <option value="aatampathey">àª†àª¤àª®àªªàª¾àª¥à«‡àª¯</option>
+                            <option value="manan">àª®àª¨àª¨ àªšàª¿àª‚àª¤àª¨</option>
+                            <option value="pardarshi">àªªàª¾àª°àª¦àª°à«àª¶à«€ àªªàª°àªµàª¾àª£à«€</option>
+                            <option value="sahrudayi">àª¸àª¹à«àª°àª¦àª¯à«€</option>
+                            <option value="chinmay">àªšàª¿àª¨à«àª®àª¯ àª§à«‹àª§</option>
+                            <option value="samarth">àª¸àª®àª°à«àª¥àª¨à«€ àª¸àª¾àª§à«àª¤àª¾</option>
+                            <option value="aksharjatan">àª…àª•à«àª·àª°àªœàª¤àª¨</option>
+                            <option value="anya">àª…àª¨à«àª¯</option>
                         </select>
                     </div>
 
                     <!-- TOPICS -->
                     <div class="feed-field">
-                        <label class="feed-label" for="br-topic">વિષય</label>
+                        <label class="feed-label" for="br-topic">àªµàª¿àª·àª¯</label>
                         <select id="br-topic" class="feed-select" data-conditional="br-topic" multiple>
-                            <option value="">બધા</option>
-                            <option value="mahima">મહિમા</option>
-                            <option value="atmiyata">આત્મીયતા</option>
-                            <option value="nishtha">નિષ્ઠા</option>
-                            <option value="seva">સેવા</option>
-                            <option value="bhagvadi">ભગવદી</option>
-                            <option value="bhakti">ભક્તોનો મહિમા</option>
-                            <option value="saralata">સરળતા</option>
-                            <option value="swadharm">સ્વધર્મ</option>
-                            <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
-                            <option value="bhajan">ભજન/સ્વામિનારાયણ મહામંત્ર</option>
-                            <option value="svasarap">સ્વસારપ</option>
-                            <option value="vachanamrut">વચનામૃત</option>
-                            <option value="swamini">સ્વામીની વાતો</option>
-                            <option value="shikshapatri">શિક્ષાપત્રી</option>
-                            <option value="samagam">સમાગમ</option>
-                            <option value="katha-varta">કથા-વાર્તા</option>
+                            <option value="">àª¬àª§àª¾</option>
+                            <option value="mahima">àª®àª¹àª¿àª®àª¾</option>
+                            <option value="atmiyata">àª†àª¤à«àª®à«€àª¯àª¤àª¾</option>
+                            <option value="nishtha">àª¨àª¿àª·à«àª àª¾</option>
+                            <option value="seva">àª¸à«‡àªµàª¾</option>
+                            <option value="bhagvadi">àª­àª—àªµàª¦à«€</option>
+                            <option value="bhakti">àª­àª•à«àª¤à«‹àª¨à«‹ àª®àª¹àª¿àª®àª¾</option>
+                            <option value="saralata">àª¸àª°àª³àª¤àª¾</option>
+                            <option value="swadharm">àª¸à«àªµàª§àª°à«àª®</option>
+                            <option value="swadhyay">àª¸à«àªµàª¾àª§à«àª¯àª¾àª¯-àª­àªœàª¨</option>
+                            <option value="bhajan">àª­àªœàª¨/àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£ àª®àª¹àª¾àª®àª‚àª¤à«àª°</option>
+                            <option value="svasarap">àª¸à«àªµàª¸àª¾àª°àªª</option>
+                            <option value="vachanamrut">àªµàªšàª¨àª¾àª®à«ƒàª¤</option>
+                            <option value="swamini">àª¸à«àªµàª¾àª®à«€àª¨à«€ àªµàª¾àª¤à«‹</option>
+                            <option value="shikshapatri">àª¶àª¿àª•à«àª·àª¾àªªàª¤à«àª°à«€</option>
+                            <option value="samagam">àª¸àª®àª¾àª—àª®</option>
+                            <option value="katha-varta">àª•àª¥àª¾-àªµàª¾àª°à«àª¤àª¾</option>
                             <option value="other">Other</option>
                         </select>
                         <input type="text" id="br-topic-other-text" class="feed-input feed-conditional"
-                            data-show-for="br-topic=other" placeholder="વિષય દાખલ કરો..." style="display:none" />
+                            data-show-for="br-topic=other" placeholder="àªµàª¿àª·àª¯ àª¦àª¾àª–àª² àª•àª°à«‹..." style="display:none" />
                     </div>
 
                     <!-- PRASANG OF -->
                     <div class="feed-field">
-                        <label class="feed-label" for="br-prasang">પ્રસંગ of</label>
+                        <label class="feed-label" for="br-prasang">àªªà«àª°àª¸àª‚àª— of</label>
                         <select id="br-prasang" class="feed-select" data-conditional="br-prasang" multiple>
-                            <option value="">બધા</option>
-                            <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
-                            <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
-                            <option value="bhagatji">ભગતજી મહારાજ</option>
-                            <option value="yogiji">યોગીજી મહારાજ</option>
-                            <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
-                            <option value="hariprasad">હરિપ્રસાદ સ્વામીજી</option>
-                            <option value="prabodh">પ્રબોધ સ્વામીજી</option>
-                            <option value="bhakto">ભક્તો</option>
-                            <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
+                            <option value="">àª¬àª§àª¾</option>
+                            <option value="bhagwan">àª­àª—àªµàª¾àª¨ àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£</option>
+                            <option value="gunatit">àª—à«àª£àª¾àª¤à«€àª¤àª¾àª¨àª‚àª¦ àª¸à«àªµàª¾àª®à«€</option>
+                            <option value="bhagatji">àª­àª—àª¤àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                            <option value="yogiji">àª¯à«‹àª—à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                            <option value="shastriji">àª¶àª¾àª¸à«àª¤à«àª°à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                            <option value="hariprasad">àª¹àª°àª¿àªªà«àª°àª¸àª¾àª¦ àª¸à«àªµàª¾àª®à«€àªœà«€</option>
+                            <option value="prabodh">àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€àªœà«€</option>
+                            <option value="bhakto">àª­àª•à«àª¤à«‹</option>
+                            <option value="prabhudasbhai">àªªà«àª°àª­à«àª¦àª¾àª¸àª­àª¾àªˆ</option>
                         </select>
                         <input type="text" id="br-prasang-bhakto-text" class="feed-input feed-conditional"
-                            data-show-for="br-prasang=bhakto" placeholder="ભક્ત નું નામ..." style="display:none" />
+                            data-show-for="br-prasang=bhakto" placeholder="àª­àª•à«àª¤ àª¨à«àª‚ àª¨àª¾àª®..." style="display:none" />
                     </div>
                 </div>
 
                 <!-- PRASANG DATE -->
                 <div class="feed-field feed-field-full">
-                    <label class="feed-label">પ્રસંગ તારીખ</label>
+                    <label class="feed-label">àªªà«àª°àª¸àª‚àª— àª¤àª¾àª°à«€àª–</label>
                     <div class="date-radio-group">
                         <label class="date-radio-label">
-                            <input type="radio" name="br-date-type" value="none" checked /> ખબર નહીં
+                            <input type="radio" name="br-date-type" value="none" checked /> àª–àª¬àª° àª¨àª¹à«€àª‚
                         </label>
                         <label class="date-radio-label">
-                            <input type="radio" name="br-date-type" value="date" /> તારીખ
+                            <input type="radio" name="br-date-type" value="date" /> àª¤àª¾àª°à«€àª–
                         </label>
                         <label class="date-radio-label">
-                            <input type="radio" name="br-date-type" value="range" /> તારીખ રેન્જ
+                            <input type="radio" name="br-date-type" value="range" /> àª¤àª¾àª°à«€àª– àª°à«‡àª¨à«àªœ
                         </label>
                     </div>
                     <div id="br-date-single" class="date-inputs" style="display:none">
@@ -166,7 +167,7 @@
             <div class="search-summary" id="searchSummary"></div>
             <div class="cards-grid stacked-grid" id="searchResults"></div>
             <div class="empty-state" id="emptyState" style="display:none">
-                <p>કોઈ પરિણામ મળ્યું નહીં. અલગ શબ્દ અજમાવો.</p>
+                <p>àª•à«‹àªˆ àªªàª°àª¿àª£àª¾àª® àª®àª³à«àª¯à«àª‚ àª¨àª¹à«€àª‚. àª…àª²àª— àª¶àª¬à«àª¦ àª…àªœàª®àª¾àªµà«‹.</p>
             </div>
         </div>
     </section>
@@ -174,8 +175,8 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
-                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
+                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
+                <p>Â© 2026 àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</p>
             </div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
