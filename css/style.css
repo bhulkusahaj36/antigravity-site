@@ -1207,10 +1207,11 @@ img {
   /* Ensures majestic portrait alignment (no heads cut off) */
   background: var(--bg-800);
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: scale(0.92) translateY(4%);
 }
 
 .avatar-card:hover .avatar-img-wrap img {
-  transform: scale(1.06);
+  transform: scale(0.98) translateY(4%);
   /* Image slowly zooms in on hover */
 }
 
