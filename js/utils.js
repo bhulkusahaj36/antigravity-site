@@ -148,6 +148,15 @@ function initUIComponents() {
         if (nativeSelect.multiple) optList.setAttribute('aria-multiselectable', 'true');
         optList.style.display = 'none';
 
+        // Helper to get effective text (resolves linked conditional inputs like "other")
+        function getOptionText(o) {
+            const linkedInput = document.querySelector(`input[data-show-for="${nativeSelect.id}=${o.value}"]`);
+            if (linkedInput && linkedInput.value.trim() !== '') {
+                return linkedInput.value.trim();
+            }
+            return o.text;
+        }
+
         function updateTriggerText() {
             if (nativeSelect.multiple) {
                 const selected = Array.from(nativeSelect.selectedOptions).filter(o => o.value !== '');
@@ -157,7 +166,7 @@ function initUIComponents() {
                     valueSpan.textContent = placeholderOpt ? placeholderOpt.text : 'પસંદ કરો...';
                     valueSpan.className = 'cs-value cs-placeholder';
                 } else if (selected.length <= 2) {
-                    valueSpan.textContent = selected.map(o => o.text).join(', ');
+                    valueSpan.textContent = selected.map(o => getOptionText(o)).join(', ');
                     valueSpan.className = 'cs-value';
                 } else {
                     valueSpan.textContent = `${selected.length} પસંદ થયેલ`;
@@ -166,9 +175,20 @@ function initUIComponents() {
             } else {
                 const sel = nativeSelect.options[nativeSelect.selectedIndex];
                 if (!sel) return;
-                valueSpan.textContent = sel.text;
+                valueSpan.textContent = getOptionText(sel);
                 valueSpan.className = 'cs-value' + (sel.value === '' ? ' cs-placeholder' : '');
             }
+        }
+
+        // Listen for typing in linked custom inputs so we live-update the dropdown trigger text
+        if (nativeSelect.id) {
+            document.querySelectorAll(`input[data-show-for^="${nativeSelect.id}="]`).forEach(input => {
+                // Ensure we don't bind multiple times if buildCustomSelect runs again
+                if (!input._hasCsListener) {
+                    input.addEventListener('input', updateTriggerText);
+                    input._hasCsListener = true;
+                }
+            });
         }
 
         Array.from(nativeSelect.options).forEach((opt, i) => {
