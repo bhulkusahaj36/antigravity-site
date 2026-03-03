@@ -76,7 +76,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         <span class="category-badge">${cat}</span>
         <span class="card-date">${formatDate(displayDate)}</span>
       </div>
-      <h1 class="article-title-h1">${article.title}</h1>
+      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
+        ${localStorage.getItem('hk_isAdmin') === 'true' ? `<a href="categories.html?editId=${article.id}" class="admin-edit-btn">✎ સંપાદિત કરો (Edit)</a>` : ''}
+      </div>
       <div class="article-meta-row">
         ${article.author ? `<span>: ${article.author}</span>` : ''}
         ${article.location ? `<span>&nbsp;•&nbsp;સ્થળ: ${article.location}</span>` : ''}

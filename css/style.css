@@ -1992,3 +1992,29 @@ img {
     /* Reset the left shift on mobile */
   }
 }
+
+/* ============================================================
+   ADMIN TOOLS
+   ============================================================ */
+.admin-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  font-family: var(--font-gu-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-400);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--gold-500);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all var(--transition);
+  margin-top: 0.5rem;
+}
+
+.admin-edit-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--saffron-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
+}

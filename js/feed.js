@@ -28,6 +28,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* ── Admin Edit Mode Initialization ──────────────────────── */
+    let editingArticleId = null;
+    const editId = getParam('editId');
+    if (editId && localStorage.getItem('hk_isAdmin') === 'true') {
+        editingArticleId = editId;
+        document.querySelector('.auth-header h2').textContent = 'પ્રસંગ સંપાદિત કરો (Edit)';
+        const submitBtn = document.querySelector('#addForm button[type="submit"]');
+        if (submitBtn) submitBtn.textContent = 'Save Changes';
+
+        // Fetch article and populate form
+        fetch('/api/articles?t=' + Date.now())
+            .then(res => res.json())
+            .then(articles => {
+                const article = articles.find(a => String(a.id) === String(editId));
+                if (article) {
+                    document.getElementById('add-title').value = article.title || '';
+                    document.getElementById('add-author').value = article.author || '';
+                    document.getElementById('add-location').value = article.location || '';
+
+                    if (quill) {
+                        quill.clipboard.dangerouslyPasteHTML(article.content || '');
+                    } else if (document.getElementById('add-content')) {
+                        document.getElementById('add-content').value = article.content || '';
+                    }
+
+                    // Pre-select multiple dropdowns
+                    const setMultiSelect = (id, valuesCsv) => {
+                        const sel = document.getElementById(id);
+                        if (!sel || !valuesCsv) return;
+                        const vals = valuesCsv.split(',');
+                        Array.from(sel.options).forEach(opt => {
+                            opt.selected = vals.includes(opt.value);
+                            // Custom dropdown UI sync trigger
+                            const csOpt = opt.closest('.cs-wrapper')?.querySelector(`.cs-option[data-value="${opt.value}"]`);
+                            if (csOpt) {
+                                csOpt.classList.toggle('cs-selected', opt.selected);
+                                csOpt.setAttribute('aria-selected', opt.selected);
+                            }
+                        });
+                        sel.dispatchEvent(new Event('change', { bubbles: true }));
+                    };
+
+                    setMultiSelect('add-source', article.source);
+                    setMultiSelect('add-topic', article.topic);
+                    setMultiSelect('add-prasang', article.prasang);
+                }
+            })
+            .catch(err => console.error("Error loading article for editing:", err));
+    }
+
     if (addForm) {
         addForm.addEventListener('submit', async e => {
             e.preventDefault();
@@ -77,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Build article object
             const article = {
-                id: String(Date.now()),
+                id: editingArticleId || String(Date.now()),
                 title,
                 content,
                 author: document.getElementById('add-author').value.trim() || 'અજ્ઞાત',
