@@ -44,19 +44,50 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Handle custom dynamic tags if "other" is selected
+            let finalSource = Array.from(document.getElementById('add-source').selectedOptions).map(o => o.value).filter(v => v);
+            if (finalSource.includes('other')) {
+                const otherText = document.getElementById('add-source-other-text')?.value.trim();
+                if (otherText) {
+                    const slug = 'custom-source-' + Date.now();
+                    saveCustomTag('source', slug, otherText);
+                    finalSource = finalSource.map(v => v === 'other' ? slug : v);
+                }
+            }
+
+            let finalTopic = Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v);
+            if (finalTopic.includes('other')) {
+                const otherText = document.getElementById('add-topic-other-text')?.value.trim();
+                if (otherText) {
+                    const slug = 'custom-topic-' + Date.now();
+                    saveCustomTag('topic', slug, otherText);
+                    finalTopic = finalTopic.map(v => v === 'other' ? slug : v);
+                }
+            }
+
+            let finalPrasang = Array.from(document.getElementById('add-prasang').selectedOptions).map(o => o.value).filter(v => v);
+            if (finalPrasang.includes('bhakto')) {
+                const otherText = document.getElementById('add-prasang-bhakto-text')?.value.trim();
+                if (otherText) {
+                    const slug = 'custom-prasang-' + Date.now();
+                    saveCustomTag('prasang', slug, otherText);
+                    finalPrasang = finalPrasang.map(v => v === 'bhakto' ? slug : v);
+                }
+            }
+
             // Build article object
             const article = {
                 id: String(Date.now()),
                 title,
                 content,
                 author: document.getElementById('add-author').value.trim() || 'અજ્ઞાત',
-                source: Array.from(document.getElementById('add-source').selectedOptions).map(o => o.value).filter(v => v).join(','),
-                topic: Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v).join(','),
-                prasang: Array.from(document.getElementById('add-prasang').selectedOptions).map(o => o.value).filter(v => v).join(','),
+                source: finalSource.join(','),
+                topic: finalTopic.join(','),
+                prasang: finalPrasang.join(','),
                 date: getDateValue('add'),
                 location: document.getElementById('add-location') ? document.getElementById('add-location').value.trim() : '',
                 featured: false,
-                category: Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v).join(',') || 'bhakti',
+                category: finalTopic.join(',') || 'bhakti',
             };
 
             // Save to Azure API

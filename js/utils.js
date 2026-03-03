@@ -357,7 +357,76 @@ function getDateValue(prefix) {
     return null;
 }
 
+// ============================================================
+// DYNAMIC "OTHER" OPTIONS (CROSS-SITE PERSISTENCE)
+// ============================================================
+
+// Load custom tags from localStorage
+function getCustomTags() {
+    try {
+        const stored = localStorage.getItem('hk_custom_tags');
+        return stored ? JSON.parse(stored) : { source: [], topic: [], prasang: [] };
+    } catch (e) {
+        console.error("Error reading custom tags", e);
+        return { source: [], topic: [], prasang: [] };
+    }
+}
+
+// Save a new custom tag
+function saveCustomTag(category, value, label) {
+    const tags = getCustomTags();
+    if (!tags[category]) tags[category] = [];
+
+    // Check if already exists
+    if (!tags[category].some(t => t.value === value)) {
+        tags[category].push({ value, label });
+        localStorage.setItem('hk_custom_tags', JSON.stringify(tags));
+    }
+}
+
+// Map dropdown IDs to their tag categories
+const DROPDOWN_CATEGORY_MAP = {
+    'add-source': 'source',
+    'br-source': 'source',
+    'add-topic': 'topic',
+    'br-topic': 'topic',
+    'add-prasang': 'prasang',
+    'br-prasang': 'prasang'
+};
+
+// Inject custom tags into native <select> elements
+function injectCustomOptions() {
+    const tags = getCustomTags();
+
+    Object.keys(DROPDOWN_CATEGORY_MAP).forEach(selectId => {
+        const selectEl = document.getElementById(selectId);
+        if (!selectEl) return;
+
+        const category = DROPDOWN_CATEGORY_MAP[selectId];
+        const customItems = tags[category] || [];
+
+        customItems.forEach(item => {
+            // Check if option already exists natively
+            if (!selectEl.querySelector(`option[value="${item.value}"]`)) {
+                const opt = document.createElement('option');
+                opt.value = item.value;
+                opt.textContent = item.label;
+                opt.classList.add('custom-injected-option');
+
+                // Insert right before the "other" or "anya" option if it exists, otherwise at the end
+                const otherOpt = Array.from(selectEl.options).find(o => o.value === 'other' || o.value === 'anya');
+                if (otherOpt) {
+                    selectEl.insertBefore(opt, otherOpt);
+                } else {
+                    selectEl.appendChild(opt);
+                }
+            }
+        });
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
+    injectCustomOptions();
     initUIComponents();
 });
