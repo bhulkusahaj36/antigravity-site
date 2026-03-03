@@ -1158,60 +1158,65 @@ img {
 }
 
 .avatar-img-wrap {
-  width: 150px;
-  height: 150px;
+  width: 154px;
+  height: 154px;
   border-radius: 50%;
-  border: 4px solid var(--saffron-400);
-  background: var(--bg-800);
-  overflow: hidden;
+  border: 4px solid transparent;
+  /* Royal double ring effect: Dark Inner + Gold Gradient Outer */
+  background: linear-gradient(var(--bg-900), var(--bg-900)) padding-box,
+    linear-gradient(135deg, #FDE68A 0%, #D4AF37 40%, #AA7222 60%, #F5D76E 100%) border-box;
+  padding: 5px;
+  /* Creates the dark inner ring between gold and image */
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 8px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), inset 0 4px 10px rgba(0, 0, 0, 0.5);
   transition: transform var(--transition-bounce), box-shadow var(--transition);
   transform: translateZ(0);
-  /* Prevent webkit bleeding artifacts safely */
+  /* Hardware accel */
 }
 
 .avatar-card:hover .avatar-img-wrap {
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 8px 30px rgba(245, 158, 11, 0.4);
+  box-shadow: 0 12px 35px rgba(212, 175, 55, 0.4), inset 0 4px 10px rgba(0, 0, 0, 0.5);
   /* Tremendous glowing effect */
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transform: scale(1.02);
-  /* Keep default scale minimal to fit almost the entire image inside the circle */
   border-radius: 50%;
+  /* Clip the image tightly */
+  object-fit: cover;
+  object-position: top center;
+  /* Ensures majestic portrait alignment (no heads cut off) */
+  background: var(--bg-800);
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .avatar-card:hover .avatar-img-wrap img {
-  transform: scale(1.08);
+  transform: scale(1.06);
   /* Image slowly zooms in on hover */
 }
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai.svg"] {
-  transform: scale(2.0) translateY(5%);
+  transform: scale(1.7) translateY(5%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai.svg"] {
-  transform: scale(2.1) translateY(5%);
+  transform: scale(1.8) translateY(5%);
 }
 
-/* Specific adjustment for Bhakto image (which is text) so it's not cut off by zoom */
+/* Specific adjustment for Bhakto image (which is text) so it's not cut off */
 .avatar-img-wrap img[src*="bhakto"] {
-  transform: scale(0.85);
+  transform: scale(0.9);
   object-position: center;
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="bhakto"] {
-  transform: scale(0.95);
+  transform: scale(0.98);
 }
 
 /* Fallback full-name text inside circle */
