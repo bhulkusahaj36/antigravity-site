@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Page meta
-  document.getElementById('articlePageTitle').textContent = `${article.title} – हरिप्रबोध कथामृत`;
+  document.getElementById('articlePageTitle').textContent = `${article.title} – હરિપ્રબોધમ કથામૃત`;
   document.getElementById('articlePageMeta').setAttribute('content', article.content ? article.content.substring(0, 150) : '');
 
   const cat = getCategoryName(article.category || 'bhakti');

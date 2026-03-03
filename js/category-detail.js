@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    document.title = `${cat.name} – હરિપ્રબોધ કથામૃત`;
+    document.title = `${cat.name} – હરિપ્રબોધમ કથામૃત`;
     document.getElementById('catDetailTitle').textContent = cat.name;
     if (cat.description) {
         document.getElementById('catDetailDesc').textContent = cat.description;
