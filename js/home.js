@@ -63,7 +63,8 @@ function buildAvatarCard(id, label, imgFolder, href) {
     wrap.className = 'avatar-img-wrap';
 
     const img = new Image();
-    img.loading = 'lazy';
+    // Intentionally omitting lazy loading here. In-memory images won't trigger fetching
+    // if marked lazy until they are attached to the DOM, causing a chicken-and-egg deadlock.
     img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
     img.onerror = () => {
         // Try .svg if .jpg failed
