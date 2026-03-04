@@ -9,7 +9,7 @@ let catId = '';
 let ALL_ARTICLES = [];
 
 function getSortedCatArticles() {
-    let list = ALL_ARTICLES.filter(a => a.category === catId);
+    let list = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId));
     if (catSort === 'popular') list = list.filter(a => a.featured).concat(list.filter(a => !a.featured));
     else list.sort((a, b) => {
         let dA = parseInt(a.id) || 0;
@@ -46,7 +46,7 @@ async function loadCategoryArticles() {
         if (response.ok) {
             ALL_ARTICLES = await response.json();
 
-            const count = ALL_ARTICLES.filter(a => a.category === catId).length;
+            const count = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId)).length;
             const headingEl = document.getElementById('catArticlesHeading');
             if (headingEl) headingEl.textContent = `${count} લેખ`;
 
