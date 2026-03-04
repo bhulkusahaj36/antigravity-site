@@ -210,19 +210,56 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Set up avatar row scroll buttons
+    // Set up avatar row behavior and discrete fully-visible clipping
     document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
+        const row = wrapper.querySelector('.avatar-row');
         const prevBtn = wrapper.querySelector('.prev-btn');
         const nextBtn = wrapper.querySelector('.next-btn');
 
-        if (prevBtn && nextBtn) {
+        if (row) {
+            // Setup strict intersection observer to hide partially visible avatars
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Hide if less than 95% visible to avoid awkward visual clipping
+                    if (entry.intersectionRatio < 0.95) {
+                        entry.target.style.opacity = '0';
+                        entry.target.style.pointerEvents = 'none';
+                    } else {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.pointerEvents = 'auto';
+                    }
+                });
+            }, {
+                root: row,
+                threshold: [0, 0.95, 1]
+            });
+
+            // Observe dynamic card additions
+            const mutObs = new MutationObserver(muts => {
+                muts.forEach(m => {
+                    m.addedNodes.forEach(n => {
+                        if (n.nodeType === 1 && n.classList.contains('avatar-card')) {
+                            n.style.transition = 'opacity 0.25s ease';
+                            observer.observe(n);
+                        }
+                    });
+                });
+            });
+            mutObs.observe(row, { childList: true });
+
+            // Apply to existing cards just in case
+            row.querySelectorAll('.avatar-card').forEach(n => {
+                n.style.transition = 'opacity 0.25s ease';
+                observer.observe(n);
+            });
+        }
+
+        if (prevBtn && nextBtn && row) {
             prevBtn.addEventListener('click', () => {
-                const row = wrapper.querySelector('.avatar-row');
-                if (row) row.scrollBy({ left: -300, behavior: 'smooth' });
+                row.scrollBy({ left: -320, behavior: 'smooth' });
             });
             nextBtn.addEventListener('click', () => {
-                const row = wrapper.querySelector('.avatar-row');
-                if (row) row.scrollBy({ left: 300, behavior: 'smooth' });
+                row.scrollBy({ left: 320, behavior: 'smooth' });
             });
         }
     });
