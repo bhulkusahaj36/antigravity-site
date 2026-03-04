@@ -83,10 +83,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         ${article.author ? `<span>: ${article.author}</span>` : ''}
         ${article.location ? `<span>&nbsp;•&nbsp;સ્થળ: ${article.location}</span>` : ''}
       </div>
-      <button class="audio-listen-btn" id="startAudioBtn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-          આ પ્રસંગ સાંભળો (Listen)
-      </button>
     </header>
 
     ${article.featuredImage ? `<img src="${article.featuredImage}" alt="${article.title}" class="article-featured-img" loading="lazy" />` : ''}
@@ -137,104 +133,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fbBtn = document.getElementById('facebookShare');
   if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
-  initAudioPlayer(article.title, article.content);
 });
-
-// ============================================================
-// KATHA AUDIO PLAYER LOGIC
-// ============================================================
-function initAudioPlayer(title, content) {
-  if (!('speechSynthesis' in window)) return;
-
-  const startBtn = document.getElementById('startAudioBtn');
-  const playerWrapper = document.getElementById('kathaPlayer');
-  const titleEl = document.getElementById('kathaPlayerTitle');
-  const playPauseBtn = document.getElementById('kathaPlayPauseBtn');
-  const stopBtn = document.getElementById('kathaStopBtn');
-  const progressEl = document.getElementById('kathaProgress');
-
-  let utterance = null;
-  let isPlaying = false;
-
-  // Clean text: strip HTML, markdown brackets, etc.
-  const cleanText = content.replace(/<[^>]*>?/gm, '').replace(/[\[\]]/g, '');
-
-  let voices = window.speechSynthesis.getVoices();
-  window.speechSynthesis.onvoiceschanged = () => {
-    voices = window.speechSynthesis.getVoices();
-  };
-
-  startBtn.addEventListener('click', () => {
-    if (speechSynthesis.speaking) {
-      speechSynthesis.cancel();
-    }
-
-    utterance = new SpeechSynthesisUtterance(cleanText);
-    utterance.lang = 'gu-IN';
-    utterance.rate = 0.85; // Slightly slower for better Gujarati diction
-
-    // Specifically hunt for high-quality male voices
-    let preferredVoice = voices.find(v =>
-      v.name.includes('Hemant') ||
-      v.name.includes('Google हिन्दी') ||
-      (v.lang.includes('gu-IN') && v.name.toLowerCase().includes('male'))
-    );
-
-    // Fallback to any Gujarati or Hindi voice
-    if (!preferredVoice) preferredVoice = voices.find(v => v.lang.includes('gu-IN') || v.lang.includes('hi-IN'));
-
-    if (preferredVoice) utterance.voice = preferredVoice;
-
-    utterance.onstart = () => {
-      isPlaying = true;
-      playerWrapper.classList.add('active');
-      titleEl.textContent = title;
-      playPauseBtn.textContent = '⏸';
-    };
-
-    utterance.onend = () => {
-      isPlaying = false;
-      playerWrapper.classList.remove('active');
-      progressEl.style.width = '0%';
-    };
-
-    utterance.onerror = (e) => {
-      console.warn('Speech synthesis error', e);
-      playerWrapper.classList.remove('active');
-    };
-
-    // Estimate progress roughly based on character count boundary events
-    utterance.onboundary = (e) => {
-      if (e.name === 'word') {
-        const percent = Math.min(100, Math.round((e.charIndex / cleanText.length) * 100));
-        progressEl.style.width = `${percent}%`;
-      }
-    };
-
-    speechSynthesis.speak(utterance);
-  });
-
-  playPauseBtn.addEventListener('click', () => {
-    if (speechSynthesis.paused) {
-      speechSynthesis.resume();
-      isPlaying = true;
-      playPauseBtn.textContent = '⏸';
-    } else if (speechSynthesis.speaking) {
-      speechSynthesis.pause();
-      isPlaying = false;
-      playPauseBtn.textContent = '▶';
-    }
-  });
-
-  stopBtn.addEventListener('click', () => {
-    speechSynthesis.cancel();
-    playerWrapper.classList.remove('active');
-    progressEl.style.width = '0%';
-    isPlaying = false;
-  });
-
-  // Ensure speech stops if user navigates away
-  window.addEventListener('beforeunload', () => {
-    speechSynthesis.cancel();
-  });
-}
