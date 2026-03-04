@@ -1134,6 +1134,8 @@ img {
   /* Pull back margin visually aligns the container while allowing box-shadow space inside */
   margin-left: -1rem;
   scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 
 .avatar-row::-webkit-scrollbar {
@@ -1150,6 +1152,7 @@ img {
   flex-shrink: 0;
   width: 170px;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  scroll-snap-align: start;
 }
 
 .avatar-card:hover {

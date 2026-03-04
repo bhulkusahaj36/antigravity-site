@@ -210,52 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Set up avatar row behavior and discrete fully-visible clipping
+    // Set up avatar row scroll buttons
     document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
-        const row = wrapper.querySelector('.avatar-row');
         const prevBtn = wrapper.querySelector('.prev-btn');
         const nextBtn = wrapper.querySelector('.next-btn');
-
-        if (row) {
-            // Function to assess which cards are fully within the visible scroll bounds
-            const updateVisibleCards = () => {
-                const rectRow = row.getBoundingClientRect();
-
-                row.querySelectorAll('.avatar-card').forEach(card => {
-                    const rectCard = card.getBoundingClientRect();
-
-                    // Card is fully visible if its left edge is >= the row's left edge 
-                    // AND its right edge is <= the row's right edge
-                    if (rectCard.left >= rectRow.left - 5 && rectCard.right <= rectRow.right + 5) {
-                        card.style.opacity = '1';
-                        // Re-enable pointer events so it can be clicked, but wait until it's visible
-                        card.style.pointerEvents = 'auto';
-                    } else {
-                        card.style.opacity = '0';
-                        card.style.pointerEvents = 'none'; // Prevent invisible clicks
-                    }
-                });
-            };
-
-            // Run check on natural scrolling
-            row.addEventListener('scroll', updateVisibleCards);
-
-            // Run check on window resize which changes layout bounds
-            window.addEventListener('resize', updateVisibleCards);
-
-            // Observe dynamic dom additions to run the check
-            const mutObs = new MutationObserver(() => {
-                // Apply a transition style to all cards immediately
-                row.querySelectorAll('.avatar-card').forEach(c => {
-                    c.style.transition = 'opacity 0.25s ease';
-                });
-                updateVisibleCards();
-            });
-            mutObs.observe(row, { childList: true });
-
-            // Initial Assessment
-            setTimeout(updateVisibleCards, 100);
-        }
+        const row = wrapper.querySelector('.avatar-row');
 
         if (prevBtn && nextBtn && row) {
             prevBtn.addEventListener('click', () => {
