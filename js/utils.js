@@ -445,8 +445,51 @@ function injectCustomOptions() {
     });
 }
 
+// ============================================================
+// SEAMLESS PAGE TRANSITIONS
+// ============================================================
+function initPageTransitions() {
+    // 1. Initial entering state when DOM is loaded
+    document.body.classList.add('page-entering');
+
+    // Remove entering state slightly after to trigger CSS transition
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.body.classList.remove('page-entering');
+        });
+    });
+
+    // 2. Intercept internal link clicks for the exit animation
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+
+        if (!link || !link.href) return;
+
+        // Don't intercept external links, page anchors, or ctrl/cmd clicks (new tabs)
+        if (link.hostname !== window.location.hostname ||
+            link.target === '_blank' ||
+            link.href.includes('#') ||
+            link.href.startsWith('mailto:') ||
+            e.ctrlKey || e.metaKey) {
+            return;
+        }
+
+        e.preventDefault();
+        const targetUrl = link.href;
+
+        // Apply exiting animation
+        document.body.classList.add('page-exiting');
+
+        // Navigate after transition finishes (400ms matches CSS)
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 400);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
     injectCustomOptions();
     initUIComponents();
+    initPageTransitions();
 });
