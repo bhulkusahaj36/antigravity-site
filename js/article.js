@@ -159,6 +159,11 @@ function initAudioPlayer(title, content) {
   // Clean text: strip HTML, markdown brackets, etc.
   const cleanText = content.replace(/<[^>]*>?/gm, '').replace(/[\[\]]/g, '');
 
+  let voices = window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => {
+    voices = window.speechSynthesis.getVoices();
+  };
+
   startBtn.addEventListener('click', () => {
     if (speechSynthesis.speaking) {
       speechSynthesis.cancel();
@@ -166,11 +171,18 @@ function initAudioPlayer(title, content) {
 
     utterance = new SpeechSynthesisUtterance(cleanText);
     utterance.lang = 'gu-IN';
-    utterance.rate = 0.9; // Slightly slower for spiritual reading
+    utterance.rate = 0.85; // Slightly slower for better Gujarati diction
 
-    // Find a Gujarati or Hindi voice if possible
-    const voices = speechSynthesis.getVoices();
-    const preferredVoice = voices.find(v => v.lang === 'gu-IN') || voices.find(v => v.lang === 'hi-IN');
+    // Specifically hunt for high-quality male voices
+    let preferredVoice = voices.find(v =>
+      v.name.includes('Hemant') ||
+      v.name.includes('Google हिन्दी') ||
+      (v.lang.includes('gu-IN') && v.name.toLowerCase().includes('male'))
+    );
+
+    // Fallback to any Gujarati or Hindi voice
+    if (!preferredVoice) preferredVoice = voices.find(v => v.lang.includes('gu-IN') || v.lang.includes('hi-IN'));
+
     if (preferredVoice) utterance.voice = preferredVoice;
 
     utterance.onstart = () => {

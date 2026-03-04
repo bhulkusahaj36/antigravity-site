@@ -2009,3 +2009,128 @@ img {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
 }
+
+/* ============================================================
+   INTEGRATED KATHA AUDIO PLAYER
+   ============================================================ */
+.audio-listen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(170, 114, 34, 0.2));
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--gold-accent);
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-family: var(--font-gu);
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.audio-listen-btn:hover {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(170, 114, 34, 0.4));
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
+}
+
+.katha-player-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15, 23, 42, 0.85);
+  /* Deep slate with glassmorphism */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1000;
+  padding: 1rem;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.katha-player-wrapper.active {
+  transform: translateY(0);
+}
+
+.katha-player-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.katha-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.katha-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--font-gu);
+}
+
+.katha-subtitle {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.katha-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.katha-btn {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.katha-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--gold-accent);
+}
+
+.katha-btn.primary {
+  background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold-accent) 100%);
+  color: var(--bg-900);
+}
+
+.katha-btn.primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+}
+
+.katha-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: var(--gold-accent);
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 8px var(--gold-accent);
+}
