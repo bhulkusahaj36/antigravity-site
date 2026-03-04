@@ -44,7 +44,7 @@ app.http('articles', {
                 }
 
                 const c = await getContainer();
-                const { resource } = await c.items.create(articleData);
+                const { resource } = await c.items.upsert(articleData);
                 return { status: 201, jsonBody: resource };
             }
 

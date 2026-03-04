@@ -43,7 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const editId = getParam('editId');
     if (editId && localStorage.getItem('hk_isAdmin') === 'true') {
         editingArticleId = editId;
-        document.querySelector('.auth-header h2').textContent = 'પ્રસંગ સંપાદિત કરો (Edit)';
+        const titleEl = document.querySelector('.page-title');
+        if (titleEl) titleEl.textContent = 'પ્રસંગ સંપાદિત કરો (Edit)';
         const submitBtn = document.querySelector('#addForm button[type="submit"]');
         if (submitBtn) submitBtn.textContent = 'Save Changes';
 
