@@ -139,6 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
   initZenMode();
+  initReadingProgress();
 });
 
 // ============================================================
@@ -160,4 +161,33 @@ function initZenMode() {
       zenBtn.setAttribute('title', 'Zen Reading Mode');
     }
   });
+}
+
+// ============================================================
+// ZEN DYNAMIC READING PROGRESS BAR
+// ============================================================
+function initReadingProgress() {
+  const progressBar = document.getElementById('readingProgressBar');
+  if (!progressBar) return;
+
+  function updateProgress() {
+    // Current scroll amount from exact top
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    // Total scrollable height (entire document height minus viewport window)
+    const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+    // Calculate percentage (ensure we bounds check 0 to 100)
+    const scrolled = Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100));
+
+    progressBar.style.width = scrolled + '%';
+  }
+
+  // Bind to scroll with a passive listener for buttery 60fps performance
+  window.addEventListener('scroll', () => {
+    requestAnimationFrame(updateProgress);
+  }, { passive: true });
+
+  // Call once on load to set initial state
+  requestAnimationFrame(updateProgress);
 }
