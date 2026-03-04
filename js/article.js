@@ -1,4 +1,4 @@
-﻿// ============================================================
+// ============================================================
 // ARTICLE DETAIL PAGE
 // ============================================================
 
@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const content = document.getElementById('articleContent');
 
   if (!idParam) {
-    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">àª²à¥‡àª– àª®àª³à«àª¯à«‹ àª¨àª¹à¥€à¤‚.</p>';
+    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લेખ મળ્યો નહीं.</p>';
     return;
   }
 
-  content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">àª²à«‡àª– àª²à«‹àª¡ àª¥àªˆ àª°àª¹à«àª¯à«‹ àª›à«‡...</p>';
+  content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ લોડ થઈ રહ્યો છે...</p>';
 
   try {
     const response = await fetch('/api/articles?t=' + Date.now());
@@ -44,12 +44,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const article = ALL_ARTICLES.find(a => String(a.id) === String(idParam));
 
   if (!article) {
-    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">àª²à¥‡àª– àª®àª³à«àª¯à«‹ àª¨àª¹à¥€à¤‚.</p>';
+    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લेખ મળ્યો નહीं.</p>';
     return;
   }
 
   // Page meta
-  document.getElementById('articlePageTitle').textContent = `${article.title} â€“ àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤`;
+  document.getElementById('articlePageTitle').textContent = `${article.title} – હરિપ્રબોધમ કથામૃત`;
   document.getElementById('articlePageMeta').setAttribute('content', article.content ? article.content.substring(0, 150) : '');
 
   const cat = getCategoryName(article.category || 'bhakti');
@@ -78,11 +78,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
       <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
         <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
-        ${localStorage.getItem('hk_isAdmin') === 'true' ? `<a href="admin.html?editId=${article.id}" class="admin-edit-btn">âœŽ àª¸àª‚àªªàª¾àª¦àª¿àª¤ àª•àª°à«‹ (Edit)</a>` : ''}
+        ${localStorage.getItem('hk_isAdmin') === 'true' ? `<a href="admin.html?editId=${article.id}" class="admin-edit-btn">✎ સંપાદિત કરો (Edit)</a>` : ''}
       </div>
       <div class="article-meta-row">
         ${article.author ? `<span>: ${article.author}</span>` : ''}
-        ${article.location ? `<span>&nbsp;â€¢&nbsp;àª¸à«àª¥àª³: ${article.location}</span>` : ''}
+        ${article.location ? `<span>&nbsp;•&nbsp;સ્થળ: ${article.location}</span>` : ''}
       </div>
     </header>
 
@@ -96,8 +96,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>` : ''}
 
     <nav class="article-nav">
-      ${getPrevArticle(idParam) ? `<a href="article.html?id=${getPrevArticle(idParam).id}">â† ${getPrevArticle(idParam).title}</a>` : '<span></span>'}
-      ${getNextArticle(idParam) ? `<a href="article.html?id=${getNextArticle(idParam).id}" style="text-align:right">${getNextArticle(idParam).title} â†’</a>` : ''}
+      ${getPrevArticle(idParam) ? `<a href="article.html?id=${getPrevArticle(idParam).id}">← ${getPrevArticle(idParam).title}</a>` : '<span></span>'}
+      ${getNextArticle(idParam) ? `<a href="article.html?id=${getNextArticle(idParam).id}" style="text-align:right">${getNextArticle(idParam).title} →</a>` : ''}
     </nav>
   `;
 
@@ -122,8 +122,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(url).then(() => {
-        copyBtn.textContent = 'àª•à«‹àªªà«€ àª¥àª¯à«àª‚';
-        setTimeout(() => { copyBtn.textContent = 'àª•à«‹àªªà«€ àª¥àª¯à«àª‚'; }, 2000);
+        copyBtn.textContent = 'કોપી થયું';
+        setTimeout(() => { copyBtn.textContent = 'કોપી થયું'; }, 2000);
       });
     });
   }
@@ -134,4 +134,3 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fbBtn = document.getElementById('facebookShare');
   if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 });
-
