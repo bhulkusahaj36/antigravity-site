@@ -78,7 +78,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
       <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
         <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
-        ${localStorage.getItem('hk_isAdmin') === 'true' ? `<a href="admin.html?editId=${article.id}" class="admin-edit-btn">✎ સંપાદિત કરો (Edit)</a>` : ''}
       </div>
       <div class="article-meta-row">
         ${article.author ? `<span>: ${article.author}</span>` : ''}
