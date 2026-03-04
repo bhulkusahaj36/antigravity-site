@@ -76,8 +76,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         <span class="category-badge">${cat}</span>
         <span class="card-date">${formatDate(displayDate)}</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-        <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; width: 100%;">
+        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
+          <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
+        </div>
+        <button class="zen-mode-toggle" id="zenModeBtn" aria-label="Toggle Zen Mode" title="Zen Reading Mode">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-enter"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+        </button>
       </div>
       <div class="article-meta-row">
         ${article.author ? `<span>: ${article.author}</span>` : ''}
@@ -133,4 +138,26 @@ document.addEventListener('DOMContentLoaded', async () => {
   const fbBtn = document.getElementById('facebookShare');
   if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
+  initZenMode();
 });
+
+// ============================================================
+// ZEN READING MODE LOGIC
+// ============================================================
+function initZenMode() {
+  const zenBtn = document.getElementById('zenModeBtn');
+  if (!zenBtn) return;
+
+  zenBtn.addEventListener('click', () => {
+    document.body.classList.toggle('zen-mode');
+
+    // Toggle the icon from expand (enter zen) to shrink (exit zen)
+    if (document.body.classList.contains('zen-mode')) {
+      zenBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-exit"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>`;
+      zenBtn.setAttribute('title', 'Exit Zen Mode');
+    } else {
+      zenBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-enter"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
+      zenBtn.setAttribute('title', 'Zen Reading Mode');
+    }
+  });
+}

@@ -2009,3 +2009,86 @@ img {
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
 }
+
+/* ============================================================
+   ZEN READING MODE (Immersive / Distraction Free)
+   ============================================================ */
+.zen-mode-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-muted);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.zen-mode-toggle:hover {
+  color: var(--gold-accent);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.3);
+  transform: scale(1.05);
+}
+
+/* When Zen Mode is Active on the Body */
+body.zen-mode {
+  background-color: #0b0f19;
+  /* Deeper, calmer dark background */
+}
+
+/* Hide Distractions */
+body.zen-mode .navbar,
+body.zen-mode .footer,
+body.zen-mode .share-bar,
+body.zen-mode .article-sidebar,
+body.zen-mode .article-nav,
+body.zen-mode .article-meta-row,
+body.zen-mode .category-badge,
+body.zen-mode .card-date,
+body.zen-mode .article-tags {
+  display: none !important;
+}
+
+/* Center Content & Expand */
+body.zen-mode .article-layout {
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  /* Narrower for optimal reading line length */
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+/* Typography Scaling */
+body.zen-mode .article-title-h1 {
+  font-size: 2.8rem;
+  text-align: center;
+  width: 100%;
+  line-height: 1.2;
+}
+
+body.zen-mode .article-content p {
+  font-size: 1.35rem;
+  /* Larger, easier to read Gujarati */
+  line-height: 2;
+  color: #e2e8f0;
+  /* Softer text color */
+  margin-bottom: 2rem;
+}
+
+/* The toggle button stays visible but moves */
+body.zen-mode .zen-mode-toggle {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(10px);
+  border-color: var(--gold-accent);
+  color: var(--gold-accent);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
