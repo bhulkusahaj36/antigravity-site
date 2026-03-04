@@ -89,13 +89,43 @@ async function doSearch() {
     });
 
     results.forEach((a, i) => {
-        const excerptText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '').substring(0, 160) + '...' : '');
+        let excerptHTML = '';
+
+        // Smart Context Snippet Logic
+        if (q && a.content) {
+            const cleanContent = a.content.replace(/<[^>]*>?/gm, ''); // strip HTML
+            const matchIndex = cleanContent.toLowerCase().indexOf(q.toLowerCase());
+
+            if (matchIndex !== -1) {
+                const prefixLength = 60; // character context before match
+                const start = Math.max(0, matchIndex - prefixLength);
+                const end = Math.min(cleanContent.length, matchIndex + q.length + 80); // chars after match
+
+                let snippet = cleanContent.substring(start, end);
+
+                // Add ellipses gracefully
+                if (start > 0) snippet = '...' + snippet;
+                if (end < cleanContent.length) snippet += '...';
+
+                // Case-insensitive wrap with our glowing highlight tag
+                const regex = new RegExp(`(${q})`, "gi");
+                snippet = snippet.replace(regex, '<mark class="search-highlight">$1</mark>');
+
+                excerptHTML = `<div class="search-snippet">${snippet}</div>`;
+            }
+        }
+
+        // Fallback to standard excerpt if no smart snippet was found/queried
+        if (!excerptHTML) {
+            const rawExcerpt = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '').substring(0, 140) + '...' : '');
+            excerptHTML = `<p class="card-excerpt" style="margin-top: 0.4rem;">${rawExcerpt}</p>`;
+        }
 
         const card = document.createElement('div');
         card.className = 'article-card card-animate';
         card.innerHTML = `
             <h3 class="card-title">${a.title}</h3>
-            <p class="card-excerpt" style="margin-top: 0.4rem;">${excerptText}</p>
+            ${excerptHTML}
             <div class="card-footer">
                 <a href="article.html?id=${a.id}" class="read-more">વધુ વાંચો</a>
             </div>
