@@ -446,16 +446,22 @@ function injectCustomOptions() {
 }
 
 // ============================================================
-// SEAMLESS PAGE TRANSITIONS
+// SEAMLESS FADED GOLDEN WIPE
 // ============================================================
 function initPageTransitions() {
-    // 1. Initial entering state when DOM is loaded
-    document.body.classList.add('page-entering');
+    const wipe = document.createElement('div');
+    wipe.id = 'golden-wipe';
+    document.body.appendChild(wipe);
 
-    // Remove entering state slightly after to trigger CSS transition
+    // 1. Initial entering state: Start completely covering the screen (center of 200vw is -50vw)
+    wipe.style.transition = 'none';
+    wipe.style.transform = 'translateX(-50vw)';
+
+    // Trigger the sweep to the right (uncovering screen)
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            document.body.classList.remove('page-entering');
+            wipe.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
+            wipe.style.transform = 'translateX(100vw)';
         });
     });
 
@@ -465,7 +471,7 @@ function initPageTransitions() {
 
         if (!link || !link.href) return;
 
-        // Don't intercept external links, page anchors, or ctrl/cmd clicks (new tabs)
+        // Don't intercept external links, page anchors, or ctrl/cmd clicks
         if (link.hostname !== window.location.hostname ||
             link.target === '_blank' ||
             link.href.includes('#') ||
@@ -477,13 +483,22 @@ function initPageTransitions() {
         e.preventDefault();
         const targetUrl = link.href;
 
-        // Apply exiting animation
-        document.body.classList.add('page-exiting');
+        // Snap wipe to the far left (off screen)
+        wipe.style.transition = 'none';
+        wipe.style.transform = 'translateX(-200vw)';
 
-        // Navigate after transition finishes (400ms matches CSS)
+        // Animate sweep to cover the screen
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                wipe.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
+                wipe.style.transform = 'translateX(-50vw)';
+            });
+        });
+
+        // Navigate after transition finishes
         setTimeout(() => {
             window.location.href = targetUrl;
-        }, 400);
+        }, 800);
     });
 }
 

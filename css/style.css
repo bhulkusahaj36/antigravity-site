@@ -134,6 +134,30 @@ img {
 }
 
 /* ============================================================
+   FADED GOLDEN WIPE TRANSITION
+   ============================================================ */
+#golden-wipe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* 200vw wide so we can have a mirrored gradient fade on both the left and right edges */
+  width: 200vw;
+  height: 100vh;
+  z-index: 999999;
+  background: linear-gradient(to right,
+      rgba(212, 175, 55, 0) 0%,
+      rgba(212, 175, 55, 0.9) 15%,
+      var(--bg-800) 30%,
+      var(--bg-900) 50%,
+      var(--bg-800) 70%,
+      rgba(212, 175, 55, 0.9) 85%,
+      rgba(212, 175, 55, 0) 100%);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+  pointer-events: none;
+  transform: translateX(-200vw);
+}
+
+/* ============================================================
    NAVBAR
    ============================================================ */
 .navbar {
@@ -1014,7 +1038,19 @@ img {
   font-family: var(--font-gu);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--gold-400);
+
+  /* Shiny 3D Metallic Gold Effect */
+  background: linear-gradient(to bottom, #FFFBDB 0%, #D4AF37 40%, #AA7222 80%, #F5D76E 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+
+  /* Layered shadow for 3D depth */
+  text-shadow:
+    0px 1px 1px rgba(255, 255, 255, 0.4),
+    0px 2px 3px rgba(170, 114, 34, 0.6),
+    0px 4px 6px rgba(0, 0, 0, 0.7);
+
   line-height: 1.4;
   margin-top: 0.25rem;
 }
