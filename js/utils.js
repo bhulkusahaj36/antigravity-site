@@ -446,22 +446,16 @@ function injectCustomOptions() {
 }
 
 // ============================================================
-// SEAMLESS FADED GOLDEN WIPE
+// SEAMLESS FADE TRANSITIONS
 // ============================================================
 function initPageTransitions() {
-    const wipe = document.createElement('div');
-    wipe.id = 'golden-wipe';
-    document.body.appendChild(wipe);
+    // 1. Initial entering state when DOM is loaded
+    document.body.classList.add('page-entering');
 
-    // 1. Initial entering state: Start completely covering the screen (center of 200vw is -50vw)
-    wipe.style.transition = 'none';
-    wipe.style.transform = 'translateX(-50vw)';
-
-    // Trigger the sweep to the right (uncovering screen)
+    // Remove entering state slightly after to trigger CSS transition
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-            wipe.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
-            wipe.style.transform = 'translateX(100vw)';
+            document.body.classList.remove('page-entering');
         });
     });
 
@@ -483,22 +477,13 @@ function initPageTransitions() {
         e.preventDefault();
         const targetUrl = link.href;
 
-        // Snap wipe to the far left (off screen)
-        wipe.style.transition = 'none';
-        wipe.style.transform = 'translateX(-200vw)';
+        // Apply exiting animation
+        document.body.classList.add('page-exiting');
 
-        // Animate sweep to cover the screen
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                wipe.style.transition = 'transform 0.8s cubic-bezier(0.77, 0, 0.175, 1)';
-                wipe.style.transform = 'translateX(-50vw)';
-            });
-        });
-
-        // Navigate after transition finishes
+        // Navigate after transition finishes (400ms matches CSS)
         setTimeout(() => {
             window.location.href = targetUrl;
-        }, 800);
+        }, 400);
     });
 }
 
