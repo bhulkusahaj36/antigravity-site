@@ -1208,11 +1208,11 @@ img {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(1.7) translateY(5%);
+  transform: scale(2.4) translateY(12%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(1.8) translateY(5%);
+  transform: scale(2.5) translateY(12%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
