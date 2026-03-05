@@ -67,8 +67,9 @@ function buildAvatarCard(id, label, imgFolder, href) {
     // if marked lazy until they are attached to the DOM, causing a chicken-and-egg deadlock.
     img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
     img.onerror = () => {
-        // Try .svg if .jpg failed
-        if (!img.src.endsWith('.svg')) {
+        if (img.src.endsWith('.jpg')) {
+            img.src = `images/${imgFolder}/${id}.webp`;
+        } else if (img.src.endsWith('.webp')) {
             img.src = `images/${imgFolder}/${id}.svg`;
         } else {
             // Final fallback: show full name in circle

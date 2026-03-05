@@ -92,7 +92,9 @@ function setHeader() {
         wrap.appendChild(img);
     };
     img.onerror = () => {
-        if (!img.src.endsWith('.svg')) {
+        if (img.src.endsWith('.jpg')) {
+            img.src = `images/prasang/${currentPrasang}.webp`;
+        } else if (img.src.endsWith('.webp')) {
             img.src = `images/prasang/${currentPrasang}.svg`;
         }
     };
