@@ -182,7 +182,40 @@ function initRotatingQuote() {
     }, 4000);
 }
 
+function showSkeletonLoader(containerId, isAvatar = false) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = '';
+
+    if (isAvatar) {
+        container.className = 'avatar-row';
+        for (let i = 0; i < 6; i++) {
+            container.innerHTML += `
+               <div class="avatar-card" style="pointer-events:none; opacity: 0.5;">
+                   <div class="avatar-img-wrap" style="background:var(--card-bg); animation: pulse 1.5s infinite;"></div>
+                   <div style="height:12px; width:60px; background:var(--card-bg); border-radius:4px; margin: 10px auto 0; animation: pulse 1.5s infinite;"></div>
+               </div>
+            `;
+        }
+    } else {
+        container.className = 'cards-grid';
+        for (let i = 0; i < 4; i++) {
+            container.innerHTML += `
+               <div class="skeleton-card" style="animation: pulse 1.5s infinite;">
+                 <div class="skeleton-line skeleton-title" style="background: var(--card-border);"></div>
+                 <div class="skeleton-line skeleton-body1" style="background: var(--card-border); margin-top: 1rem;"></div>
+                 <div class="skeleton-line skeleton-body2" style="background: var(--card-border);"></div>
+               </div>
+             `;
+        }
+    }
+}
+
 async function loadHomeArticles() {
+    showSkeletonLoader('categoryChips', true);
+    showSkeletonLoader('featuredGrid', true);
+    showSkeletonLoader('articlesGrid', false);
+
     try {
         const response = await fetch('/api/articles?t=' + Date.now());
         if (response.ok) {
@@ -192,9 +225,16 @@ async function loadHomeArticles() {
             renderArticles();
         } else {
             console.error("Failed to fetch articles:", response.status);
+            // Revert back or show error
+            document.getElementById('articlesGrid').innerHTML = '<p style="color:var(--text-muted)">લેખ લોડ કરવામાં નિષ્ફળ. કૃપા કરીને રીફ્રેશ કરો.</p>';
+            renderFeatured();
+            renderCategoryChips();
         }
     } catch (error) {
         console.error("Error fetching articles API:", error);
+        document.getElementById('articlesGrid').innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">API કનેક્શન મળી શક્યું નથી.</p>';
+        document.getElementById('featuredGrid').innerHTML = '';
+        document.getElementById('categoryChips').innerHTML = '';
     }
 }
 
