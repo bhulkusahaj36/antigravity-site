@@ -67,17 +67,17 @@ function buildAvatarCard(id, label, imgFolder, href) {
     // if marked lazy until they are attached to the DOM, causing a chicken-and-egg deadlock.
     img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
     img.onerror = () => {
-        if (img.src.endsWith('.jpg')) {
+        if (img.src.endsWith('.svg')) {
             img.src = `images/${imgFolder}/${id}.webp`;
         } else if (img.src.endsWith('.webp')) {
-            img.src = `images/${imgFolder}/${id}.svg`;
+            img.src = `images/${imgFolder}/${id}.jpg`;
         } else {
             // Final fallback: show full name in circle
             const cleanLabel = label.replace(/\n/g, ' ');
             wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
         }
     };
-    img.src = `images/${imgFolder}/${id}.jpg`;
+    img.src = `images/${imgFolder}/${id}.svg`;
     img.alt = label;
     // Show full name while loading
     const cleanLabel = label.replace(/\n/g, ' ');

@@ -92,13 +92,13 @@ function setHeader() {
         wrap.appendChild(img);
     };
     img.onerror = () => {
-        if (img.src.endsWith('.jpg')) {
+        if (img.src.endsWith('.svg')) {
             img.src = `images/prasang/${currentPrasang}.webp`;
         } else if (img.src.endsWith('.webp')) {
-            img.src = `images/prasang/${currentPrasang}.svg`;
+            img.src = `images/prasang/${currentPrasang}.jpg`;
         }
     };
-    img.src = `images/prasang/${currentPrasang}.jpg`;
+    img.src = `images/prasang/${currentPrasang}.svg`;
     img.alt = label;
 }
 
