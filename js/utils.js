@@ -43,10 +43,33 @@ function formatDate(iso) {
     return d.toLocaleDateString('gu-IN', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-// Get category name by id
-function getCategoryName(id) {
-    const cat = CATEGORIES.find(c => c.id === id);
-    return cat ? cat.name : id;
+// Get category name by id (handles comma-separated and custom tags)
+function getCategoryName(idText) {
+    if (!idText) return '';
+    const ids = idText.split(',');
+
+    let allCustomTags = [];
+    try {
+        const stored = localStorage.getItem('hk_custom_tags');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            allCustomTags = [
+                ...(parsed.source || []),
+                ...(parsed.topic || []),
+                ...(parsed.prasang || [])
+            ];
+        }
+    } catch (e) { }
+
+    return ids.map(id => {
+        const cat = CATEGORIES.find(c => c.id === id);
+        if (cat) return cat.name;
+
+        const custom = allCustomTags.find(t => t.value === id);
+        if (custom) return custom.label;
+
+        return id; // fallback
+    }).join(', ');
 }
 
 // Get category by id
