@@ -429,7 +429,21 @@ function getDateValue(prefix) {
 function getCustomTags() {
     try {
         const stored = localStorage.getItem('hk_custom_tags');
-        return stored ? JSON.parse(stored) : { source: [], topic: [], prasang: [] };
+        let tags = stored ? JSON.parse(stored) : { source: [], topic: [], prasang: [] };
+
+        // --- PATCH: Auto-cleanup bad entries from previous bugs ---
+        let modified = false;
+        if (tags.prasang && Array.isArray(tags.prasang)) {
+            const originalLength = tags.prasang.length;
+            tags.prasang = tags.prasang.filter(t => t.label !== 'ભગા દોશી');
+            if (tags.prasang.length !== originalLength) modified = true;
+        }
+        if (modified) {
+            localStorage.setItem('hk_custom_tags', JSON.stringify(tags));
+        }
+        // ----------------------------------------------------------
+
+        return tags;
     } catch (e) {
         console.error("Error reading custom tags", e);
         return { source: [], topic: [], prasang: [] };
