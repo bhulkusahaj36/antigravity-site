@@ -176,14 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     // Clean content: remove HTML tags, lowercase, remove non-alphanumeric
                     const cleanString = (str) => {
+                        if (!str) return '';
                         const noHtml = str.replace(/<[^>]*>?/gm, '');
                         return noHtml.toLowerCase().replace(/[^a-z0-9\u0A80-\u0AFF]/g, ''); // includes Gujarati unicode range
                     };
 
                     const newContentClean = cleanString(content);
 
-                    if (newContentClean.length > 10) { // Only check if content is substantial
-                        const articlesResponse = await fetch('/api/articles');
+                    if (newContentClean.length > 0) { // Check if there is any content
+                        const articlesResponse = await fetch('/api/articles?t=' + Date.now());
                         if (articlesResponse.ok) {
                             const allArticles = await articlesResponse.json();
                             const duplicate = allArticles.find(a => cleanString(a.content) === newContentClean);
