@@ -96,28 +96,22 @@ function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
 
-    // Count prasang occurrences across all articles
-    const prasangCount = {};
-    ALL_ARTICLES.forEach(a => {
-        const vals = (a.prasang || '').split(',').map(s => s.trim()).filter(Boolean);
-        vals.forEach(p => { prasangCount[p] = (prasangCount[p] || 0) + 1; });
-    });
-
-    // Get top prasangs by article count, optionally limit to a high number so the scroller doesn't break
-    const topPrasangs = Object.entries(prasangCount)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 20)
-        .map(([p]) => p);
+    // Hardcoded fixed sequence as requested by user
+    const FIXED_SEQUENCE = [
+        'bhagwan',      // ભગવાન સ્વામિનારાયણ
+        'gunatit',      // ગુણાતીતાનંદ સ્વામી
+        'bhagatji',     // ભગતજી મહારાજ
+        'shastriji',    // શાસ્ત્રીજી મહારાજ
+        'yogiji',       // યોગીજી મહારાજ
+        'hariprasad',   // હ. સ્વામીજી મહારાજ
+        'prabodh',      // પ્રબોધ સ્વમીજી મહારાજ
+        'bhakto'        // ભક્તો
+    ];
 
     grid.innerHTML = '';
     grid.className = 'avatar-row'; // Switch to avatar row layout
 
-    if (topPrasangs.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-muted)">કોઈ Featured લેખ નથી.</p>';
-        return;
-    }
-
-    topPrasangs.forEach(p => {
+    FIXED_SEQUENCE.forEach(p => {
         const label = PRASANG_LABELS[p] || p;
         const card = buildAvatarCard(p, label, 'prasang', `prasang.html?prasang=${p}`);
         grid.appendChild(card);
