@@ -227,6 +227,8 @@ function initUIComponents() {
         }
 
         Array.from(nativeSelect.options).forEach((opt, i) => {
+            if (opt.value === '') return; // Skip the placeholder option so it doesn't appear in the menu list
+
             const li = document.createElement('li');
             li.className = 'cs-option' + (opt.selected ? ' cs-selected' : '');
             li.dataset.value = opt.value;
