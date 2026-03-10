@@ -531,9 +531,44 @@ function initPageTransitions() {
     });
 }
 
+// ============================================================
+// SECURITY / COPY PROTECTION
+// ============================================================
+function initSecurity() {
+    // Only apply to public pages, let admin page work normally
+    if (window.location.pathname.includes('admin.html')) return;
+
+    document.body.classList.add('copy-protected');
+
+    // Prevent Right Click (Context Menu)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Prevent Keyboard Shortcuts (Copy, Select All, Save, View Source, Inspect Element)
+    document.addEventListener('keydown', e => {
+        if (
+            (e.ctrlKey || e.metaKey) &&
+            (e.key === 'c' || e.key === 'C' ||
+                e.key === 'a' || e.key === 'A' ||
+                e.key === 'u' || e.key === 'U' ||
+                e.key === 's' || e.key === 'S' ||
+                e.key === 'p' || e.key === 'P' ||
+                e.key === 'x' || e.key === 'X') ||
+            e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'c' || e.key === 'C' || e.key === 'j' || e.key === 'J'))
+        ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    // Prevent drag and drop of text/images
+    document.addEventListener('dragstart', e => e.preventDefault());
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
     injectCustomOptions();
     initUIComponents();
     initPageTransitions();
+    initSecurity();
 });

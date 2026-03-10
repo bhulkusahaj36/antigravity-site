@@ -2193,3 +2193,28 @@ mark.search-highlight {
 .article-title-h1 {
   color: var(--saffron-400);
 }
+
+/* ============================================================
+   SECURITY / COPY PROTECTION
+   ============================================================ */
+body.copy-protected {
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+}
+
+/* Allow text selection in inputs and textareas even when copy protected */
+body.copy-protected input,
+body.copy-protected textarea {
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+  user-select: auto;
+}
