@@ -89,12 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(err => console.error("Error loading article for editing:", err));
     }
 
+    let forceSave = false;
+
     if (addForm) {
         addForm.addEventListener('submit', async e => {
             e.preventDefault();
 
             const submitBtn = document.querySelector('#addForm button[type="submit"]');
-            const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'પ્રસંગ સંગ્રહ કરો';
+            const originalBtnHtml = submitBtn ? (submitBtn.dataset.originalHtml || submitBtn.innerHTML) : 'પ્રસંગ સંગ્રહ કરો';
+
+            if (submitBtn && !submitBtn.dataset.originalHtml) {
+                submitBtn.dataset.originalHtml = originalBtnHtml;
+            }
 
             if (submitBtn) {
                 if (!document.getElementById('spinKeyframes')) {
@@ -165,6 +171,43 @@ document.addEventListener('DOMContentLoaded', () => {
                 category: finalTopic.join(',') || 'bhakti',
             };
 
+            // ---- Duplicate Content Detection ----
+            if (!forceSave && !editingArticleId) {
+                try {
+                    // Clean content: remove HTML tags, lowercase, remove non-alphanumeric
+                    const cleanString = (str) => {
+                        const noHtml = str.replace(/<[^>]*>?/gm, '');
+                        return noHtml.toLowerCase().replace(/[^a-z0-9\u0A80-\u0AFF]/g, ''); // includes Gujarati unicode range
+                    };
+
+                    const newContentClean = cleanString(content);
+
+                    if (newContentClean.length > 10) { // Only check if content is substantial
+                        const articlesResponse = await fetch('/api/articles');
+                        if (articlesResponse.ok) {
+                            const allArticles = await articlesResponse.json();
+                            const duplicate = allArticles.find(a => cleanString(a.content) === newContentClean);
+
+                            if (duplicate) {
+                                showFeedback(addFeedback, 'error', `<strong>Warning:</strong> This article's content appears to be a direct duplicate of an existing article titled: "<em>${duplicate.title}</em>". Click the button again to force save.`);
+                                if (submitBtn) {
+                                    submitBtn.disabled = false;
+                                    submitBtn.innerHTML = 'Force Save Duplicate';
+                                    submitBtn.style.backgroundColor = 'var(--error)';
+                                    submitBtn.style.color = 'white';
+                                }
+                                forceSave = true; // Next click will bypass this check
+                                return; // Stop saving
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.warn("Could not check for duplicates:", err);
+                    // silently fail the check and proceed to save if API is down
+                }
+            }
+            // -------------------------------------
+
             // Save to Azure API
             try {
                 const response = await fetch('/api/articles', {
@@ -184,7 +227,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalBtnHtml;
+                        submitBtn.style.backgroundColor = '';
+                        submitBtn.style.color = '';
                     }
+                    forceSave = false;
                 }
             } catch (error) {
                 console.error("API error:", error);
@@ -192,7 +238,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.style.backgroundColor = '';
+                    submitBtn.style.color = '';
                 }
+                forceSave = false;
             }
 
         });
