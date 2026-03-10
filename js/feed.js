@@ -177,8 +177,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Clean content: remove HTML tags, lowercase, remove non-alphanumeric
                     const cleanString = (str) => {
                         if (!str) return '';
-                        const noHtml = str.replace(/<[^>]*>?/gm, '');
-                        return noHtml.toLowerCase().replace(/[^a-z0-9\u0A80-\u0AFF]/g, ''); // includes Gujarati unicode range
+                        const tempDiv = document.createElement('div');
+                        tempDiv.innerHTML = str;
+                        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+                        return textContent.toLowerCase().replace(/[^a-z0-9\u0A80-\u0AFF]/g, ''); // includes Gujarati unicode range
                     };
 
                     const newContentClean = cleanString(content);
