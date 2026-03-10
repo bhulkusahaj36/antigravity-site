@@ -2186,3 +2186,10 @@ mark.search-highlight {
   text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
   border-bottom: 1px dashed var(--gold-accent);
 }
+
+/* ============================================================
+   READING VIEW (ARTICLE DETAIL)
+   ============================================================ */
+.article-title-h1 {
+  color: var(--saffron-400);
+}
