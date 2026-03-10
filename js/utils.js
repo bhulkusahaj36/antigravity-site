@@ -148,6 +148,41 @@ function initUIComponents() {
         if (nativeSelect.multiple) optList.setAttribute('aria-multiselectable', 'true');
         optList.style.display = 'none';
 
+        // ======= ADD SEARCH INPUT =======
+        const searchLi = document.createElement('li');
+        searchLi.className = 'cs-search-wrapper';
+        searchLi.style.padding = '0.5rem';
+        searchLi.style.position = 'sticky';
+        searchLi.style.top = '0';
+        searchLi.style.background = 'var(--bg-900, #111827)'; // matching theme background
+        searchLi.style.zIndex = '2';
+        searchLi.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+        searchLi.style.cursor = 'default';
+
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = 'feed-input';
+        searchInput.placeholder = 'Search options...';
+        searchInput.style.width = '100%';
+        searchInput.style.padding = '0.4rem 0.6rem';
+        searchInput.style.fontSize = '0.9rem';
+        searchInput.style.marginBottom = '0';
+
+        searchLi.appendChild(searchInput);
+
+        searchLi.addEventListener('click', e => e.stopPropagation());
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            optList.querySelectorAll('.cs-option').forEach(li => {
+                const text = li.textContent.toLowerCase();
+                li.style.display = text.includes(term) ? (nativeSelect.multiple ? 'flex' : '') : 'none';
+            });
+        });
+
+        optList.appendChild(searchLi);
+        // ================================
+
         // Helper to get effective text (resolves linked conditional inputs like "other")
         function getOptionText(o) {
             const linkedInput = document.querySelector(`input[data-show-for="${nativeSelect.id}=${o.value}"]`);
@@ -259,12 +294,19 @@ function initUIComponents() {
             wrapper.classList.add('cs-open');
             optList.style.display = '';
             trigger.setAttribute('aria-expanded', 'true');
+            // Focus search
+            setTimeout(() => searchInput.focus(), 10);
         }
 
         function closeDropdown() {
             wrapper.classList.remove('cs-open');
             optList.style.display = 'none';
             trigger.setAttribute('aria-expanded', 'false');
+            // Reset search
+            searchInput.value = '';
+            optList.querySelectorAll('.cs-option').forEach(li => {
+                li.style.display = nativeSelect.multiple ? 'flex' : '';
+            });
         }
 
         function closeOther(w) {
