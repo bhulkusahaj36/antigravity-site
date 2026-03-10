@@ -92,6 +92,21 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addForm) {
         addForm.addEventListener('submit', async e => {
             e.preventDefault();
+
+            const submitBtn = document.querySelector('#addForm button[type="submit"]');
+            const originalBtnHtml = submitBtn ? submitBtn.innerHTML : 'પ્રસંગ સંગ્રહ કરો';
+
+            if (submitBtn) {
+                if (!document.getElementById('spinKeyframes')) {
+                    const style = document.createElement('style');
+                    style.id = 'spinKeyframes';
+                    style.innerHTML = '@keyframes spin { to { transform: rotate(360deg); } }';
+                    document.head.appendChild(style);
+                }
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = 'Saving... <span style="display:inline-block; margin-left:8px; width:14px; height:14px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin 0.75s linear infinite;"></span>';
+            }
+
             const title = document.getElementById('add-title').value.trim();
             let content = '';
             if (quill) {
@@ -167,10 +182,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     const errorText = await response.text();
                     showFeedback(addFeedback, 'error', 'Error saving article to the database: ' + errorText);
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalBtnHtml;
+                    }
                 }
             } catch (error) {
                 console.error("API error:", error);
                 showFeedback(addFeedback, 'error', 'Error connecting to the database: ' + error.message);
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                }
             }
 
         });
