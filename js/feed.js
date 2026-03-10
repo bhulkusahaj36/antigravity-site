@@ -161,16 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     showFeedback(addFeedback, 'success', '✓ પ્રસંગ સફળતાપૂર્વક ઉમેરાયો!');
-                    addForm.reset();
-                    if (quill) {
-                        quill.setContents([]);
-                    }
-
-                    // Hide all conditional fields
-                    document.querySelectorAll('#panel-add .feed-conditional').forEach(el => { el.style.display = 'none'; });
-                    document.querySelectorAll('#panel-add [name="add-date-type"][value="none"]').forEach(r => { r.checked = true; });
-                    document.getElementById('add-date-single').style.display = 'none';
-                    document.getElementById('add-date-range').style.display = 'none';
+                    setTimeout(() => {
+                        window.location.href = window.location.pathname;
+                    }, 1000);
                 } else {
                     const errorText = await response.text();
                     showFeedback(addFeedback, 'error', 'Error saving article to the database: ' + errorText);
