@@ -338,9 +338,16 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ── Utility ─────────────────────────────────────────────── */
     function showFeedback(el, type, msg) {
         el.className = 'form-feedback ' + type;
-        el.textContent = msg;
-        el.style.display = '';
-        setTimeout(() => { el.style.display = 'none'; }, 5000);
+        el.innerHTML = msg;
+        el.style.display = 'block';
+
+        // Scroll up to the notification so the user doesn't miss it
+        if (type === 'error') {
+            window.scrollTo({ top: Math.max(0, el.offsetTop - 100), behavior: 'smooth' });
+            setTimeout(() => { el.style.display = 'none'; }, 8000); // give them more time to read errors
+        } else {
+            setTimeout(() => { el.style.display = 'none'; }, 3000);
+        }
     }
 
 });
