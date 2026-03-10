@@ -240,6 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const dataPoints = labels.map(l => counts[l]);
+            const totalCount = dataPoints.reduce((sum, curr) => sum + curr, 0);
+
+            const totalSpan = document.getElementById('activityTotalCount');
+            if (totalSpan) {
+                totalSpan.innerText = `Total: ${totalCount}`;
+            }
 
             if (dashboardCharts.activity) dashboardCharts.activity.destroy();
 

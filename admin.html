@@ -275,8 +275,11 @@
                             style="background: var(--bg-900); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
                             <div
                                 style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
-                                <h3 style="color: var(--text-light); margin: 0; margin-top: 0.25rem;">Articles Added
-                                    Over Time</h3>
+                                <h3 style="color: var(--text-light); margin: 0; margin-top: 0.25rem;">
+                                    Articles Added Over Time
+                                    <span id="activityTotalCount"
+                                        style="font-size: 1rem; color: var(--gold-400); font-weight: normal; margin-left: 0.5rem; padding: 0.15rem 0.5rem; background: rgba(251, 191, 36, 0.1); border-radius: 4px;"></span>
+                                </h3>
                                 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
                                     <select id="dashboardTimeFilter" class="feed-select"
                                         style="width: auto; padding: 0.25rem 0.5rem; font-size: 0.9rem;">
@@ -329,7 +332,7 @@
                             style="background: var(--bg-900); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border);">
                             <h3
                                 style="color: var(--text-light); margin-top: 0; margin-bottom: 1rem; text-align: center;">
-                                Featured vs Non-Featured</h3>
+                                Articles by Featured</h3>
                             <div style="position: relative; height: 300px; width: 100%;">
                                 <canvas id="featuredChart"></canvas>
                             </div>
