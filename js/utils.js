@@ -577,8 +577,9 @@ function initSecurity() {
 
     document.body.classList.add('copy-protected');
 
-    // Prevent Right Click (Context Menu)
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    // Explicitly prevent Copy and Cut actions
+    document.addEventListener('copy', e => e.preventDefault());
+    document.addEventListener('cut', e => e.preventDefault());
 
     // Prevent Keyboard Shortcuts (Copy, Select All, Save, View Source, Inspect Element)
     document.addEventListener('keydown', e => {
