@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dashboardCharts.featured) dashboardCharts.featured.destroy();
 
             dashboardCharts.featured = new Chart(ctx, {
-                type: 'pie',
+                type: 'doughnut',
                 data: {
                     labels: ['Featured', 'Standard'],
                     datasets: [{
