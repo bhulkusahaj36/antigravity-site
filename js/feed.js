@@ -146,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const otherText = document.getElementById('add-prasang-bhakto-text')?.value.trim();
                 if (otherText) {
                     const slug = 'custom-prasang-' + Date.now();
-                    saveCustomTag('prasang', slug, otherText);
                     finalPrasang = finalPrasang.map(v => v === 'bhakto' ? slug : v);
                 }
             }
