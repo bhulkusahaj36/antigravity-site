@@ -221,24 +221,30 @@ async function loadHomeArticles() {
     showSkeletonLoader('articlesGrid', false);
 
     try {
-        const response = await fetch('/api/articles?t=' + Date.now());
+        const response = await fetch('https://antigravity-api.azurewebsites.net/api/articles');
         if (response.ok) {
             ALL_ARTICLES = await response.json();
-            renderCategoryChips(); // Now data-driven
-            renderArticles();
-            if (window.initAvatarScrollButtons) {
-                setTimeout(window.initAvatarScrollButtons, 100);
-            }
+            console.log("Articles fetched from API");
         } else {
-            console.error("Failed to fetch articles:", response.status);
-            // Revert back or show error
-            document.getElementById('articlesGrid').innerHTML = '<p style="color:var(--text-muted)">લેખ લોડ કરવામાં નિષ્ફળ. કૃપા કરીને રીફ્રેશ કરો.</p>';
-            renderCategoryChips();
+            console.error("API returned error:", response.status);
+            if (typeof ALL_ARTICLES_DATA !== 'undefined') ALL_ARTICLES = ALL_ARTICLES_DATA;
         }
     } catch (error) {
-        console.error("Error fetching articles API:", error);
-        document.getElementById('articlesGrid').innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">API કનેક્શન મળી શક્યું નથી.</p>';
-        document.getElementById('categoryChips').innerHTML = '';
+        console.error("Fetch error, falling back to local data:", error);
+        if (typeof ALL_ARTICLES_DATA !== 'undefined') ALL_ARTICLES = ALL_ARTICLES_DATA;
+    }
+
+    if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {
+        renderCategoryChips(); 
+        renderArticles();
+        renderFeatured();
+        if (window.initAvatarScrollButtons) {
+            setTimeout(window.initAvatarScrollButtons, 150);
+        }
+    } else {
+        const grid = document.getElementById('articlesGrid');
+        if (grid) grid.innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">કોઈ લેખ મળી શક્યા નથી.</p>';
+        document.getElementById('categoryChips').innerHTML = ''; // Clear category chips if no articles
     }
 }
 
@@ -259,28 +265,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Expose a function to initialize scroll buttons after dynamic fetches
     window.initAvatarScrollButtons = function() {
-        document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
-            const prevBtn = wrapper.querySelector('.prev-btn');
-            const nextBtn = wrapper.querySelector('.next-btn');
-            const row = wrapper.querySelector('.avatar-row') || 
-                        wrapper.querySelector('.cards-grid') || 
-                        wrapper.querySelector('.category-chips');
+        document.querySelectorAll('.section').forEach(section => {
+            const prevBtn = section.querySelector('.prev-btn');
+            const nextBtn = section.querySelector('.next-btn');
+            // Specifically target the scrollable rows within this section
+            const row = section.querySelector('.avatar-row') || 
+                        section.querySelector('.cards-grid') || 
+                        section.querySelector('.category-chips');
 
             if (prevBtn && nextBtn && row) {
                 const updateButtons = () => {
-                    // Hide prev button when at the start
-                    if (row.scrollLeft <= 10) {
-                        prevBtn.style.opacity = '0';
+                    // Start of scroll
+                    if (row.scrollLeft <= 5) {
+                        prevBtn.style.opacity = '0.2';
                         prevBtn.style.pointerEvents = 'none';
                     } else {
                         prevBtn.style.opacity = '1';
                         prevBtn.style.pointerEvents = 'auto';
                     }
 
-                    // Hide next button when at the end
+                    // End of scroll
                     const maxScroll = row.scrollWidth - row.clientWidth;
-                    if (row.scrollLeft >= maxScroll - 10) {
-                        nextBtn.style.opacity = '0';
+                    if (row.scrollLeft >= maxScroll - 5) {
+                        nextBtn.style.opacity = '0.2';
                         nextBtn.style.pointerEvents = 'none';
                     } else {
                         nextBtn.style.opacity = '1';
@@ -292,16 +299,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.addEventListener('scroll', updateButtons);
                 window.addEventListener('resize', updateButtons);
                 
-                // Delay slightly to ensure layout metrics are final
+                // Initial check
                 setTimeout(updateButtons, 150);
 
-                if (!wrapper.dataset.scrollInit) {
-                    wrapper.dataset.scrollInit = 'true';
+                if (!section.dataset.scrollInit) {
+                    section.dataset.scrollInit = 'true';
                     prevBtn.addEventListener('click', () => {
-                        row.scrollBy({ left: -320, behavior: 'smooth' });
+                        row.scrollBy({ left: -400, behavior: 'smooth' });
                     });
                     nextBtn.addEventListener('click', () => {
-                        row.scrollBy({ left: 320, behavior: 'smooth' });
+                        row.scrollBy({ left: 400, behavior: 'smooth' });
                     });
                 }
             }
