@@ -138,7 +138,16 @@ function renderCategoryChips() {
         .map(([t]) => t);
 
     topTopics.forEach(topicId => {
-        const label = TOPIC_LABELS[topicId] || topicId;
+        // Use getCategoryName from utils.js, which checks both CATEGORIES and localStorage tags
+        // TOPIC_LABELS was hardcoded, so it didn't work for dynamically created tags.
+        let label = getCategoryName(topicId);
+        
+        // If getCategoryName returns the same ID back (e.g. no custom tag found), 
+        // fallback to TOPIC_LABELS just in case it's a hardcoded one not present in CATEGORIES.
+        if (label === topicId && TOPIC_LABELS[topicId]) {
+            label = TOPIC_LABELS[topicId];
+        }
+
         const card = buildAvatarCard(topicId, label, 'categories', `category-detail.html?id=${topicId}`);
         container.appendChild(card);
     });
