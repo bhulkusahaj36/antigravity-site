@@ -1169,10 +1169,10 @@ body.page-exiting {
   display: flex;
   gap: 0.75rem;
   overflow-x: auto;
-  /* Add ample padding so hover scale/translate doesn't clip against the scroll container */
-  padding: 1.5rem 2.5rem 1.5rem 1.5rem;
-  /* Pull back margin perfectly aligns the first item with section title */
-  margin-left: -1.5rem;
+  /* Add ample padding so hover scale/translate and outerglow do not clip against the scroll container */
+  padding: 3rem 4rem 3rem 3rem;
+  /* Pull back margins to exactly offset the increased padding, keeping visual alignment identical */
+  margin: -1.5rem 0 -1.5rem -3rem;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
