@@ -270,7 +270,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: labels,
                     datasets: [{
                         data: data,
-                        backgroundColor: ['#fbbf24', '#f59e0b', '#d97706', '#b45309', '#8b5cf6', '#3b82f6', '#10b981'],
+                        backgroundColor: [
+                            '#0ea5e9', '#8b5cf6', '#ec4899', '#f43f5e', 
+                            '#f97316', '#eab308', '#22c55e', '#06b6d4',
+                            '#6366f1', '#a855f7'
+                        ],
                         borderWidth: 0
                     }]
                 },
@@ -304,8 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
             articles.forEach(art => {
                 const prasangIds = (art.prasang || '').split(',').map(s => s.trim()).filter(Boolean);
                 prasangIds.forEach(id => {
-                    const label = guruLabels[id] || id;
-                    counts[label] = (counts[label] || 0) + 1;
+                    // ONLY include if it's one of the top 9 predefined gurus
+                    if (guruLabels[id]) {
+                        const label = guruLabels[id];
+                        counts[label] = (counts[label] || 0) + 1;
+                    }
                 });
             });
 
@@ -320,7 +327,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     labels: labels,
                     datasets: [{
                         data: data,
-                        backgroundColor: ['#fbbf24', '#f59e0b', '#d97706', '#b45309', '#fef3c7', '#8b5cf6', '#3b82f6', '#10b981', '#ec4899', '#f43f5e'],
+                        backgroundColor: [
+                            '#fbbf24', '#f59e0b', '#d97706', '#b45309', 
+                            '#92400e', '#78350f', '#451a03', '#fef3c7', 
+                            '#a16207'
+                        ],
                         borderWidth: 0
                     }]
                 },
