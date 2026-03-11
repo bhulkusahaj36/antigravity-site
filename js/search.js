@@ -5,6 +5,36 @@
 async function doSearch() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
 
+    const searchBtn = document.getElementById('searchBtn');
+    const originalBtnHtml = searchBtn ? (searchBtn.dataset.originalHtml || searchBtn.innerHTML) : 'Search';
+    if (searchBtn) {
+        if (!searchBtn.dataset.originalHtml) searchBtn.dataset.originalHtml = originalBtnHtml;
+        if (!document.getElementById('spinKeyframes')) {
+            const style = document.createElement('style');
+            style.id = 'spinKeyframes';
+            style.innerHTML = '@keyframes spin { to { transform: rotate(360deg); } }';
+            document.head.appendChild(style);
+        }
+        searchBtn.disabled = true;
+        searchBtn.innerHTML = 'Searching... <span style="display:inline-block; margin-left:8px; width:14px; height:14px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin 0.75s linear infinite;"></span>';
+    }
+
+    const grid = document.getElementById('searchResults');
+    const empty = document.getElementById('emptyState');
+    if (grid) {
+        grid.innerHTML = '';
+        empty.style.display = 'none';
+        for (let i = 0; i < 4; i++) {
+            grid.innerHTML += `
+               <div class="skeleton-card" style="animation: pulse 1.5s infinite; background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--card-border);">
+                 <div class="skeleton-line" style="background: var(--card-border); height: 24px; border-radius: 4px; width: 70%;"></div>
+                 <div class="skeleton-line" style="background: var(--card-border); margin-top: 1rem; height: 16px; border-radius: 4px; width: 100%;"></div>
+                 <div class="skeleton-line" style="background: var(--card-border); margin-top: 0.5rem; height: 16px; border-radius: 4px; width: 90%;"></div>
+               </div>
+             `;
+        }
+    }
+
     // Advanced filters
     const sources = Array.from(document.getElementById('br-source').selectedOptions).map(o => o.value).filter(v => v);
     const topics = Array.from(document.getElementById('br-topic').selectedOptions).map(o => o.value).filter(v => v);
@@ -21,6 +51,12 @@ async function doSearch() {
     } catch (err) {
         console.error("Failed to load articles from API:", err);
     }
+    
+    if (searchBtn) {
+        searchBtn.disabled = false;
+        searchBtn.innerHTML = originalBtnHtml;
+    }
+
     let results = [...ARTICLES, ...dynamicArticles];
 
     // Helper to check overlap between array of selections and a single string OR array property from article
@@ -59,9 +95,7 @@ async function doSearch() {
 
     const hasSearch = q || sources.length > 0 || topics.length > 0 || prasangs.length > 0 || dateVal;
 
-    const grid = document.getElementById('searchResults');
     const summary = document.getElementById('searchSummary');
-    const empty = document.getElementById('emptyState');
 
     grid.innerHTML = '';
 
