@@ -572,8 +572,12 @@ function initPageTransitions() {
 // SECURITY / COPY PROTECTION
 // ============================================================
 function initSecurity() {
-    // Only apply to public pages, let admin page work normally
-    if (window.location.pathname.includes('admin.html')) return;
+    // Exclude admin page and authenticated admins from copy protection
+    const path = window.location.pathname.toLowerCase();
+    const isUrlAdmin = path.includes('admin') || path.includes('recovered_admin');
+    const isLoggedInAdmin = localStorage.getItem('hk_isAdmin') === 'true';
+
+    if (isUrlAdmin || isLoggedInAdmin) return;
 
     document.body.classList.add('copy-protected');
 
