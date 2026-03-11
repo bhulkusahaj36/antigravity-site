@@ -1127,7 +1127,7 @@ body.page-exiting {
 
 .scroll-btn {
   position: absolute;
-  top: 50%;
+  top: calc(24px + 77px); /* 1.5rem padding + half of 154px avatar */
   transform: translateY(-50%);
   z-index: 10;
   width: 44px;
@@ -1171,8 +1171,8 @@ body.page-exiting {
   overflow-x: auto;
   /* Add ample padding so hover scale/translate doesn't clip against the scroll container */
   padding: 1.5rem 2.5rem 1.5rem 1.5rem;
-  /* Pull back margin visually aligns the container while allowing box-shadow space inside */
-  margin-left: -1rem;
+  /* Pull back margin perfectly aligns the first item with section title */
+  margin-left: -1.5rem;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;

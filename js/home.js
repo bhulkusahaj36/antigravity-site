@@ -226,6 +226,9 @@ async function loadHomeArticles() {
             ALL_ARTICLES = await response.json();
             renderCategoryChips(); // Now data-driven
             renderArticles();
+            if (window.initAvatarScrollButtons) {
+                setTimeout(window.initAvatarScrollButtons, 100);
+            }
         } else {
             console.error("Failed to fetch articles:", response.status);
             // Revert back or show error
@@ -254,19 +257,55 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Set up avatar row scroll buttons
-    document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
-        const prevBtn = wrapper.querySelector('.prev-btn');
-        const nextBtn = wrapper.querySelector('.next-btn');
-        const row = wrapper.querySelector('.avatar-row');
+    // Expose a function to initialize scroll buttons after dynamic fetches
+    window.initAvatarScrollButtons = function() {
+        document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
+            const prevBtn = wrapper.querySelector('.prev-btn');
+            const nextBtn = wrapper.querySelector('.next-btn');
+            const row = wrapper.querySelector('.avatar-row') || wrapper.querySelector('.cards-grid');
 
-        if (prevBtn && nextBtn && row) {
-            prevBtn.addEventListener('click', () => {
-                row.scrollBy({ left: -320, behavior: 'smooth' });
-            });
-            nextBtn.addEventListener('click', () => {
-                row.scrollBy({ left: 320, behavior: 'smooth' });
-            });
-        }
-    });
+            if (prevBtn && nextBtn && row) {
+                const updateButtons = () => {
+                    // Hide prev button when at the start
+                    if (row.scrollLeft <= 10) {
+                        prevBtn.style.opacity = '0';
+                        prevBtn.style.pointerEvents = 'none';
+                    } else {
+                        prevBtn.style.opacity = '1';
+                        prevBtn.style.pointerEvents = 'auto';
+                    }
+
+                    // Hide next button when at the end
+                    const maxScroll = row.scrollWidth - row.clientWidth;
+                    if (row.scrollLeft >= maxScroll - 10) {
+                        nextBtn.style.opacity = '0';
+                        nextBtn.style.pointerEvents = 'none';
+                    } else {
+                        nextBtn.style.opacity = '1';
+                        nextBtn.style.pointerEvents = 'auto';
+                    }
+                };
+
+                row.removeEventListener('scroll', updateButtons);
+                row.addEventListener('scroll', updateButtons);
+                window.addEventListener('resize', updateButtons);
+                
+                // Delay slightly to ensure layout metrics are final
+                setTimeout(updateButtons, 150);
+
+                if (!wrapper.dataset.scrollInit) {
+                    wrapper.dataset.scrollInit = 'true';
+                    prevBtn.addEventListener('click', () => {
+                        row.scrollBy({ left: -320, behavior: 'smooth' });
+                    });
+                    nextBtn.addEventListener('click', () => {
+                        row.scrollBy({ left: 320, behavior: 'smooth' });
+                    });
+                }
+            }
+        });
+    };
+
+    // Attempt init now for featured
+    setTimeout(window.initAvatarScrollButtons, 50);
 });
