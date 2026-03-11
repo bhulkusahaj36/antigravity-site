@@ -896,8 +896,9 @@ body.page-exiting {
   display: flex;
   gap: 1.5rem;
   overflow-x: auto;
-  padding: 0.5rem 40px 1.5rem 40px; /* Added horizontal padding to prevent glow clipping */
-  margin: 0 -40px; /* Negative margin to keep text aligned while padding protects glow */
+  padding: 0.5rem 60px 1.5rem 60px; /* Provide generous room for shadows */
+  margin: 0 -60px; /* Pull back to align with headers while allowing shadows to bleed */
+  scroll-padding: 0 60px; /* Ensure snap-scrolling respects the padding */
   /* Increased to ensure last item fully visible */
   scrollbar-width: thin;
   scrollbar-color: var(--gold-500) var(--navy-800);
@@ -1128,7 +1129,7 @@ body.page-exiting {
 .avatar-row-wrapper {
   position: relative;
   width: 100%;
-  overflow: hidden; /* Ensure padding doesn't cause body scroll */
+  overflow: visible; /* CRITICAL: Allow glow to bleed outside container */
 }
 
 .scroll-btn {
@@ -1179,10 +1180,9 @@ body.page-exiting {
   display: flex;
   gap: 1.25rem;
   overflow-x: auto;
-  /* Vertical padding only to ensure outerglow never clips */
-  padding: 40px 40px; /* Added horizontal padding to prevent glow clipping */
-  /* Reset margins for perfect left alignment with titles */
-  margin: 0 -40px; /* Negative margin to keep row aligned with headers */
+  padding: 40px 60px; /* Generous 60px safe zone for glows */
+  margin: 0 -60px; /* Pull back for perfect title alignment */
+  scroll-padding: 0 60px; /* Smooth snap-scrolling */
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -1311,8 +1311,10 @@ body.page-exiting {
   /* Increased weight for visibility */
   color: var(--text-secondary);
   text-align: center;
-  line-height: 1.3;
-  max-width: 140px;
+  line-height: 1.4;
+  max-width: 154px; /* Matches wrap width for better balance */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   transition: all 0.3s ease;
 }
 
