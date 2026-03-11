@@ -25,6 +25,38 @@
     letter-spacing: 0.02em;
 }
 
+/* Dashboard Time Filter Pills */
+.chart-time-filters {
+    display: flex;
+    gap: 0.25rem;
+    background: var(--bg-800);
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.time-filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    font-family: var(--font-en);
+    padding: 0.35rem 0.65rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.time-filter-btn:hover {
+    color: var(--text-primary);
+}
+
+.time-filter-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-white);
+}
+
 .feed-tab:hover {
     color: var(--saffron-300);
 }

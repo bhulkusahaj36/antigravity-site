@@ -86,50 +86,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 renderDashboardCharts(articles);
 
-                const timeFilter = document.getElementById('dashboardTimeFilter');
-                const dynamicInputs = document.getElementById('dashboardDynamicInputs');
-                const filterSpecificDate = document.getElementById('filterSpecificDate');
-                const filterSpecificWeek = document.getElementById('filterSpecificWeek');
-                const filterSpecificMonth = document.getElementById('filterSpecificMonth');
-                const filterSpecificYear = document.getElementById('filterSpecificYear');
-                const applyBtn = document.getElementById('applyDashboardFilter');
-
-                if (timeFilter) {
-                    timeFilter.onchange = () => {
-                        const val = timeFilter.value;
-                        const requiresInput = ['single_day', 'single_week', 'specific_month', 'specific_year'].includes(val);
-
-                        document.querySelectorAll('.feed-conditional-filter').forEach(el => el.style.display = 'none');
-
-                        if (requiresInput) {
-                            dynamicInputs.style.display = 'flex';
-                            if (val === 'single_day') filterSpecificDate.style.display = 'block';
-                            if (val === 'single_week') filterSpecificWeek.style.display = 'block';
-                            if (val === 'specific_month') filterSpecificMonth.style.display = 'block';
-                            if (val === 'specific_year') filterSpecificYear.style.display = 'block';
-                        } else {
-                            dynamicInputs.style.display = 'none';
-                            renderActivityChart(articles, val);
-                        }
-                    };
-                }
-
-                if (applyBtn) {
-                    applyBtn.onclick = () => {
-                        const val = timeFilter.value;
-                        let filterVal = null;
-                        if (val === 'single_day') filterVal = filterSpecificDate.value;
-                        if (val === 'single_week') filterVal = filterSpecificWeek.value;
-                        if (val === 'specific_month') filterVal = filterSpecificMonth.value;
-                        if (val === 'specific_year') filterVal = filterSpecificYear.value;
-
-                        if (!filterVal) {
-                            alert('Please select a value for the filter.');
-                            return;
-                        }
-                        renderActivityChart(articles, val, filterVal);
-                    }
-                }
+                const timeBtns = document.querySelectorAll('.time-filter-btn');
+                timeBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        timeBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const val = btn.getAttribute('data-value');
+                        renderActivityChart(articles, val);
+                    });
+                });
 
             } catch (e) {
                 console.error("Error loading analytics:", e);
@@ -137,7 +102,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function renderDashboardCharts(articles) {
-            const timeFilter = document.getElementById('dashboardTimeFilter')?.value || 'this_month';
+            const activeBtn = document.querySelector('.time-filter-btn.active');
+            const timeFilter = activeBtn ? activeBtn.getAttribute('data-value') : '1M';
             renderActivityChart(articles, timeFilter);
             renderCategoryChart(articles);
             renderFeaturedChart(articles);
@@ -174,55 +140,62 @@ document.addEventListener('DOMContentLoaded', () => {
             let labels = [];
             let formatKey = (d) => '';
 
-            if (filter === 'today' || filter === 'single_day') {
-                if (filter === 'single_day' && filterVal) targetDate = new Date(filterVal);
-                startDate = new Date(targetDate);
+            if (filter === '1D') {
+                startDate = new Date(now);
                 startDate.setHours(0, 0, 0, 0);
-                endDate = new Date(targetDate);
+                endDate = new Date(now);
                 endDate.setHours(23, 59, 59, 999);
-
                 labels = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
                 formatKey = (d) => `${d.getHours().toString().padStart(2, '0')}:00`;
 
-            } else if (filter === 'this_week' || filter === 'single_week') {
-                if (filter === 'single_week' && filterVal) {
-                    const range = getWeekStartEnd(filterVal);
-                    if (range) { startDate = range.start; endDate = range.end; }
-                } else {
-                    startDate = new Date(now);
-                    const day = startDate.getDay() || 7;
-                    startDate.setDate(startDate.getDate() - day + 1);
-                    startDate.setHours(0, 0, 0, 0);
-                    endDate = new Date(startDate);
-                    endDate.setDate(endDate.getDate() + 6);
-                    endDate.setHours(23, 59, 59, 999);
-                }
-
+            } else if (filter === '1W') {
+                startDate = new Date(now);
+                const day = startDate.getDay() || 7;
+                startDate.setDate(startDate.getDate() - day + 1);
+                startDate.setHours(0, 0, 0, 0);
+                endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + 6);
+                endDate.setHours(23, 59, 59, 999);
                 labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
                 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 formatKey = (d) => days[d.getDay()];
 
-            } else if (filter === 'this_month' || filter === 'specific_month') {
-                if (filter === 'specific_month' && filterVal) {
-                    const [y, m] = filterVal.split('-');
-                    targetDate = new Date(y, m - 1, 1);
-                }
-                startDate = new Date(targetDate.getFullYear(), targetDate.getMonth(), 1);
-                endDate = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0, 23, 59, 59, 999);
-
+            } else if (filter === '1M') {
+                startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+                endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
                 const daysInMonth = endDate.getDate();
                 labels = Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString());
                 formatKey = (d) => d.getDate().toString();
 
-            } else if (filter === 'this_year' || filter === 'specific_year') {
-                if (filter === 'specific_year' && filterVal) {
-                    targetDate = new Date(filterVal, 0, 1);
+            } else if (filter === '3M') {
+                startDate = new Date(now.getFullYear(), now.getMonth() - 2, 1);
+                endDate = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+                labels = [];
+                for (let i = 2; i >= 0; i--) {
+                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                    labels.push(d.toLocaleString('default', { month: 'short' }));
                 }
-                startDate = new Date(targetDate.getFullYear(), 0, 1);
-                endDate = new Date(targetDate.getFullYear(), 11, 31, 23, 59, 59, 999);
+                formatKey = (d) => d.toLocaleString('default', { month: 'short' });
 
+            } else if (filter === '1Y') {
+                startDate = new Date(now.getFullYear(), 0, 1);
+                endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
                 labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                 formatKey = (d) => d.toLocaleString('default', { month: 'short' });
+
+            } else if (filter === '5Y') {
+                startDate = new Date(now.getFullYear() - 4, 0, 1);
+                endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
+                labels = [];
+                for(let i=4; i>=0; i--) labels.push((now.getFullYear() - i).toString());
+                formatKey = (d) => d.getFullYear().toString();
+
+            } else if (filter === '10Y') {
+                startDate = new Date(now.getFullYear() - 9, 0, 1);
+                endDate = new Date(now.getFullYear(), 11, 31, 23, 59, 59, 999);
+                labels = [];
+                for(let i=9; i>=0; i--) labels.push((now.getFullYear() - i).toString());
+                formatKey = (d) => d.getFullYear().toString();
             }
 
             labels.forEach(l => counts[l] = 0);
@@ -250,15 +223,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (dashboardCharts.activity) dashboardCharts.activity.destroy();
 
             dashboardCharts.activity = new Chart(ctx, {
-                type: (filter === 'today' || filter === 'single_day') ? 'bar' : 'line',
+                type: (filter === '1D') ? 'bar' : 'line',
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Articles Added',
                         data: dataPoints,
                         borderColor: '#fbbf24',
-                        backgroundColor: (filter === 'today' || filter === 'single_day') ? '#fbbf24' : 'rgba(251, 191, 36, 0.1)',
-                        borderWidth: (filter === 'today' || filter === 'single_day') ? 0 : 2,
+                        backgroundColor: (filter === '1D') ? '#fbbf24' : 'rgba(251, 191, 36, 0.1)',
+                        borderWidth: (filter === '1D') ? 0 : 2,
                         tension: 0.3,
                         fill: true
                     }]
