@@ -2216,15 +2216,15 @@ mark.search-highlight {
    SECURITY / COPY PROTECTION
    ============================================================ */
 body.copy-protected {
-  -webkit-user-select: none;
+  -webkit-user-select: none !important;
   /* Safari */
-  -moz-user-select: none;
+  -moz-user-select: none !important;
   /* Firefox */
-  -ms-user-select: none;
+  -ms-user-select: none !important;
   /* IE10+/Edge */
-  user-select: none;
+  user-select: none !important;
   /* Standard */
-  -webkit-touch-callout: none;
+  -webkit-touch-callout: none !important;
   /* iOS Safari */
 }
 
