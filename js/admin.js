@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'bhagatji': 'ભગતજી મહારાજ',
                 'shastriji': 'શાસ્ત્રીજી મહારાજ',
                 'yogiji': 'યોગીજી મહારાજ',
-                'hariprasad': 'હરિપ્રસાદ સ્વામીજી',
+                'hariprasad': 'હરિપ્રસાદ સ્વામીજી મહારાજ',
                 'prabodh': 'પ્રબોધ સ્વામીજી',
                 'bhakto': 'ભક્તો',
                 'prabhudasbhai': 'પ્રભુદાસભાઈ'

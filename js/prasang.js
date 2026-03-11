@@ -8,7 +8,7 @@ const PRASANG_LABELS_PG = {
     bhagatji: 'ભગતજી મહારાજ',
     yogiji: 'યોગીજી મહારાજ',
     shastriji: 'શાસ્ત્રીજી મહારાજ',
-    hariprasad: 'હ.સ્વામીજી મહારાજ',
+    hariprasad: 'હરિપ્રસાદ સ્વામીજી મહારાજ',
     prabodh: 'પ્રબોધ સ્વામીજી',
     bhakto: 'ભક્તો',
     prabhudasbhai: 'પ્રભુદાસભાઈ',

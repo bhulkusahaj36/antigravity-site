@@ -14,7 +14,7 @@ const PRASANG_LABELS = {
     bhagatji: 'ભગતજી\nમહારાજ',
     yogiji: 'યોગીજી\nમહારાજ',
     shastriji: 'શાસ્ત્રીજી\nમહારાજ',
-    hariprasad: 'હ.સ્વામીજી\nમહારાજ',
+    hariprasad: 'હરિપ્રસાદ સ્વામીજી મહારાજ',
     prabodh: 'પ્રબોધ\nસ્વામીજી',
     bhakto: 'ભક્તો',
     prabhudasbhai: 'પ્રભુદાસભાઈ',
