@@ -288,22 +288,39 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('featuredChart');
             if (!ctx) return;
 
-            let featured = 0;
-            let standard = 0;
+            const guruLabels = {
+                'bhagwan': 'ભગવાન સ્વામિનારાયણ',
+                'gunatit': 'ગુણાતીતાનંદ સ્વામી',
+                'bhagatji': 'ભગતજી મહારાજ',
+                'shastriji': 'શાસ્ત્રીજી મહારાજ',
+                'yogiji': 'યોગીજી મહારાજ',
+                'hariprasad': 'હરિપ્રસાદ સ્વામીજી',
+                'prabodh': 'પ્રબોધ સ્વામીજી',
+                'bhakto': 'ભક્તો',
+                'prabhudasbhai': 'પ્રભુદાસભાઈ'
+            };
+
+            const counts = {};
             articles.forEach(art => {
-                if (art.featured || String(art.featured) === 'true') featured++;
-                else standard++;
+                const prasangIds = (art.prasang || '').split(',').map(s => s.trim()).filter(Boolean);
+                prasangIds.forEach(id => {
+                    const label = guruLabels[id] || id;
+                    counts[label] = (counts[label] || 0) + 1;
+                });
             });
+
+            const labels = Object.keys(counts);
+            const data = Object.values(counts);
 
             if (dashboardCharts.featured) dashboardCharts.featured.destroy();
 
             dashboardCharts.featured = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Featured', 'Standard'],
+                    labels: labels,
                     datasets: [{
-                        data: [featured, standard],
-                        backgroundColor: ['#fbbf24', '#374151'],
+                        data: data,
+                        backgroundColor: ['#fbbf24', '#f59e0b', '#d97706', '#b45309', '#fef3c7', '#8b5cf6', '#3b82f6', '#10b981', '#ec4899', '#f43f5e'],
                         borderWidth: 0
                     }]
                 },
@@ -311,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { position: 'bottom' }
+                        legend: { position: 'right' }
                     }
                 }
             });

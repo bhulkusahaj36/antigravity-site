@@ -1147,7 +1147,7 @@ body.page-exiting {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: all var(--transition-fast);
-  opacity: 0.2; /* Dimmest when not interactive */
+  opacity: 0.4; /* Increased from 0.2 for better visibility */
   pointer-events: none;
   padding-bottom: 2px;
 }
