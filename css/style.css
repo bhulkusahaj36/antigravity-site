@@ -110,7 +110,7 @@ img {
 
 .container {
   width: 100%;
-  max-width: 1180px;
+  max-width: 1536px; /* Increased from 1180px to utilize more screen space on desktop */
   margin: 0 auto;
   padding: 0 1.25rem;
 }
