@@ -1145,7 +1145,9 @@ body.page-exiting {
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  transition: all var(--transition-bounce);
+  transition: opacity 0.3s ease, transform var(--transition-bounce);
+  opacity: 0; /* JS will toggle visibility */
+  pointer-events: none;
   padding-bottom: 4px;
   /* visually center the character */
 }

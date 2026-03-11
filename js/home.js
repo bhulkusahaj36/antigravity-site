@@ -262,7 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.avatar-row-wrapper').forEach(wrapper => {
             const prevBtn = wrapper.querySelector('.prev-btn');
             const nextBtn = wrapper.querySelector('.next-btn');
-            const row = wrapper.querySelector('.avatar-row') || wrapper.querySelector('.cards-grid');
+            const row = wrapper.querySelector('.avatar-row') || 
+                        wrapper.querySelector('.cards-grid') || 
+                        wrapper.querySelector('.category-chips');
 
             if (prevBtn && nextBtn && row) {
                 const updateButtons = () => {
