@@ -1128,7 +1128,7 @@ body.page-exiting {
 
 .scroll-btn {
   position: absolute;
-  top: calc(32px + 77px); /* 2rem vertical padding + half of 154px avatar */
+  top: calc(40px + 77px); /* 2.5rem vertical padding (40px) + half of 154px avatar */
   transform: translateY(-50%);
   z-index: 10;
   width: 44px;
@@ -1173,9 +1173,9 @@ body.page-exiting {
   gap: 0.75rem;
   overflow-x: auto;
   /* Top and bottom padding for vertical glow space */
-  padding: 2rem 0;
-  /* Shift whole container horizontally by 1.5rem to pull back the visual start */
-  margin: -2rem -1.5rem;
+  padding: 2.5rem 0;
+  /* Pull back margins to exactly offset the increased pseudo-element padding, keeping visual alignment identical */
+  margin: -2.5rem -2.5rem;
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
@@ -1185,7 +1185,7 @@ body.page-exiting {
 .avatar-row::before,
 .avatar-row::after {
   content: '';
-  flex: 0 0 1.5rem; /* Creates 1.5rem of internal scrollable space */
+  flex: 0 0 2.5rem; /* Creates 2.5rem (40px) of internal scrollable space for the 35px glow */
 }
 
 .avatar-row::-webkit-scrollbar {
