@@ -11,12 +11,9 @@ async function getContainer() {
     }
     const client = new CosmosClient(connectionString);
 
-    // Dynamically create Database and Container if they don't exist yet
-    const { database } = await client.databases.createIfNotExists({ id: "antigravity" });
-    const { container: dbContainer } = await database.containers.createIfNotExists({
-        id: "articles",
-        partitionKey: { paths: ["/id"] }
-    });
+    // Assume Database and Container already exist to save 2 slow network trips on cold starts
+    const database = client.database("antigravity");
+    const dbContainer = database.container("articles");
 
     container = dbContainer;
     return container;

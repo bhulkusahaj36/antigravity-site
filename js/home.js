@@ -216,7 +216,8 @@ function showSkeletonLoader(containerId, isAvatar = false) {
 
 async function loadHomeArticles() {
     showSkeletonLoader('categoryChips', true);
-    showSkeletonLoader('featuredGrid', true);
+    // renderFeatured is static content and doesn't need data, load instantly
+    renderFeatured();
     showSkeletonLoader('articlesGrid', false);
 
     try {
@@ -224,19 +225,16 @@ async function loadHomeArticles() {
         if (response.ok) {
             ALL_ARTICLES = await response.json();
             renderCategoryChips(); // Now data-driven
-            renderFeatured();
             renderArticles();
         } else {
             console.error("Failed to fetch articles:", response.status);
             // Revert back or show error
             document.getElementById('articlesGrid').innerHTML = '<p style="color:var(--text-muted)">લેખ લોડ કરવામાં નિષ્ફળ. કૃપા કરીને રીફ્રેશ કરો.</p>';
-            renderFeatured();
             renderCategoryChips();
         }
     } catch (error) {
         console.error("Error fetching articles API:", error);
         document.getElementById('articlesGrid').innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">API કનેક્શન મળી શક્યું નથી.</p>';
-        document.getElementById('featuredGrid').innerHTML = '';
         document.getElementById('categoryChips').innerHTML = '';
     }
 }
