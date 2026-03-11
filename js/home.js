@@ -221,17 +221,17 @@ async function loadHomeArticles() {
     showSkeletonLoader('articlesGrid', false);
 
     try {
-        const response = await fetch('https://antigravity-api.azurewebsites.net/api/articles');
+        const response = await fetch('/api/articles?t=' + Date.now());
         if (response.ok) {
             ALL_ARTICLES = await response.json();
             console.log("Articles fetched from API");
         } else {
             console.error("API returned error:", response.status);
-            if (typeof ALL_ARTICLES_DATA !== 'undefined') ALL_ARTICLES = ALL_ARTICLES_DATA;
+            if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
         }
     } catch (error) {
         console.error("Fetch error, falling back to local data:", error);
-        if (typeof ALL_ARTICLES_DATA !== 'undefined') ALL_ARTICLES = ALL_ARTICLES_DATA;
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
     }
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {
