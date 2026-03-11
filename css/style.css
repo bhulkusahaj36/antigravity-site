@@ -463,12 +463,12 @@ body.page-exiting {
 .hero-quote {
   font-family: var(--font-gu);
   font-size: clamp(0.95rem, 1.8vw, 1.15rem);
-  color: var(--saffron-200);
+  color: var(--saffron-400);
   background: rgba(18, 18, 18, 0.4);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(251, 191, 36, 0.2);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05), 0 12px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
   border-radius: var(--radius-lg);
   padding: 1rem 1.5rem;
   margin: 0 auto 2.5rem;
@@ -864,7 +864,7 @@ body.page-exiting {
   font-family: var(--font-gu);
   font-size: clamp(1.6rem, 3.5vw, 2.2rem);
   font-weight: 700;
-  background: linear-gradient(135deg, var(--saffron-200), var(--saffron-500));
+  background: linear-gradient(135deg, var(--saffron-400), var(--saffron-600));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1037,8 +1037,8 @@ body.page-exiting {
   font-size: 1.15rem;
   font-weight: 700;
 
-  /* Shiny 3D Metallic Gold Effect */
-  background: linear-gradient(to bottom, #FFFBDB 0%, #D4AF37 40%, #AA7222 80%, #F5D76E 100%);
+  /* Shiny 3D Metallic Gold Effect - Refined to remove white pale tones */
+  background: linear-gradient(to bottom, #FCD34D 0%, #D4AF37 40%, #AA7222 80%, #F59E0B 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -1223,7 +1223,7 @@ body.page-exiting {
   border: 4px solid transparent;
   /* Royal double ring effect: Dark Inner + Gold Gradient Outer */
   background: linear-gradient(var(--bg-900), var(--bg-900)) padding-box,
-    linear-gradient(135deg, #FDE68A 0%, #D4AF37 40%, #AA7222 60%, #F5D76E 100%) border-box;
+    linear-gradient(135deg, #FCD34D 0%, #D4AF37 40%, #AA7222 60%, #F59E0B 100%) border-box;
   padding: 0;
   position: relative;
   display: flex;
