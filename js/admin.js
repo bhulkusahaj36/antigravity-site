@@ -250,12 +250,34 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('categoryChart');
             if (!ctx) return;
 
+            const topicLabels = {
+                'mahima': 'મહિમા',
+                'atmiyata': 'આત્મીયતા',
+                'nishtha': 'નિષ્ઠા',
+                'seva': 'સેવા',
+                'bhagvadi': 'ભગવદી',
+                'bhakti': 'ભક્તોનો મહિમા',
+                'saralata': 'સરળતા',
+                'swadharm': 'સ્વધર્મ',
+                'swadhyay': 'સ્વાધ્યાય-ભજન',
+                'bhajan': 'ભજન/સ્વામિનારાયણ મહામંત્ર',
+                'svasarap': 'સ્વસારપ',
+                'vachanamrut': 'વચનામૃત',
+                'swamini': 'સ્વામીની વાતો',
+                'shikshapatri': 'શિક્ષાપત્રી',
+                'samagam': 'સમાગમ',
+                'katha-varta': 'કથા-વાર્તા',
+                'other': 'Other'
+            };
+
             const counts = {};
             articles.forEach(art => {
-                const cat = art.category || 'unknown';
-                cat.split(',').forEach(c => {
-                    const cleanC = c.trim();
-                    if (cleanC) counts[cleanC] = (counts[cleanC] || 0) + 1;
+                const cats = (art.category || '').split(',').map(c => c.trim()).filter(Boolean);
+                cats.forEach(c => {
+                    if (topicLabels[c]) {
+                        const label = topicLabels[c];
+                        counts[label] = (counts[label] || 0) + 1;
+                    }
                 });
             });
 
