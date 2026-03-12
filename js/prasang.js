@@ -117,9 +117,12 @@ async function init() {
         const res = await fetch('/api/articles?t=' + Date.now());
         if (res.ok) {
             ALL_ARTICLES_PG = await res.json();
+        } else {
+            if (typeof ARTICLES !== 'undefined') ALL_ARTICLES_PG = ARTICLES;
         }
     } catch (e) {
         console.error('Failed to fetch articles:', e);
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES_PG = ARTICLES;
     }
 
     applyFilters();
