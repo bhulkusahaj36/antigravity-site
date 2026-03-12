@@ -12,6 +12,38 @@ const CATEGORIES = [
   { id: 'dhyan', name: 'ધ્યાન', slug: 'dhyan', description: 'ધ્યાન, મેડિટેશન અને યોગ સાધના' },
 ];
 
+const TOPIC_LABELS = {
+    mahima: 'મહિમા',
+    atmiyata: 'આત્મીયતા',
+    nishtha: 'નિષ્ઠા',
+    seva: 'સેવા',
+    bhagvadi: 'ભગવદી',
+    bhakti: 'ભક્તિ/મહિમા',
+    saralata: 'સરળતા',
+    swadharm: 'સ્વધર્મ',
+    swadhyay: 'સ્વાધ્યાય-ભજન',
+    bhajan: 'ભજન/સ્વામિનારાયણ મહામંત્ર',
+    svasarap: 'સ્વસારપ',
+    vachanamrut: 'વચનામૃત',
+    swamini: 'સ્વામીની વાતો',
+    shikshapatri: 'શિક્ષાપત્રી',
+    samagam: 'સમાગમ',
+    'katha-varta': 'કથા-વાર્તા',
+    other: 'અન્ય',
+};
+
+const PRASANG_LABELS = {
+    bhagwan: 'ભગવાન સ્વામિનારાયણ',
+    gunatit: 'ગુણાતીતાનંદ સ્વામી',
+    bhagatji: 'ભગતજી મહારાજ',
+    yogiji: 'યોગીજી મહારાજ',
+    shastriji: 'શાસ્ત્રીજી મહારાજ',
+    hariprasad: 'હરિપ્રસાદ સ્વામીજી મહારાજ',
+    prabodh: 'પ્રબોધ સ્વામીજી',
+    bhakto: 'ભક્તો',
+    prabhudasbhai: 'પ્રભુદાસભાઈ',
+};
+
 const ARTICLES = [];
 
 const QUOTES = [
