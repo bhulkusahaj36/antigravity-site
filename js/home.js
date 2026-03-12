@@ -7,39 +7,9 @@ let currentPage = 1;
 let sortMode = 'latest';
 let ALL_ARTICLES = [];
 
-// Prasang display labels (value → Gujarati name)
-const PRASANG_LABELS = {
-    bhagwan: 'ભગવાન સ્વામિનારાયણ',
-    gunatit: 'ગુણાતીતાનંદ સ્વામી',
-    bhagatji: 'ભગતજી\nમહારાજ',
-    yogiji: 'યોગીજી\nમહારાજ',
-    shastriji: 'શાસ્ત્રીજી\nમહારાજ',
-    hariprasad: 'હરિપ્રસાદ સ્વામીજી મહારાજ',
-    prabodh: 'પ્રબોધ\nસ્વામીજી',
-    bhakto: 'ભક્તો',
-    prabhudasbhai: 'પ્રભુદાસભાઈ',
-};
+// Prasang display labels (value → Gujarati name) - DEPRECATED (Moved to data.js)
+// Topic display labels - DEPRECATED (Moved to data.js)
 
-// Topic display labels
-const TOPIC_LABELS = {
-    mahima: 'મહિમા',
-    atmiyata: 'આત્મીયતા',
-    nishtha: 'નિષ્ઠા',
-    seva: 'સેવા',
-    bhagvadi: 'ભગવદી',
-    bhakti: 'ભક્તોનો મહિમા',
-    saralata: 'સરળતા',
-    swadharm: 'સ્વધર્મ',
-    swadhyay: 'સ્વાધ્યાય',
-    bhajan: 'ભજન/સ્વામિનારાયણ મહામંત્ર',
-    svasarap: 'સ્વસારપ',
-    vachanamrut: 'વચનામૃત',
-    swamini: 'સ્વામીની',
-    shikshapatri: 'શિક્ષાપત્રી',
-    samagam: 'સમાગમ',
-    'katha-varta': 'કથા-વાર્તા',
-    other: 'અન્ય',
-};
 
 function getSorted(articles) {
     const list = [...articles];
