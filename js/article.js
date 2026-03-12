@@ -29,16 +29,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     const response = await fetch('/api/articles?t=' + Date.now());
     if (response.ok) {
       ALL_ARTICLES = await response.json();
-      ALL_ARTICLES.sort((a, b) => {
-        let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
-        let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
-        return dB - dA;
-      });
     } else {
       console.error("Failed to fetch articles:", response.status);
+      if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
     }
   } catch (error) {
     console.error("Error fetching articles API:", error);
+    if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+  }
+
+  if (ALL_ARTICLES.length > 0) {
+    ALL_ARTICLES.sort((a, b) => {
+      let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
+      let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
+      return dB - dA;
+    });
   }
 
   const article = ALL_ARTICLES.find(a => String(a.id) === String(idParam));
