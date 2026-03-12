@@ -62,9 +62,16 @@ function getCategoryName(idText) {
     } catch (e) { }
 
     return ids.map(id => {
+        // 1. Hardcoded in CATEGORIES
         const cat = CATEGORIES.find(c => c.id === id);
         if (cat) return cat.name;
 
+        // 2. Hardcoded in TOPIC_LABELS
+        if (typeof TOPIC_LABELS !== 'undefined' && TOPIC_LABELS[id]) {
+            return TOPIC_LABELS[id];
+        }
+
+        // 3. Custom from localStorage
         const custom = allCustomTags.find(t => t.value === id);
         if (custom) return custom.label;
 
@@ -74,7 +81,29 @@ function getCategoryName(idText) {
 
 // Get category by id
 function getCategory(id) {
-    return CATEGORIES.find(c => c.id === id) || null;
+    if (!id) return null;
+    let cat = CATEGORIES.find(c => c.id === id);
+    if (cat) return cat;
+
+    if (typeof TOPIC_LABELS !== 'undefined' && TOPIC_LABELS[id]) {
+        return { id: id, name: TOPIC_LABELS[id], description: '' };
+    }
+
+    try {
+        const stored = localStorage.getItem('hk_custom_tags');
+        if (stored) {
+            const parsed = JSON.parse(stored);
+            const allCustomTags = [
+                ...(parsed.source || []),
+                ...(parsed.topic || []),
+                ...(parsed.prasang || [])
+            ];
+            const custom = allCustomTags.find(t => t.value === id);
+            if (custom) return { id: id, name: custom.label, description: '' };
+        }
+    } catch (e) { }
+
+    return null;
 }
 
 // Build a single article card element
