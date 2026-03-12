@@ -45,18 +45,20 @@ async function loadCategoryArticles() {
         const response = await fetch('/api/articles?t=' + Date.now());
         if (response.ok) {
             ALL_ARTICLES = await response.json();
-
-            const count = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId)).length;
-            const headingEl = document.getElementById('catArticlesHeading');
-            if (headingEl) headingEl.textContent = `${count} લેખ`;
-
-            renderCatArticles();
         } else {
             console.error("Failed to fetch category articles:", response.status);
+            if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
         }
     } catch (error) {
         console.error("Error fetching articles API:", error);
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
     }
+
+    const count = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId)).length;
+    const headingEl = document.getElementById('catArticlesHeading');
+    if (headingEl) headingEl.textContent = `${count} લેખ`;
+
+    renderCatArticles();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
