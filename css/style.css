@@ -73,6 +73,12 @@
   --navy-600: var(--bg-600);
   --navy-500: var(--bg-500);
   --gold-glow: var(--saffron-glow);
+
+  /* Typography */
+  --font-gu: 'Noto Serif Gujarati', serif;
+  --font-gu-sans: 'Noto Sans Gujarati', sans-serif;
+  --font-en: 'DM Sans', 'Inter', sans-serif;
+  --font-heading: 'Playfair Display', 'DM Sans', serif;
 }
 
 html {
@@ -86,7 +92,7 @@ body {
     radial-gradient(circle at 100% 50%, rgba(244, 63, 94, 0.03) 0%, transparent 40%);
   background-attachment: fixed;
   color: var(--text-primary);
-  font-family: var(--font-gu-sans);
+  font-family: var(--font-gu-sans), var(--font-en);
   font-size: 16px;
   line-height: 1.7;
   min-height: 100vh;
@@ -216,12 +222,14 @@ body.page-exiting {
 
 .nav-link {
   position: relative;
-  font-family: var(--font-gu-sans);
-  font-size: 1rem;
+  font-family: var(--font-en);
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-secondary);
   padding: 0.45rem 0.9rem;
   transition: color var(--transition);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .nav-link::after {
@@ -469,37 +477,56 @@ body.page-exiting {
   font-family: var(--font-gu);
   font-size: clamp(0.95rem, 1.8vw, 1.15rem);
   color: var(--saffron-400);
-  background: rgba(18, 18, 18, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(251, 191, 36, 0.2);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+  background: rgba(10, 8, 4, 0.55);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(245, 158, 11, 0.25);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 210, 80, 0.08);
   border-radius: var(--radius-lg);
-  padding: 1rem 1.5rem;
+  padding: 1.1rem 1.6rem;
   margin: 0 auto 2.5rem;
   width: fit-content;
   max-width: 800px;
-  /* Allows up to ~14 words on one line before wrapping */
   animation: fadeInUp 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
   line-height: 1.8;
   letter-spacing: 0.03em;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+
+  /* Golden 3D text effect on the whole quote block */
+  text-shadow:
+    0 1px 0 #b8860b,
+    0 2px 0 #a0740a,
+    0 3px 0 #8a6208,
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(245, 158, 11, 0.25);
 }
 
 .quote-mark {
-  font-size: 1.3em;
-  color: var(--gold-500);
-  opacity: 0.7;
+  font-size: 1.4em;
+  color: #fde68a;
+  opacity: 0.9;
+  text-shadow:
+    0 1px 0 #b8860b,
+    0 2px 0 #8a6208,
+    0 3px 6px rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(251, 191, 36, 0.4);
 }
 
 .quote-author {
   display: block;
-  margin-top: 0.6rem;
-  font-size: 0.88rem;
+  margin-top: 0.75rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.86rem;
   font-family: var(--font-gu-sans);
-  color: var(--gold-500);
-  opacity: 0.85;
-  font-style: normal;
+  /* Clearly different from quote: soft pearl/silver instead of gold */
+  color: #c8bfaf;
+  opacity: 1;
+  font-style: italic;
+  letter-spacing: 0.04em;
+  /* Subtle shadow only — no 3D, so it reads as secondary */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* ============================================================
