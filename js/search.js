@@ -158,10 +158,12 @@ async function doSearch() {
         const card = document.createElement('div');
         card.className = 'article-card card-animate';
         card.innerHTML = `
-            <h3 class="card-title">${a.title}</h3>
-            ${excerptHTML}
-            <div class="card-footer">
-                <a href="article.html?id=${a.id}" class="read-more">વધુ વાંચો</a>
+            <div class="card-body-wrap">
+              <h3 class="card-title">${a.title}</h3>
+              ${excerptHTML}
+              <div class="card-footer">
+                  <a href="article.html?id=${a.id}" class="read-more">વધુ વાંચો</a>
+              </div>
             </div>
         `;
         card.addEventListener('click', (e) => {
