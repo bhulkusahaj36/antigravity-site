@@ -1028,7 +1028,8 @@ body.page-exiting {
   display: grid !important;
   grid-template-columns: 1fr !important;
   overflow: visible !important;
-  padding: 0 !important;
+  padding: 0.5rem 0 !important; /* Reset horizontal padding */
+  margin: 0 !important;        /* CRITICAL: Reset the -60px margin to fix overlap */
   gap: 1.25rem !important;
 }
 
@@ -1042,51 +1043,30 @@ body.page-exiting {
   gap: 1.5rem !important;
   padding: 1.5rem 1.75rem !important;
 
-  /* Left gold accent bar */
-  border-left: 3px solid rgba(245, 158, 11, 0.5) !important;
-  border-top: 1px solid rgba(245, 158, 11, 0.1) !important;
-  border-right: 1px solid rgba(245, 158, 11, 0.08) !important;
-  border-bottom: 1px solid rgba(245, 158, 11, 0.08) !important;
+  /* Revert to previous color */
+  background: var(--card-bg) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
 
-  background: linear-gradient(
-    105deg,
-    rgba(20, 14, 4, 0.8) 0%,
-    rgba(12, 10, 6, 0.65) 100%
-  ) !important;
+  /* Left gold accent bar */
+  border-left: 3px solid rgba(245, 158, 11, 0.45) !important;
+  border-top: 1px solid var(--card-border) !important;
+  border-right: 1px solid var(--card-border) !important;
+  border-bottom: 1px solid var(--card-border) !important;
+
   position: relative;
   overflow: hidden;
 }
 
-/* Shimmer line at top of each stacked card */
-.stacked-grid .article-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.4), transparent);
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-
-.stacked-grid .article-card:hover::after {
-  opacity: 1;
-}
-
-/* Stacked card hover: gentle left-shift lift, more prominent left bar */
+/* Stacked card hover: gentle lift, more prominent left bar */
 .stacked-grid .article-card:hover {
-  transform: translateX(4px) !important;
-  border-left-color: rgba(245, 158, 11, 0.9) !important;
+  transform: translateX(6px) !important; /* Gentle push right instead of scale */
+  border-left-color: var(--saffron-400) !important;
+  background: var(--card-hover-bg) !important;
   box-shadow:
-    -4px 0 20px rgba(212, 160, 23, 0.2),
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 0 40px rgba(212, 160, 23, 0.06) !important;
-  background: linear-gradient(
-    105deg,
-    rgba(30, 20, 4, 0.9) 0%,
-    rgba(18, 14, 6, 0.75) 100%
-  ) !important;
+    -4px 0 20px rgba(212, 160, 23, 0.15),
+    var(--shadow-card),
+    var(--shadow-glow) !important;
 }
 
 /* Content block inside stacked card takes all remaining space */
