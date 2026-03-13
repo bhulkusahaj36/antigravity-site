@@ -114,14 +114,16 @@ function buildCard(article, showExcerpt = false) {
     let excerptHtml = '';
     if (showExcerpt) {
         const excerptText = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 160) + '...' : '');
-        excerptHtml = `<p class="card-excerpt" style="margin-top: 0.4rem;">${excerptText}</p>`;
+        excerptHtml = `<p class="card-excerpt">${excerptText}</p>`;
     }
 
     el.innerHTML = `
-    <h3 class="card-title">${article.title}</h3>
-    ${excerptHtml}
-    <div class="card-footer">
-      <a href="article.html?id=${article.id}" class="read-more">વધુ વાંચો</a>
+    <div class="card-body-wrap">
+      <h3 class="card-title">${article.title}</h3>
+      ${excerptHtml}
+      <div class="card-footer">
+        <a href="article.html?id=${article.id}" class="read-more">વધુ વાંચો</a>
+      </div>
     </div>
   `;
     el.addEventListener('click', (e) => {
