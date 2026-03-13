@@ -475,57 +475,88 @@ body.page-exiting {
 
 .hero-quote {
   font-family: var(--font-gu);
-  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-size: clamp(1rem, 1.9vw, 1.2rem);
   color: var(--saffron-400);
-  background: rgba(10, 8, 4, 0.55);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(245, 158, 11, 0.25);
+  background: rgba(8, 6, 2, 0.72);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+
+  /* Layered border: top accent line + subtle gold outer border */
+  border: 1px solid rgba(245, 158, 11, 0.32);
+  border-top: 2px solid rgba(245, 158, 11, 0.75);
+
   box-shadow:
-    0 16px 48px rgba(0, 0, 0, 0.7),
-    inset 0 1px 0 rgba(255, 210, 80, 0.08);
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(212, 160, 23, 0.1),
+    inset 0 1px 0 rgba(255, 215, 80, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3);
   border-radius: var(--radius-lg);
-  padding: 1.1rem 1.6rem;
+  padding: 1.4rem 2rem;
   margin: 0 auto 2.5rem;
   width: fit-content;
-  max-width: 800px;
+  max-width: 820px;
   animation: fadeInUp 0.8s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  line-height: 1.8;
+  line-height: 1.85;
   letter-spacing: 0.03em;
+  position: relative;
+  overflow: hidden;
 
-  /* Golden 3D text effect on the whole quote block */
+  /* Golden 3D text effect */
   text-shadow:
     0 1px 0 #b8860b,
     0 2px 0 #a0740a,
     0 3px 0 #8a6208,
-    0 4px 8px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(245, 158, 11, 0.25);
+    0 4px 8px rgba(0, 0, 0, 0.7),
+    0 0 24px rgba(245, 158, 11, 0.3);
+}
+
+/* Subtle shimmer sweep across the quote box */
+.hero-quote::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 215, 80, 0.06) 50%,
+    transparent 60%
+  );
+  animation: quoteShimmer 4s 1.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes quoteShimmer {
+  0%   { left: -100%; }
+  50%  { left: 140%; }
+  100% { left: 140%; }
 }
 
 .quote-mark {
-  font-size: 1.4em;
+  font-size: 1.6em;
+  line-height: 0.8;
   color: #fde68a;
-  opacity: 0.9;
+  opacity: 0.95;
   text-shadow:
     0 1px 0 #b8860b,
     0 2px 0 #8a6208,
-    0 3px 6px rgba(0, 0, 0, 0.5),
-    0 0 18px rgba(251, 191, 36, 0.4);
+    0 3px 8px rgba(0, 0, 0, 0.6),
+    0 0 22px rgba(251, 191, 36, 0.5);
 }
 
 .quote-author {
   display: block;
-  margin-top: 0.75rem;
-  padding-top: 0.6rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.86rem;
+  margin-top: 0.85rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(245, 158, 11, 0.15);
+  font-size: 0.85rem;
   font-family: var(--font-gu-sans);
-  /* Clearly different from quote: soft pearl/silver instead of gold */
   color: #c8bfaf;
   opacity: 1;
   font-style: italic;
-  letter-spacing: 0.04em;
-  /* Subtle shadow only — no 3D, so it reads as secondary */
+  letter-spacing: 0.05em;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -998,11 +1029,95 @@ body.page-exiting {
   grid-template-columns: 1fr !important;
   overflow: visible !important;
   padding: 0 !important;
+  gap: 1.25rem !important;
 }
 
 .stacked-grid .article-card {
   width: 100% !important;
   min-width: 0 !important;
+
+  /* Premium horizontal layout for stacked cards */
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: 1.5rem !important;
+  padding: 1.5rem 1.75rem !important;
+
+  /* Left gold accent bar */
+  border-left: 3px solid rgba(245, 158, 11, 0.5) !important;
+  border-top: 1px solid rgba(245, 158, 11, 0.1) !important;
+  border-right: 1px solid rgba(245, 158, 11, 0.08) !important;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.08) !important;
+
+  background: linear-gradient(
+    105deg,
+    rgba(20, 14, 4, 0.8) 0%,
+    rgba(12, 10, 6, 0.65) 100%
+  ) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer line at top of each stacked card */
+.stacked-grid .article-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.4), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.stacked-grid .article-card:hover::after {
+  opacity: 1;
+}
+
+/* Stacked card hover: gentle left-shift lift, more prominent left bar */
+.stacked-grid .article-card:hover {
+  transform: translateX(4px) !important;
+  border-left-color: rgba(245, 158, 11, 0.9) !important;
+  box-shadow:
+    -4px 0 20px rgba(212, 160, 23, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(212, 160, 23, 0.06) !important;
+  background: linear-gradient(
+    105deg,
+    rgba(30, 20, 4, 0.9) 0%,
+    rgba(18, 14, 6, 0.75) 100%
+  ) !important;
+}
+
+/* Content block inside stacked card takes all remaining space */
+.stacked-grid .article-card .card-body-wrap {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+/* Number badge for stacked card ordering feel */
+.stacked-grid .article-card .card-top {
+  width: 100%;
+}
+
+.stacked-grid .article-card .card-title {
+  font-size: 1.2rem !important;
+  line-height: 1.35 !important;
+}
+
+.stacked-grid .article-card .card-excerpt {
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  font-size: 0.9rem !important;
+  color: rgba(226, 209, 185, 0.75) !important;
+}
+
+.stacked-grid .article-card .card-footer {
+  padding-top: 0.5rem !important;
+  margin-top: 0.25rem !important;
 }
 
 .featured-grid {
