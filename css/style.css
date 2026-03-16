@@ -478,18 +478,20 @@ body.page-exiting {
 
 .hero-quote {
   font-family: var(--font-gu);
-  background: rgba(12, 10, 6, 0.85);
+  background: rgba(12, 10, 6, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   position: relative;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(245, 158, 11, 0.05);
   border-radius: var(--radius-md);
-  padding: 1.75rem 2rem;
+  padding: 2rem;
   margin: 0 auto 2.5rem;
-  width: 90%;
-  max-width: 720px;
-  min-height: auto;
+  width: 92%;
+  max-width: 760px;
+  min-height: 160px; /* Fixed height to fit 2 lines and prevent jump */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -497,9 +499,10 @@ body.page-exiting {
   animation: fadeInUp 0.8s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   overflow: hidden;
   text-align: center;
-  transition: all 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   cursor: default;
 }
+
 
 .hero-quote::before {
   content: '';
