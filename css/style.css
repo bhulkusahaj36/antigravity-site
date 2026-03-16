@@ -701,14 +701,11 @@ body.page-exiting {
 
 .carousel-card img {
   width: 100%;
-  height: 160px;
+  height: 140px;
   object-fit: cover;
-  border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+  border-radius: var(--radius-md); /* Premium rounded edges for the image inside body */
   transition: transform 0.8s ease;
-}
-
-.carousel-card:hover img {
-  transform: scale(1.1);
+  margin: 0.75rem 0;
 }
 
 .carousel-card-body {
@@ -720,16 +717,18 @@ body.page-exiting {
 
 .carousel-card-title {
   font-family: var(--font-gu);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--saffron-400);
+  color: var(--text-white); /* High-contrast white for top hierarchy */
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
 }
 
 .carousel-card-info {
