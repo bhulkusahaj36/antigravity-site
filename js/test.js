@@ -148,9 +148,13 @@ let lastX = 0;
 let autoRotateTimer;
 
 function initArticleCarousel() {
+    console.log("Staging: Initializing Article Carousel with", ALL_ARTICLES.length, "articles");
     const wrapper = document.querySelector('.carousel-wrapper');
     const carouselEl = document.getElementById('articleCarousel');
-    if (!carouselEl || !ALL_ARTICLES || ALL_ARTICLES.length === 0) return;
+    if (!carouselEl || !ALL_ARTICLES || ALL_ARTICLES.length === 0) {
+        console.warn("Staging: Carousel init aborted. Elements missing or no articles.");
+        return;
+    }
 
     // Get top 10 articles
     const latest = getSorted(ALL_ARTICLES).slice(0, 10);
@@ -303,9 +307,13 @@ function initRotatingQuote() {
 
     const updateUI = (index) => {
         const quote = QUOTES[index];
-        textEl.textContent = quote.text;
+        // Handle both string and object formats for robustness
+        const text = typeof quote === 'string' ? quote : quote.text;
+        const author = typeof quote === 'string' ? 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ' : (quote.author || 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ');
+
+        textEl.textContent = text;
         if (authorEl) {
-            authorEl.textContent = `- ${quote.author}`;
+            authorEl.textContent = `- ${author}`;
         }
         
         // Update dots
@@ -408,15 +416,17 @@ async function loadHomeArticles() {
         if (response.ok) {
             const apiArticles = await response.json();
             ALL_ARTICLES = [...MOCK_ARTICLES, ...apiArticles]; // Merge Mock + Live
-            console.log("Articles fetched from API and merged with mocks");
+            console.log("Staging: Articles fetched and merged. Total:", ALL_ARTICLES.length);
         } else {
-            console.error("API returned error:", response.status);
-            ALL_ARTICLES = MOCK_ARTICLES; // Default to Mocks
+            console.warn("Staging: API returned", response.status, "- Falling back to MOCK_ARTICLES");
+            ALL_ARTICLES = [...MOCK_ARTICLES];
         }
     } catch (error) {
-        console.error("Fetch error, using staging mock data:", error);
-        ALL_ARTICLES = MOCK_ARTICLES; // Default to Mocks
+        console.error("Staging: Fetch failed. Error:", error.message, "- Using MOCK_ARTICLES");
+        ALL_ARTICLES = [...MOCK_ARTICLES];
     }
+
+    console.log("Staging: Final ALL_ARTICLES readiness:", !!ALL_ARTICLES, ALL_ARTICLES?.length);
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {
         renderCategoryChips(); 
@@ -426,7 +436,8 @@ async function loadHomeArticles() {
             setTimeout(window.initAvatarScrollButtons, 150);
         }
     } else {
-        document.getElementById('categoryChips').innerHTML = ''; // Clear category chips if no articles
+        console.error("Staging: No articles found in any source.");
+        document.getElementById('categoryChips').innerHTML = ''; 
     }
 }
 
