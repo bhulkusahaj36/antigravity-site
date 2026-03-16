@@ -179,7 +179,7 @@ function initRotatingQuote() {
             opacity: '0',
             filter: 'blur(10px)',
             transform: 'scale(0.98) translateY(5px)',
-            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
+            transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
         };
 
         Object.assign(textEl.style, exitStyles);
@@ -207,12 +207,12 @@ function initRotatingQuote() {
                 opacity: '1',
                 filter: 'blur(0)',
                 transform: 'scale(1) translateY(0)',
-                transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
             };
             Object.assign(textEl.style, entryFinalStyles);
             if (authorEl) Object.assign(authorEl.style, entryFinalStyles);
 
-        }, 850); 
+        }, 350); 
     }, 7000); 
 }
 
