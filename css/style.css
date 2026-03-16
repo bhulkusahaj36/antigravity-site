@@ -392,7 +392,7 @@ body.page-exiting {
   text-align: center;
   padding: 1rem 1.25rem 2rem;
   /* tightened padding to remove space below buttons */
-  max-width: 820px;
+  max-width: 1440px;
   margin: 0 auto;
   width: 100%;
 }
