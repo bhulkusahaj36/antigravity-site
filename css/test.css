@@ -445,7 +445,17 @@ body.page-exiting {
 }
 
 .hero-calligraphy {
-  display: none; /* User requested removal */
+  position: absolute !important;
+  top: 60px !important; 
+  left: 80px !important;
+  width: 500px;
+  height: auto;
+  filter: drop-shadow(0 0 50px rgba(245, 158, 11, 0.6));
+  z-index: 500 !important; 
+  pointer-events: none;
+  animation: floatCalligraphy 8s ease-in-out infinite;
+  transform-origin: top left;
+  display: block !important;
 }
 
 .hero-identity-group {
@@ -737,17 +747,15 @@ body.page-exiting {
   position: absolute;
   top: 50%;
   left: 0%;
-  transform: translateY(-50%) scale(1.1);
+  transform: translateY(-50%) scale(1.3);
   width: 100%;
   height: auto;
-  max-height: 90vh;
+  max-height: 95vh;
   object-fit: contain;
-  opacity: 0.65; /* Prominent as requested */
-  filter: brightness(1.1) contrast(1.1);
+  opacity: 0.85; /* Fully prominent as requested */
+  filter: brightness(1.1) contrast(1.2) drop-shadow(0 0 40px rgba(0,0,0,0.5));
   pointer-events: none;
-  z-index: 1;
-  mask-image: linear-gradient(to right, black 60%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
+  z-index: 10; /* Brought forward */
 }
 
 .carousel-card.active {
