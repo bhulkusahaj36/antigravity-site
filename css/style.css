@@ -489,9 +489,9 @@ body.page-exiting {
   border-radius: var(--radius-md);
   padding: 2rem;
   margin: 0 auto 2.5rem;
-  width: 92%;
-  max-width: 760px;
-  min-height: 160px; /* Fixed height to fit 2 lines and prevent jump */
+  width: 95%;
+  max-width: 1100px;
+  min-height: 140px; /* Reduced since quotes are wider/one-line now */
   display: flex;
   flex-direction: column;
   justify-content: center;
