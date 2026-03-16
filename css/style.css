@@ -484,22 +484,24 @@ body.page-exiting {
     0 30px 60px rgba(0, 0, 0, 0.6),
     0 0 40px rgba(245, 158, 11, 0.1);
     
-  border-radius: 100px; /* Pill shape for world-class look */
-  padding: 1.5rem 4rem;
+  border-radius: 100px;
+  padding: 2rem 4.5rem; /* Increased padding for better vertical balance */
   margin: 0 auto 3rem;
   width: auto;
-  min-width: 500px;
-  max-width: 95%;
+  max-width: 900px;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   text-align: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: width, height;
+  /* Harmonized transition for vertical growth effect */
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity, height;
+  overflow: hidden; /* Contains the 'rise' text animation */
   cursor: default;
   z-index: 10;
+
 }
 
 .hero-quote:hover {
@@ -546,7 +548,7 @@ body.page-exiting {
   animation: metallicShine 8s linear infinite;
   
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   letter-spacing: 0.01em;
 }
 
