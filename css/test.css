@@ -442,13 +442,13 @@ body.page-exiting {
 }
 
 .hero-calligraphy {
-  position: absolute;
-  top: 80px; 
-  left: 40px;
+  position: absolute !important;
+  top: 80px !important; 
+  left: 40px !important;
   width: 420px;
   height: auto;
   filter: drop-shadow(0 0 35px rgba(255, 179, 15, 0.6));
-  z-index: 50;
+  z-index: 500 !important; /* Above everything */
   pointer-events: none;
   animation: floatCalligraphy 8s ease-in-out infinite;
   transform-origin: top left;
@@ -472,12 +472,12 @@ body.page-exiting {
 /* Bottom centered buttons */
 .hero-actions {
   position: absolute;
-  bottom: 80px;
+  bottom: 40px; /* Lower than quote pagination */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 1.5rem;
-  z-index: 100;
+  z-index: 200;
   animation: fadeInUp 1s 0.5s ease both;
 }
 
@@ -708,10 +708,10 @@ body.page-exiting {
 
 .carousel-card {
   position: absolute;
-  width: 240px;
-  height: 340px;
+  width: 250px;
+  height: 350px;
   left: 50%;
-  margin-left: -120px;
+  margin-left: -125px;
   border-radius: 32px;
   background: rgba(30,30,35, 0.45);
   backdrop-filter: blur(25px);
