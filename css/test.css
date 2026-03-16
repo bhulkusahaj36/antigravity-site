@@ -443,30 +443,42 @@ body.page-exiting {
 
 .hero-calligraphy {
   position: absolute;
-  top: -4rem;
-  left: -2rem;
-  width: 100%;
-  max-width: 500px;
+  top: 100px; /* Below navbar */
+  left: 5%;
+  width: 380px;
   height: auto;
-  filter: drop-shadow(0 0 30px rgba(255, 179, 15, 0.7));
-  z-index: 20;
+  filter: drop-shadow(0 0 35px rgba(255, 179, 15, 0.6));
+  z-index: 50;
   pointer-events: none;
   animation: floatCalligraphy 8s ease-in-out infinite;
+  transform-origin: top left;
 }
 
 .hero-main-img {
   position: absolute;
-  top: 50%;
+  top: 45%;
   left: 50%;
-  transform: translate(-50%, -40%) scale(1.2);
-  width: 140%;
+  transform: translate(-50%, -50%) scale(1.1);
+  width: 120%;
   height: auto;
-  max-height: 90vh;
+  max-height: 85vh;
   object-fit: contain;
-  opacity: 0.25; /* Subtle background layer */
-  filter: grayscale(20%) brightness(0.8);
+  opacity: 0.15; /* Even more subtle background */
+  filter: grayscale(10%) brightness(0.6);
   pointer-events: none;
   z-index: 1;
+}
+
+/* Bottom centered buttons */
+.hero-actions {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1.5rem;
+  z-index: 100;
+  animation: fadeInUp 1s 0.5s ease both;
 }
 
 /* RIGHT STAGE: 3D Carousel & Quote */
@@ -696,10 +708,10 @@ body.page-exiting {
 
 .carousel-card {
   position: absolute;
-  width: 280px;
-  height: 380px;
+  width: 240px;
+  height: 340px;
   left: 50%;
-  margin-left: -140px;
+  margin-left: -120px;
   border-radius: 32px;
   background: rgba(30,30,35, 0.45);
   backdrop-filter: blur(25px);
