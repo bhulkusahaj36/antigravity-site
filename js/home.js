@@ -141,6 +141,82 @@ function renderArticles() {
     if (paginationEl) paginationEl.innerHTML = '';
 }
 
+// ============================================================
+// 3D ARTICLE CAROUSEL LOGIC
+// ============================================================
+let carouselIdx = 0;
+function initArticleCarousel() {
+    const carouselEl = document.getElementById('articleCarousel');
+    if (!carouselEl || !ALL_ARTICLES || ALL_ARTICLES.length === 0) return;
+
+    // Get top 10 latest articles
+    const latest = getSorted(ALL_ARTICLES).slice(0, 10);
+    
+    carouselEl.innerHTML = '';
+    latest.forEach((article, i) => {
+        const card = document.createElement('div');
+        card.className = 'carousel-card';
+        card.onclick = () => { window.location.href = `article-detail.html?id=${article.id}`; };
+
+        const topicName = getCategoryName(article.topic || article.category).split(',')[0];
+        
+        card.innerHTML = `
+            <img src="${article.image || 'images/article-placeholder.webp'}" alt="${article.title}">
+            <div class="carousel-card-body">
+                <span class="carousel-card-info">${topicName}</span>
+                <h3 class="carousel-card-title">${article.title}</h3>
+                <p class="carousel-card-excerpt">${article.excerpt || ''}</p>
+            </div>
+        `;
+        carouselEl.appendChild(card);
+    });
+
+    const updatePositions = () => {
+        const cards = carouselEl.querySelectorAll('.carousel-card');
+        const total = cards.length;
+        
+        cards.forEach((card, i) => {
+            let relIdx = (i - carouselIdx + total) % total;
+            if (relIdx > total / 2) relIdx -= total;
+
+            const absIdx = Math.abs(relIdx);
+            let opacity = 0;
+            let transform = '';
+            let zIndex = 0;
+
+            // Display logic for 5 visible cards (Center + 2 each side)
+            if (absIdx <= 2) {
+                opacity = 1 - (absIdx * 0.35);
+                zIndex = 10 - absIdx;
+                
+                const xOffset = relIdx * 260; // Spread cards horizontally
+                const zOffset = absIdx * -200; // Push back into 3D space
+                const rY = relIdx * -25;       // Curve the cards towards viewer
+                const scale = 1 - (absIdx * 0.1);
+
+                transform = `translateX(calc(-50% + ${xOffset}px)) translateZ(${zOffset}px) rotateY(${rY}deg) scale(${scale})`;
+                card.classList.toggle('active', relIdx === 0);
+            } else {
+                opacity = 0;
+                transform = `translateX(-50%) translateZ(-1000px) scale(0.5)`;
+                zIndex = 0;
+            }
+
+            card.style.opacity = opacity;
+            card.style.transform = transform;
+            card.style.zIndex = zIndex;
+            card.style.visibility = opacity > 0 ? 'visible' : 'hidden';
+            card.style.pointerEvents = absIdx === 0 ? 'auto' : 'none';
+        });
+
+        carouselIdx = (carouselIdx + 1) % total;
+    };
+
+    // Use shorter interval for more energetic feed
+    updatePositions(); // Initial position
+    setInterval(updatePositions, 6000); 
+}
+
 function initRotatingQuote() {
     const textEl = document.getElementById('quoteText');
     const authorEl = document.getElementById('quoteAuthor');
@@ -213,8 +289,9 @@ function initRotatingQuote() {
             if (authorEl) Object.assign(authorEl.style, entryFinalStyles);
 
         }, 400); 
-    }, 7000); 
+    }, 8500); // Slightly longer than carousel for independent rhythm
 }
+
 
 
 
@@ -273,6 +350,7 @@ async function loadHomeArticles() {
         renderCategoryChips(); 
         renderArticles();
         renderFeatured();
+        initArticleCarousel(); // Start the 3D Carousel
         if (window.initAvatarScrollButtons) {
             setTimeout(window.initAvatarScrollButtons, 150);
         }
