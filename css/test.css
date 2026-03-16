@@ -472,7 +472,7 @@ body.page-exiting {
 /* Bottom centered buttons */
 .hero-actions {
   position: absolute;
-  bottom: 40px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -527,7 +527,7 @@ body.page-exiting {
   border: 1px solid rgba(245, 158, 11, 0.15);
   border-bottom: 2px solid var(--saffron-500);
   position: absolute;
-  bottom: 120px;
+  bottom: 130px;
   left: 50%;
   transform: translateX(-50%);
   
@@ -690,16 +690,17 @@ body.page-exiting {
    3D ARTICLE CAROUSEL
    ============================================================ */
 .carousel-wrapper {
-  perspective: 2500px; /* Minimal distorion but clear depth */
+  perspective: 2500px;
   width: 100%;
-  height: auto;
-  padding-bottom: 250px; /* Strictly reserve space for footer zones */
+  height: 400px;
+  position: absolute;
+  top: 180px; /* Dedicated middle tier */
+  left: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  position: relative;
   overflow: visible;
-  margin-top: -2rem;
+  z-index: 50;
 }
 
 .article-carousel {
@@ -712,10 +713,10 @@ body.page-exiting {
 
 .carousel-card {
   position: absolute;
-  width: 200px;
-  height: 300px;
+  width: 210px;
+  height: 310px;
   left: 50%;
-  margin-left: -100px;
+  margin-left: -105px;
   border-radius: 32px;
   background: rgba(30,30,35, 0.45);
   backdrop-filter: blur(25px);
