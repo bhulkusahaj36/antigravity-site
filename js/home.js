@@ -158,28 +158,48 @@ function initRotatingQuote() {
     };
 
     setInterval(() => {
-        // Fade out
-        textEl.style.opacity = '0';
-        textEl.style.transform = 'translateY(10px)';
-        if (authorEl) {
-            authorEl.style.opacity = '0';
-            authorEl.style.transform = 'translateY(10px)';
-        }
+        // High-end exit animation (Fade + Blur + Slight Scale Down)
+        const exitStyles = {
+            opacity: '0',
+            filter: 'blur(10px)',
+            transform: 'scale(0.98) translateY(5px)',
+            transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
+        };
+
+        Object.assign(textEl.style, exitStyles);
+        if (authorEl) Object.assign(authorEl.style, exitStyles);
         
         setTimeout(() => {
             idx = (idx + 1) % QUOTES.length;
             updateUI(idx);
             
-            // Fade in
-            textEl.style.opacity = '1';
-            textEl.style.transform = 'translateY(0)';
-            if (authorEl) {
-                authorEl.style.opacity = '1';
-                authorEl.style.transform = 'translateY(0)';
-            }
-        }, 600);
-    }, 6000); // Changed to 6 seconds for better readability
+            // Set initial state for entry (Invisible + Blurred)
+            const entryInitialStyles = {
+                opacity: '0',
+                filter: 'blur(12px)',
+                transform: 'scale(1.02) translateY(-5px)',
+                transition: 'none'
+            };
+            Object.assign(textEl.style, entryInitialStyles);
+            if (authorEl) Object.assign(authorEl.style, entryInitialStyles);
+
+            // Trigger reflow to apply 'none' transition immediately
+            textEl.offsetHeight; 
+
+            // High-end entry animation (Fade + Unblur + Scale to Normal)
+            const entryFinalStyles = {
+                opacity: '1',
+                filter: 'blur(0)',
+                transform: 'scale(1) translateY(0)',
+                transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1)'
+            };
+            Object.assign(textEl.style, entryFinalStyles);
+            if (authorEl) Object.assign(authorEl.style, entryFinalStyles);
+
+        }, 850); // Slightly longer wait for a more deliberate feel
+    }, 7000); // 7 seconds for comfortable reading
 }
+
 
 
 function showSkeletonLoader(containerId, isAvatar = false) {
