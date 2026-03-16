@@ -161,10 +161,10 @@ function initArticleCarousel() {
         const topicName = getCategoryName(article.topic || article.category).split(',')[0];
         
         card.innerHTML = `
-            <img src="${article.image || 'images/article-placeholder.webp'}" alt="${article.title}">
             <div class="carousel-card-body">
-                <span class="carousel-card-info">${topicName}</span>
                 <h3 class="carousel-card-title">${article.title}</h3>
+                <span class="carousel-card-info">${topicName}</span>
+                <img src="${article.image || 'images/article-placeholder.webp'}" alt="${article.title}">
                 <p class="carousel-card-excerpt">${article.excerpt || ''}</p>
             </div>
         `;
