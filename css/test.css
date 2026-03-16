@@ -424,7 +424,7 @@ body.page-exiting {
   position: relative;
   z-index: 5;
   align-items: stretch;
-  gap: 12rem; /* Massive gap to isolate text from carousel */
+  gap: 15rem; /* Ultra Gutter for absolute separation */
 }
 
 /* LEFT WING: Identity */
@@ -433,7 +433,7 @@ body.page-exiting {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 100px 0 60px 40px; 
+  padding: 120px 0 60px 40px; 
   position: relative;
   z-index: 20;
 }
@@ -735,18 +735,19 @@ body.page-exiting {
 
 .hero-main-img {
   position: absolute;
-  bottom: 0px;
-  left: -50px; /* Shifted to be more 'behind' the text area */
-  width: 130%;
+  top: 50%;
+  left: 0%;
+  transform: translateY(-50%) scale(1.1);
+  width: 100%;
   height: auto;
-  max-height: 95vh;
+  max-height: 90vh;
   object-fit: contain;
-  opacity: 0.45; /* Brought to front (much clearer) */
-  filter: grayscale(0%) brightness(0.9) contrast(1.1); /* Vibrant exposure */
+  opacity: 0.65; /* Prominent as requested */
+  filter: brightness(1.1) contrast(1.1);
   pointer-events: none;
   z-index: 1;
-  transform: scale(1.1);
-  transform-origin: bottom left;
+  mask-image: linear-gradient(to right, black 60%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 60%, transparent 100%);
 }
 
 .carousel-card.active {

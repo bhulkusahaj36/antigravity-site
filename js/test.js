@@ -172,12 +172,17 @@ function initArticleCarousel() {
         };
 
         const topicName = getCategoryName(article.topic || article.category).split(',')[0];
+        const excerpt = (article.excerpt || '').substring(0, 60) + '...';
+        
         card.innerHTML = `
             <div class="carousel-card-body">
-                <h3 class="carousel-card-title">${article.title}</h3>
+                <div class="card-accent"></div>
                 <span class="carousel-card-info">${topicName}</span>
-                <img src="${article.image || 'images/article-placeholder.webp'}" alt="${article.title}">
-                <p class="carousel-card-excerpt">${article.excerpt || ''}</p>
+                <h3 class="carousel-card-title">${article.title}</h3>
+                <p class="carousel-card-excerpt">${excerpt}</p>
+                <div class="card-footer">
+                    <span class="read-prompt">Read Story →</span>
+                </div>
             </div>
         `;
         carouselEl.appendChild(card);
