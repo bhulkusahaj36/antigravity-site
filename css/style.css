@@ -728,47 +728,50 @@ body.page-exiting {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.6rem;
   font-family: var(--font-en);
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0.75rem 2rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid transparent;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.75rem 2.2rem;
+  border-radius: 100px; /* Unified Pill Shape */
+  border: 1px solid rgba(245, 158, 11, 0.2);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   white-space: nowrap;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, var(--saffron-400), var(--saffron-600));
   color: #030406;
   border: none;
-  font-weight: 700;
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.2);
+  box-shadow: 0 10px 25px rgba(245, 158, 11, 0.2);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(245, 158, 11, 0.45);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
 }
 
 .btn-outline {
-  background: rgba(245, 158, 11, 0.03);
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--saffron-400);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  backdrop-filter: blur(8px);
+  border-bottom: 2px solid var(--saffron-500); /* Accent glint */
 }
 
 .btn-outline:hover {
-  background: rgba(245, 158, 11, 0.12);
-  border-color: var(--saffron-400);
-  color: var(--saffron-300);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(245, 158, 11, 0.4);
   transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
+
 
 /* ============================================================
    PAGE HERO (inner pages)
@@ -1193,21 +1196,27 @@ body.page-exiting {
 }
 
 .article-card {
-  background: var(--card-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.03) 0%, 
+    rgba(245, 158, 11, 0.02) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+  border-bottom: 2px solid var(--saffron-600); /* Accent glint */
+  border-radius: var(--radius-lg);
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
-  transition: all var(--transition);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-inner), 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
+
 
 .article-card::before {
   content: '';
@@ -1305,22 +1314,28 @@ body.page-exiting {
 
 .read-more {
   font-family: var(--font-gu-sans);
-  font-size: 0.88rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--saffron-400);
-  padding: 0.4rem 1rem;
-  border: 1px solid rgba(251, 191, 36, 0.25);
-  border-radius: var(--radius-pill);
-  background: rgba(251, 191, 36, 0.05);
-  transition: all var(--transition);
+  padding: 0.5rem 1.25rem;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-bottom: 2px solid var(--saffron-500);
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .read-more:hover {
-  background: var(--saffron-500);
-  border-color: var(--saffron-500);
-  color: var(--bg-900);
-  box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
+
 
 /* ============================================================
    CATEGORY CHIPS (home highlights) — kept for fallback
@@ -1334,25 +1349,37 @@ body.page-exiting {
 
 .category-chip {
   font-family: var(--font-gu-sans);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  border-radius: 999px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
+  padding: 0.6rem 1.5rem;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(245, 158, 11, 0.15);
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
+  border-bottom: 2px solid transparent;
 }
 
-.category-chip:hover,
-.category-chip.active {
-  background: rgba(212, 160, 23, 0.1);
-  border-color: var(--gold-500);
-  color: var(--gold-400);
-  transform: translateY(-2px);
+.category-chip:hover {
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: var(--saffron-300);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
+
+.category-chip.active {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: var(--gold-500);
+  border-bottom-color: var(--saffron-500);
+  color: var(--gold-400);
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+}
+
 
 /* ============================================================
    AVATAR CARD ROW — used for Featured (prasang) and Categories
