@@ -472,12 +472,12 @@ body.page-exiting {
 /* Bottom centered buttons */
 .hero-actions {
   position: absolute;
-  bottom: 40px; /* Lower than quote pagination */
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   gap: 1.5rem;
-  z-index: 200;
+  z-index: 500; /* Above quote box */
   animation: fadeInUp 1s 0.5s ease both;
 }
 
@@ -526,7 +526,10 @@ body.page-exiting {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(245, 158, 11, 0.15);
   border-bottom: 2px solid var(--saffron-500);
-  position: relative;
+  position: absolute;
+  bottom: 140px;
+  left: 50%;
+  transform: translateX(-50%);
   
   box-shadow: 
     0 30px 60px rgba(0, 0, 0, 0.6),
@@ -708,10 +711,10 @@ body.page-exiting {
 
 .carousel-card {
   position: absolute;
-  width: 250px;
-  height: 350px;
+  width: 260px;
+  height: 360px;
   left: 50%;
-  margin-left: -125px;
+  margin-left: -130px;
   border-radius: 32px;
   background: rgba(30,30,35, 0.45);
   backdrop-filter: blur(25px);
