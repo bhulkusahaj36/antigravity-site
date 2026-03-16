@@ -144,22 +144,39 @@ function renderArticles() {
 // ============================================================
 // 3D ARTICLE CAROUSEL LOGIC
 // ============================================================
-let carouselIdx = 0;
+// ============================================================
+// 3D "ZENITH ARC" CAROUSEL LOGIC
+// ============================================================
+let rotationAngle = 0; // Current scroll position in degrees
+let targetAngle = 0;   // Target snap position
+let isDragging = false;
+let startX = 0;
+let currentX = 0;
+let velocity = 0;
+let lastX = 0;
+let autoRotateTimer;
+
 function initArticleCarousel() {
+    const wrapper = document.querySelector('.carousel-wrapper');
     const carouselEl = document.getElementById('articleCarousel');
     if (!carouselEl || !ALL_ARTICLES || ALL_ARTICLES.length === 0) return;
 
-    // Get top 10 latest articles
+    // Get top 10 articles
     const latest = getSorted(ALL_ARTICLES).slice(0, 10);
+    const total = latest.length;
+    const angleStep = 360 / total; // Space between cards on the circle
     
     carouselEl.innerHTML = '';
     latest.forEach((article, i) => {
         const card = document.createElement('div');
         card.className = 'carousel-card';
-        card.onclick = () => { window.location.href = `article-detail.html?id=${article.id}`; };
+        card.onclick = () => { 
+            if (Math.abs(velocity) < 0.5) { // Prevent click while fast-scrolling
+                window.location.href = `article-detail.html?id=${article.id}`; 
+            }
+        };
 
         const topicName = getCategoryName(article.topic || article.category).split(',')[0];
-        
         card.innerHTML = `
             <div class="carousel-card-body">
                 <h3 class="carousel-card-title">${article.title}</h3>
@@ -173,48 +190,109 @@ function initArticleCarousel() {
 
     const updatePositions = () => {
         const cards = carouselEl.querySelectorAll('.carousel-card');
-        const total = cards.length;
-        
+        const radius = window.innerWidth < 1100 ? 500 : 850; // Radius of the arc
+
         cards.forEach((card, i) => {
-            let relIdx = (i - carouselIdx + total) % total;
-            if (relIdx > total / 2) relIdx -= total;
+            // Calculate angle on the circle based on current rotation
+            const angle = (i * angleStep) + rotationAngle;
+            const rad = angle * (Math.PI / 180);
 
-            const absIdx = Math.abs(relIdx);
-            let opacity = 0;
-            let transform = '';
-            let zIndex = 0;
+            // Trigonometric positioning for the ARC
+            const x = Math.sin(rad) * radius;
+            const z = Math.cos(rad) * radius - radius; // Shift Z so front card is at 0
+            const rotY = angle;
 
-            // Display logic for 5 visible cards (Center + 2 each side)
-            if (absIdx <= 2) {
-                opacity = 1 - (absIdx * 0.35);
-                zIndex = 10 - absIdx;
-                
-                const xOffset = relIdx * 260; // Spread cards horizontally
-                const zOffset = absIdx * -200; // Push back into 3D space
-                const rY = relIdx * -25;       // Curve the cards towards viewer
-                const scale = 1 - (absIdx * 0.1);
+            // Visibility/Depth logic
+            // We only show cards facing the viewer (approx -90 to 90 degrees in front)
+            let normalizedAngle = angle % 360;
+            if (normalizedAngle < 0) normalizedAngle += 360;
+            
+            const isFront = normalizedAngle < 75 || normalizedAngle > 285;
+            const opacity = isFront ? 1 : 0;
+            const scale = isFront ? 1 : 0.5;
 
-                transform = `translateX(calc(-50% + ${xOffset}px)) translateZ(${zOffset}px) rotateY(${rY}deg) scale(${scale})`;
-                card.classList.toggle('active', relIdx === 0);
-            } else {
-                opacity = 0;
-                transform = `translateX(-50%) translateZ(-1000px) scale(0.5)`;
-                zIndex = 0;
-            }
-
+            card.style.transform = `translateX(-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
             card.style.opacity = opacity;
-            card.style.transform = transform;
-            card.style.zIndex = zIndex;
-            card.style.visibility = opacity > 0 ? 'visible' : 'hidden';
-            card.style.pointerEvents = absIdx === 0 ? 'auto' : 'none';
+            card.style.zIndex = Math.round(z + 1000);
+            card.style.visibility = opacity > 0.1 ? 'visible' : 'hidden';
+            card.classList.toggle('active', isFront && Math.abs(x) < 100);
         });
-
-        carouselIdx = (carouselIdx + 1) % total;
     };
 
-    // Use shorter interval for more energetic feed
-    updatePositions(); // Initial position
-    setInterval(updatePositions, 6000); 
+    // Interaction Listeners
+    const handleStart = (e) => {
+        isDragging = true;
+        startX = e.pageX || e.touches[0].pageX;
+        lastX = startX;
+        velocity = 0;
+        clearInterval(autoRotateTimer);
+        carouselEl.style.transition = 'none';
+    };
+
+    const handleMove = (e) => {
+        if (!isDragging) return;
+        currentX = e.pageX || e.touches[0].pageX;
+        const delta = currentX - lastX;
+        rotationAngle += delta * 0.15; // Sensitivity
+        velocity = delta * 0.15;
+        lastX = currentX;
+        updatePositions();
+    };
+
+    const handleEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        // Start "auto-rotation" after delay
+        startAutoRotate();
+        
+        // Dynamic snap logic (closest card to center)
+        const snapTarget = Math.round(rotationAngle / angleStep) * angleStep;
+        animateToAngle(snapTarget);
+    };
+
+    const animateToAngle = (target) => {
+        const start = rotationAngle;
+        const distance = target - start;
+        let startTime = null;
+
+        const animation = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const progress = Math.min((timestamp - startTime) / 600, 1);
+            const ease = 1 - Math.pow(1 - progress, 4); // Quart Ease-Out
+
+            rotationAngle = start + (distance * ease);
+            updatePositions();
+
+            if (progress < 1) {
+                requestAnimationFrame(animation);
+            }
+        };
+        requestAnimationFrame(animation);
+    };
+
+    const startAutoRotate = () => {
+        clearInterval(autoRotateTimer);
+        autoRotateTimer = setInterval(() => {
+            if (!isDragging) {
+                targetAngle -= angleStep;
+                animateToAngle(targetAngle);
+            }
+        }, 6000);
+    };
+
+    // Events
+    wrapper.addEventListener('mousedown', handleStart);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleEnd);
+    
+    wrapper.addEventListener('touchstart', handleStart, { passive: true });
+    window.addEventListener('touchmove', handleMove, { passive: true });
+    window.addEventListener('touchend', handleEnd);
+
+    // Initial render
+    updatePositions();
+    startAutoRotate();
 }
 
 function initRotatingQuote() {
