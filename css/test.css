@@ -419,21 +419,21 @@ body.page-exiting {
   display: flex;
   width: 96%;
   margin: 0 auto;
-  max-width: 1850px;
-  height: 85vh;
+  max-width: 1900px;
+  height: 90vh;
   position: relative;
   z-index: 5;
   align-items: stretch;
-  gap: 8rem; /* Huge separation to prevent overlap */
+  gap: 12rem; /* Massive gap to isolate text from carousel */
 }
 
 /* LEFT WING: Identity */
 .hero-sidebar {
-  width: 38%;
+  width: 35%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 140px 0 40px 60px; 
+  padding: 100px 0 60px 40px; 
   position: relative;
   z-index: 20;
 }
@@ -445,16 +445,7 @@ body.page-exiting {
 }
 
 .hero-calligraphy {
-  position: absolute !important;
-  top: 40px !important; 
-  left: 60px !important;
-  width: 320px; /* Smaller to clear title */
-  height: auto;
-  filter: drop-shadow(0 0 45px rgba(255, 179, 15, 0.75));
-  z-index: 500 !important; 
-  pointer-events: none;
-  animation: floatCalligraphy 8s ease-in-out infinite;
-  transform-origin: top left;
+  display: none; /* User requested removal */
 }
 
 .hero-identity-group {
@@ -464,7 +455,7 @@ body.page-exiting {
 
 .hero-title-en {
   font-family: 'Playfair Display', serif;
-  font-size: 4.2rem;
+  font-size: 4.5rem;
   font-weight: 700;
   color: #fff;
   line-height: 1.05;
@@ -473,7 +464,7 @@ body.page-exiting {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  max-width: 600px;
+  max-width: 650px;
 }
 
 .hero-subtitle-en {
@@ -493,7 +484,7 @@ body.page-exiting {
 
 /* RIGHT WING: Exploration */
 .hero-stage {
-  width: 62%;
+  width: 65%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -745,16 +736,16 @@ body.page-exiting {
 .hero-main-img {
   position: absolute;
   bottom: 0px;
-  left: -100px;
-  width: 140%;
+  left: -50px; /* Shifted to be more 'behind' the text area */
+  width: 130%;
   height: auto;
   max-height: 95vh;
   object-fit: contain;
-  opacity: 0.1; 
-  filter: grayscale(10%) brightness(0.6);
+  opacity: 0.45; /* Brought to front (much clearer) */
+  filter: grayscale(0%) brightness(0.9) contrast(1.1); /* Vibrant exposure */
   pointer-events: none;
   z-index: 1;
-  transform: scale(1.1) translateX(-5%);
+  transform: scale(1.1);
   transform-origin: bottom left;
 }
 
