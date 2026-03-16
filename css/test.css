@@ -417,23 +417,23 @@ body.page-exiting {
 
 .hero-container {
   display: flex;
-  width: 94%;
+  width: 96%;
   margin: 0 auto;
-  max-width: 1800px;
+  max-width: 1850px;
   height: 85vh;
   position: relative;
   z-index: 5;
   align-items: stretch;
-  gap: 4rem;
+  gap: 8rem; /* Huge separation to prevent overlap */
 }
 
 /* LEFT WING: Identity */
 .hero-sidebar {
-  width: 42%;
+  width: 38%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 100px 0 40px 80px; /* Gutter alignment */
+  padding: 140px 0 40px 60px; 
   position: relative;
   z-index: 20;
 }
@@ -446,19 +446,19 @@ body.page-exiting {
 
 .hero-calligraphy {
   position: absolute !important;
-  top: 80px !important; 
-  left: 40px !important;
-  width: 480px;
+  top: 40px !important; 
+  left: 60px !important;
+  width: 320px; /* Smaller to clear title */
   height: auto;
   filter: drop-shadow(0 0 45px rgba(255, 179, 15, 0.75));
-  z-index: 500 !important; /* Above everything */
+  z-index: 500 !important; 
   pointer-events: none;
   animation: floatCalligraphy 8s ease-in-out infinite;
   transform-origin: top left;
 }
 
 .hero-identity-group {
-  margin-top: 40px;
+  margin-top: 20px;
   text-align: left;
 }
 
@@ -493,11 +493,11 @@ body.page-exiting {
 
 /* RIGHT WING: Exploration */
 .hero-stage {
-  width: 58%;
+  width: 62%;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Vertical Center Carousel */
+  justify-content: center; 
   align-items: center;
 }
 
@@ -529,9 +529,9 @@ body.page-exiting {
 .hero-quote {
   position: absolute;
   bottom: 40px;
-  right: 0;
+  right: 40px; /* Aligned within stage margin */
   width: 85%;
-  max-width: 650px;
+  max-width: 600px;
   background: rgba(15, 15, 20, 0.4);
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
@@ -740,6 +740,22 @@ body.page-exiting {
   background: linear-gradient(to bottom, rgba(245, 158, 11, 0.15), transparent);
   pointer-events: none;
   z-index: 1;
+}
+
+.hero-main-img {
+  position: absolute;
+  bottom: 0px;
+  left: -100px;
+  width: 140%;
+  height: auto;
+  max-height: 95vh;
+  object-fit: contain;
+  opacity: 0.1; 
+  filter: grayscale(10%) brightness(0.6);
+  pointer-events: none;
+  z-index: 1;
+  transform: scale(1.1) translateX(-5%);
+  transform-origin: bottom left;
 }
 
 .carousel-card.active {
