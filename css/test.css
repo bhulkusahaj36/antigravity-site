@@ -445,9 +445,9 @@ body.page-exiting {
   position: absolute !important;
   top: 80px !important; 
   left: 40px !important;
-  width: 420px;
+  width: 480px;
   height: auto;
-  filter: drop-shadow(0 0 35px rgba(255, 179, 15, 0.6));
+  filter: drop-shadow(0 0 45px rgba(255, 179, 15, 0.75));
   z-index: 500 !important; /* Above everything */
   pointer-events: none;
   animation: floatCalligraphy 8s ease-in-out infinite;
@@ -472,7 +472,7 @@ body.page-exiting {
 /* Bottom centered buttons */
 .hero-actions {
   position: absolute;
-  bottom: 50px;
+  bottom: 55px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -527,7 +527,7 @@ body.page-exiting {
   border: 1px solid rgba(245, 158, 11, 0.15);
   border-bottom: 2px solid var(--saffron-500);
   position: absolute;
-  bottom: 140px;
+  bottom: 125px;
   left: 50%;
   transform: translateX(-50%);
   
