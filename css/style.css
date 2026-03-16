@@ -392,9 +392,9 @@ body.page-exiting {
   text-align: center;
   padding: 1rem 1.25rem 2rem;
   /* tightened padding to remove space below buttons */
-  max-width: 1440px;
+  max-width: 100%;
   margin: 0 auto;
-  width: 100%;
+  width: 98%;
 }
 
 .hero-eyebrow {
@@ -490,8 +490,8 @@ body.page-exiting {
   padding: 2rem;
   margin: 0 auto 2.5rem;
   width: 95%;
-  max-width: 1350px;
-  min-height: 130px; /* Further refined for ultra-wide look */
+  max-width: 1550px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -531,8 +531,8 @@ body.page-exiting {
 
 #quoteText {
   display: inline-block;
-  font-size: clamp(1rem, 2.2vw, 1.35rem);
-  line-height: 1.5;
+  font-size: clamp(0.95rem, 1.8vw, 1.25rem);
+  line-height: 1.4;
   font-weight: 700;
   color: #fbbf24;
   text-shadow: 
@@ -592,7 +592,7 @@ body.page-exiting {
   padding-top: 0.75rem;
   border-top: 1px solid rgba(245, 158, 11, 0.1);
   width: 100%;
-  max-width: 280px;
+  max-width: 450px;
   margin-left: auto;
   margin-right: auto;
   font-size: 0.85rem;
