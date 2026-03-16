@@ -443,9 +443,9 @@ body.page-exiting {
 
 .hero-calligraphy {
   position: absolute;
-  top: 100px; /* Below navbar */
-  left: 5%;
-  width: 380px;
+  top: 80px; 
+  left: 40px;
+  width: 420px;
   height: auto;
   filter: drop-shadow(0 0 35px rgba(255, 179, 15, 0.6));
   z-index: 50;
