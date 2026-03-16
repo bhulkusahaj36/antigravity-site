@@ -123,23 +123,6 @@ function renderCategoryChips() {
     });
 }
 
-function renderArticles() {
-    const grid = document.getElementById('articlesGrid');
-    if (!grid) return;
-    // Keep only top 5 latest
-    const sorted = getSorted(ALL_ARTICLES).slice(0, 5);
-
-    grid.innerHTML = '';
-    sorted.forEach((a, i) => {
-        const card = buildCard(a);
-        card.style.animationDelay = `${i * 0.07}s`;
-        grid.appendChild(card);
-    });
-
-    // Clear pagination for home page latest section
-    const paginationEl = document.getElementById('pagination');
-    if (paginationEl) paginationEl.innerHTML = '';
-}
 
 // ============================================================
 // 3D ARTICLE CAROUSEL LOGIC
@@ -426,15 +409,12 @@ async function loadHomeArticles() {
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {
         renderCategoryChips(); 
-        renderArticles();
         renderFeatured();
         initArticleCarousel(); // Start the 3D Carousel
         if (window.initAvatarScrollButtons) {
             setTimeout(window.initAvatarScrollButtons, 150);
         }
     } else {
-        const grid = document.getElementById('articlesGrid');
-        if (grid) grid.innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">કોઈ લેખ મળી શક્યા નથી.</p>';
         document.getElementById('categoryChips').innerHTML = ''; // Clear category chips if no articles
     }
 }
