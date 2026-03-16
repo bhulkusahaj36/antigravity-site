@@ -144,18 +144,34 @@ function renderArticles() {
 function initRotatingQuote() {
     const textEl = document.getElementById('quoteText');
     const authorEl = document.getElementById('quoteAuthor');
+    const paginationEl = document.getElementById('quotePagination');
     if (!textEl || !QUOTES || QUOTES.length === 0) return;
     
     let idx = 0;
     
-    // Set initial quote if needed (it's already set in HTML, but this ensures consistency)
+    // Initialize Pagination Dots
+    if (paginationEl) {
+        paginationEl.innerHTML = QUOTES.map(() => '<span class="dot"></span>').join('');
+    }
+
     const updateUI = (index) => {
         const quote = QUOTES[index];
         textEl.textContent = quote.text;
         if (authorEl) {
             authorEl.textContent = `- ${quote.author}`;
         }
+        
+        // Update dots
+        if (paginationEl) {
+            const dots = paginationEl.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
     };
+
+    // Set initial state
+    updateUI(0);
 
     setInterval(() => {
         // High-end exit animation (Fade + Blur + Slight Scale Down)
@@ -183,7 +199,7 @@ function initRotatingQuote() {
             Object.assign(textEl.style, entryInitialStyles);
             if (authorEl) Object.assign(authorEl.style, entryInitialStyles);
 
-            // Trigger reflow to apply 'none' transition immediately
+            // Trigger reflow
             textEl.offsetHeight; 
 
             // High-end entry animation (Fade + Unblur + Scale to Normal)
@@ -191,14 +207,15 @@ function initRotatingQuote() {
                 opacity: '1',
                 filter: 'blur(0)',
                 transform: 'scale(1) translateY(0)',
-                transition: 'all 1s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1)'
             };
             Object.assign(textEl.style, entryFinalStyles);
             if (authorEl) Object.assign(authorEl.style, entryFinalStyles);
 
-        }, 850); // Slightly longer wait for a more deliberate feel
-    }, 7000); // 7 seconds for comfortable reading
+        }, 850); 
+    }, 7000); 
 }
+
 
 
 
