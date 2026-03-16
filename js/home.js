@@ -149,7 +149,8 @@ function initRotatingQuote() {
         el.style.opacity = '0';
         setTimeout(() => {
             idx = (idx + 1) % QUOTES.length;
-            el.textContent = QUOTES[idx];
+            const q = QUOTES[idx];
+            el.textContent = typeof q === 'string' ? q : q.text;
             el.style.opacity = '1';
         }, 400);
     }, 4000);
