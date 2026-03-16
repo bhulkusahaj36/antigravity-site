@@ -194,11 +194,11 @@ function initArticleCarousel() {
             let angleInDegrees = (i * step) + (rotationAngle) - ( (total-1) * step / 2);
             const rad = angleInDegrees * (Math.PI / 180);
 
-            // Split Layout positions (Shifted Right)
-            const x = Math.sin(rad) * radius * 0.85 + 150; // Stronger right shift
+            // Rock-Solid Split positions (Centered in container)
+            const x = Math.sin(rad) * radius * 0.9; 
             const z = Math.cos(rad) * radius - radius; 
             const rotY = angleInDegrees * 0.3; 
-            const y = Math.abs(x) * 0.02 - 40; 
+            const y = Math.abs(x) * 0.04; 
 
             // Depth Culling
             const absAngle = Math.abs(angleInDegrees);

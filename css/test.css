@@ -417,22 +417,23 @@ body.page-exiting {
 
 .hero-container {
   display: flex;
-  width: 96%;
+  width: 94%;
   margin: 0 auto;
-  max-width: 1700px;
+  max-width: 1800px;
   height: 85vh;
   position: relative;
   z-index: 5;
   align-items: stretch;
+  gap: 4rem;
 }
 
-/* LEFT WING: Branding & Identity (40%) */
+/* LEFT WING: Identity */
 .hero-sidebar {
-  width: 40%;
+  width: 42%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 60px 0;
+  padding: 100px 0 40px 80px; /* Gutter alignment */
   position: relative;
   z-index: 20;
 }
@@ -457,71 +458,46 @@ body.page-exiting {
 }
 
 .hero-identity-group {
-  margin-top: 120px;
+  margin-top: 40px;
   text-align: left;
 }
 
 .hero-title-en {
   font-family: 'Playfair Display', serif;
-  font-size: 3.8rem;
+  font-size: 4.2rem;
   font-weight: 700;
   color: #fff;
-  line-height: 1.1;
+  line-height: 1.05;
   margin-bottom: 2rem;
   background: linear-gradient(135deg, #fff 0%, #f59e0b 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  max-width: 600px;
 }
 
 .hero-subtitle-en {
   font-family: 'DM Sans', sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   color: rgba(255,255,255,0.7);
   line-height: 1.6;
-  max-width: 450px;
+  max-width: 500px;
 }
 
 .hero-actions {
   display: flex;
   gap: 1.5rem;
-  margin-bottom: 20px;
-}
-
-.hero-main-img {
-  position: absolute;
-  bottom: 0px;
-  left: -100px;
-  width: 130%;
-  height: auto;
-  max-height: 90vh;
-  object-fit: contain;
-  opacity: 0.12; 
-  filter: grayscale(10%) brightness(0.6);
-  pointer-events: none;
-  z-index: 1;
-  transform: scale(1.2) translateX(-10%);
-  transform-origin: bottom left;
-  opacity: 0.1;
-}
-
-/* Bottom centered buttons */
-.hero-actions {
-  display: flex;
-  gap: 1.5rem;
-  margin-top: auto;
-  margin-left: 40px;
-  z-index: 500; /* Above quote box */
+  z-index: 500;
   animation: fadeInUp 1s 0.5s ease both;
 }
 
-/* RIGHT WING: Content (60%) */
+/* RIGHT WING: Exploration */
 .hero-stage {
-  width: 60%;
+  width: 58%;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* Vertical Center Carousel */
   align-items: center;
 }
 
