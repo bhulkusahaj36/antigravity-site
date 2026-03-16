@@ -1470,75 +1470,33 @@ body.page-exiting {
   width: 154px;
   height: 154px;
   border-radius: 50%;
-  background: rgba(12, 10, 6, 0.4);
+  background: linear-gradient(
+    180deg, 
+    rgba(255, 255, 255, 0.03) 0%, 
+    rgba(245, 158, 11, 0.05) 100%
+  );
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  padding: 8px; /* Safe space between double rings */
-  
-  /* Metallic Gold Outer Ring */
-  border: 1px solid transparent;
-  background: 
-    linear-gradient(rgba(12, 10, 6, 0.6), rgba(12, 10, 6, 0.6)) padding-box,
-    linear-gradient(135deg, #FCD34D 0%, #D4AF37 40%, #AA7222 60%, #F59E0B 100%) border-box;
-    
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-bottom: 3.5px solid var(--saffron-500); /* Consistent bottom glint */
+  padding: 8px; /* Internal breathing room */
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8);
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   transform: translateZ(0);
 }
 
-/* Metallic Gold Inner Ring */
-.avatar-img-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 6px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  background: 
-    transparent padding-box,
-    linear-gradient(-45deg, rgba(252, 211, 77, 0.3), rgba(170, 114, 34, 0.1)) border-box;
-  pointer-events: none;
-  transition: all 0.7s ease;
-  z-index: 2;
-}
-
-/* Bottom Decorative Rose Cluster */
-.avatar-img-wrap::after {
-  content: '❦'; 
-  position: absolute;
-  bottom: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.2rem;
-  color: #e11d48;
-  
-  /* Complex lighting for a 3D "Velvet Rose" feel */
-  text-shadow: 
-    0 4px 15px rgba(0, 0, 0, 1),
-    0 0 25px rgba(225, 29, 72, 0.5);
-  filter: drop-shadow(0 0 4px rgba(253, 230, 138, 0.5));
-  
-  z-index: 10;
-  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
-}
-
 .avatar-card:hover .avatar-img-wrap {
-  transform: translateY(-10px) rotate(2deg); /* Artistic slight tilt */
-  border-color: transparent;
-  box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.9),
-    0 0 40px rgba(245, 158, 11, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
+  transform: translateY(-5px) scale(1.05);
 }
 
-.avatar-card:hover .avatar-img-wrap::after {
-  transform: translateX(-50%) translateY(3px) scale(1.25);
-  color: #fb7185;
-}
 
 
 
