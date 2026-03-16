@@ -497,13 +497,16 @@ body.page-exiting {
   padding: 1.5rem 4rem;
   margin: 0 auto 3rem;
   width: auto;
+  min-width: 500px;
+  max-width: 95%;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
   text-align: center;
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: width, height;
   cursor: default;
   z-index: 10;
 }
