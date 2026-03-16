@@ -142,18 +142,45 @@ function renderArticles() {
 }
 
 function initRotatingQuote() {
-    const el = document.getElementById('quoteText');
-    if (!el) return;
+    const textEl = document.getElementById('quoteText');
+    const authorEl = document.getElementById('quoteAuthor');
+    if (!textEl || !QUOTES || QUOTES.length === 0) return;
+    
     let idx = 0;
+    
+    // Set initial quote if needed (it's already set in HTML, but this ensures consistency)
+    const updateUI = (index) => {
+        const quote = QUOTES[index];
+        textEl.textContent = quote.text;
+        if (authorEl) {
+            authorEl.textContent = `- ${quote.author}`;
+        }
+    };
+
     setInterval(() => {
-        el.style.opacity = '0';
+        // Fade out
+        textEl.style.opacity = '0';
+        textEl.style.transform = 'translateY(10px)';
+        if (authorEl) {
+            authorEl.style.opacity = '0';
+            authorEl.style.transform = 'translateY(10px)';
+        }
+        
         setTimeout(() => {
             idx = (idx + 1) % QUOTES.length;
-            el.textContent = QUOTES[idx];
-            el.style.opacity = '1';
-        }, 400);
-    }, 4000);
+            updateUI(idx);
+            
+            // Fade in
+            textEl.style.opacity = '1';
+            textEl.style.transform = 'translateY(0)';
+            if (authorEl) {
+                authorEl.style.opacity = '1';
+                authorEl.style.transform = 'translateY(0)';
+            }
+        }, 600);
+    }, 6000); // Changed to 6 seconds for better readability
 }
+
 
 function showSkeletonLoader(containerId, isAvatar = false) {
     const container = document.getElementById(containerId);
