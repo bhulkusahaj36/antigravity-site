@@ -44,28 +44,45 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">
-                <img src="images/right-main.webp" alt="" class="hero-top-img" />
-                <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy" />
-                <span class="sr-only">હરિપ્રબોધમ કથામૃત</span>
-            </h1>
-            <div class="hero-quote">
-                <div class="quote-main">
-                    <span class="quote-mark open">&ldquo;</span>
-                    <span id="quoteText">હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
-                    <span class="quote-mark close">&rdquo;</span>
+        <div class="container hero-container">
+            <!-- Sidebar: Branding & Mobile-Adaptive Actions -->
+            <div class="hero-sidebar">
+                <div class="hero-branding">
+                    <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy" />
+                    <img src="images/right-main.webp" alt="" class="hero-main-img" />
                 </div>
-                <div id="quoteAuthor" class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</div>
-                <div class="quote-pagination" id="quotePagination"></div>
+                
+                <div class="hero-actions desktop-only">
+                    <a href="#articles" class="btn btn-primary">Read More</a>
+                    <a href="search.html" class="btn btn-outline">Search</a>
+                </div>
             </div>
 
+            <!-- Stage: The 3D Carousel and Quote Box -->
+            <div class="hero-stage">
+                <div class="carousel-wrapper">
+                    <div id="articleCarousel" class="article-carousel">
+                        <!-- Articles injected by home.js -->
+                    </div>
+                </div>
 
-            <div class="hero-actions">
-                <a href="#articles" class="btn btn-primary">Read More</a>
-                <a href="search.html" class="btn btn-outline">Search</a>
+                <div class="hero-quote">
+                    <div class="quote-main">
+                        <span class="quote-mark open">&ldquo;</span>
+                        <span id="quoteText">કથાવર્તા જ જીવન છે.</span>
+                        <span class="quote-mark close">&rdquo;</span>
+                    </div>
+                    <div id="quoteAuthor" class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</div>
+                    <div class="quote-pagination" id="quotePagination"></div>
+                </div>
+
+                <div class="hero-actions mobile-only">
+                    <a href="#articles" class="btn btn-primary">Read More</a>
+                    <a href="search.html" class="btn btn-outline">Search</a>
+                </div>
             </div>
         </div>
+
     </section>
 
     <!-- LATEST ARTICLES -->
