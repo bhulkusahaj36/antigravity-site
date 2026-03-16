@@ -185,8 +185,8 @@ function initArticleCarousel() {
 
     const updatePositions = () => {
         const cards = carouselEl.querySelectorAll('.carousel-card');
-        const radius = 980; 
-        const spreadLimit = 165; 
+        const radius = 900; 
+        const spreadLimit = 160; 
         const step = spreadLimit / (total - 1);
 
         cards.forEach((card, i) => {
@@ -195,10 +195,10 @@ function initArticleCarousel() {
             const rad = angleInDegrees * (Math.PI / 180);
 
             // Panoramic positions (Centered and Restricted)
-            const x = Math.sin(rad) * radius * 0.9; 
+            const x = Math.sin(rad) * radius * 0.85; 
             const z = Math.cos(rad) * radius - radius; 
             const rotY = angleInDegrees * 0.3; 
-            const y = Math.abs(x) * 0.025; 
+            const y = Math.abs(x) * 0.025 - 180; // Lift arc significantly
 
             // Depth Culling
             const absAngle = Math.abs(angleInDegrees);

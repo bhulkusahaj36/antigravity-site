@@ -472,7 +472,7 @@ body.page-exiting {
 /* Bottom centered buttons */
 .hero-actions {
   position: absolute;
-  bottom: 55px;
+  bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -527,7 +527,7 @@ body.page-exiting {
   border: 1px solid rgba(245, 158, 11, 0.15);
   border-bottom: 2px solid var(--saffron-500);
   position: absolute;
-  bottom: 125px;
+  bottom: 120px;
   left: 50%;
   transform: translateX(-50%);
   
@@ -711,10 +711,10 @@ body.page-exiting {
 
 .carousel-card {
   position: absolute;
-  width: 260px;
-  height: 360px;
+  width: 200px;
+  height: 300px;
   left: 50%;
-  margin-left: -130px;
+  margin-left: -100px;
   border-radius: 32px;
   background: rgba(30,30,35, 0.45);
   backdrop-filter: blur(25px);
