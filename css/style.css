@@ -388,58 +388,75 @@ body.page-exiting {
   width: 98%;
 }
 
-.hero-eyebrow {
-  display: none;
+/* ============================================================
+   HERO SECTION - GRID LAYOUT
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 60px;
 }
 
-.hero-title {
-  margin-top: -2rem;
-  /* Move the whole group upwards */
-  margin-bottom: -5rem;
-  /* Pull quote box tightly under the calligraphy */
-  animation: fadeInUp 0.7s 0.1s ease both;
+.hero-container {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr; /* Sidebar for branding, Stage for carousel */
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+/* LEFT SIDEBAR: Calligraphy & Main Image */
+.hero-sidebar {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
-  width: 100%;
+  gap: 2.5rem;
+  z-index: 10;
 }
 
-.hero-top-img {
-  width: 100%;
-  max-width: 900px;
-  height: auto;
-  max-height: 55vh;
-  object-fit: contain;
-  filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
-  flex-shrink: 0;
-  z-index: 1;
-  transform: scale(2.1) translateY(3.8rem);
-  /* Make image a bit bigger and move it down */
-  transform-origin: top center;
-  /* Scale grows downward, top never gets clipped */
-  margin-bottom: -2rem;
-  pointer-events: none;
-  opacity: 0.45;
-  /* Back to somewhat transparent */
+.hero-branding {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .hero-calligraphy {
-  max-width: 1200px;
-  width: 100%;
-  height: auto;
-  max-height: 450px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 20px rgba(255, 179, 15, 0.7)) drop-shadow(0 0 45px rgba(255, 179, 15, 0.4));
-  margin-top: 0.1rem;
-  transform: scale(1.8) translateY(1.8rem);
-  /* Pull calligraphy down to center on chest */
-  z-index: 2;
   position: relative;
+  width: 140%; /* Overlaps slightly into stage */
+  max-width: 900px;
+  height: auto;
+  filter: drop-shadow(0 0 25px rgba(255, 179, 15, 0.6));
+  z-index: 5;
   pointer-events: none;
-  left: 3%;
-  /* Shift to the right slightly to center on chest */
+  margin-left: -10%;
+  animation: floatCalligraphy 6s ease-in-out infinite;
+}
+
+.hero-main-img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 120%;
+  height: auto;
+  max-height: 75vh;
+  object-fit: contain;
+  opacity: 0.35;
+  filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.2));
+  transform: translateY(-40%) scale(1.8);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* RIGHT STAGE: 3D Carousel & Quote */
+.hero-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  width: 100%;
 }
 
 
@@ -485,11 +502,11 @@ body.page-exiting {
     0 0 40px rgba(245, 158, 11, 0.1);
     
   border-radius: 100px;
-  padding: 2rem 4.5rem; /* Increased padding for better vertical balance */
-  margin: 0 auto 3rem;
-  width: auto;
-  max-width: 900px;
-  display: inline-flex;
+  padding: 1.75rem 4rem;
+  margin: 0;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -635,11 +652,114 @@ body.page-exiting {
   box-shadow: 0 0 10px var(--saffron-glow);
 }
 
+/* ============================================================
+   3D ARTICLE CAROUSEL
+   ============================================================ */
+.carousel-wrapper {
+  perspective: 1500px;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
+.article-carousel {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+.carousel-card {
+  position: absolute;
+  width: 280px;
+  height: 360px;
+  left: 50%;
+  margin-left: -140px;
+  border-radius: 40px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.15);
+  border-bottom: 2.5px solid var(--saffron-500);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
 
+.carousel-card.active {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.2);
+}
 
+.carousel-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(245, 158, 11, 0.1);
+  transition: transform 0.8s ease;
+}
 
+.carousel-card:hover img {
+  transform: scale(1.1);
+}
+
+.carousel-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.carousel-card-title {
+  font-family: var(--font-gu);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--saffron-400);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.carousel-card-info {
+  font-size: 0.75rem;
+  color: var(--saffron-500);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.carousel-card-excerpt {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Visibility Utilities */
+.desktop-only { display: flex; }
+.mobile-only { display: none; }
+
+@keyframes floatCalligraphy {
+  0%, 100% { transform: translateY(0) scale(1.3); }
+  50% { transform: translateY(-15px) scale(1.32); }
+}
 
 /* ============================================================
    SKELETON LOADING
@@ -708,10 +828,10 @@ body.page-exiting {
 
 .hero-actions {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  gap: 1.25rem;
   animation: fadeInUp 0.7s 0.4s ease both;
+  z-index: 10;
+  flex-wrap: wrap;
 }
 
 /* ============================================================
@@ -1470,13 +1590,9 @@ body.page-exiting {
   width: 154px;
   height: 154px;
   border-radius: 50%;
-  background: linear-gradient(
-    180deg, 
-    rgba(255, 255, 255, 0.03) 0%, 
-    rgba(245, 158, 11, 0.05) 100%
-  );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   border: 1px solid rgba(245, 158, 11, 0.2);
   border-bottom: 3.5px solid var(--saffron-500); /* Consistent bottom glint */
   padding: 8px; /* Internal breathing room */
@@ -1491,7 +1607,7 @@ body.page-exiting {
 }
 
 .avatar-card:hover .avatar-img-wrap {
-  background: rgba(255, 255, 255, 0.08);
+  background: transparent;
   border-color: rgba(245, 158, 11, 0.4);
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(245, 158, 11, 0.2);
   transform: translateY(-5px) scale(1.05);
@@ -1509,7 +1625,7 @@ body.page-exiting {
   object-fit: cover;
   object-position: top center;
   /* Ensures majestic portrait alignment (no heads cut off) */
-  background: var(--bg-800);
+  background: transparent;
   transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform: scale(1.05) translateY(2%);
 }
@@ -2223,17 +2339,37 @@ body.page-exiting {
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width: 900px) {
-  .article-layout {
+@media (max-width: 1100px) {
+  .hero-container {
     grid-template-columns: 1fr;
+    gap: 3rem;
+    padding-top: 40px;
   }
 
-  .article-sidebar {
-    position: static;
+  .hero-sidebar {
+    align-items: center;
+    text-align: center;
   }
 
-  .contact-layout {
-    grid-template-columns: 1fr;
+  .hero-calligraphy {
+    width: 100%;
+    margin-left: 0;
+    transform: scale(1.1);
+  }
+
+  .hero-main-img {
+    position: relative;
+    width: 100%;
+    max-height: 40vh;
+    transform: translateY(-10%) scale(1.2);
+    margin-top: -30px;
+  }
+
+  .desktop-only { display: none; }
+  .mobile-only { display: flex; }
+  
+  .carousel-wrapper {
+    height: 380px;
   }
 }
 
@@ -2544,3 +2680,68 @@ body.copy-protected textarea {
   -ms-user-select: auto;
   user-select: auto;
 }
+
+/* ============================================================
+   HERO RESPONSIVE RULES (MOBILE STACKING)
+   ============================================================ */
+@media (max-width: 1100px) {
+  .hero {
+    padding-top: 80px;
+    height: auto;
+    min-height: auto;
+  }
+  
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    text-align: center;
+  }
+
+  .hero-sidebar {
+    gap: 0;
+    margin-bottom: 2rem;
+  }
+
+  .hero-branding {
+    align-items: center;
+  }
+
+  .hero-calligraphy {
+    width: 100%;
+    margin-left: 0;
+    transform: scale(0.9);
+    margin-bottom: -40px;
+  }
+
+  .hero-main-img {
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-height: 250px;
+    transform: translateY(0) scale(1.1);
+    opacity: 0.5;
+    margin-bottom: 2rem;
+  }
+
+  .hero-stage {
+    gap: 2.5rem;
+  }
+
+  .carousel-wrapper {
+    height: 380px;
+  }
+
+  .desktop-only { display: none !important; }
+  .mobile-only { display: flex !important; }
+  
+  .hero-actions {
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .hero-quote {
+    padding: 1.5rem 2rem;
+    border-radius: 40px;
+  }
+}
