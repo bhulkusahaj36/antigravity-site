@@ -123,240 +123,37 @@ function renderCategoryChips() {
     });
 }
 
+function renderArticles() {
+    const grid = document.getElementById('articlesGrid');
+    if (!grid) return;
+    // Keep only top 5 latest
+    const sorted = getSorted(ALL_ARTICLES).slice(0, 5);
 
-// ============================================================
-// 3D ARTICLE CAROUSEL LOGIC
-// ============================================================
-// ============================================================
-// 3D "ZENITH ARC" CAROUSEL LOGIC
-// ============================================================
-let rotationAngle = 0; // Current scroll position in degrees
-let targetAngle = 0;   // Target snap position
-let isDragging = false;
-let startX = 0;
-let currentX = 0;
-let velocity = 0;
-let lastX = 0;
-let autoRotateTimer;
-
-function initArticleCarousel() {
-    const wrapper = document.querySelector('.carousel-wrapper');
-    const carouselEl = document.getElementById('articleCarousel');
-    if (!carouselEl || !ALL_ARTICLES || ALL_ARTICLES.length === 0) return;
-
-    // Get top 10 articles
-    const latest = getSorted(ALL_ARTICLES).slice(0, 10);
-    const total = latest.length;
-    const angleStep = 360 / total; // Space between cards on the circle
-    
-    carouselEl.innerHTML = '';
-    latest.forEach((article, i) => {
-        const card = document.createElement('div');
-        card.className = 'carousel-card';
-        card.onclick = () => { 
-            if (Math.abs(velocity) < 0.5) { // Prevent click while fast-scrolling
-                window.location.href = `article-detail.html?id=${article.id}`; 
-            }
-        };
-
-        const topicName = getCategoryName(article.topic || article.category).split(',')[0];
-        card.innerHTML = `
-            <div class="carousel-card-body">
-                <h3 class="carousel-card-title">${article.title}</h3>
-                <span class="carousel-card-info">${topicName}</span>
-                <img src="${article.image || 'images/article-placeholder.webp'}" alt="${article.title}">
-                <p class="carousel-card-excerpt">${article.excerpt || ''}</p>
-            </div>
-        `;
-        carouselEl.appendChild(card);
+    grid.innerHTML = '';
+    sorted.forEach((a, i) => {
+        const card = buildCard(a);
+        card.style.animationDelay = `${i * 0.07}s`;
+        grid.appendChild(card);
     });
 
-    const updatePositions = () => {
-        const cards = carouselEl.querySelectorAll('.carousel-card');
-        const radius = 1500; // Flatter panoramic arc
-        const spreadLimit = 140; // Narrower spread for focus
-        const step = spreadLimit / (total - 1);
-
-        cards.forEach((card, i) => {
-            const angleInDegrees = (i * step) + (rotationAngle) - (spreadLimit / 2);
-            const rad = angleInDegrees * (Math.PI / 180);
-
-            // Panoramic positions (Centered and Stable)
-            const x = Math.sin(rad) * radius;
-            const z = Math.cos(rad) * radius - radius * 0.8; 
-            const rotY = angleInDegrees * 0.4; // Very subtle rotation
-            const y = Math.abs(x) * 0.02; // Minimal "smile" curve
-
-            // Sophisticated cinematic scaling
-            const absAngle = Math.abs(angleInDegrees);
-            const opacity = 1 - (absAngle / (spreadLimit * 0.8));
-            const scale = 1 - (absAngle / (spreadLimit * 3));
-
-            card.style.transform = `translateX(-50%) translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`;
-            card.style.opacity = Math.max(opacity, 0);
-            card.style.zIndex = Math.round(z + 2000);
-            card.style.visibility = opacity > 0.01 ? 'visible' : 'hidden';
-            card.classList.toggle('active', absAngle < (step / 2));
-        });
-    };
-
-    // Interaction Listeners
-    const handleStart = (e) => {
-        isDragging = true;
-        startX = e.pageX || e.touches[0].pageX;
-        lastX = startX;
-        velocity = 0;
-        clearInterval(autoRotateTimer);
-        carouselEl.style.transition = 'none';
-    };
-
-    const handleMove = (e) => {
-        if (!isDragging) return;
-        currentX = e.pageX || e.touches[0].pageX;
-        const delta = currentX - lastX;
-        rotationAngle += delta * 0.25; // Balanced sensitivity
-        velocity = delta * 0.25;
-        lastX = currentX;
-        updatePositions();
-    };
-
-    const handleEnd = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        startAutoRotate();
-        
-        // Snap to nearest card based on current step
-        const snapTarget = Math.round(rotationAngle / step) * step;
-        animateToAngle(snapTarget);
-    };
-
-    const animateToAngle = (target) => {
-        const start = rotationAngle;
-        const distance = target - start;
-        let startTime = null;
-
-        const animation = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / 600, 1);
-            const ease = 1 - Math.pow(1 - progress, 5); // Smooth ease-out
-
-            rotationAngle = start + (distance * ease);
-            updatePositions();
-
-            if (progress < 1) {
-                requestAnimationFrame(animation);
-            } else {
-                // Keep angle in manageable range for infinite loop
-                rotationAngle = rotationAngle % (total * step);
-            }
-        };
-        requestAnimationFrame(animation);
-    };
-
-    const startAutoRotate = () => {
-        clearInterval(autoRotateTimer);
-        autoRotateTimer = setInterval(() => {
-            if (!isDragging) {
-                const target = Math.round(rotationAngle / step) * step - step;
-                animateToAngle(target);
-            }
-        }, 8000); // Slower, more majestic interval
-    };
-
-    // Events
-    wrapper.addEventListener('mousedown', handleStart);
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('mouseup', handleEnd);
-    
-    wrapper.addEventListener('touchstart', handleStart, { passive: true });
-    window.addEventListener('touchmove', handleMove, { passive: true });
-    window.addEventListener('touchend', handleEnd);
-
-    // Initial render
-    updatePositions();
-    startAutoRotate();
+    // Clear pagination for home page latest section
+    const paginationEl = document.getElementById('pagination');
+    if (paginationEl) paginationEl.innerHTML = '';
 }
 
 function initRotatingQuote() {
-    const textEl = document.getElementById('quoteText');
-    const authorEl = document.getElementById('quoteAuthor');
-    const paginationEl = document.getElementById('quotePagination');
-    if (!textEl || !QUOTES || QUOTES.length === 0) return;
-    
+    const el = document.getElementById('quoteText');
+    if (!el) return;
     let idx = 0;
-    
-    // Initialize Pagination Dots
-    if (paginationEl) {
-        paginationEl.innerHTML = QUOTES.map(() => '<span class="dot"></span>').join('');
-    }
-
-    const updateUI = (index) => {
-        const quote = QUOTES[index];
-        textEl.textContent = quote.text;
-        if (authorEl) {
-            authorEl.textContent = `- ${quote.author}`;
-        }
-        
-        // Update dots
-        if (paginationEl) {
-            const dots = paginationEl.querySelectorAll('.dot');
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-    };
-
-    // Set initial state
-    updateUI(0);
-
     setInterval(() => {
-        // Rise exit animation: Slide UP and fade out
-        const exitStyles = {
-            opacity: '0',
-            filter: 'blur(10px)',
-            transform: 'translateY(-20px) scale(0.98)',
-            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-        };
-
-        Object.assign(textEl.style, exitStyles);
-        if (authorEl) Object.assign(authorEl.style, exitStyles);
-        
+        el.style.opacity = '0';
         setTimeout(() => {
             idx = (idx + 1) % QUOTES.length;
-            updateUI(idx);
-            
-            // Prepare for entry: Position below and invisible
-            const entryInitialStyles = {
-                opacity: '0',
-                filter: 'blur(12px)',
-                transform: 'translateY(30px) scale(1.02)',
-                transition: 'none'
-            };
-            Object.assign(textEl.style, entryInitialStyles);
-            if (authorEl) Object.assign(authorEl.style, entryInitialStyles);
-
-            // Trigger reflow
-            textEl.offsetHeight; 
-
-            // Rise entry animation: Rise from below to normal position
-            const entryFinalStyles = {
-                opacity: '1',
-                filter: 'blur(0)',
-                transform: 'translateY(0) scale(1)',
-                transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
-            };
-            Object.assign(textEl.style, entryFinalStyles);
-            if (authorEl) Object.assign(authorEl.style, entryFinalStyles);
-
-        }, 400); 
-    }, 8500); // Slightly longer than carousel for independent rhythm
+            el.textContent = QUOTES[idx];
+            el.style.opacity = '1';
+        }, 400);
+    }, 4000);
 }
-
-
-
-
-
 
 function showSkeletonLoader(containerId, isAvatar = false) {
     const container = document.getElementById(containerId);
@@ -409,12 +206,14 @@ async function loadHomeArticles() {
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {
         renderCategoryChips(); 
+        renderArticles();
         renderFeatured();
-        initArticleCarousel(); // Start the 3D Carousel
         if (window.initAvatarScrollButtons) {
             setTimeout(window.initAvatarScrollButtons, 150);
         }
     } else {
+        const grid = document.getElementById('articlesGrid');
+        if (grid) grid.innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">કોઈ લેખ મળી શક્યા નથી.</p>';
         document.getElementById('categoryChips').innerHTML = ''; // Clear category chips if no articles
     }
 }
@@ -489,3 +288,4 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attempt init now for featured
     setTimeout(window.initAvatarScrollButtons, 50);
 });
+

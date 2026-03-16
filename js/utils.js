@@ -644,3 +644,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initPageTransitions();
     initSecurity();
 });
+
