@@ -173,32 +173,33 @@ function initArticleCarousel() {
 
     const updatePositions = () => {
         const cards = carouselEl.querySelectorAll('.carousel-card');
-        const radius = window.innerWidth < 1100 ? 500 : 850; // Radius of the arc
+        const radius = Math.min(window.innerWidth * 0.8, 1200); // Dynamic radius based on screen
+        const spreadLimit = 160; // Total horizontal spread in degrees
+        const step = spreadLimit / (total - 1);
 
         cards.forEach((card, i) => {
-            // Calculate angle on the circle based on current rotation
-            const angle = (i * angleStep) + rotationAngle;
-            const rad = angle * (Math.PI / 180);
+            // Calculate a relative position that centers the active card
+            // rotationAngle now controls the "offset" of the carousel
+            const angleInDegrees = (i * step) + (rotationAngle % (total * step)) - (spreadLimit / 2);
+            const rad = angleInDegrees * (Math.PI / 180);
 
-            // Trigonometric positioning for the ARC
-            const x = Math.sin(rad) * radius;
-            const z = Math.cos(rad) * radius - radius; // Shift Z so front card is at 0
-            const rotY = angle;
-
-            // Visibility/Depth logic
-            // We only show cards facing the viewer (approx -90 to 90 degrees in front)
-            let normalizedAngle = angle % 360;
-            if (normalizedAngle < 0) normalizedAngle += 360;
+            // Panoramic positions
+            const x = Math.sin(rad) * radius * 0.8;
+            const z = Math.cos(rad) * radius - radius * 0.5; // Depth
+            const rotY = angleInDegrees * 0.5; // Slight rotation to look at center
             
-            const isFront = normalizedAngle < 75 || normalizedAngle > 285;
-            const opacity = isFront ? 1 : 0;
-            const scale = isFront ? 1 : 0.5;
+            // Curved vertical "Smile" effect
+            const y = Math.abs(x) * 0.05; 
 
-            card.style.transform = `translateX(-50%) translateX(${x}px) translateZ(${z}px) rotateY(${rotY}deg) scale(${scale})`;
-            card.style.opacity = opacity;
+            // High-end cinematic fade
+            const opacity = 1 - Math.pow(Math.abs(angleInDegrees) / (spreadLimit/1.5), 2);
+            const scale = 1 - (Math.abs(angleInDegrees) / (spreadLimit * 2));
+
+            card.style.transform = `translateX(-50%) translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`;
+            card.style.opacity = Math.max(opacity, 0);
             card.style.zIndex = Math.round(z + 1000);
-            card.style.visibility = opacity > 0.1 ? 'visible' : 'hidden';
-            card.classList.toggle('active', isFront && Math.abs(x) < 100);
+            card.style.visibility = opacity > 0.05 ? 'visible' : 'hidden';
+            card.classList.toggle('active', Math.abs(angleInDegrees) < (step / 2));
         });
     };
 
@@ -216,8 +217,8 @@ function initArticleCarousel() {
         if (!isDragging) return;
         currentX = e.pageX || e.touches[0].pageX;
         const delta = currentX - lastX;
-        rotationAngle += delta * 0.15; // Sensitivity
-        velocity = delta * 0.15;
+        rotationAngle += delta * 0.25; // Balanced sensitivity
+        velocity = delta * 0.25;
         lastX = currentX;
         updatePositions();
     };
@@ -226,11 +227,10 @@ function initArticleCarousel() {
         if (!isDragging) return;
         isDragging = false;
         
-        // Start "auto-rotation" after delay
         startAutoRotate();
         
-        // Dynamic snap logic (closest card to center)
-        const snapTarget = Math.round(rotationAngle / angleStep) * angleStep;
+        // Snap to nearest card based on current step
+        const snapTarget = Math.round(rotationAngle / step) * step;
         animateToAngle(snapTarget);
     };
 
@@ -242,13 +242,16 @@ function initArticleCarousel() {
         const animation = (timestamp) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / 600, 1);
-            const ease = 1 - Math.pow(1 - progress, 4); // Quart Ease-Out
+            const ease = 1 - Math.pow(1 - progress, 5); // Smooth ease-out
 
             rotationAngle = start + (distance * ease);
             updatePositions();
 
             if (progress < 1) {
                 requestAnimationFrame(animation);
+            } else {
+                // Keep angle in manageable range for infinite loop
+                rotationAngle = rotationAngle % (total * step);
             }
         };
         requestAnimationFrame(animation);
@@ -258,10 +261,10 @@ function initArticleCarousel() {
         clearInterval(autoRotateTimer);
         autoRotateTimer = setInterval(() => {
             if (!isDragging) {
-                targetAngle -= angleStep;
-                animateToAngle(targetAngle);
+                const target = Math.round(rotationAngle / step) * step - step;
+                animateToAngle(target);
             }
-        }, 6000);
+        }, 8000); // Slower, more majestic interval
     };
 
     // Events
