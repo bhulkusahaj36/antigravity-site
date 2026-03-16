@@ -174,12 +174,12 @@ function initRotatingQuote() {
     updateUI(0);
 
     setInterval(() => {
-        // High-end exit animation (Fade + Blur + Slight Scale Down)
+        // Rise exit animation: Slide UP and fade out
         const exitStyles = {
             opacity: '0',
             filter: 'blur(10px)',
-            transform: 'scale(0.98) translateY(5px)',
-            transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+            transform: 'translateY(-20px) scale(0.98)',
+            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
         };
 
         Object.assign(textEl.style, exitStyles);
@@ -189,11 +189,11 @@ function initRotatingQuote() {
             idx = (idx + 1) % QUOTES.length;
             updateUI(idx);
             
-            // Set initial state for entry (Invisible + Blurred)
+            // Prepare for entry: Position below and invisible
             const entryInitialStyles = {
                 opacity: '0',
                 filter: 'blur(12px)',
-                transform: 'scale(1.02) translateY(-5px)',
+                transform: 'translateY(30px) scale(1.02)',
                 transition: 'none'
             };
             Object.assign(textEl.style, entryInitialStyles);
@@ -202,19 +202,20 @@ function initRotatingQuote() {
             // Trigger reflow
             textEl.offsetHeight; 
 
-            // High-end entry animation (Fade + Unblur + Scale to Normal)
+            // Rise entry animation: Rise from below to normal position
             const entryFinalStyles = {
                 opacity: '1',
                 filter: 'blur(0)',
-                transform: 'scale(1) translateY(0)',
-                transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                transform: 'translateY(0) scale(1)',
+                transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
             };
             Object.assign(textEl.style, entryFinalStyles);
             if (authorEl) Object.assign(authorEl.style, entryFinalStyles);
 
-        }, 350); 
+        }, 400); 
     }, 7000); 
 }
+
 
 
 
