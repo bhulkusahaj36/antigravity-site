@@ -173,33 +173,30 @@ function initArticleCarousel() {
 
     const updatePositions = () => {
         const cards = carouselEl.querySelectorAll('.carousel-card');
-        const radius = Math.min(window.innerWidth * 0.8, 1200); // Dynamic radius based on screen
-        const spreadLimit = 160; // Total horizontal spread in degrees
+        const radius = 1500; // Flatter panoramic arc
+        const spreadLimit = 140; // Narrower spread for focus
         const step = spreadLimit / (total - 1);
 
         cards.forEach((card, i) => {
-            // Calculate a relative position that centers the active card
-            // rotationAngle now controls the "offset" of the carousel
-            const angleInDegrees = (i * step) + (rotationAngle % (total * step)) - (spreadLimit / 2);
+            const angleInDegrees = (i * step) + (rotationAngle) - (spreadLimit / 2);
             const rad = angleInDegrees * (Math.PI / 180);
 
-            // Panoramic positions
-            const x = Math.sin(rad) * radius * 0.8;
-            const z = Math.cos(rad) * radius - radius * 0.5; // Depth
-            const rotY = angleInDegrees * 0.5; // Slight rotation to look at center
-            
-            // Curved vertical "Smile" effect
-            const y = Math.abs(x) * 0.05; 
+            // Panoramic positions (Centered and Stable)
+            const x = Math.sin(rad) * radius;
+            const z = Math.cos(rad) * radius - radius * 0.8; 
+            const rotY = angleInDegrees * 0.4; // Very subtle rotation
+            const y = Math.abs(x) * 0.02; // Minimal "smile" curve
 
-            // High-end cinematic fade
-            const opacity = 1 - Math.pow(Math.abs(angleInDegrees) / (spreadLimit/1.5), 2);
-            const scale = 1 - (Math.abs(angleInDegrees) / (spreadLimit * 2));
+            // Sophisticated cinematic scaling
+            const absAngle = Math.abs(angleInDegrees);
+            const opacity = 1 - (absAngle / (spreadLimit * 0.8));
+            const scale = 1 - (absAngle / (spreadLimit * 3));
 
             card.style.transform = `translateX(-50%) translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`;
             card.style.opacity = Math.max(opacity, 0);
-            card.style.zIndex = Math.round(z + 1000);
-            card.style.visibility = opacity > 0.05 ? 'visible' : 'hidden';
-            card.classList.toggle('active', Math.abs(angleInDegrees) < (step / 2));
+            card.style.zIndex = Math.round(z + 2000);
+            card.style.visibility = opacity > 0.01 ? 'visible' : 'hidden';
+            card.classList.toggle('active', absAngle < (step / 2));
         });
     };
 
