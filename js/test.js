@@ -7,8 +7,16 @@ let currentPage = 1;
 let sortMode = 'latest';
 let ALL_ARTICLES = [];
 
-// Prasang display labels (value → Gujarati name) - DEPRECATED (Moved to data.js)
-// Topic display labels - DEPRECATED (Moved to data.js)
+const MOCK_ARTICLES = [
+    { id: 'mock1', title: 'ભગવાને રચી અનોખી લીલા: ભક્તોના હૃદયમાં વાસ', category: 'mahima', excerpt: 'મહારાજે સોમલા ખાચરના દરબારમાં જે લીલા કરી તેની સ્મૃતિ...', image: 'images/article-placeholder.webp' },
+    { id: 'mock2', title: 'સત્સંગની મધુરતા: સ્વામીની વાતોનું અમૃત', category: 'swamini', excerpt: 'ગુણાતીતાનંદ સ્વામીએ જે વાતો કરી તે જીવના કલ્યાણ માટે...', image: 'images/article-placeholder.webp' },
+    { id: 'mock3', title: 'નિષ્ઠાનો પાયો: શાસ્ત્રીજી મહારાજની ગુરુભક્તિ', category: 'nishtha', excerpt: 'દુનિયાના વિરોધ વચ્ચે પણ શાસ્ત્રીજી મહારાજે જે અટલ નિષ્ઠા...', image: 'images/article-placeholder.webp' },
+    { id: 'mock4', title: 'આત્મીયતાનો મંત્ર: હરિપ્રસાદ સ્વામીજીની શીખ', category: 'atmiyata', excerpt: 'સહુના દિલ જીતવાનો એક જ રસ્તો છે - આત્મીયતા...', image: 'images/article-placeholder.webp' },
+    { id: 'mock5', title: 'સેવા એ જ સંસ્કાર: ભક્તોની લાઈફલાઈન', category: 'seva', excerpt: 'સેવા દ્વારા જ અહંકાર ઓગળે છે અને હરિ રાજી થાય છે...', image: 'images/article-placeholder.webp' },
+    { id: 'mock6', title: 'પ્રસાદીના પત્રો: ભગવદીઓના પવિત્ર પ્રસંગો', category: 'bhagvadi', excerpt: 'યોગીજી મહારાજના હસ્તે લખાયેલા પત્રોનો મહિમા...', image: 'images/article-placeholder.webp' },
+    { id: 'mock7', title: 'સરળતાની મૂર્તિ: યોગીબાપાના ચરિત્ર', category: 'saralata', excerpt: 'નાના બાળકો સાથે બેસીને રમનારા યોગીબાપાની સાદગી...', image: 'images/article-placeholder.webp' },
+    { id: 'mock8', title: 'સ્વાધ્યાય અને ભજન: આત્મિક શાંતિનો માર્ગ', category: 'swadhyay', excerpt: 'રોજિંદા જીવનમાં ભજનનું મહત્વ અને તેની અસર...', image: 'images/article-placeholder.webp' }
+];
 
 
 function getSorted(articles) {
@@ -173,33 +181,32 @@ function initArticleCarousel() {
 
     const updatePositions = () => {
         const cards = carouselEl.querySelectorAll('.carousel-card');
-        const radius = Math.min(window.innerWidth * 0.8, 1200); // Dynamic radius based on screen
-        const spreadLimit = 160; // Total horizontal spread in degrees
+        const radius = 800; 
+        const spreadLimit = 150; 
         const step = spreadLimit / (total - 1);
 
         cards.forEach((card, i) => {
-            // Calculate a relative position that centers the active card
-            // rotationAngle now controls the "offset" of the carousel
-            const angleInDegrees = (i * step) + (rotationAngle % (total * step)) - (spreadLimit / 2);
+            // Smoothly wrap the rotation angle for infinite feel
+            let angleInDegrees = (i * step) + (rotationAngle) - ( (total-1) * step / 2);
             const rad = angleInDegrees * (Math.PI / 180);
 
-            // Panoramic positions
-            const x = Math.sin(rad) * radius * 0.8;
-            const z = Math.cos(rad) * radius - radius * 0.5; // Depth
-            const rotY = angleInDegrees * 0.5; // Slight rotation to look at center
-            
-            // Curved vertical "Smile" effect
-            const y = Math.abs(x) * 0.05; 
+            // Panoramic positions (Centered and Restricted)
+            const x = Math.sin(rad) * radius * 0.75; 
+            const z = Math.cos(rad) * radius - radius; 
+            const rotY = angleInDegrees * 0.35; 
+            const y = Math.abs(x) * 0.03; 
 
-            // High-end cinematic fade
-            const opacity = 1 - Math.pow(Math.abs(angleInDegrees) / (spreadLimit/1.5), 2);
-            const scale = 1 - (Math.abs(angleInDegrees) / (spreadLimit * 2));
+            // Depth Culling
+            const absAngle = Math.abs(angleInDegrees);
+            const opacity = 1 - (absAngle / (spreadLimit * 0.75));
+            const scale = 1 - (absAngle / (spreadLimit * 5));
 
             card.style.transform = `translateX(-50%) translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`;
             card.style.opacity = Math.max(opacity, 0);
-            card.style.zIndex = Math.round(z + 1000);
-            card.style.visibility = opacity > 0.05 ? 'visible' : 'hidden';
-            card.classList.toggle('active', Math.abs(angleInDegrees) < (step / 2));
+            card.style.zIndex = Math.round(z + 5000);
+            card.style.visibility = opacity > 0.1 ? 'visible' : 'hidden';
+            card.style.pointerEvents = absAngle < (step * 0.8) ? 'auto' : 'none';
+            card.classList.toggle('active', absAngle < (step / 2));
         });
     };
 
@@ -399,15 +406,16 @@ async function loadHomeArticles() {
     try {
         const response = await fetch('/api/articles?t=' + Date.now());
         if (response.ok) {
-            ALL_ARTICLES = await response.json();
-            console.log("Articles fetched from API");
+            const apiArticles = await response.json();
+            ALL_ARTICLES = [...MOCK_ARTICLES, ...apiArticles]; // Merge Mock + Live
+            console.log("Articles fetched from API and merged with mocks");
         } else {
             console.error("API returned error:", response.status);
-            if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+            ALL_ARTICLES = MOCK_ARTICLES; // Default to Mocks
         }
     } catch (error) {
-        console.error("Fetch error, falling back to local data:", error);
-        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+        console.error("Fetch error, using staging mock data:", error);
+        ALL_ARTICLES = MOCK_ARTICLES; // Default to Mocks
     }
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {
