@@ -164,33 +164,33 @@ function initArticleCarousel() {
         cardWrap.className = 'hover-3d-wrap shrink-0 snap-center py-4';
         
         const card = document.createElement('div');
-        // Combined user styles with 3D functional classes
-        card.className = 'carousel-card-3d card w-80 h-[480px] bg-black/90 backdrop-blur-2xl border border-gold/40 rounded-3xl shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing group relative perspective-[1200px] transition-all duration-300';
+        // Combined user styles with 3D functional classes - Sized for Model 3.0
+        card.className = 'carousel-card-3d card w-[380px] h-[400px] bg-bg-700/90 backdrop-blur-2xl border border-white/10 border-b-saffron-500 rounded-[40px] shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing group relative perspective-[1200px] transition-all duration-300';
         
         const topicName = article.topic || article.category || 'Divine';
-        const excerpt = article.excerpt || 'Limited Gujarati preview text here matching spiritual theme...';
+        const imageSrc = article.image || 'images/article-placeholder.webp';
 
         card.innerHTML = `
-            <!-- Card thumbnail (top 2/5 height) -->
-            <div class="h-[40%] bg-gradient-to-br from-gold/40 to-orange/30 rounded-t-3xl relative overflow-hidden pointer-events-none">
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent opacity-50 shine-effect"></div>
+            <!-- Card thumbnail (Model Layout - Larger Image Head) -->
+            <div class="h-[55%] relative overflow-hidden pointer-events-none rounded-t-[40px]">
+                <img src="${imageSrc}" alt="" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <div class="absolute inset-0 bg-gradient-to-t from-bg-700/80 to-transparent"></div>
+                <div class="absolute top-4 left-6">
+                    <span class="px-3 py-1 bg-gold/20 text-gold text-[10px] font-bold uppercase tracking-widest rounded-full backdrop-blur-md border border-gold/30">${topicName}</span>
+                </div>
             </div>
             
             <!-- Card content -->
-            <div class="p-8 h-[60%] flex flex-col justify-between pointer-events-none">
-                <div>
-                    <span class="text-gold/80 text-xs font-bold uppercase tracking-widest mb-2 block">${topicName}</span>
-                    <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-xl group-hover:text-gold transition-colors leading-tight">${article.title}</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed line-clamp-4 font-gujarati">${excerpt}</p>
-                </div>
-                <div class="flex items-center text-gold text-sm font-bold gap-2">
+            <div class="px-8 py-6 h-[45%] flex flex-col justify-start pointer-events-none">
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-gold transition-colors leading-tight font-gujarati">${article.title}</h3>
+                <div class="mt-auto flex items-center text-gold/60 text-xs font-bold gap-2">
                     Read Story <span class="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
             </div>
             
-            <!-- 3D Glow Layer -->
+            <!-- 3D Glow / Shimmer Layer -->
             <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
-                 style="background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245, 158, 11, 0.15) 0%, transparent 60%);"></div>
+                 style="background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.05) 0%, transparent 60%);"></div>
         `;
 
         // 3D Tilt Logic
