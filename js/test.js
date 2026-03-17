@@ -31,7 +31,7 @@ function getSorted(articles) {
     });
 }
 
-// Build a circular avatar card element
+// Build a circular avatar card element (production-ready circular style)
 function buildAvatarCard(id, label, imgFolder, href) {
     const card = document.createElement('a');
     card.className = 'avatar-card';
@@ -40,30 +40,32 @@ function buildAvatarCard(id, label, imgFolder, href) {
     const wrap = document.createElement('div');
     wrap.className = 'avatar-img-wrap';
 
-    const img = new Image();
-    // Intentionally omitting lazy loading here. In-memory images won't trigger fetching
-    // if marked lazy until they are attached to the DOM, causing a chicken-and-egg deadlock.
-    img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
-    img.onerror = () => {
-        if (img.src.endsWith('.webp')) {
-            img.src = `images/${imgFolder}/${id}.svg`;
-        } else if (img.src.endsWith('.svg')) {
-            img.src = `images/${imgFolder}/${id}.jpg`;
-        } else {
-            // Final fallback: show full name in circle
-            const cleanLabel = label.replace(/\n/g, ' ');
-            wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
-        }
-    };
-    img.src = `images/${imgFolder}/${id}.webp`; // LOAD WEBP FIRST - SVGS ARE HUGE
-    img.alt = label;
-    // Show full name while loading
     const cleanLabel = label.replace(/\n/g, ' ');
-    wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
+
+    // For categories, we strictly show the text inside the circle as per mockup
+    if (imgFolder === 'categories') {
+        wrap.innerHTML = `<span class="avatar-fallback font-gujarati">${cleanLabel}</span>`;
+    } else {
+        const img = new Image();
+        img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
+        img.onerror = () => {
+            if (img.src.endsWith('.webp')) {
+                img.src = `images/${imgFolder}/${id}.svg`;
+            } else if (img.src.endsWith('.svg')) {
+                img.src = `images/${imgFolder}/${id}.jpg`;
+            } else {
+                wrap.innerHTML = `<span class="avatar-fallback font-gujarati">${cleanLabel}</span>`;
+            }
+        };
+        img.src = `images/${imgFolder}/${id}.webp`;
+        img.alt = label;
+        // Pre-show full name while loading to prevent "empty circle" blink
+        wrap.innerHTML = `<span class="avatar-fallback font-gujarati">${cleanLabel}</span>`;
+    }
 
     const labelEl = document.createElement('span');
-    labelEl.className = 'avatar-label';
-    labelEl.textContent = label.replace(/\n/g, ' ');
+    labelEl.className = 'avatar-label font-gujarati';
+    labelEl.textContent = cleanLabel;
 
     card.appendChild(wrap);
     card.appendChild(labelEl);
@@ -73,21 +75,12 @@ function buildAvatarCard(id, label, imgFolder, href) {
 function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
-
-    // Hardcoded fixed sequence as requested by user
-    const FIXED_SEQUENCE = [
-        'bhagwan',      // ભગવાન સ્વામિનારાયણ
-        'gunatit',      // ગુણાતીતાનંદ સ્વામી
-        'bhagatji',     // ભગતજી મહારાજ
-        'shastriji',    // શાસ્ત્રીજી મહારાજ
-        'yogiji',       // યોગીજી મહારાજ
-        'hariprasad',   // હ. સ્વામીજી મહારાજ
-        'prabodh',      // પ્રબોધ સ્વમીજી મહારાજ
-        'bhakto'        // ભક્તો
-    ];
-
     grid.innerHTML = '';
-    grid.className = 'avatar-row'; // Switch to avatar row layout
+    grid.className = 'avatar-row'; 
+
+    const FIXED_SEQUENCE = [
+        'bhagwan', 'gunatit', 'bhagatji', 'shastriji', 'yogiji', 'hariprasad', 'prabodh', 'bhakto'
+    ];
 
     FIXED_SEQUENCE.forEach(p => {
         const label = PRASANG_LABELS[p] || p;
@@ -102,30 +95,17 @@ function renderCategoryChips() {
     container.innerHTML = '';
     container.className = 'avatar-row';
 
-    // Count articles per topic
     const topicCount = {};
     ALL_ARTICLES.forEach(a => {
         const vals = (a.topic || a.category || '').split(',').map(s => s.trim()).filter(Boolean);
         vals.forEach(t => { topicCount[t] = (topicCount[t] || 0) + 1; });
     });
 
-    // Get top topics with most articles
-    const topTopics = Object.entries(topicCount)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 20)
-        .map(([t]) => t);
+    const topTopics = Object.entries(topicCount).sort((a, b) => b[1] - a[1]).slice(0, 15).map(([t]) => t);
 
     topTopics.forEach(topicId => {
-        // Use getCategoryName from utils.js, which checks both CATEGORIES and localStorage tags
-        // TOPIC_LABELS was hardcoded, so it didn't work for dynamically created tags.
         let label = getCategoryName(topicId);
-        
-        // If getCategoryName returns the same ID back (e.g. no custom tag found), 
-        // fallback to TOPIC_LABELS just in case it's a hardcoded one not present in CATEGORIES.
-        if (label === topicId && TOPIC_LABELS[topicId]) {
-            label = TOPIC_LABELS[topicId];
-        }
-
+        if (label === topicId && TOPIC_LABELS[topicId]) label = TOPIC_LABELS[topicId];
         const card = buildAvatarCard(topicId, label, 'categories', `category-detail.html?id=${topicId}`);
         container.appendChild(card);
     });
