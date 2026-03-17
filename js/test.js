@@ -72,16 +72,16 @@ function buildAvatarCard(id, label, imgFolder, href) {
     return card;
 }
 
-// Build an "Edge Style" 3D card for the new Featured carousel
+// Build an "Edge Style" interactive card for the new Featured carousel
 function buildEdgeCard(id, label, imgFolder, href) {
     const card = document.createElement('div');
-    card.className = 'card-edge perspective-[1200px] group';
+    card.className = 'card-edge group';
     
     const cleanLabel = label.replace(/\n/g, ' ');
     const imgSrc = `images/${imgFolder}/${id}.webp`;
 
     card.innerHTML = `
-        <div class="card-edge-inner transition-transform duration-500 ease-out transform-gpu">
+        <div class="card-edge-inner transition-all duration-500 ease-out transform-gpu">
             <a href="${href}" class="edge-img-link active:scale-95 transition-transform block">
                <img src="${imgSrc}" alt="${cleanLabel}" onerror="this.src='images/article-placeholder.webp'" class="pointer-events-none">
             </a>
@@ -89,23 +89,29 @@ function buildEdgeCard(id, label, imgFolder, href) {
         </div>
     `;
 
-    // 3D Horizontal Rotation Logic
+    // Subtle 3D Depth Interaction (No squashing)
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
         const centerX = rect.width / 2;
-        const rotateY = (x - centerX) / 8; // Max ~20deg horizontal rotation
+        const centerY = rect.height / 2;
+        
+        // Very subtle tilt to give depth feel without distorting images
+        const rotX = (centerY - y) / 25; 
+        const rotY = (x - centerX) / 25;
         
         const inner = card.querySelector('.card-edge-inner');
         if (inner) {
-            inner.style.transform = `rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+            inner.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-10px) scale(1.02)`;
         }
     });
 
     card.addEventListener('mouseleave', () => {
         const inner = card.querySelector('.card-edge-inner');
         if (inner) {
-            inner.style.transform = `rotateY(0deg) scale3d(1, 1, 1)`;
+            inner.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)`;
         }
     });
 
