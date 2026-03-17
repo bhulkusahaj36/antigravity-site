@@ -72,11 +72,34 @@ function buildAvatarCard(id, label, imgFolder, href) {
     return card;
 }
 
+// Build an "Edge Style" card for the new Featured carousel
+function buildEdgeCard(id, label, imgFolder, href) {
+    const card = document.createElement('div');
+    card.className = 'card-edge';
+    
+    const cleanLabel = label.replace(/\n/g, ' ');
+    const imgSrc = `images/${imgFolder}/${id}.webp`;
+
+    card.innerHTML = `
+        <img src="${imgSrc}" alt="${cleanLabel}" onerror="this.src='images/article-placeholder.webp'">
+        <h3 class="font-gujarati">${cleanLabel}</h3>
+        <button class="edge-btn" onclick="window.location.href='${href}'">Explore</button>
+    `;
+    return card;
+}
+
+// Global scroll for the Edge Carousel buttons
+window.scrollFeatured = function(amount) {
+    const scroller = document.getElementById('featuredGrid');
+    if (scroller) {
+        scroller.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+};
+
 function renderFeatured() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
     grid.innerHTML = '';
-    grid.className = 'avatar-row'; 
 
     const FIXED_SEQUENCE = [
         'bhagwan', 'gunatit', 'bhagatji', 'shastriji', 'yogiji', 'hariprasad', 'prabodh', 'bhakto'
@@ -84,7 +107,7 @@ function renderFeatured() {
 
     FIXED_SEQUENCE.forEach(p => {
         const label = PRASANG_LABELS[p] || p;
-        const card = buildAvatarCard(p, label, 'prasang', `prasang.html?prasang=${p}`);
+        const card = buildEdgeCard(p, label, 'prasang', `prasang.html?prasang=${p}`);
         grid.appendChild(card);
     });
 }

@@ -117,20 +117,22 @@
     </section>
 
 
-    <!-- FEATURED ARTICLES -->
-    <section class="section featured-section" id="featured">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Featured</h2>
-                <div class="scroll-controls">
-                    <button class="scroll-btn prev-btn" aria-label="Previous">‹</button>
-                    <button class="scroll-btn next-btn" aria-label="Next">›</button>
+    <!-- FEATURED GURUS (EDGE CAROUSEL STYLE) -->
+    <section class="section edge-carousel-section" id="featured">
+        <div class="container edge-carousel-container">
+            <!-- Left Side: Text & Info -->
+            <div class="carousel-info">
+                <h2 class="section-title">Divine <strong>Featured</strong></h2>
+                <p class="text-text-secondary mt-4 font-gujarati">ગુરુપરંપરાના દિવ્ય પ્રસંગો અને મહિમાનું આચમન કરો.</p>
+                <div class="carousel-controls-edge">
+                    <button class="edge-scroll-btn prev" onclick="scrollFeatured(-340)">←</button>
+                    <button class="edge-scroll-btn next" onclick="scrollFeatured(340)">→</button>
                 </div>
             </div>
-            <div class="spline-container-featured">
-                <iframe src="https://my.spline.design/3dcarouselcopycopy-HHemLTcEqkvsyVMSi1wDlBj8-8r9/" 
-                        frameborder="0" width="100%" height="700" 
-                        class="spline-embed rounded-[40px] shadow-[0_0_50px_rgba(245,158,11,0.2)] border border-white/5"></iframe>
+
+            <!-- Right Side: Scrolling Cards -->
+            <div class="card-scroller-edge scrollbar-hide" id="featuredGrid">
+                <!-- Cards injected by test.js as buildFeaturedCard -->
             </div>
         </div>
     </section>
@@ -168,7 +170,7 @@
 
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
-    <script src="js/test.js?v=1.3.3" defer></script>
+    <script src="js/test.js?v=1.3.4" defer></script>
     <script src="js/particles.js" defer></script>
 </body>
 
