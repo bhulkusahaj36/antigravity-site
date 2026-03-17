@@ -1146,11 +1146,12 @@ body.page-exiting {
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
 
-  /* Left gold accent bar */
-  border-left: 3px solid rgba(245, 158, 11, 0.45) !important;
+  /* Deep Pill Style horizontal layout */
+  border-radius: 1.5rem !important;
   border-top: 1px solid var(--card-border) !important;
+  border-left: 1px solid var(--card-border) !important;
   border-right: 1px solid var(--card-border) !important;
-  border-bottom: 1px solid var(--card-border) !important;
+  border-bottom: 4px solid rgba(255, 179, 15, 0.9) !important;
 
   position: relative;
   overflow: hidden;
@@ -1216,7 +1217,10 @@ body.page-exiting {
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-inner), 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(245, 158, 11, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
 .article-card::before {
