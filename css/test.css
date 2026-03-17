@@ -1803,22 +1803,6 @@ body.page-exiting {
     transition: all 0.4s ease;
 }
 
-.edge-img-link::after {
-    content: '';
-    position: absolute;
-    inset: -5px;
-    border-radius: 50%;
-    border: 2px solid var(--saffron-500);
-    opacity: 0;
-    transform: scale(0.9);
-    transition: all 0.4s ease;
-}
-
-.edge-img-link:hover::after {
-    opacity: 1;
-    transform: scale(1.05);
-}
-
 .card-edge img {
     width: 180px;
     height: 180px;
