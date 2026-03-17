@@ -1207,8 +1207,11 @@ body.page-exiting {
   background: var(--card-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--card-border);
-  border-radius: var(--radius-md);
+  border-top: 1px solid var(--card-border);
+  border-left: 1px solid var(--card-border);
+  border-right: 1px solid var(--card-border);
+  border-bottom: 4px solid rgba(255, 179, 15, 0.9);
+  border-radius: 1.5rem;
   padding: 1.75rem;
   display: flex;
   flex-direction: column;
