@@ -1810,25 +1810,20 @@ body.page-exiting {
 
 .edge-name-link {
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 1.65rem;
     font-weight: 700;
     color: #fff;
     font-family: var(--font-gu);
     text-decoration: none;
-    background: rgba(245, 158, 11, 0.1);
-    border: 1px solid rgba(245, 158, 11, 0.3);
-    padding: 10px 25px;
-    border-radius: 20px;
     transition: all 0.3s ease;
-    margin-top: 10px;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
 }
 
 .edge-name-link:hover {
-    background: linear-gradient(135deg, var(--saffron-500), var(--orange));
-    color: white;
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.2);
-    border-color: transparent;
+    color: var(--saffron-400);
+    text-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    transform: translateY(-2px);
 }
 
 .edge-btn:hover {
