@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="gu">
 
 <head>
@@ -9,7 +9,7 @@
     <meta property="og:title" content="હરિપ્રબોધમ કથામૃત" />
     <meta property="og:description" content="ગુજરાતી ભક્તિ સાહિત્ય અને ધાર્મિક લેખ" />
     <meta property="og:type" content="website" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style.css?v=1.3.2" />
 
     <!-- PRELOAD CRITICAL ASSETS FOR FASTER PAINT -->
     <link rel="preload" href="images/kathamrut.webp" as="image" />
@@ -21,6 +21,22 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet" />
+
+    <!-- Modern Stack: Tailwind + daisyUI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#f59e0b',
+                        orange: '#ea580c',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
 
 <body class="home-page">
@@ -44,35 +60,55 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">
-                <img src="images/right-main.webp" alt="" class="hero-top-img" />
-                <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy" />
-                <span class="sr-only">હરિપ્રબોધમ કથામૃત</span>
-            </h1>
-            <div class="hero-quote">
-                <span class="quote-mark">&ldquo;</span>
-                <span>હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
-                <span class="quote-mark">&rdquo;</span>
-                <span class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</span>
+        <div class="container hero-container">
+            <!-- Left Wing: Branding & Identity (Model Layout Stack) -->
+            <div class="hero-sidebar flex flex-col justify-between h-full py-12">
+                <div class="hero-left-top flex flex-col items-center gap-8">
+                    <div class="hero-portrait-wrap relative w-full flex justify-center">
+                        <img src="images/right-main.webp" alt="Swamiji" class="hero-main-img-model w-[180%] max-w-none transform translate-y-[-10%] scale-[2.2]" />
+                    </div>
+                    
+                    <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy-model w-full max-w-[450px] filter drop-shadow-[0_0_30px_rgba(245,158,11,0.5)]" />
+                </div>
+
+                <div class="hero-left-bottom text-center">
+                    <p class="hero-sacred-text text-3xl font-bold text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] font-gujarati">"બસ એક તું રાજી થા"</p>
+                </div>
             </div>
-            <div class="hero-actions">
-                <a href="#articles" class="btn btn-primary">Read More</a>
-                <a href="search.html" class="btn btn-outline">Search</a>
+
+            <!-- Right Wing: Exploration (Model Layout) -->
+            <div class="hero-stage flex flex-col justify-center items-center relative gap-8">
+                <h2 class="text-white text-3xl font-bold uppercase tracking-[0.2em] mb-4 opacity-80">3D ROTATION EFFECT</h2>
+                
+                <div class="carousel-wrapper-modern w-full max-w-6xl px-4 perspective-[2000px] z-20">
+                    <div id="articleCarouselModern" class="flex gap-8 lg:gap-10 snap-x snap-mandatory overflow-x-auto py-12 scrollbar-hide cursor-grab active:cursor-grabbing">
+                        <!-- Articles injected by test.js -->
+                    </div>
+                </div>
+
+                <!-- PRESERVED QUOTE BOX -->
+                <div class="hero-quote">
+                    <div class="quote-main">
+                        <span class="quote-mark open">&ldquo;</span>
+                        <span id="quoteText">કથાવર્તા જ જીવન છે.</span>
+                        <span class="quote-mark close">&rdquo;</span>
+                    </div>
+                    <div id="quoteAuthor" class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</div>
+                    <div class="quote-pagination" id="quotePagination"></div>
+                </div>
+
+                <!-- BOTTOM NAVIGATION STRIP -->
+                <div class="hero-bottom-nav flex gap-8 items-center mt-auto pb-4">
+                    <a href="#featured" class="nav-model-link active">Read More</a>
+                    <a href="search.html" class="nav-model-link">Search</a>
+                    <a href="prasang.html" class="nav-model-link">પ્રસંગો</a>
+                    <a href="categories.html" class="nav-model-link">પરવાણી</a>
+                    <a href="admin.html" class="nav-model-link">ગોષ્ઠી</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- LATEST ARTICLES -->
-    <section class="section articles-section" id="articles">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Latest</h2>
-            </div>
-            <div class="cards-grid" id="articlesGrid"></div>
-            <div class="pagination" id="pagination"></div>
-        </div>
-    </section>
 
     <!-- FEATURED ARTICLES -->
     <section class="section featured-section" id="featured">
@@ -123,7 +159,7 @@
 
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
-    <script src="js/home.js" defer></script>
+    <script src="js/home.js?v=1.3.2" defer></script>
     <script src="js/particles.js" defer></script>
 </body>
 
