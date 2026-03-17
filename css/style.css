@@ -1151,7 +1151,7 @@ body.page-exiting {
   border-top: 1px solid var(--card-border) !important;
   border-left: 1px solid var(--card-border) !important;
   border-right: 1px solid var(--card-border) !important;
-  border-bottom: 4px solid rgba(255, 179, 15, 0.9) !important;
+  border-bottom: 6px solid rgba(255, 179, 15, 0.95) !important;
 
   position: relative;
   overflow: hidden;
