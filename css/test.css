@@ -712,49 +712,21 @@ body.page-exiting {
 }
 
 /* ============================================================
-   3D ARTICLE CAROUSEL
+   SPLINE 3D HERO CAROUSEL
    ============================================================ */
-/* Cleaned up old carousel styles to make room for modern logic */
-.carousel-wrapper-modern {
-  overflow: visible;
-  padding: 20px 0;
-}
-
-.carousel-card-3d {
-  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
-  transform-style: preserve-3d;
-}
-
-.carousel-card {
-  position: absolute;
-  width: 210px;
-  height: 310px;
-  left: 50%;
-  margin-left: -105px;
-  border-radius: 32px;
-  background: rgba(30, 30, 35, 0.45);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 3px solid var(--saffron-500);
-  display: flex;
-  flex-direction: column;
+.spline-hero-container {
   overflow: hidden;
-  cursor: grab;
-  transition: transform 0.1s ease-out, opacity 0.4s ease;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+  border-radius: 40px;
+  background: transparent; /* Let Spline control background or keep page background */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 2rem;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.carousel-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 30%;
-  background: linear-gradient(to bottom, rgba(245, 158, 11, 0.15), transparent);
-  pointer-events: none;
-  z-index: 1;
+.spline-hero-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 50px rgba(245, 158, 11, 0.2);
 }
 
 .hero-main-img-model {
