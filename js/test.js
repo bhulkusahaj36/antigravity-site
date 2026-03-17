@@ -133,169 +133,161 @@ function renderCategoryChips() {
 
 
 // ============================================================
-// 3D ARTICLE CAROUSEL LOGIC
+// MODERN 3D ROTATING ARTICLE CAROUSEL (v1.3.0)
 // ============================================================
-// ============================================================
-// 3D "ZENITH ARC" CAROUSEL LOGIC
-// ============================================================
-let rotationAngle = 0; // Current scroll position in degrees
-let targetAngle = 0;   // Target snap position
-let isDragging = false;
-let startX = 0;
-let currentX = 0;
-let velocity = 0;
-let lastX = 0;
-let autoRotateTimer;
-
 function initArticleCarousel() {
-    console.log("Staging: Initializing Article Carousel with", ALL_ARTICLES.length, "articles");
-    const wrapper = document.querySelector('.carousel-wrapper');
-    const carouselEl = document.getElementById('articleCarousel');
-    if (!carouselEl || !ALL_ARTICLES || ALL_ARTICLES.length === 0) {
-        console.warn("Staging: Carousel init aborted. Elements missing or no articles.");
-        return;
-    }
+    console.log("Staging: Initializing Modern 3D Carousel");
+    const carouselEl = document.getElementById('articleCarouselModern');
+    if (!carouselEl) return;
 
-    // Get top 10 articles
-    const latest = getSorted(ALL_ARTICLES).slice(0, 10);
-    const total = latest.length;
-    const angleStep = 360 / total; // Space between cards on the circle
-    
-    carouselEl.innerHTML = '';
-    latest.forEach((article, i) => {
-        const card = document.createElement('div');
-        card.className = 'carousel-card';
-        card.onclick = () => { 
-            if (Math.abs(velocity) < 0.5) { // Prevent click while fast-scrolling
-                window.location.href = `article-detail.html?id=${article.id}`; 
-            }
-        };
+    // Fixed sequence requested by user
+    const REQ_CARDS = [
+        { title: 'Draft an email', excerpt: 'લખી શકાય તેવો પત્ર ડ્રાફ્ટ કરો...' },
+        { title: 'Summarise unread emails', excerpt: 'વણવાંચેલા પત્રોનો સારાંશ મેળવો...' },
+        { title: 'Draft a status update', excerpt: 'સ્થિતિની અપડેટ ડ્રાફ્ટ કરો...' },
+        { title: 'Article Body, limited lines', excerpt: 'લેખનો મુખ્ય ભાગ, મર્યાદિત પંક્તિઓ...' }
+    ];
 
-        const topicName = getCategoryName(article.topic || article.category).split(',')[0];
-        const excerpt = (article.excerpt || '').substring(0, 60) + '...';
-        
-        card.innerHTML = `
-            <div class="carousel-card-body">
-                <div class="card-accent"></div>
-                <span class="carousel-card-info">${topicName}</span>
-                <h3 class="carousel-card-title">${article.title}</h3>
-                <p class="carousel-card-excerpt">${excerpt}</p>
-                <div class="card-footer">
-                    <span class="read-prompt">Read Story →</span>
-                </div>
-            </div>
-        `;
-        carouselEl.appendChild(card);
+    // Merge requested cards with dynamic data
+    const latestArticles = getSorted(ALL_ARTICLES).slice(0, 6);
+    const displayList = [...REQ_CARDS];
+    latestArticles.forEach(a => {
+        if (!displayList.some(d => d.title === a.title)) {
+            displayList.push(a);
+        }
     });
 
-    const updatePositions = () => {
-        const cards = carouselEl.querySelectorAll('.carousel-card');
-        const radius = 850; 
-        const spreadLimit = 160; 
-        const step = spreadLimit / (total - 1);
-
-        cards.forEach((card, i) => {
-            // Smoothly wrap the rotation angle for infinite feel
-            let angleInDegrees = (i * step) + (rotationAngle) - ( (total-1) * step / 2);
-            const rad = angleInDegrees * (Math.PI / 180);
-
-            // Rock-Solid Split positions (Shifted Right to clear text)
-            const x = Math.sin(rad) * radius * 0.9 + 250; 
-            const z = Math.cos(rad) * radius - radius; 
-            const rotY = angleInDegrees * 0.3; 
-            const y = Math.abs(x-250) * 0.04; 
-
-            // Depth Culling
-            const absAngle = Math.abs(angleInDegrees);
-            const opacity = 1 - (absAngle / (spreadLimit * 0.8));
-            const scale = 1 - (absAngle / (spreadLimit * 6));
-
-            card.style.transform = `translateX(-50%) translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotY}deg) scale(${scale})`;
-            card.style.opacity = Math.max(opacity, 0);
-            card.style.zIndex = Math.round(z + 5000);
-            card.style.visibility = opacity > 0.1 ? 'visible' : 'hidden';
-            card.style.pointerEvents = absAngle < (step * 0.8) ? 'auto' : 'none';
-            card.classList.toggle('active', absAngle < (step / 2));
-        });
-    };
-
-    // Interaction Listeners
-    const handleStart = (e) => {
-        isDragging = true;
-        startX = e.pageX || e.touches[0].pageX;
-        lastX = startX;
-        velocity = 0;
-        clearInterval(autoRotateTimer);
-        carouselEl.style.transition = 'none';
-    };
-
-    const handleMove = (e) => {
-        if (!isDragging) return;
-        currentX = e.pageX || e.touches[0].pageX;
-        const delta = currentX - lastX;
-        rotationAngle += delta * 0.25; // Balanced sensitivity
-        velocity = delta * 0.25;
-        lastX = currentX;
-        updatePositions();
-    };
-
-    const handleEnd = () => {
-        if (!isDragging) return;
-        isDragging = false;
-        
-        startAutoRotate();
-        
-        // Snap to nearest card based on current step
-        const snapTarget = Math.round(rotationAngle / step) * step;
-        animateToAngle(snapTarget);
-    };
-
-    const animateToAngle = (target) => {
-        const start = rotationAngle;
-        const distance = target - start;
-        let startTime = null;
-
-        const animation = (timestamp) => {
-            if (!startTime) startTime = timestamp;
-            const progress = Math.min((timestamp - startTime) / 600, 1);
-            const ease = 1 - Math.pow(1 - progress, 5); // Smooth ease-out
-
-            rotationAngle = start + (distance * ease);
-            updatePositions();
-
-            if (progress < 1) {
-                requestAnimationFrame(animation);
-            } else {
-                // Keep angle in manageable range for infinite loop
-                rotationAngle = rotationAngle % (total * step);
-            }
-        };
-        requestAnimationFrame(animation);
-    };
-
-    const startAutoRotate = () => {
-        clearInterval(autoRotateTimer);
-        autoRotateTimer = setInterval(() => {
-            if (!isDragging) {
-                const target = Math.round(rotationAngle / step) * step - step;
-                animateToAngle(target);
-            }
-        }, 8000); // Slower, more majestic interval
-    };
-
-    // Events
-    wrapper.addEventListener('mousedown', handleStart);
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('mouseup', handleEnd);
+    carouselEl.innerHTML = '';
     
-    wrapper.addEventListener('touchstart', handleStart, { passive: true });
-    window.addEventListener('touchmove', handleMove, { passive: true });
-    window.addEventListener('touchend', handleEnd);
+    displayList.forEach((article, i) => {
+        const cardWrap = document.createElement('div');
+        cardWrap.className = 'hover-3d-wrap shrink-0 snap-center py-4';
+        
+        const card = document.createElement('div');
+        // Combined user styles with 3D functional classes
+        card.className = 'carousel-card-3d card w-80 h-[480px] bg-black/90 backdrop-blur-2xl border border-gold/40 rounded-3xl shadow-2xl overflow-hidden cursor-grab active:cursor-grabbing group relative perspective-[1200px] transition-all duration-300';
+        
+        const topicName = article.topic || article.category || 'Divine';
+        const excerpt = article.excerpt || 'Limited Gujarati preview text here matching spiritual theme...';
 
-    // Initial render
-    updatePositions();
-    startAutoRotate();
+        card.innerHTML = `
+            <!-- Card thumbnail (top 2/5 height) -->
+            <div class="h-[40%] bg-gradient-to-br from-gold/40 to-orange/30 rounded-t-3xl relative overflow-hidden pointer-events-none">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-gold/20 to-transparent opacity-50 shine-effect"></div>
+            </div>
+            
+            <!-- Card content -->
+            <div class="p-8 h-[60%] flex flex-col justify-between pointer-events-none">
+                <div>
+                    <span class="text-gold/80 text-xs font-bold uppercase tracking-widest mb-2 block">${topicName}</span>
+                    <h3 class="text-2xl font-bold text-white mb-4 drop-shadow-xl group-hover:text-gold transition-colors leading-tight">${article.title}</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed line-clamp-4 font-gujarati">${excerpt}</p>
+                </div>
+                <div class="flex items-center text-gold text-sm font-bold gap-2">
+                    Read Story <span class="group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+            </div>
+            
+            <!-- 3D Glow Layer -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" 
+                 style="background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(245, 158, 11, 0.15) 0%, transparent 60%);"></div>
+        `;
+
+        // 3D Tilt Logic
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (centerY - y) / 10; // Max ~15deg
+            const rotateY = (x - centerX) / 10;
+            
+            card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+            card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+            card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+
+            // Spawn gold particle trail
+            if (window.spawnGoldParticle) {
+                window.spawnGoldParticle(e.clientX, e.clientY);
+            }
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = `perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+
+        card.onclick = () => {
+            if (article.id) window.location.href = `article-detail.html?id=${article.id}`;
+        };
+
+        cardWrap.appendChild(card);
+        carouselEl.appendChild(cardWrap);
+    });
+
+    // Grab-to-scroll logic
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    carouselEl.addEventListener('mousedown', (e) => {
+        isDown = true;
+        carouselEl.classList.add('active');
+        startX = e.pageX - carouselEl.offsetLeft;
+        scrollLeft = carouselEl.scrollLeft;
+    });
+
+    carouselEl.addEventListener('mouseleave', () => {
+        isDown = false;
+    });
+
+    carouselEl.addEventListener('mouseup', () => {
+        isDown = false;
+    });
+
+    carouselEl.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carouselEl.offsetLeft;
+        const walk = (x - startX) * 2;
+        carouselEl.scrollLeft = scrollLeft - walk;
+    });
 }
+
+// Gold Particle Trail Functionality
+window.spawnGoldParticle = function(x, y) {
+    const p = document.createElement('div');
+    p.className = 'fixed pointer-events-none z-[9999] rounded-full bg-gold shadow-[0_0_10px_#f59e0b]';
+    const size = Math.random() * 4 + 2;
+    p.style.width = `${size}px`;
+    p.style.height = `${size}px`;
+    p.style.left = `${x}px`;
+    p.style.top = `${y}px`;
+    p.style.opacity = '0.8';
+    
+    document.body.appendChild(p);
+    
+    const angle = Math.random() * Math.PI * 2;
+    const velocity = Math.random() * 2 + 1;
+    const vx = Math.cos(angle) * velocity;
+    const vy = Math.sin(angle) * velocity;
+    
+    let op = 0.8;
+    const anim = setInterval(() => {
+        x += vx;
+        y += vy;
+        op -= 0.05;
+        p.style.left = `${x}px`;
+        p.style.top = `${y}px`;
+        p.style.opacity = op;
+        if (op <= 0) {
+            clearInterval(anim);
+            p.remove();
+        }
+    }, 16);
+};
 
 function initRotatingQuote() {
     const textEl = document.getElementById('quoteText');

@@ -159,6 +159,15 @@ img {
   background: var(--saffron-500);
 }
 
+/* Scrollbar Hide Utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* ============================================================
    ELEGANT FADE PAGE TRANSITION
    ============================================================ */
@@ -449,8 +458,8 @@ body.page-exiting {
 
 .hero-calligraphy {
   position: absolute !important;
-  top: 10px !important;
-  left: 10px !important;
+  top: 100px !important;
+  left: 100px !important;
   width: 1200px;
   height: auto;
   filter: drop-shadow(0 0 50px rgba(245, 158, 11, 0.6));
@@ -709,24 +718,15 @@ body.page-exiting {
 /* ============================================================
    3D ARTICLE CAROUSEL
    ============================================================ */
-.carousel-wrapper {
-  perspective: 2500px;
-  width: 100%;
-  height: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* Cleaned up old carousel styles to make room for modern logic */
+.carousel-wrapper-modern {
   overflow: visible;
-  z-index: 50;
-  margin-top: -100px;
+  padding: 20px 0;
 }
 
-.article-carousel {
-  width: 100%;
-  height: 100%;
-  position: relative;
+.carousel-card-3d {
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
   transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .carousel-card {
@@ -765,7 +765,7 @@ body.page-exiting {
   position: absolute;
   top: 50%;
   left: 0%;
-  transform: translateY(10%) scale(4);
+  transform: translateY(10%) scale(3.0);
   width: 100%;
   height: auto;
   max-height: 95vh;
