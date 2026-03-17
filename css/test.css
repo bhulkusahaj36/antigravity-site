@@ -1808,26 +1808,27 @@ body.page-exiting {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-.card-edge h3 {
+.edge-name-link {
+    display: inline-block;
     font-size: 1.5rem;
     font-weight: 700;
     color: #fff;
-    margin-bottom: 20px;
     font-family: var(--font-gu);
+    text-decoration: none;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+    padding: 10px 25px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
-.edge-btn {
+.edge-name-link:hover {
     background: linear-gradient(135deg, var(--saffron-500), var(--orange));
     color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.85rem;
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(245, 158, 11, 0.2);
+    border-color: transparent;
 }
 
 .edge-btn:hover {

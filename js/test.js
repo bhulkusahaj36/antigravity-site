@@ -82,8 +82,7 @@ function buildEdgeCard(id, label, imgFolder, href) {
 
     card.innerHTML = `
         <img src="${imgSrc}" alt="${cleanLabel}" onerror="this.src='images/article-placeholder.webp'">
-        <h3 class="font-gujarati">${cleanLabel}</h3>
-        <button class="edge-btn" onclick="window.location.href='${href}'">Explore</button>
+        <a href="${href}" class="edge-name-link font-gujarati">${cleanLabel}</a>
     `;
     return card;
 }
