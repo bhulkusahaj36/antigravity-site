@@ -1210,7 +1210,7 @@ body.page-exiting {
   border-top: 1px solid var(--card-border);
   border-left: 1px solid var(--card-border);
   border-right: 1px solid var(--card-border);
-  border-bottom: 4px solid rgba(255, 179, 15, 0.9);
+  border-bottom: 6px solid rgba(255, 179, 15, 0.95);
   border-radius: 1.5rem;
   padding: 1.75rem;
   display: flex;
@@ -1329,7 +1329,7 @@ body.page-exiting {
   border-top: 1px solid rgba(251, 191, 36, 0.2);
   border-left: 1px solid rgba(251, 191, 36, 0.2);
   border-right: 1px solid rgba(251, 191, 36, 0.2);
-  border-bottom: 3px solid rgba(251, 191, 36, 0.85);
+  border-bottom: 6px solid rgba(251, 191, 36, 0.95);
   border-radius: var(--radius-pill);
   background: rgba(251, 191, 36, 0.05);
   transition: all var(--transition);
