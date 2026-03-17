@@ -72,18 +72,43 @@ function buildAvatarCard(id, label, imgFolder, href) {
     return card;
 }
 
-// Build an "Edge Style" card for the new Featured carousel
+// Build an "Edge Style" 3D card for the new Featured carousel
 function buildEdgeCard(id, label, imgFolder, href) {
     const card = document.createElement('div');
-    card.className = 'card-edge';
+    card.className = 'card-edge perspective-[1200px] group';
     
     const cleanLabel = label.replace(/\n/g, ' ');
     const imgSrc = `images/${imgFolder}/${id}.webp`;
 
     card.innerHTML = `
-        <img src="${imgSrc}" alt="${cleanLabel}" onerror="this.src='images/article-placeholder.webp'">
-        <a href="${href}" class="edge-name-link font-gujarati">${cleanLabel}</a>
+        <div class="card-edge-inner transition-transform duration-500 ease-out transform-gpu">
+            <a href="${href}" class="edge-img-link active:scale-95 transition-transform block">
+               <img src="${imgSrc}" alt="${cleanLabel}" onerror="this.src='images/article-placeholder.webp'" class="pointer-events-none">
+            </a>
+            <a href="${href}" class="edge-name-link font-gujarati">${cleanLabel}</a>
+        </div>
     `;
+
+    // 3D Horizontal Rotation Logic
+    card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const centerX = rect.width / 2;
+        const rotateY = (x - centerX) / 8; // Max ~20deg horizontal rotation
+        
+        const inner = card.querySelector('.card-edge-inner');
+        if (inner) {
+            inner.style.transform = `rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        }
+    });
+
+    card.addEventListener('mouseleave', () => {
+        const inner = card.querySelector('.card-edge-inner');
+        if (inner) {
+            inner.style.transform = `rotateY(0deg) scale3d(1, 1, 1)`;
+        }
+    });
+
     return card;
 }
 
