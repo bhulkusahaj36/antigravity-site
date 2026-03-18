@@ -1,5 +1,5 @@
-// ============================================================
-// FEED PAGE — Tabs + Conditional fields + Browse logic
+﻿// ============================================================
+// FEED PAGE â€” Tabs + Conditional fields + Browse logic
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
     wireDateRadio('add');
     wireDateRadio('br');
 
-    /* ── Add Form submit ─────────────────────────────────────── */
+    /* â”€â”€ Add Form submit â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     const addForm = document.getElementById('addForm');
     const addFeedback = document.getElementById('add-feedback');
 
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('editor-container')) {
         quill = new Quill('#editor-container', {
             theme: 'snow',
-            placeholder: 'અહીં પ્રસંગ લખો (બુલેટ પોઇન્ટ, બોલ્ડ, વગેરેનો ઉપયોગ કરી શકો છો)...',
+            placeholder: 'àª…àª¹à«€àª‚ àªªà«àª°àª¸àª‚àª— àª²àª–à«‹ (àª¬à«àª²à«‡àªŸ àªªà«‹àª‡àª¨à«àªŸ, àª¬à«‹àª²à«àª¡, àªµàª—à«‡àª°à«‡àª¨à«‹ àª‰àªªàª¯à«‹àª— àª•àª°à«€ àª¶àª•à«‹ àª›à«‹)...',
             modules: {
                 toolbar: [
                     ['bold', 'italic', 'underline', 'strike'],
@@ -38,13 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ── Admin Edit Mode Initialization ──────────────────────── */
+    /* â”€â”€ Admin Edit Mode Initialization â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     let editingArticleId = null;
     const editId = getParam('editId');
     if (editId && localStorage.getItem('hk_isAdmin') === 'true') {
         editingArticleId = editId;
         const titleEl = document.querySelector('.page-title');
-        if (titleEl) titleEl.textContent = 'પ્રસંગ સંપાદિત કરો (Edit)';
+        if (titleEl) titleEl.textContent = 'àªªà«àª°àª¸àª‚àª— àª¸àª‚àªªàª¾àª¦àª¿àª¤ àª•àª°à«‹ (Edit)';
         const submitBtn = document.querySelector('#addForm button[type="submit"]');
         if (submitBtn) submitBtn.textContent = 'Save Changes';
 
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
 
             const submitBtn = document.querySelector('#addForm button[type="submit"]');
-            const originalBtnHtml = submitBtn ? (submitBtn.dataset.originalHtml || submitBtn.innerHTML) : 'પ્રસંગ સંગ્રહ કરો';
+            const originalBtnHtml = submitBtn ? (submitBtn.dataset.originalHtml || submitBtn.innerHTML) : 'àªªà«àª°àª¸àª‚àª— àª¸àª‚àª—à«àª°àª¹ àª•àª°à«‹';
 
             if (submitBtn && !submitBtn.dataset.originalHtml) {
                 submitBtn.dataset.originalHtml = originalBtnHtml;
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (!title || !content) {
-                showFeedback(addFeedback, 'error', 'શીર્ષક અને સંદેશ ભરવા જરૂરી છે.');
+                showFeedback(addFeedback, 'error', 'àª¶à«€àª°à«àª·àª• àª…àª¨à«‡ àª¸àª‚àª¦à«‡àª¶ àª­àª°àªµàª¾ àªœàª°à«‚àª°à«€ àª›à«‡.');
                 return;
             }
 
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: editingArticleId || String(Date.now()),
                 title,
                 content,
-                author: document.getElementById('add-author').value.trim() || 'અજ્ઞાત',
+                author: document.getElementById('add-author').value.trim() || 'àª…àªœà«àªžàª¾àª¤',
                 source: finalSource.join(','),
                 topic: finalTopic.join(','),
                 prasang: finalPrasang.join(','),
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    showFeedback(addFeedback, 'success', '✓ પ્રસંગ સફળતાપૂર્વક ઉમેરાયો!');
+                    showFeedback(addFeedback, 'success', 'âœ“ àªªà«àª°àª¸àª‚àª— àª¸àª«àª³àª¤àª¾àªªà«‚àª°à«àªµàª• àª‰àª®à«‡àª°àª¾àª¯à«‹!');
                     setTimeout(() => {
                         window.location.href = window.location.pathname;
                     }, 1000);
@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ── Browse / Filter ─────────────────────────────────────── */
+    /* â”€â”€ Browse / Filter â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     const browseBtn = document.getElementById('browseSearchBtn');
     const browseReset = document.getElementById('browseResetBtn');
     const browseGrid = document.getElementById('browseResults');
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.innerHTML = `
           <h3 class="card-title">${a.title}</h3>
           <div class="card-footer">
-            <a href="article.html?id=${a.id || ''}" class="read-more">વધુ વાંચો</a>
+            <a href="article.html?id=${a.id || ''}" class="read-more">àªµàª§à« àªµàª¾àª‚àªšà«‹</a>
           </div>`;
             browseGrid.appendChild(card);
         });
@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    /* ── Utility ─────────────────────────────────────────────── */
+    /* â”€â”€ Utility â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     function showFeedback(el, type, msg) {
         el.className = 'form-feedback ' + type;
         el.innerHTML = msg;

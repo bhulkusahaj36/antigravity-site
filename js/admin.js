@@ -1,4 +1,4 @@
-// admin.js - Secure Admin Panel Intercept and Login Logic
+﻿// admin.js - Secure Admin Panel Intercept and Login Logic
 
 document.addEventListener('DOMContentLoaded', () => {
     // We only execute this script on the admin.html page
@@ -251,22 +251,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!ctx) return;
 
             const topicLabels = {
-                'mahima': 'મહિમા',
-                'atmiyata': 'આત્મીયતા',
-                'nishtha': 'નિષ્ઠા',
-                'seva': 'સેવા',
-                'bhagvadi': 'ભગવદી',
-                'bhakti': 'ભક્તોનો મહિમા',
-                'saralata': 'સરળતા',
-                'swadharm': 'સ્વધર્મ',
-                'swadhyay': 'સ્વાધ્યાય-ભજન',
-                'bhajan': 'ભજન/સ્વામિનારાયણ મહામંત્ર',
-                'svasarap': 'સ્વસારપ',
-                'vachanamrut': 'વચનામૃત',
-                'swamini': 'સ્વામીની વાતો',
-                'shikshapatri': 'શિક્ષાપત્રી',
-                'samagam': 'સમાગમ',
-                'katha-varta': 'કથા-વાર્તા',
+                'mahima': 'àª®àª¹àª¿àª®àª¾',
+                'atmiyata': 'àª†àª¤à«àª®à«€àª¯àª¤àª¾',
+                'nishtha': 'àª¨àª¿àª·à«àª àª¾',
+                'seva': 'àª¸à«‡àªµàª¾',
+                'bhagvadi': 'àª­àª—àªµàª¦à«€',
+                'bhakti': 'àª­àª•à«àª¤à«‹àª¨à«‹ àª®àª¹àª¿àª®àª¾',
+                'saralata': 'àª¸àª°àª³àª¤àª¾',
+                'swadharm': 'àª¸à«àªµàª§àª°à«àª®',
+                'swadhyay': 'àª¸à«àªµàª¾àª§à«àª¯àª¾àª¯-àª­àªœàª¨',
+                'bhajan': 'àª­àªœàª¨/àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£ àª®àª¹àª¾àª®àª‚àª¤à«àª°',
+                'svasarap': 'àª¸à«àªµàª¸àª¾àª°àªª',
+                'vachanamrut': 'àªµàªšàª¨àª¾àª®à«ƒàª¤',
+                'swamini': 'àª¸à«àªµàª¾àª®à«€àª¨à«€ àªµàª¾àª¤à«‹',
+                'shikshapatri': 'àª¶àª¿àª•à«àª·àª¾àªªàª¤à«àª°à«€',
+                'samagam': 'àª¸àª®àª¾àª—àª®',
+                'katha-varta': 'àª•àª¥àª¾-àªµàª¾àª°à«àª¤àª¾',
                 'other': 'Other'
             };
 
@@ -315,15 +315,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!ctx) return;
 
             const guruLabels = {
-                'bhagwan': 'ભગવાન સ્વામિનારાયણ',
-                'gunatit': 'ગુણાતીતાનંદ સ્વામી',
-                'bhagatji': 'ભગતજી મહારાજ',
-                'shastriji': 'શાસ્ત્રીજી મહારાજ',
-                'yogiji': 'યોગીજી મહારાજ',
-                'hariprasad': 'હરિપ્રસાદ સ્વામીજી મહારાજ',
-                'prabodh': 'પ્રબોધ સ્વામીજી',
-                'bhakto': 'ભક્તો',
-                'prabhudasbhai': 'પ્રભુદાસભાઈ'
+                'bhagwan': 'àª­àª—àªµàª¾àª¨ àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£',
+                'gunatit': 'àª—à«àª£àª¾àª¤à«€àª¤àª¾àª¨àª‚àª¦ àª¸à«àªµàª¾àª®à«€',
+                'bhagatji': 'àª­àª—àª¤àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
+                'shastriji': 'àª¶àª¾àª¸à«àª¤à«àª°à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
+                'yogiji': 'àª¯à«‹àª—à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
+                'hariprasad': 'àª¹àª°àª¿àªªà«àª°àª¸àª¾àª¦ àª¸à«àªµàª¾àª®à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
+                'prabodh': 'àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€àªœà«€',
+                'bhakto': 'àª­àª•à«àª¤à«‹',
+                'prabhudasbhai': 'àªªà«àª°àª­à«àª¦àª¾àª¸àª­àª¾àªˆ'
             };
 
             const counts = {};
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     tr.innerHTML = `
                         <td style="padding: 1rem 0.5rem; color: var(--text-light); font-weight: 500;">${art.title || 'Untitled'}</td>
-                        <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${art.author || 'અજ્ઞાત'}</td>
+                        <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${art.author || 'àª…àªœà«àªžàª¾àª¤'}</td>
                         <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${dateStr}</td>
                         <td style="padding: 1rem 0.5rem; text-align: right;">
                             <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.85rem; margin-right: 0.5rem; color: var(--gold-400); border-color: var(--gold-400);">Edit</a>

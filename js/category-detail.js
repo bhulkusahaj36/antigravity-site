@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // CATEGORY DETAIL PAGE
 // ============================================================
 
@@ -56,7 +56,7 @@ async function loadCategoryArticles() {
 
     const count = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId)).length;
     const headingEl = document.getElementById('catArticlesHeading');
-    if (headingEl) headingEl.textContent = `${count} લેખ`;
+    if (headingEl) headingEl.textContent = `${count} àª²à«‡àª–`;
 
     renderCatArticles();
 }
@@ -66,11 +66,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const cat = getCategory(catId);
 
     if (!cat) {
-        document.getElementById('catDetailTitle').textContent = 'વિભાગ મળ્યો નહીં';
+        document.getElementById('catDetailTitle').textContent = 'àªµàª¿àª­àª¾àª— àª®àª³à«àª¯à«‹ àª¨àª¹à«€àª‚';
         return;
     }
 
-    document.title = `${cat.name} – હરિપ્રબોધમ કથામૃત`;
+    document.title = `${cat.name} â€“ àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤`;
     document.getElementById('catDetailTitle').textContent = cat.name;
     if (cat.description) {
         document.getElementById('catDetailDesc').textContent = cat.description;
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Delay article count rendering until data arrives
     const headingEl = document.getElementById('catArticlesHeading');
-    if (headingEl) headingEl.textContent = `લોડ થઈ રહ્યું છે...`;
+    if (headingEl) headingEl.textContent = `àª²à«‹àª¡ àª¥àªˆ àª°àª¹à«àª¯à«àª‚ àª›à«‡...`;
 
     // Fetch live articles
     loadCategoryArticles();

@@ -29,6 +29,7 @@ const TOPIC_LABELS = {
     shikshapatri: 'શિક્ષાપત્રી',
     samagam: 'સમાગમ',
     'katha-varta': 'કથા-વાર્તા',
+    'custom-topic-1773152608723': 'વિવેક',
     other: 'અન્ય',
 };
 
