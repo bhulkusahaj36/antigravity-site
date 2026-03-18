@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (finalSource.includes('other')) {
                 const otherText = document.getElementById('add-source-other-text')?.value.trim();
                 if (otherText) {
-                    const slug = 'custom-source-' + Date.now();
+                    const slug = otherText;
                     saveCustomTag('source', slug, otherText);
                     finalSource = finalSource.map(v => v === 'other' ? slug : v);
                 }
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (finalTopic.includes('other')) {
                 const otherText = document.getElementById('add-topic-other-text')?.value.trim();
                 if (otherText) {
-                    const slug = 'custom-topic-' + Date.now();
+                    const slug = otherText;
                     saveCustomTag('topic', slug, otherText);
                     finalTopic = finalTopic.map(v => v === 'other' ? slug : v);
                 }
@@ -151,7 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (finalPrasang.includes('bhakto')) {
                 const otherText = document.getElementById('add-prasang-bhakto-text')?.value.trim();
                 if (otherText) {
-                    const slug = 'custom-prasang-' + Date.now();
+                    const slug = otherText;
                     finalPrasang = finalPrasang.map(v => v === 'bhakto' ? slug : v);
                 }
             }
