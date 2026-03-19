@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            let finalTopic = Array.from(document.getElementById('topic').selectedOptions).map(o => o.value).filter(v => v);
+            let finalTopic = Array.from(document.getElementById('add-topic').selectedOptions).map(o => o.value).filter(v => v);
             if (finalTopic.includes('other')) {
                 const otherText = document.getElementById('add-topic-other-text')?.value.trim();
                 if (otherText) {
