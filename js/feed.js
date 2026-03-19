@@ -29,9 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
             placeholder: 'અહીં પ્રસંગ લખો (બુલેટ પોઈન્ટ, બોલ્ડ, વગેરેનો ઉપયોગ કરી શકો છો)...',
             modules: {
                 toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
                     ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['blockquote', 'code-block'],
                     [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                    [{ 'indent': '-1' }, { 'indent': '+1' }],
+                    [{ 'align': [] }],
+                    ['link', 'image'],
                     ['clean']
                 ]
             }
