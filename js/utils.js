@@ -46,7 +46,7 @@ function formatDate(iso) {
 // Get category name by id (handles comma-separated and custom tags)
 function getCategoryName(idText) {
     if (!idText) return '';
-    const ids = idText.split(',');
+    const ids = idText.split(',').map(s => s.trim()).filter(Boolean);
 
     let allCustomTags = [];
     try {
@@ -62,29 +62,44 @@ function getCategoryName(idText) {
     } catch (e) { }
 
     return ids.map(id => {
-        // 1. Hardcoded in CATEGORIES
+        // 1. Hardcoded in PRASANG_LABELS
+        if (typeof PRASANG_LABELS !== 'undefined' && PRASANG_LABELS[id]) {
+            return PRASANG_LABELS[id];
+        }
+
+        // 2. Hardcoded in CATEGORIES
         const cat = CATEGORIES.find(c => c.id === id);
         if (cat) return cat.name;
 
-        // 2. Hardcoded in TOPIC_LABELS
+        // 3. Hardcoded in TOPIC_LABELS
         if (typeof TOPIC_LABELS !== 'undefined' && TOPIC_LABELS[id]) {
             return TOPIC_LABELS[id];
         }
 
-        // 3. Custom from localStorage
+        // 4. Custom from localStorage
         const custom = allCustomTags.find(t => t.value === id);
         if (custom) return custom.label;
 
-        return id; // fallback
-    }).join(', ');
+        // If it's a known internal ID that wasn't matched above, return empty or filtered
+        // But for now, we'll return the ID if it doesn't look like a technical key
+        return id;
+    }).filter(Boolean).join(', ');
 }
 
 // Get category by id
 function getCategory(id) {
     if (!id) return null;
+    
+    // 1. Hardcoded in PRASANG_LABELS
+    if (typeof PRASANG_LABELS !== 'undefined' && PRASANG_LABELS[id]) {
+        return { id: id, name: PRASANG_LABELS[id], description: '' };
+    }
+
+    // 2. Hardcoded in CATEGORIES
     let cat = CATEGORIES.find(c => c.id === id);
     if (cat) return cat;
 
+    // 3. Hardcoded in TOPIC_LABELS
     if (typeof TOPIC_LABELS !== 'undefined' && TOPIC_LABELS[id]) {
         return { id: id, name: TOPIC_LABELS[id], description: '' };
     }
