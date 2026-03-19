@@ -173,6 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 'svasarap': 'સ્વસારપ', 'vachanamrut': 'વચનામૃત', 'swamini': 'સ્વામીની વાતો',
                 'shikshapatri': 'શિક્ષાપત્રી', 'samagam': 'સમાગમ', 'katha-varta': 'કથા-વાર્તા', 'other': 'અન્ય'
             };
+
+            // Merge custom topics
+            if (typeof getCustomTags === 'function') {
+                const custom = getCustomTags();
+                (custom.topic || []).forEach(t => { if (!topicLabels[t.value]) topicLabels[t.value] = t.label; });
+            }
             const counts = {};
             articles.forEach(art => {
                 const cats = (art.category || art.topic || '').split(',').map(c => c.trim()).filter(Boolean);
@@ -201,6 +207,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 'shastriji': 'શાસ્ત્રીજી મહારાજ', 'yogiji': 'યોગીજી મહારાજ', 'hariprasad': 'હરિપ્રસાદ સ્વામીજી મહારાજ',
                 'prabodh': 'પ્રબોધ સ્વામીજી', 'bhakto': 'ભક્તો', 'prabhudasbhai': 'પ્રભુદાસભાઈ'
             };
+
+            // Merge custom prasangs
+            if (typeof getCustomTags === 'function') {
+                const custom = getCustomTags();
+                (custom.prasang || []).forEach(t => { if (!guruLabels[t.value]) guruLabels[t.value] = t.label; });
+            }
             const counts = {};
             articles.forEach(art => {
                 const pIds = (art.prasang || '').split(',').map(s => s.trim()).filter(Boolean);
