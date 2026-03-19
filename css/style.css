@@ -1083,10 +1083,24 @@ body.page-exiting {
   padding: 0.5rem 60px 1.5rem 60px; /* Provide generous room for shadows */
   margin: 0 -60px; /* Pull back to align with headers while allowing shadows to bleed */
   scroll-padding: 0 60px; /* Ensure snap-scrolling respects the padding */
-  /* Increased to ensure last item fully visible */
   scrollbar-width: thin;
   scrollbar-color: var(--gold-500) var(--navy-800);
   scroll-snap-type: x mandatory;
+  /* Edge fade: 60px fade zones matching the padding */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 60px,
+    black calc(100% - 60px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 60px,
+    black calc(100% - 60px),
+    transparent 100%
+  );
 }
 
 /* Home Page specific latest articles grid — 5 columns */
@@ -1097,6 +1111,9 @@ body.page-exiting {
     overflow: visible;
     gap: 1rem;
     padding-right: 0;
+    /* Remove edge fade for full-grid desktop layout */
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   #articlesGrid.cards-grid .article-card {
@@ -1508,6 +1525,21 @@ body.page-exiting {
   scrollbar-width: none;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  /* Edge fade: hides abrupt cuts on both sides */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 60px,
+    black calc(100% - 60px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0px,
+    black 60px,
+    black calc(100% - 60px),
+    transparent 100%
+  );
 }
 
 /* Remove pseudo-element spacers which were causing misalignment */
@@ -2423,6 +2455,25 @@ body.page-exiting {
     transform: scale(2.5) translateY(-1rem);
     left: 0;
     /* Reset the left shift on mobile */
+  }
+
+  /* Tighter edge fades for mobile */
+  .cards-grid,
+  .avatar-row {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0px,
+      black 28px,
+      black calc(100% - 28px),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0px,
+      black 28px,
+      black calc(100% - 28px),
+      transparent 100%
+    );
   }
 }
 
