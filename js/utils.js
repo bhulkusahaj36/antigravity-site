@@ -122,37 +122,58 @@ function getCategory(id) {
 }
 
 // Build a single article card element with 3D flip effect
-function buildCard(article) {
+function buildCard(article, isFlip = false) {
     const el = document.createElement('div');
-    el.className = 'article-card flip-card';
+    el.className = 'article-card' + (isFlip ? ' flip-card' : ' card-animate');
 
-    // Clean content for excerpt
-    const plainText = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '') : '');
-    const excerptText = plainText.substring(0, 100).trim() + '...';
+    // Clean content for excerpt (if not already a formatted snippet)
+    let excerptText = '';
+    if (article.excerpt && article.excerpt.includes('<mark')) {
+        // Already a formatted snippet from search
+        excerptText = article.excerpt;
+    } else {
+        const plainText = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '') : '');
+        excerptText = plainText.substring(0, 100).trim() + (plainText.length > 100 ? '...' : '');
+    }
     
     // Ensure every card has a visible label (Fall back to category if Prasang is missing)
     const displayLabel = getCategoryName(article.prasang) || getCategoryName(article.category || article.topic || 'bhakti');
 
-    el.innerHTML = `
-      <div class="flip-card-inner">
-        <!-- Front Side: Title + Prasang/Category -->
-        <div class="flip-card-front card-body-wrap">
-          ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
-          <h3 class="card-title">${article.title}</h3>
-          <p class="card-prasang-label">${displayLabel}</p>
-          <div class="card-footer">
-            <span class="read-more">ફ્લિપ કરો</span>
+    if (isFlip) {
+        el.innerHTML = `
+          <div class="flip-card-inner">
+            <!-- Front Side: Title + Prasang/Category -->
+            <div class="flip-card-front card-body-wrap">
+              ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
+              <h3 class="card-title">${article.title}</h3>
+              <p class="card-prasang-label">${displayLabel}</p>
+              <div class="card-footer">
+                <span class="read-more">ફ્લિપ કરો</span>
+              </div>
+            </div>
+            <!-- Back Side: First 2-3 lines of content/excerpt -->
+            <div class="flip-card-back card-body-wrap">
+              <p class="card-excerpt">${excerptText}</p>
+              <div class="card-footer">
+                <a href="article.html?id=${article.id}" class="read-more">લેખ વાંચો</a>
+              </div>
+            </div>
           </div>
-        </div>
-      <!-- Back Side: First 2-3 lines of content/excerpt -->
-      <div class="flip-card-back card-body-wrap">
-        <p class="card-excerpt">${excerptText}</p>
-        <div class="card-footer">
-          <a href="article.html?id=${article.id}" class="read-more">લેખ વાંચો</a>
-        </div>
-      </div>
-    </div>
-  `;
+        `;
+    } else {
+        // Simple, Clean Card (Search/List view)
+        el.innerHTML = `
+            <div class="card-body-wrap">
+              <h3 class="card-title">${article.title}</h3>
+              <p class="card-prasang-label">${displayLabel}</p>
+              <p class="card-excerpt">${excerptText}</p>
+              <div class="card-footer">
+                  <a href="article.html?id=${article.id}" class="read-more">વધુ વાંચો</a>
+              </div>
+            </div>
+        `;
+    }
+
     el.addEventListener('click', (e) => {
         if (!e.target.classList.contains('read-more')) {
             window.location.href = `article.html?id=${article.id}`;

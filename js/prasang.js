@@ -64,7 +64,7 @@ function renderResults(articles) {
     if (count) count.textContent = `${articles.length} લેખ`;
 
     articles.forEach((a, i) => {
-        const card = buildCard(a, true);
+        const card = buildCard(a);
         card.style.animationDelay = `${i * 0.06}s`;
         grid.appendChild(card);
     });

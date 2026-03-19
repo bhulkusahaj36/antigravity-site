@@ -123,7 +123,7 @@ async function doSearch() {
     });
 
     results.forEach((a, i) => {
-        let excerptHTML = '';
+        let snippetToUse = '';
 
         // Smart Context Snippet Logic
         if (q && a.content) {
@@ -145,33 +145,17 @@ async function doSearch() {
                 const regex = new RegExp(`(${q})`, "gi");
                 snippet = snippet.replace(regex, '<mark class="search-highlight">$1</mark>');
 
-                excerptHTML = `<div class="search-snippet">${snippet}</div>`;
+                snippetToUse = snippet;
             }
         }
 
-        // Fallback to standard excerpt if no smart snippet was found/queried
-        if (!excerptHTML) {
-            const rawExcerpt = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '').substring(0, 140) + '...' : '');
-            excerptHTML = `<p class="card-excerpt" style="margin-top: 0.4rem;">${rawExcerpt}</p>`;
+        // Pass snippet to buildCard via modified article object
+        const articleWithSnippet = { ...a };
+        if (snippetToUse) {
+            articleWithSnippet.excerpt = snippetToUse;
         }
 
-        const card = document.createElement('div');
-        card.className = 'article-card card-animate';
-        card.innerHTML = `
-            <div class="card-body-wrap">
-              <h3 class="card-title">${a.title}</h3>
-              ${excerptHTML}
-              <div class="card-footer">
-                  <a href="article.html?id=${a.id}" class="read-more">વધુ વાંચો</a>
-              </div>
-            </div>
-        `;
-        card.addEventListener('click', (e) => {
-            if (!e.target.classList.contains('read-more')) {
-                window.location.href = `article.html?id=${a.id}`;
-            }
-        });
-
+        const card = buildCard(articleWithSnippet);
         card.style.animationDelay = `${i * 0.07}s`;
         grid.appendChild(card);
     });
