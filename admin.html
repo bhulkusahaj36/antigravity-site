@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="gu">
 
 <head>
@@ -72,6 +72,8 @@
                         મેનેજ કરો (Manage)</button>
                     <button class="feed-tab" data-target="panel-dashboard"
                         style="background: none; border: none; font-family: inherit; font-size: 1.1rem; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;">Dashboard</button>
+                    <button class="feed-tab" data-target="panel-tasks"
+                        style="background: none; border: none; font-family: inherit; font-size: 1.1rem; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;">Tasks</button>
                 </div>
 
                 <!-- ══════════════════════════════════════════
@@ -318,6 +320,40 @@
                                 <canvas id="featuredChart"></canvas>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                     TASKS MANAGEMENT PANEL
+                ══════════════════════════════════════════ -->
+                <div class="feed-panel" id="panel-tasks" style="display:none">
+                    <div class="feed-section-label">Tasks Management</div>
+                    
+                    <div style="background: rgba(17, 24, 39, 0.4); backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 2rem;">
+                        <h3 style="color: var(--gold-400); margin-top: 0; margin-bottom: 1.5rem;">Create New Task</h3>
+                        <form id="taskCreateForm" style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end;">
+                            <div class="feed-field" style="margin-bottom:0">
+                                <label class="feed-label">Task Name</label>
+                                <input type="text" id="taskNameInput" class="feed-input" placeholder="What needs to be done?" required />
+                            </div>
+                            <div class="feed-field" style="margin-bottom:0">
+                                <label class="feed-label">Deadline</label>
+                                <input type="date" id="taskDeadlineInput" class="feed-input" required />
+                            </div>
+                            <div class="feed-field" style="margin-bottom:0">
+                                <label class="feed-label">Priority</label>
+                                <select id="taskPriorityInput" class="feed-select">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="height: 48px;">Add Task</button>
+                        </form>
+                    </div>
+
+                    <div id="taskListContainer" style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
+                        <!-- Tasks dynamically rendered here -->
                     </div>
                 </div>
 
