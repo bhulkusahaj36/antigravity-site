@@ -1248,7 +1248,7 @@ body.page-exiting {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  min-height: 280px;
+  min-height: 220px;
   height: auto;
   cursor: pointer;
   overflow: visible !important;
@@ -1318,6 +1318,21 @@ body.page-exiting {
   margin-top: 0.5rem;
   font-weight: 500;
   opacity: 0.9;
+}
+
+.card-featured-tag {
+  font-family: var(--font-en);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--gold-400);
+  background: rgba(245, 158, 11, 0.12);
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+  width: fit-content;
+  margin-bottom: 0.75rem;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  text-transform: uppercase;
 }
 
 .card-top {

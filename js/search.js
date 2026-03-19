@@ -112,8 +112,8 @@ async function doSearch() {
     }
 
     empty.style.display = 'none';
-    const label = q ? `"<strong>${q}</strong>"` : 'àª«àª¿àª²à«àªŸàª°à«àª¸';
-    summary.innerHTML = `${results.length} àªªàª°àª¿àª£àª¾àª® ${label} àª®àª¾àªŸà«‡`;
+    const label = q ? `"<strong>${q}</strong>"` : 'ફિલ્ટર્સ';
+    summary.innerHTML = `${results.length} પરિણામ ${label} માટે`;
 
     // Sort by actual upload time (ID timestamp)
     results.sort((a, b) => {
@@ -162,7 +162,7 @@ async function doSearch() {
               <h3 class="card-title">${a.title}</h3>
               ${excerptHTML}
               <div class="card-footer">
-                  <a href="article.html?id=${a.id}" class="read-more">àªµàª§à« àªµàª¾àª‚àªšà«‹</a>
+                  <a href="article.html?id=${a.id}" class="read-more">વધુ વાંચો</a>
               </div>
             </div>
         `;

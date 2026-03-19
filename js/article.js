@@ -19,11 +19,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const content = document.getElementById('articleContent');
 
   if (!idParam) {
-    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">àª²à¥‡àª– àª®àª³à«àª¯à«‹ àª¨àª¹à¥€à¤‚.</p>';
+    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ મળ્યો નહીં.</p>';
     return;
   }
 
-  content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">àª²à«‡àª– àª²à«‹àª¡ àª¥àªˆ àª°àª¹à«àª¯à«‹ àª›à«‡...</p>';
+  content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ લોડ થઈ રહ્યો છે...</p>';
 
   try {
     const response = await fetch('/api/articles?t=' + Date.now());
@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const article = ALL_ARTICLES.find(a => String(a.id) === String(idParam));
 
   if (!article) {
-    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">àª²à¥‡àª– àª®àª³à«àª¯à«‹ àª¨àª¹à¥€à¤‚.</p>';
+    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ મળ્યો નહીં.</p>';
     return;
   }
 
   // Page meta
-  document.getElementById('articlePageTitle').textContent = `${article.title} â€“ àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤`;
+  document.getElementById('articlePageTitle').textContent = `${article.title} – હરિપ્રબોધમ કથામૃત`;
   document.getElementById('articlePageMeta').setAttribute('content', article.content ? article.content.substring(0, 150) : '');
 
   const cat = getCategoryName(article.category || 'bhakti');
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; width: 100%;">
         <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
           <button onclick="history.back()" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 1rem; font-size: 0.95rem; color: var(--text-secondary); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 9999px; background: transparent; cursor: pointer; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.color='var(--gold-400)'; this.style.borderColor='var(--gold-400)'" onmouseout="this.style.color='var(--text-secondary)'; this.style.borderColor='rgba(251, 191, 36, 0.3)'">
-            &larr; àªªàª¾àª›àª¾
+            &larr; પાછા
           </button>
           <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
         </div>
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
       <div class="article-meta-row">
         ${article.author ? `<span>: ${article.author}</span>` : ''}
-        ${article.location ? `<span>&nbsp;â€¢&nbsp;àª¸à«àª¥àª³: ${article.location}</span>` : ''}
+        ${article.location ? `<span>&nbsp;•&nbsp;સ્થળ: ${article.location}</span>` : ''}
       </div>
     </header>
 
@@ -108,8 +108,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>` : ''}
 
     <nav class="article-nav">
-      ${getPrevArticle(idParam) ? `<a href="article.html?id=${getPrevArticle(idParam).id}">â† ${getPrevArticle(idParam).title}</a>` : '<span></span>'}
-      ${getNextArticle(idParam) ? `<a href="article.html?id=${getNextArticle(idParam).id}" style="text-align:right">${getNextArticle(idParam).title} â†’</a>` : ''}
+      ${getPrevArticle(idParam) ? `<a href="article.html?id=${getPrevArticle(idParam).id}">← ${getPrevArticle(idParam).title}</a>` : '<span></span>'}
+      ${getNextArticle(idParam) ? `<a href="article.html?id=${getNextArticle(idParam).id}" style="text-align:right">${getNextArticle(idParam).title} →</a>` : ''}
     </nav>
   `;
 
@@ -134,8 +134,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (copyBtn) {
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(url).then(() => {
-        copyBtn.textContent = 'àª•à«‹àªªà«€ àª¥àª¯à«àª‚';
-        setTimeout(() => { copyBtn.textContent = 'àª•à«‹àªªà«€ àª¥àª¯à«àª‚'; }, 2000);
+        copyBtn.textContent = 'કોપી થયું';
+        setTimeout(() => { copyBtn.textContent = 'કોપી લિંક'; }, 2000);
       });
     });
   }

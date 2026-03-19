@@ -111,23 +111,24 @@ function buildCard(article) {
     const el = document.createElement('div');
     el.className = 'article-card flip-card';
 
-    // Get the Gujarati label for the saint/prasang
-    const prasangLabel = (typeof PRASANG_LABELS !== 'undefined') ? (PRASANG_LABELS[article.prasang] || '') : '';
-    
     // Clean content for excerpt
     const plainText = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '') : '');
     const excerptText = plainText.substring(0, 100).trim() + '...';
+    
+    // Ensure every card has a visible label (Fall back to category if Prasang is missing)
+    const displayLabel = getCategoryName(article.prasang) || getCategoryName(article.category || article.topic || 'bhakti');
 
     el.innerHTML = `
-    <div class="flip-card-inner">
-      <!-- Front Side: Title + Saint name -->
-      <div class="flip-card-front card-body-wrap">
-        <h3 class="card-title">${article.title}</h3>
-        <p class="card-prasang-label">${prasangLabel}</p>
-        <div class="card-footer">
-          <span class="read-more">ફ્લિપ કરો</span>
+      <div class="flip-card-inner">
+        <!-- Front Side: Title + Prasang/Category -->
+        <div class="flip-card-front card-body-wrap">
+          ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
+          <h3 class="card-title">${article.title}</h3>
+          <p class="card-prasang-label">${displayLabel}</p>
+          <div class="card-footer">
+            <span class="read-more">ફ્લિપ કરો</span>
+          </div>
         </div>
-      </div>
       <!-- Back Side: First 2-3 lines of content/excerpt -->
       <div class="flip-card-back card-body-wrap">
         <p class="card-excerpt">${excerptText}</p>

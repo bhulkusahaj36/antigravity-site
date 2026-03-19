@@ -3,15 +3,15 @@
 // ============================================================
 
 const PRASANG_LABELS_PG = {
-    bhagwan: 'àª­àª—àªµàª¾àª¨ àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£',
-    gunatit: 'àª—à«àª£àª¾àª¤à«€àª¤àª¾àª¨àª‚àª¦ àª¸à«àªµàª¾àª®à«€',
-    bhagatji: 'àª­àª—àª¤àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
-    yogiji: 'àª¯à«‹àª—à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
-    shastriji: 'àª¶àª¾àª¸à«àª¤à«àª°à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
-    hariprasad: 'àª¹àª°àª¿àªªà«àª°àª¸àª¾àª¦ àª¸à«àªµàª¾àª®à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ',
-    prabodh: 'àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€àªœà«€',
-    bhakto: 'àª­àª•à«àª¤à«‹',
-    prabhudasbhai: 'àªªà«àª°àª­à«àª¦àª¾àª¸àª­àª¾àªˆ',
+    bhagwan: 'ભગવાન સ્વામિનારાયણ',
+    gunatit: 'ગુણાતીતાનંદ સ્વામી',
+    bhagatji: 'ભગતજી મહારાજ',
+    yogiji: 'યોગીજી મહારાજ',
+    shastriji: 'શાસ્ત્રીજી મહારાજ',
+    hariprasad: 'હરિપ્રસાદ સ્વામીજી મહારાજ',
+    prabodh: 'પ્રબોધ સ્વામીજી',
+    bhakto: 'ભક્તો',
+    prabhudasbhai: 'પ્રભુદાસભાઈ',
 };
 
 let ALL_ARTICLES_PG = [];
@@ -57,11 +57,11 @@ function renderResults(articles) {
     grid.innerHTML = '';
     if (articles.length === 0) {
         empty.style.display = 'block';
-        if (count) count.textContent = 'àª•à«‹àªˆ àª²à«‡àª– àª®àª³à«àª¯à«‹ àª¨àª¹à«€àª‚';
+        if (count) count.textContent = 'કોઈ લેખ મળ્યો નહીં';
         return;
     }
     empty.style.display = 'none';
-    if (count) count.textContent = `${articles.length} àª²à«‡àª–`;
+    if (count) count.textContent = `${articles.length} લેખ`;
 
     articles.forEach((a, i) => {
         const card = buildCard(a, true);
