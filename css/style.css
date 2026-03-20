@@ -1946,7 +1946,23 @@ body.page-exiting {
 
 @media (max-width: 768px) {
   .article-body {
-    padding: 2rem 1.5rem;
+    padding: 1.75rem 1.25rem;
+    border-radius: 1.25rem;
+  }
+  .article-title-h1 {
+    font-size: 1.5rem;
+  }
+  .article-content {
+    font-size: var(--article-base-size, 1.05rem);
+    line-height: 1.9;
+  }
+  .article-toolbar-actions {
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+  .article-meta-group {
+    justify-content: flex-start;
   }
 }
 
@@ -1992,13 +2008,21 @@ body.page-exiting {
   background: rgba(245, 166, 35, 0.1);
 }
 
-.article-cat-date {
+.article-toolbar-actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  flex: 1;
+  flex-wrap: wrap;
+}
+
+.article-meta-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   gap: 0.75rem;
   flex-wrap: wrap;
-  flex: 1;
-  justify-content: center;
 }
 
 /* ── title ── */
@@ -2051,15 +2075,17 @@ body.page-exiting {
 
 .article-content {
   font-family: var(--font-gu);
-  font-size: 1.18rem;
+  font-size: var(--article-base-size, 1.18rem);
   line-height: 2.1;
   /* Warm ivory — easy on eyes, not glaring white */
   color: #e8dfd0;
   letter-spacing: 0.01em;
+  transition: font-size 0.3s ease;
 }
 
 .article-content p {
   margin-bottom: 1.55em;
+  text-align: justify;
 }
 
 .article-content h2 {
@@ -2630,12 +2656,12 @@ body.page-exiting {
 /* ============================================================
    ZEN READING MODE (Immersive / Distraction Free)
    ============================================================ */
-.zen-mode-toggle {
+.article-tool-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-muted);
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -2643,12 +2669,15 @@ body.page-exiting {
   cursor: pointer;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  font-family: var(--font-en);
+  font-weight: 600;
+  font-size: 1rem;
 }
 
-.zen-mode-toggle:hover {
-  color: var(--gold-accent);
-  background: rgba(212, 175, 55, 0.1);
-  border-color: rgba(212, 175, 55, 0.3);
+.article-tool-btn:hover {
+  color: var(--saffron-400);
+  background: rgba(245, 166, 35, 0.1);
+  border-color: rgba(245, 166, 35, 0.3);
   transform: scale(1.05);
 }
 

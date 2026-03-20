@@ -77,25 +77,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   content.innerHTML = `
     <header class="article-header">
-      <div class="article-cat-date">
-        <span class="category-badge">${cat}</span>
-        <span class="card-date">${formatDate(displayDate)}</span>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; width: 100%;">
-        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-          <button onclick="history.back()" style="display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.35rem 1rem; font-size: 0.95rem; color: var(--text-secondary); border: 1px solid rgba(251, 191, 36, 0.3); border-radius: 9999px; background: transparent; cursor: pointer; transition: all 0.2s; font-family: inherit;" onmouseover="this.style.color='var(--gold-400)'; this.style.borderColor='var(--gold-400)'" onmouseout="this.style.color='var(--text-secondary)'; this.style.borderColor='rgba(251, 191, 36, 0.3)'">
-            &larr; પાછા
-          </button>
-          <h1 class="article-title-h1" style="margin-bottom: 0;">${article.title}</h1>
-        </div>
-        <button class="zen-mode-toggle" id="zenModeBtn" aria-label="Toggle Zen Mode" title="Zen Reading Mode">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-enter"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+      <div class="article-toolbar">
+        <button class="article-back-btn" onclick="history.back()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          પાછા
         </button>
+        
+        <div class="article-toolbar-actions">
+          <div class="article-meta-group">
+            <span class="category-badge">${cat}</span>
+            <span class="card-date">${formatDate(displayDate)}</span>
+            ${article.author ? `<span class="article-author-badge">${article.author}</span>` : ''}
+            ${article.location ? `<span class="article-location-badge">📍 ${article.location}</span>` : ''}
+          </div>
+          
+          <div style="display: flex; align-items: center; gap: 0.5rem; justify-content: flex-end;">
+            <button class="article-tool-btn font-dec-btn" id="fontDecBtn" title="Decrease Font Size" aria-label="Decrease Font Size" style="font-size: 0.85rem;">A-</button>
+            <button class="article-tool-btn font-inc-btn" id="fontIncBtn" title="Increase Font Size" aria-label="Increase Font Size" style="font-size: 1.1rem;">A+</button>
+            <button class="article-tool-btn zen-mode-toggle" id="zenModeBtn" aria-label="Toggle Zen Mode" title="Zen Reading Mode">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-enter"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="article-meta-row">
-        ${article.author ? `<span>: ${article.author}</span>` : ''}
-        ${article.location ? `<span>&nbsp;•&nbsp;સ્થળ: ${article.location}</span>` : ''}
-      </div>
+
+      <h1 class="article-title-h1">${article.title}</h1>
     </header>
 
     ${article.featuredImage ? `<img src="${article.featuredImage}" alt="${article.title}" class="article-featured-img" loading="lazy" />` : ''}
@@ -147,8 +153,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (fbBtn) fbBtn.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
 
   initZenMode();
+  initFontAdjuster();
   initReadingProgress();
 });
+
+// ============================================================
+// FONT ADJUSTER LOGIC
+// ============================================================
+function initFontAdjuster() {
+  const decBtn = document.getElementById('fontDecBtn');
+  const incBtn = document.getElementById('fontIncBtn');
+  let currentSize = 1.18; // base size in rem
+  const minSize = 0.9;
+  const maxSize = 2.0;
+  
+  const updateFont = () => {
+    document.documentElement.style.setProperty('--article-base-size', `${currentSize}rem`);
+  };
+
+  if(decBtn) decBtn.addEventListener('click', () => {
+    if(currentSize > minSize) {
+      currentSize -= 0.1;
+      updateFont();
+    }
+  });
+
+  if(incBtn) incBtn.addEventListener('click', () => {
+    if(currentSize < maxSize) {
+      currentSize += 0.1;
+      updateFont();
+    }
+  });
+}
 
 // ============================================================
 // ZEN READING MODE LOGIC
