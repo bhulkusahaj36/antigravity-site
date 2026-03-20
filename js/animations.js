@@ -21,7 +21,7 @@ function initHeroParallax() {
     const heroTitle = document.querySelector('.hero-title');
     const heroQuote = document.querySelector('.hero-quote');
     const heroActions = document.querySelector('.hero-actions');
-    const heroBg = document.querySelector('#bgCanvas'); // Or background image wrapper
+    const heroBg = document.querySelector('.hero-overlay'); // Changed from #bgCanvas to prevent interaction blocking
 
     // Entrance Animation
     const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
