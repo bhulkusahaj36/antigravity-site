@@ -2009,11 +2009,18 @@ body.page-exiting {
   background: rgba(245, 166, 35, 0.1);
 }
 
+.article-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
 .article-toolbar-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 1.25rem;
   flex: 1;
   flex-wrap: wrap;
 }
@@ -2091,15 +2098,17 @@ body.page-exiting {
 }
 
 .article-content h2 {
-  font-size: 1.4rem;
+  font-size: calc(1.4rem * var(--font-scale));
   color: var(--gold-400);
   margin: 2em 0 0.6em;
+  transition: font-size 0.3s ease;
 }
 
 .article-content h3 {
-  font-size: 1.15rem;
+  font-size: calc(1.15rem * var(--font-scale));
   color: var(--text-white);
   margin: 1.5em 0 0.5em;
+  transition: font-size 0.3s ease;
 }
 
 .article-content blockquote {
@@ -2728,17 +2737,29 @@ body.zen-mode .article-content p {
   margin-bottom: 2rem;
 }
 
-/* The toggle button stays visible but moves */
-body.zen-mode .zen-mode-toggle {
+/* The tools group stays visible but moves to corner in Zen */
+body.zen-mode .article-controls {
   position: fixed;
   top: 1.5rem;
   right: 1.5rem;
-  z-index: 9999;
-  background: rgba(15, 23, 42, 0.8);
-  backdrop-filter: blur(10px);
-  border-color: var(--gold-accent);
-  color: var(--gold-accent);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 0.5rem;
+  border-radius: 99px;
+  border: 1px solid rgba(245, 166, 35, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+body.zen-mode .article-tool-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+}
+
+body.zen-mode .article-tool-btn:hover {
+  color: var(--saffron-400);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* ============================================================

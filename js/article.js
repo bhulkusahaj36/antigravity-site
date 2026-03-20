@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             ${article.location ? `<span class="article-location-badge">📍 ${article.location}</span>` : ''}
           </div>
           
-          <div style="display: flex; align-items: center; gap: 0.5rem; justify-content: flex-end;">
+          <div class="article-controls">
             <button class="article-tool-btn font-dec-btn" id="fontDecBtn" title="Decrease Font Size" aria-label="Decrease Font Size" style="font-size: 0.85rem;">A-</button>
             <button class="article-tool-btn font-inc-btn" id="fontIncBtn" title="Increase Font Size" aria-label="Increase Font Size" style="font-size: 1.1rem;">A+</button>
             <button class="article-tool-btn zen-mode-toggle" id="zenModeBtn" aria-label="Toggle Zen Mode" title="Zen Reading Mode">
