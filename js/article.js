@@ -164,24 +164,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 function initFontAdjuster() {
   const decBtn = document.getElementById('fontDecBtn');
   const incBtn = document.getElementById('fontIncBtn');
-  let currentSize = 1.18; // base size in rem
-  const minSize = 0.9;
-  const maxSize = 2.0;
+  let currentScale = 1.0; 
+  const minScale = 0.75;
+  const maxScale = 1.75;
   
   const updateFont = () => {
-    document.documentElement.style.setProperty('--article-base-size', `${currentSize}rem`);
+    document.documentElement.style.setProperty('--font-scale', currentScale);
   };
 
   if(decBtn) decBtn.addEventListener('click', () => {
-    if(currentSize > minSize) {
-      currentSize -= 0.1;
+    if(currentScale > minScale) {
+      currentScale -= 0.1;
       updateFont();
     }
   });
 
   if(incBtn) incBtn.addEventListener('click', () => {
-    if(currentSize < maxSize) {
-      currentSize += 0.1;
+    if(currentScale < maxScale) {
+      currentScale += 0.1;
       updateFont();
     }
   });
