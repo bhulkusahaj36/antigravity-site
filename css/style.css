@@ -1248,7 +1248,7 @@ body.page-exiting {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  min-height: 140px;
+  min-height: 155px;
   height: auto;
   cursor: pointer;
   overflow: visible !important;
@@ -1276,7 +1276,7 @@ body.page-exiting {
   display: flex;
   flex-direction: column;
   border-radius: 1.5rem;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 1rem 1rem 1rem;
   background: linear-gradient(
     160deg,
     rgba(24, 18, 8, 0.85) 0%,
@@ -1406,7 +1406,7 @@ body.page-exiting {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding-top: 0.75rem;
+  padding-top: 0.5rem;
 }
 
 .read-more {
