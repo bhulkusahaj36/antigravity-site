@@ -147,16 +147,10 @@ function buildCard(article, isFlip = false) {
               ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
               <h3 class="card-title">${article.title}</h3>
               <p class="card-prasang-label">${displayLabel}</p>
-              <div class="card-footer">
-                <span class="read-more">ફ્લિપ કરો</span>
-              </div>
             </div>
             <!-- Back Side: First 2-3 lines of content/excerpt -->
             <div class="flip-card-back card-body-wrap">
               <p class="card-excerpt">${excerptText}</p>
-              <div class="card-footer">
-                <a href="article.html?id=${article.id}" class="read-more">લેખ વાંચો</a>
-              </div>
             </div>
           </div>
         `;
@@ -167,9 +161,6 @@ function buildCard(article, isFlip = false) {
               <h3 class="card-title">${article.title}</h3>
               <p class="card-prasang-label">${displayLabel}</p>
               <p class="card-excerpt">${excerptText}</p>
-              <div class="card-footer">
-                  <a href="article.html?id=${article.id}" class="read-more">વધુ વાંચો</a>
-              </div>
             </div>
         `;
     }
