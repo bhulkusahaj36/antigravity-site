@@ -1248,7 +1248,7 @@ body.page-exiting {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  min-height: 220px;
+  min-height: 140px;
   height: auto;
   cursor: pointer;
   overflow: visible !important;
@@ -1276,7 +1276,7 @@ body.page-exiting {
   display: flex;
   flex-direction: column;
   border-radius: 1.5rem;
-  padding: 1.75rem;
+  padding: 0.8rem 1rem;
   background: linear-gradient(
     160deg,
     rgba(24, 18, 8, 0.85) 0%,
@@ -2434,7 +2434,18 @@ body.page-exiting {
   }
 
   .avatar-fallback {
-    font-size: 1rem; /* Smaller fallback text for mobile to fit long IDs */
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold-400);
+    text-align: center;
+    padding: 10px;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
   /* Mobile Hero Calligraphy Layout Updates */
