@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     loadDashboardAnalytics();
                 } else if (targetId === 'panel-tasks') {
                     renderTasks();
+                } else if (targetId === 'panel-sync') {
+                    initSyncTool();
                 }
             });
         });

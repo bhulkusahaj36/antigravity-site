@@ -7,6 +7,7 @@
     <title>Admin Dashboard</title>
     <meta name="description" content="Secure Admin Environment" />
     <link rel="icon" type="image/webp" href="images/Logo.webp" />
+    <link rel="icon" type="image/webp" href="images/logo.webp" />
     <link rel="shortcut icon" href="images/Logo.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="images/Logo.webp" />
     <link rel="stylesheet" href="css/style.css" />
@@ -77,6 +78,8 @@
                         style="background: none; border: none; font-family: inherit; font-size: 1.1rem; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;">Dashboard</button>
                     <button class="feed-tab" data-target="panel-tasks"
                         style="background: none; border: none; font-family: inherit; font-size: 1.1rem; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;">Tasks</button>
+                    <button class="feed-tab" data-target="panel-sync"
+                        style="background: none; border: none; font-family: inherit; font-size: 1.1rem; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.2s;">Maintenance</button>
                 </div>
 
                 <!-- ══════════════════════════════════════════
@@ -248,7 +251,7 @@
                         placeholder="Search articles by title or author..."
                         style="margin-bottom: 1.5rem; max-width: 400px;" />
 
-                    <div style="overflow-x: auto;">
+                    <div id="adminArticlesListContainer" style="overflow-x: auto;">
                         <table
                             style="width: 100%; border-collapse: collapse; text-align: left; color: var(--text-light);">
                             <thead>
@@ -267,6 +270,26 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                 MAINTENANCE & SYNC PANEL
+            ══════════════════════════════════════════ -->
+                <div class="feed-panel" id="panel-sync" style="display:none">
+                    <div class="feed-section-label">Maintenance & Sync</div>
+                    <p class="feed-subtitle" style="margin-bottom: 2rem;">
+                        Use this tool to export your browser-local category mappings (created on this device) 
+                        so they can be added to the global `data.js` file for mobile users.
+                    </p>
+
+                    <div class="feed-actions" style="justify-content: flex-start; gap: 1rem;">
+                        <button id="btnExportTags" class="btn btn-primary">Export Category Mappings</button>
+                    </div>
+
+                    <div id="exportContainer" style="display:none; margin-top: 2rem;">
+                        <label class="feed-label">Copy this code into `js/data.js`:</label>
+                        <textarea id="txtExportArea" class="feed-input" style="height: 300px; font-family: monospace; font-size: 0.85rem;" readonly></textarea>
                     </div>
                 </div>
 
@@ -384,6 +407,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/feed.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/admin-extra.js"></script>
     <script src="js/particles.js"></script>
 
 </body>
