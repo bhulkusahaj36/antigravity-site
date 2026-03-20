@@ -78,16 +78,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   content.innerHTML = `
     <header class="article-header">
       <div class="article-toolbar">
-        <button class="article-back-btn" onclick="history.back()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          પાછા
-        </button>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="article-back-btn" onclick="history.back()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            પાછા
+          </button>
+          <span class="category-badge">${cat}</span>
+        </div>
         
         <div class="article-toolbar-actions">
           <div class="article-meta-group">
-            <span class="category-badge">${cat}</span>
             <span class="card-date">${formatDate(displayDate)}</span>
-            ${article.author ? `<span class="article-author-badge">${article.author}</span>` : ''}
             ${article.location ? `<span class="article-location-badge">📍 ${article.location}</span>` : ''}
           </div>
           
