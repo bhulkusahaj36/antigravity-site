@@ -2802,8 +2802,8 @@ body.zen-mode .article-tags {
 /* Center Content & Expand */
 body.zen-mode .article-layout {
   grid-template-columns: 1fr;
-  max-width: 800px;
-  /* Narrower for optimal reading line length */
+  max-width: 1250px;
+  /* Stretched horizontally for expansive reading view */
   margin: 0 auto;
   padding-top: 2rem;
 }
