@@ -1414,7 +1414,7 @@ body.page-exiting {
 
 .card-title {
   font-family: var(--font-gu);
-  font-size: 1.15rem;
+  font-size: 1.3rem; /* Increased 2pt for better prominence */
   font-weight: 700;
 
   /* Clean bright metallic gold — easier to read, warm glow */
@@ -2586,7 +2586,7 @@ body.page-exiting {
   }
 
   .neon-latest-card .card-title {
-    font-size: 1.15rem;
+    font-size: 1.28rem; /* Scaled mobile title size */
     margin-bottom: 0.4rem;
   }
 
