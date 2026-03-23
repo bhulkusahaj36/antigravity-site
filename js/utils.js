@@ -122,9 +122,9 @@ function getCategory(id) {
 }
 
 // Build a single article card element with 3D flip effect
-function buildCard(article, isFlip = false) {
+function buildCard(article, isLatest = false) {
     const el = document.createElement('div');
-    el.className = 'article-card' + (isFlip ? ' flip-card' : ' card-animate');
+    el.className = 'article-card' + (isLatest ? ' neon-latest-card' : ' card-animate');
 
     // Clean content for excerpt (if not already a formatted snippet)
     let excerptText = '';
@@ -139,20 +139,15 @@ function buildCard(article, isFlip = false) {
     // Ensure every card has a visible label (Fall back to category if Prasang is missing)
     const displayLabel = getCategoryName(article.prasang) || getCategoryName(article.category || article.topic || 'bhakti');
 
-    if (isFlip) {
+    if (isLatest) {
         el.innerHTML = `
-          <div class="flip-card-inner">
-            <!-- Front Side: Title + Prasang/Category -->
-            <div class="flip-card-front card-body-wrap">
+            <span class="neon-bg-span"></span>
+            <div class="content">
               ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
               <h3 class="card-title">${article.title}</h3>
               <p class="card-prasang-label">${displayLabel}</p>
-            </div>
-            <!-- Back Side: First 2-3 lines of content/excerpt -->
-            <div class="flip-card-back card-body-wrap">
               <p class="card-excerpt">${excerptText}</p>
             </div>
-          </div>
         `;
     } else {
         // Simple, Clean Card (Search/List view)
