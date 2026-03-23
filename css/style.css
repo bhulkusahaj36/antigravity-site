@@ -1958,6 +1958,8 @@ body.page-exiting {
 }
 
 .article-body {
+  position: relative; /* To contain the neon backdrop */
+  z-index: 1;
   min-width: 0;
   max-width: 1550px;
   margin: 0 auto 2rem auto;
@@ -1975,6 +1977,24 @@ body.page-exiting {
     0 0 30px rgba(245, 158, 11, 0.12),
     inset 0 1px 1px rgba(255, 200, 80, 0.1);
 }
+
+/* Sunset Red & Gold Glow Backdrop for Reading Mode */
+.article-body::before {
+  content: '';
+  position: absolute;
+  top: -3%;
+  left: 2%;
+  width: 96%;
+  height: 106%;
+  background: linear-gradient(135deg, #f43f5e, var(--saffron-400));
+  border-radius: 2.5rem;
+  z-index: -1;
+  filter: blur(50px);
+  opacity: 0.25;
+  transform: skewX(2deg);
+  pointer-events: none;
+}
+
 
 @media (max-width: 768px) {
   .article-body {
