@@ -2550,30 +2550,48 @@ body.page-exiting {
 
 @media (max-width: 480px) {
 
-  .cards-grid {
-    padding: 0.5rem 20px 1.5rem 20px;
-    margin: 0 -20px;
+  #articlesGrid.cards-grid {
+    flex-direction: column;
+    overflow: visible;
+    padding: 1.5rem 0;
+    margin: 0;
+    -webkit-mask-image: none;
+    mask-image: none;
+    gap: 1.5rem;
   }
 
-  .cards-grid .article-card {
-    min-width: 270px;
-    width: 270px;
+  #articlesGrid.cards-grid .article-card {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
   }
 
   .neon-latest-card .content {
-    padding: 1.25rem 1rem;
+    padding: 1.75rem 1.5rem;
   }
 
   .neon-latest-card .card-title {
-    font-size: 1.05rem;
+    font-size: 1.25rem; /* Restore to a closer desktop-like size for readability */
+    margin-bottom: 0.5rem;
   }
 
   .neon-latest-card .card-prasang-label {
-    font-size: 0.82rem;
+    font-size: 0.95rem; /* More prominent on mobile stack */
+    margin-bottom: 0.75rem;
   }
 
   .neon-latest-card .card-excerpt {
-    font-size: 0.82rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Adjust the neon blob for stacked full-width view */
+  .neon-latest-card .neon-bg-span {
+    top: -2%;
+    left: 2%;
+    width: 96%;
+    height: 104%;
+    filter: blur(25px);
   }
 
   /* Remove duplicate cards-grid overrides since it's global now */
