@@ -1963,19 +1963,20 @@ body.page-exiting {
   min-width: 0;
   max-width: 1550px;
   margin: 0 auto 2rem auto;
-  background: rgba(12, 10, 8, 0.9);
-  /* Darker, more immersive background for reading */
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
+  background: transparent;
+  /* Crystal transparent reading area */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 3rem 4rem;
   border-radius: 2.2rem;
-  border: 1px solid rgba(245, 158, 11, 0.15);
-  border-bottom: 5px solid rgba(255, 179, 15, 0.95);
-  /* Signature neon under-glow */
+  border: 1.5px solid rgba(245, 158, 11, 0.35);
+  border-bottom: 5px solid rgba(255, 179, 15, 0.98);
+  /* Intense neon border glows (inner + outer) */
   box-shadow:
-    0 40px 100px rgba(0, 0, 0, 0.8),
-    0 0 30px rgba(245, 158, 11, 0.12),
-    inset 0 1px 1px rgba(255, 200, 80, 0.1);
+    0 40px 120px rgba(0, 0, 0, 0.7),
+    0 0 35px rgba(245, 158, 11, 0.25),
+    inset 0 0 25px rgba(245, 158, 11, 0.12),
+    inset 0 1px 2px rgba(255, 200, 80, 0.15);
 }
 
 /* Sunset Red & Gold Glow Backdrop for Reading Mode */
