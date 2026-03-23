@@ -1313,17 +1313,13 @@ body.page-exiting {
   opacity: 0.9;
 }
 
-/* Distinct neon colors for latest cards based on ordering */
-.neon-latest-card:nth-child(3n+1) .neon-bg-span {
+/* Distinct neon colors for cards based on ordering (2-color premium cycle) */
+.neon-latest-card:nth-child(2n+1) .neon-bg-span {
   background: linear-gradient(135deg, #f43f5e, var(--saffron-400));
 }
 
-.neon-latest-card:nth-child(3n+2) .neon-bg-span {
+.neon-latest-card:nth-child(2n) .neon-bg-span {
   background: linear-gradient(135deg, #3b82f6, #ec4899);
-}
-
-.neon-latest-card:nth-child(3n) .neon-bg-span {
-  background: linear-gradient(135deg, #10b981, #06b6d4);
 }
 
 .neon-latest-card .content {
@@ -1963,7 +1959,7 @@ body.page-exiting {
 
 .article-body {
   min-width: 0;
-  max-width: 1250px;
+  max-width: 1550px;
   margin: 0 auto 2rem auto;
   background: rgba(12, 10, 8, 0.9);
   /* Darker, more immersive background for reading */
@@ -2571,7 +2567,8 @@ body.page-exiting {
         black calc(100% - 20px),
         transparent 100%);
     gap: 1rem;
-    scrollbar-width: none; /* Hide for cleaner look */
+    scrollbar-width: none;
+    /* Hide for cleaner look */
   }
 
   #articlesGrid.cards-grid .article-card {
