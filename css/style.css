@@ -2550,9 +2550,30 @@ body.page-exiting {
 
 @media (max-width: 480px) {
 
+  .cards-grid {
+    padding: 0.5rem 20px 1.5rem 20px;
+    margin: 0 -20px;
+  }
+
   .cards-grid .article-card {
-    min-width: 280px;
-    width: 280px;
+    min-width: 270px;
+    width: 270px;
+  }
+
+  .neon-latest-card .content {
+    padding: 1.25rem 1rem;
+  }
+
+  .neon-latest-card .card-title {
+    font-size: 1.05rem;
+  }
+
+  .neon-latest-card .card-prasang-label {
+    font-size: 0.82rem;
+  }
+
+  .neon-latest-card .card-excerpt {
+    font-size: 0.82rem;
   }
 
   /* Remove duplicate cards-grid overrides since it's global now */
@@ -2645,13 +2666,13 @@ body.page-exiting {
   .avatar-row {
     -webkit-mask-image: linear-gradient(to right,
         transparent 0px,
-        black 60px,
-        black calc(100% - 60px),
+        black 20px,
+        black calc(100% - 20px),
         transparent 100%);
     mask-image: linear-gradient(to right,
         transparent 0px,
-        black 60px,
-        black calc(100% - 60px),
+        black 20px,
+        black calc(100% - 20px),
         transparent 100%);
   }
 }
