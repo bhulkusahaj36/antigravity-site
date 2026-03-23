@@ -1048,8 +1048,8 @@ body.page-exiting {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.5rem;
-  /* Reduced to pull row tighter to header */
+  margin-bottom: 2.5rem;
+  /* Increased spacing to give cards more breathing room below the title */
 }
 
 .scroll-controls {
