@@ -126,20 +126,13 @@ function renderCategoryChips() {
 function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
-    
-    grid.className = 'floating-cards-scene';
-
-    // Increased to top 7 latest for better floating arc effect
-    const totalRendered = 7;
-    const sorted = getSorted(ALL_ARTICLES).slice(0, totalRendered);
+    // Keep only top 5 latest
+    const sorted = getSorted(ALL_ARTICLES).slice(0, 5);
 
     grid.innerHTML = '';
-    const centerIndex = (sorted.length - 1) / 2;
-    
     sorted.forEach((a, i) => {
         const card = buildCard(a, true);
-        card.style.setProperty('--index', i - centerIndex);
-        card.style.animationDelay = `${i * 0.08}s`;
+        card.style.animationDelay = `${i * 0.07}s`;
         grid.appendChild(card);
     });
 
