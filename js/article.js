@@ -139,10 +139,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const url = window.location.href;
   const copyBtn = document.getElementById('copyLink');
   if (copyBtn) {
+    const originalContent = copyBtn.innerHTML;
     copyBtn.addEventListener('click', () => {
       navigator.clipboard.writeText(url).then(() => {
-        copyBtn.textContent = 'કોપી થયું';
-        setTimeout(() => { copyBtn.textContent = 'કોપી લિંક'; }, 2000);
+        copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+        setTimeout(() => { copyBtn.innerHTML = originalContent; }, 2000);
       });
     });
   }
