@@ -127,6 +127,8 @@ function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
     
+    grid.className = 'floating-cards-scene';
+
     // Increased to top 7 latest for better floating arc effect
     const totalRendered = 7;
     const sorted = getSorted(ALL_ARTICLES).slice(0, totalRendered);
