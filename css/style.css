@@ -314,6 +314,95 @@ body.page-exiting {
   z-index: 0;
 }
 
+/* ============================================================
+   XAI GROK-STYLE PLASMA FOG ANIMATION
+   ============================================================ */
+.plasma-fog-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1; /* Above canvas, below hero content */
+  filter: blur(75px); /* Intense blur creates fluid/smoke effect */
+  opacity: 0.85;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.fog-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: brightness(1.3);
+  will-change: transform;
+}
+
+/* White/Blue core */
+.orb-1 {
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(220, 235, 255, 0.55) 0%, transparent 65%);
+  top: -10vh;
+  left: 20vw;
+  animation: fogFloat1 24s infinite alternate ease-in-out;
+}
+
+/* Deep Purple/Blue aura */
+.orb-2 {
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.5) 0%, transparent 60%);
+  bottom: -20vh;
+  right: -10vw;
+  animation: fogFloat2 30s infinite alternate-reverse ease-in-out;
+}
+
+/* Bright Cyan/Blue */
+.orb-3 {
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.45) 0%, transparent 60%);
+  top: 10vh;
+  left: -20vw;
+  animation: fogFloat3 35s infinite ease-in-out;
+}
+
+/* Pure light center highlight */
+.orb-4 {
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 60%);
+  top: 25vh;
+  left: 15vw;
+  animation: fogFloat4 22s infinite alternate ease-in-out;
+}
+
+@keyframes fogFloat1 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(10vw, 15vh) scale(1.15) rotate(15deg); }
+  100% { transform: translate(-5vw, 5vh) scale(0.9) rotate(-5deg); }
+}
+
+@keyframes fogFloat2 {
+  0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate(-20vw, -10vh) scale(1.25) rotate(-15deg); }
+  100% { transform: translate(10vw, 15vh) scale(0.85) rotate(10deg); }
+}
+
+@keyframes fogFloat3 {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15vw, -20vh) scale(1.1); }
+  66% { transform: translate(-10vw, 20vh) scale(0.95); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes fogFloat4 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(25vw, -10vh) scale(1.3); }
+  100% { transform: translate(-15vw, 15vh) scale(1); }
+}
+
 @media (max-width: 768px) {
   .hero::before {
     opacity: 0.45;
