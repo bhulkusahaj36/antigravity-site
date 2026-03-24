@@ -2951,32 +2951,41 @@ body.copy-protected textarea {
 .floating-cards-scene {
   perspective: 1200px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   width: 100%;
   padding: 60px 20px 80px;
   position: relative;
-  height: 400px; 
-  /* Fallback height, mobile might override */
+  height: 480px; /* Slightly taller to accommodate the fan expansion */
+  transform-style: preserve-3d;
 }
 
 .floating-cards-scene .article-card {
   position: absolute;
-  /* Card Size tweaked for optimal visual fit in the arc while preserving premium aesthetic */
   width: 260px;
   height: 380px; 
-  left: calc(50% + calc(var(--index) * 110px) - 130px);
+  left: calc(50% - 130px); /* All stacked at precisely the exact center origin */
   
-  /* Arc Transformation based on the dynamic --index set in JS */
-  --rotation: calc(var(--index) * 6deg);
-  --offset-y: calc(abs(var(--index)) * 14px);
+  /* Advanced 3D Fan Transformations */
+  --translate-x: calc(var(--index) * 90px);
+  --translate-y: calc(abs(var(--index)) * 15px);
+  --translate-z: calc(abs(var(--index)) * -40px); /* Pushes outer cards backward into the scene */
+  --rotate-z: calc(var(--index) * 5deg); /* Flairs them out */
+  --rotate-y: calc(var(--index) * -8deg); /* Angles the side faces inward to form a bowl/fan */
   
-  transform-origin: bottom center;
-  transform: rotateZ(var(--rotation)) translateY(var(--offset-y)) translateZ(0px);
+  transform-origin: center center;
+  transform: 
+    translateX(var(--translate-x)) 
+    translateY(var(--translate-y)) 
+    translateZ(var(--translate-z)) 
+    rotateY(var(--rotate-y)) 
+    rotateZ(var(--rotate-z));
   
-  /* Retain existing card style transitions while adding transform */
-  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-  animation: floatIn 0.8s ease forwards;
+  /* Ensure the center cards layer physically over the outer back-cards */
+  z-index: calc(10 - abs(var(--index)));
+  
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  animation: floatIn3D 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 /* Redefine card content height so image and glowing borders scale properly */
@@ -2999,7 +3008,7 @@ body.copy-protected textarea {
   content: '';
   position: absolute;
   inset: -3px;
-  border-radius: 1.6rem; /* Slightly larger than content */
+  border-radius: 1.6rem; 
   z-index: -1;
   animation: spin-border 4s linear infinite;
   filter: blur(2px);
@@ -3021,39 +3030,63 @@ body.copy-protected textarea {
 }
 
 .floating-cards-scene .article-card:hover {
-  transform: rotateZ(var(--rotation)) translateY(calc(var(--offset-y) - 30px)) translateZ(60px);
-  z-index: 10;
+  /* On hover, the card bursts OUT of the fan, flattens out facing the camera, and straightens */
+  transform: 
+    translateX(var(--translate-x)) 
+    translateY(calc(var(--translate-y) - 40px)) 
+    translateZ(80px) 
+    rotateY(0deg) 
+    rotateZ(0deg)
+    scale(1.05);
+  z-index: 50; /* Bring hovered completely to front */
 }
 
-@keyframes floatIn {
-  from { opacity: 0; transform: rotateZ(var(--rotation)) translateY(80px) translateZ(0px); }
-  to { opacity: 1; transform: rotateZ(var(--rotation)) translateY(var(--offset-y)) translateZ(0px); }
+@keyframes floatIn3D {
+  from { 
+    opacity: 0; 
+    transform: translateX(0) translateY(100px) translateZ(-200px) rotateY(0) rotateZ(0); 
+  }
+  to { 
+    opacity: 1; 
+    transform: 
+      translateX(var(--translate-x)) 
+      translateY(var(--translate-y)) 
+      translateZ(var(--translate-z)) 
+      rotateY(var(--rotate-y)) 
+      rotateZ(var(--rotate-z)); 
+  }
 }
 
 /* Mobile Adjustments */
 @media(max-width: 900px) {
   .floating-cards-scene {
-    height: 360px;
+    height: 420px;
   }
   .floating-cards-scene .article-card {
     width: 220px;
     height: 340px;
-    left: calc(50% + calc(var(--index) * 55px) - 110px);
-    --rotation: calc(var(--index) * 8deg);
-    --offset-y: calc(abs(var(--index)) * 16px);
+    left: calc(50% - 110px);
+    --translate-x: calc(var(--index) * 60px);
+    --translate-y: calc(abs(var(--index)) * 10px);
+    --translate-z: calc(abs(var(--index)) * -30px);
+    --rotate-z: calc(var(--index) * 6deg);
+    --rotate-y: calc(var(--index) * -6deg);
   }
 }
 @media(max-width: 480px) {
   .floating-cards-scene {
     padding: 20px 10px 60px;
-    height: 320px;
+    height: 360px;
   }
   .floating-cards-scene .article-card {
     width: 200px;
     height: 300px;
-    left: calc(50% + calc(var(--index) * 45px) - 100px);
-    --rotation: calc(var(--index) * 10deg);
-    --offset-y: calc(abs(var(--index)) * 18px);
+    left: calc(50% - 100px);
+    --translate-x: calc(var(--index) * 45px);
+    --translate-y: calc(abs(var(--index)) * 8px);
+    --translate-z: calc(abs(var(--index)) * -25px);
+    --rotate-z: calc(var(--index) * 8deg);
+    --rotate-y: calc(var(--index) * -5deg);
   }
   .floating-cards-scene .article-card .card-title {
     font-size: 1.1rem;
