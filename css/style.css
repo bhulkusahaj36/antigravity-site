@@ -1191,88 +1191,24 @@ body.page-exiting {
 }
 
 /* Modifier for stacked single-column layout instead of horizontal scroll */
+/* Modifier for responsive multi-column grid layout instead of horizontal scroll */
 .stacked-grid {
   display: grid !important;
-  grid-template-columns: 1fr !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
   overflow: visible !important;
-  padding: 0.5rem 0 !important;
-  /* Reset horizontal padding */
+  padding: 1.5rem 0 !important;
   margin: 0 !important;
-  /* CRITICAL: Reset the -60px margin to fix overlap */
-  gap: 1.25rem !important;
+  gap: 2rem !important;
 }
 
 .stacked-grid .article-card {
   width: 100% !important;
   min-width: 0 !important;
-
-  /* Premium horizontal layout for stacked cards */
-  flex-direction: row !important;
-  align-items: flex-start !important;
-  gap: 1.5rem !important;
-  padding: 1.5rem 1.75rem !important;
-
-  /* Revert to previous color */
-  background: var(--card-bg) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-
-  /* Consistent Pill & Under-glow border — same as flip cards */
-  border-radius: 1.5rem !important;
-  border-top: 1px solid var(--card-border) !important;
-  border-left: 1px solid var(--card-border) !important;
-  border-right: 1px solid var(--card-border) !important;
-  border-bottom: 5px solid rgba(255, 179, 15, 0.9) !important;
-
-  position: relative;
-  overflow: hidden;
 }
 
-/* Stacked card hover: gentle lift, more prominent left bar */
-.stacked-grid .article-card:hover {
-  transform: translateX(6px) !important;
-  /* Gentle push right instead of scale */
-  border-left-color: var(--saffron-400) !important;
-  background: var(--card-hover-bg) !important;
-  box-shadow:
-    -4px 0 20px rgba(212, 160, 23, 0.15),
-    var(--shadow-card),
-    var(--shadow-glow) !important;
-}
-
-/* Content block inside stacked card takes all remaining space */
-.stacked-grid .article-card .card-body-wrap {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 0.6rem;
-}
-
-/* Number badge for stacked card ordering feel */
-.stacked-grid .article-card .card-top {
-  width: 100%;
-  justify-content: center;
-}
-
-.stacked-grid .article-card .card-title {
-  font-size: 1.2rem !important;
-  line-height: 1.35 !important;
-}
-
-.stacked-grid .article-card .card-excerpt {
-  -webkit-line-clamp: 2 !important;
-  line-clamp: 2 !important;
-  font-size: 0.9rem !important;
-  color: rgba(226, 209, 185, 0.75) !important;
-}
-
-.stacked-grid .article-card .card-footer {
-  padding-top: 0.5rem !important;
-  margin-top: 0.25rem !important;
-  justify-content: center !important;
+/* Ensure neon background blur effect fits seamlessly in columns rather than overflowing rows */
+.stacked-grid .neon-latest-card {
+  height: 100%;
 }
 
 .featured-grid {
