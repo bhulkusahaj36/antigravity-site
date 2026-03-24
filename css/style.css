@@ -2984,6 +2984,42 @@ body.copy-protected textarea {
     min-height: 100%;
 }
 
+/* ─── Animated Spinning Glow Border ─── */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-border {
+  from { --angle: 0deg; }
+  to   { --angle: 360deg; }
+}
+
+.floating-cards-scene .article-card::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 1.6rem; /* Slightly larger than content */
+  z-index: -1;
+  animation: spin-border 4s linear infinite;
+  filter: blur(2px);
+  opacity: 0.8;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Alternating spinning border colors matching existing neon glow logic */
+.floating-cards-scene .article-card:nth-child(2n+1)::before {
+  background-image: conic-gradient(from var(--angle), transparent 65%, #f43f5e, var(--saffron-400));
+}
+.floating-cards-scene .article-card:nth-child(2n)::before {
+  background-image: conic-gradient(from var(--angle), transparent 65%, #3b82f6, #ec4899);
+}
+
+.floating-cards-scene .article-card:hover::before {
+  opacity: 1;
+  filter: blur(4px);
+}
+
 .floating-cards-scene .article-card:hover {
   transform: rotateZ(var(--rotation)) translateY(calc(var(--offset-y) - 30px)) translateZ(60px);
   z-index: 10;
