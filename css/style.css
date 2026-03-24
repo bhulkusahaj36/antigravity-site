@@ -2947,16 +2947,15 @@ body.copy-protected textarea {
 
 /* ============================================================
    FLOATING ARC CARDS EFFECT (LATEST SECTION)
-   ============================================================ */
 .floating-cards-scene {
-  perspective: 1200px;
+  perspective: 1500px;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   padding: 60px 20px 80px;
   position: relative;
-  height: 480px; /* Slightly taller to accommodate the fan expansion */
+  height: 480px; 
   transform-style: preserve-3d;
 }
 
@@ -2964,14 +2963,14 @@ body.copy-protected textarea {
   position: absolute;
   width: 260px;
   height: 380px; 
-  left: calc(50% - 130px); /* All stacked at precisely the exact center origin */
+  left: calc(50% - 130px); 
   
-  /* Advanced 3D Fan Transformations */
-  --translate-x: calc(var(--index) * 90px);
-  --translate-y: calc(abs(var(--index)) * 15px);
-  --translate-z: calc(abs(var(--index)) * -40px); /* Pushes outer cards backward into the scene */
-  --rotate-z: calc(var(--index) * 5deg); /* Flairs them out */
-  --rotate-y: calc(var(--index) * -8deg); /* Angles the side faces inward to form a bowl/fan */
+  /* Panoramic 3D Cylinder Transformations */
+  --translate-x: calc(var(--index) * 180px);
+  --translate-y: 0px; 
+  --translate-z: calc(abs(var(--index)) * -120px); /* Deep Z recession for curved effect */
+  --rotate-z: 0deg; /* Keep perfectly vertical */
+  --rotate-y: calc(var(--index) * -22deg); /* Strong inward panoramic tilt */
   
   transform-origin: center center;
   transform: 
@@ -2981,7 +2980,7 @@ body.copy-protected textarea {
     rotateY(var(--rotate-y)) 
     rotateZ(var(--rotate-z));
   
-  /* Ensure the center cards layer physically over the outer back-cards */
+  /* Ensure proper overlapping from center outwards */
   z-index: calc(10 - abs(var(--index)));
   
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
@@ -3066,11 +3065,11 @@ body.copy-protected textarea {
     width: 220px;
     height: 340px;
     left: calc(50% - 110px);
-    --translate-x: calc(var(--index) * 60px);
-    --translate-y: calc(abs(var(--index)) * 10px);
-    --translate-z: calc(abs(var(--index)) * -30px);
-    --rotate-z: calc(var(--index) * 6deg);
-    --rotate-y: calc(var(--index) * -6deg);
+    --translate-x: calc(var(--index) * 120px);
+    --translate-y: 0;
+    --translate-z: calc(abs(var(--index)) * -70px);
+    --rotate-z: 0deg;
+    --rotate-y: calc(var(--index) * -16deg);
   }
 }
 @media(max-width: 480px) {
@@ -3082,11 +3081,11 @@ body.copy-protected textarea {
     width: 200px;
     height: 300px;
     left: calc(50% - 100px);
-    --translate-x: calc(var(--index) * 45px);
-    --translate-y: calc(abs(var(--index)) * 8px);
-    --translate-z: calc(abs(var(--index)) * -25px);
-    --rotate-z: calc(var(--index) * 8deg);
-    --rotate-y: calc(var(--index) * -5deg);
+    --translate-x: calc(var(--index) * 90px);
+    --translate-y: 0;
+    --translate-z: calc(abs(var(--index)) * -60px);
+    --rotate-z: 0deg;
+    --rotate-y: calc(var(--index) * -12deg);
   }
   .floating-cards-scene .article-card .card-title {
     font-size: 1.1rem;
