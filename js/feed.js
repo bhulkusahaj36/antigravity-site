@@ -88,6 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     setMultiSelect('add-source', article.source);
                     setMultiSelect('add-topic', article.topic);
                     setMultiSelect('add-prasang', article.prasang);
+                    
+                    if (document.getElementById('add-public')) {
+                        document.getElementById('add-public').value = (article.public === false || article.public === 'no') ? 'no' : 'yes';
+                    }
                 }
             })
             .catch(err => console.error("Error loading article for editing:", err));
@@ -173,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 location: document.getElementById('add-location') ? document.getElementById('add-location').value.trim() : '',
                 featured: false,
                 category: finalTopic.join(',') || 'bhakti',
+                public: document.getElementById('add-public') ? (document.getElementById('add-public').value !== 'no') : true,
             };
 
             // ---- Duplicate Content Detection ----
@@ -303,6 +308,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Also include static ARTICLES from data.js if available
         if (typeof ARTICLES !== 'undefined') articles = [...ARTICLES, ...articles];
+
+        // Ensure purely private articles never show on public feed interface
+        articles = articles.filter(a => a.public !== false && a.public !== 'no');
 
         if (source) articles = articles.filter(a => !a.source || a.source === source);
         if (topic) articles = articles.filter(a => !a.topic || a.category === topic || a.topic === topic);

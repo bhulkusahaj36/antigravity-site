@@ -226,9 +226,18 @@
                             <label class="feed-label" for="editor-container">સંદેશ / પ્રસંગ</label>
                             <div id="editor-container" style="height: 350px;"></div>
                         </div>
-                        <div class="feed-field feed-field-half">
-                            <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
-                            <input type="text" id="add-author" class="feed-input" placeholder="લેખક નું નામ..." />
+                        <div class="feed-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
+                            <div class="feed-field">
+                                <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
+                                <input type="text" id="add-author" class="feed-input" placeholder="લેખક નું નામ..." />
+                            </div>
+                            <div class="feed-field">
+                                <label class="feed-label" for="add-public">Public (પબ્લિક)</label>
+                                <select id="add-public" class="feed-select">
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="feed-actions">

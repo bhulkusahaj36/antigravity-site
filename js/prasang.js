@@ -122,7 +122,11 @@ async function init() {
         }
     } catch (e) {
         console.error('Failed to fetch articles:', e);
-        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES_PG = ARTICLES;
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES_PG = [...ARTICLES];
+    }
+    
+    if (ALL_ARTICLES_PG) {
+        ALL_ARTICLES_PG = ALL_ARTICLES_PG.filter(a => a.public !== false && a.public !== 'no');
     }
 
     applyFilters();

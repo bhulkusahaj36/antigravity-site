@@ -51,7 +51,11 @@ async function loadCategoryArticles() {
         }
     } catch (error) {
         console.error("Error fetching articles API:", error);
-        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
+    }
+
+    if (ALL_ARTICLES) {
+        ALL_ARTICLES = ALL_ARTICLES.filter(a => a.public !== false && a.public !== 'no');
     }
 
     const count = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId)).length;

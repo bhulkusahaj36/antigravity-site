@@ -387,9 +387,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     const tr = document.createElement('tr');
                     tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
                     const dateStr = new Date(Number(art.id)).toLocaleDateString();
+                    
+                    const isPublic = art.public !== false && art.public !== 'no';
+                    const eyeIconStr = isPublic ? '👁️' : '🚫';
+                    const iconColor = isPublic ? 'var(--gold-400)' : '#ef4444';
+                    
                     tr.innerHTML = `
                         <td style="padding: 1rem 0.5rem; color: var(--text-light); font-weight: 500;">${art.title || 'Untitled'}</td>
-                        <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${art.author || 'અજ્ઞાત'}</td>
+                        <td style="padding: 1rem 0.5rem; color: var(--text-muted);">
+                            ${art.author || 'અજ્ઞાત'}
+                            <button class="toggle-public-btn" data-id="${art.id}" data-public="${isPublic}" style="padding: 0.2rem 0.4rem; font-size: 0.9rem; margin-left: 0.4rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; background: rgba(0,0,0,0.2); cursor: pointer; color: ${iconColor};" title="Toggle Visibility: ${isPublic ? 'Public' : 'Hidden'}">${eyeIconStr}</button>
+                        </td>
                         <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${dateStr}</td>
                         <td style="padding: 1rem 0.5rem; text-align: right;">
                             <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.85rem; color: var(--gold-400); border-color: var(--gold-400); margin-right: 0.5rem;">Edit</a>
@@ -404,6 +412,29 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (confirm('Delete article?')) {
                             await fetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE' });
                             loadAdminArticles();
+                        }
+                    });
+                });
+
+                document.querySelectorAll('.toggle-public-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        const currentlyPublic = e.currentTarget.getAttribute('data-public') === 'true';
+                        if (confirm(`Change visibility to ${currentlyPublic ? 'Private/Hidden' : 'Public'}?`)) {
+                            try {
+                                const res = await fetch('/api/articles?t=' + Date.now());
+                                const allArts = await res.json();
+                                const artToUpdate = allArts.find(a => String(a.id) === String(id));
+                                if (artToUpdate) {
+                                    artToUpdate.public = !currentlyPublic;
+                                    await fetch('/api/articles', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify(artToUpdate)
+                                    });
+                                    loadAdminArticles();
+                                }
+                            } catch (err) { console.error("Visibility toggle failed", err); }
                         }
                     });
                 });

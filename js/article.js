@@ -39,6 +39,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   if (ALL_ARTICLES.length > 0) {
+    // Only keep public articles
+    ALL_ARTICLES = ALL_ARTICLES.filter(a => a.public !== false && a.public !== 'no');
+    
+    // Check if the requested article exists AT ALL in the fetched JSON (even if private)
+    // We allow direct link access to private articles so the admin can preview them
+    // But we remove them from ALL_ARTICLES so they don't appear in Next/Prev queues or Related list
     ALL_ARTICLES.sort((a, b) => {
       let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
       let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
@@ -46,7 +52,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  const article = ALL_ARTICLES.find(a => String(a.id) === String(idParam));
+  // Look up within the full list if available (via another fetch if needed, but normally we just check `response` data before we overwrote ALL_ARTICLES)
+  // Actually, we need to fetch the raw array and find it there to allow direct link previews.
+  let rawArticles = typeof ARTICLES !== 'undefined' ? ARTICLES : [];
+  try {
+      const res = await fetch('/api/articles?t=' + Date.now());
+      if (res.ok) rawArticles = await res.json();
+  } catch (e) {}
+
+  const article = rawArticles.find(a => String(a.id) === String(idParam));
 
   if (!article) {
     content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ મળ્યો નહીં.</p>';

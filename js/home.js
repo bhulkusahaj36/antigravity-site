@@ -198,11 +198,15 @@ async function loadHomeArticles() {
             console.log("Articles fetched from API");
         } else {
             console.error("API returned error:", response.status);
-            if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+            if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
         }
     } catch (error) {
         console.error("Fetch error, falling back to local data:", error);
-        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
+    }
+    
+    if (ALL_ARTICLES) {
+        ALL_ARTICLES = ALL_ARTICLES.filter(a => a.public !== false && a.public !== 'no');
     }
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {

@@ -58,6 +58,7 @@ async function doSearch() {
     }
 
     let results = [...ARTICLES, ...dynamicArticles];
+    results = results.filter(a => a.public !== false && a.public !== 'no');
 
     // Helper to check overlap between array of selections and a single string OR array property from article
     function matches(articleProp, selections) {
