@@ -2276,26 +2276,30 @@ body.page-exiting {
 }
 
 .share-btn {
-  font-family: var(--font-gu-sans);
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 0.4rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem;
   border-radius: var(--radius-sm);
   border: 1px solid var(--gold-600);
-  /* Adds a subtle gold border instead of dark */
   background: rgba(212, 160, 23, 0.08);
-  /* Fills with a dark gold */
   color: var(--gold-400);
-  /* Makes text pop */
   cursor: pointer;
   transition: all var(--transition);
   text-decoration: none;
 }
 
+.share-btn svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  display: block;
+}
+
 .share-btn:hover {
   border-color: var(--gold-500);
   color: var(--gold-400);
-  background: rgba(212, 160, 23, 0.07);
+  background: rgba(212, 160, 23, 0.15);
+  transform: translateY(-2px);
 }
 
 /* ============================================================
