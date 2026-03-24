@@ -1212,6 +1212,19 @@ body.page-exiting {
   display: none !important;
 }
 
+/* Center all content since cards span the full width of the row */
+.stacked-grid .article-card .content,
+.stacked-grid .article-card .card-body-wrap {
+  align-items: center !important;
+  text-align: center !important;
+}
+
+.stacked-grid .article-card .card-title,
+.stacked-grid .article-card .card-prasang-label,
+.stacked-grid .article-card .card-excerpt {
+  text-align: center !important;
+}
+
 .featured-grid {
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 }
