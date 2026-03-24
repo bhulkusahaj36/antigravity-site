@@ -2944,3 +2944,82 @@ body.copy-protected textarea {
   -ms-user-select: auto;
   user-select: auto;
 }
+
+/* ============================================================
+   FLOATING ARC CARDS EFFECT (LATEST SECTION)
+   ============================================================ */
+.floating-cards-scene {
+  perspective: 1200px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  padding: 60px 20px 80px;
+  position: relative;
+  height: 400px; 
+  /* Fallback height, mobile might override */
+}
+
+.floating-cards-scene .article-card {
+  position: absolute;
+  /* Card Size tweaked for optimal visual fit in the arc while preserving premium aesthetic */
+  width: 260px;
+  height: 380px; 
+  left: calc(50% + calc(var(--index) * 110px) - 130px);
+  
+  /* Arc Transformation based on the dynamic --index set in JS */
+  --rotation: calc(var(--index) * 6deg);
+  --offset-y: calc(abs(var(--index)) * 14px);
+  
+  transform-origin: bottom center;
+  transform: rotateZ(var(--rotation)) translateY(var(--offset-y)) translateZ(0px);
+  
+  /* Retain existing card style transitions while adding transform */
+  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  animation: floatIn 0.8s ease forwards;
+}
+
+/* Redefine card content height so image and glowing borders scale properly */
+.floating-cards-scene .article-card .content {
+    min-height: 100%;
+}
+
+.floating-cards-scene .article-card:hover {
+  transform: rotateZ(var(--rotation)) translateY(calc(var(--offset-y) - 30px)) translateZ(60px);
+  z-index: 10;
+}
+
+@keyframes floatIn {
+  from { opacity: 0; transform: rotateZ(var(--rotation)) translateY(80px) translateZ(0px); }
+  to { opacity: 1; transform: rotateZ(var(--rotation)) translateY(var(--offset-y)) translateZ(0px); }
+}
+
+/* Mobile Adjustments */
+@media(max-width: 900px) {
+  .floating-cards-scene {
+    height: 360px;
+  }
+  .floating-cards-scene .article-card {
+    width: 220px;
+    height: 340px;
+    left: calc(50% + calc(var(--index) * 55px) - 110px);
+    --rotation: calc(var(--index) * 8deg);
+    --offset-y: calc(abs(var(--index)) * 16px);
+  }
+}
+@media(max-width: 480px) {
+  .floating-cards-scene {
+    padding: 20px 10px 60px;
+    height: 320px;
+  }
+  .floating-cards-scene .article-card {
+    width: 200px;
+    height: 300px;
+    left: calc(50% + calc(var(--index) * 45px) - 100px);
+    --rotation: calc(var(--index) * 10deg);
+    --offset-y: calc(abs(var(--index)) * 18px);
+  }
+  .floating-cards-scene .article-card .card-title {
+    font-size: 1.1rem;
+  }
+}
