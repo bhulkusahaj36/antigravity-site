@@ -1191,24 +1191,25 @@ body.page-exiting {
 }
 
 /* Modifier for stacked single-column layout instead of horizontal scroll */
-/* Modifier for responsive multi-column grid layout instead of horizontal scroll */
+/* Modifier for stacked single-column layout instead of horizontal scroll */
 .stacked-grid {
   display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+  grid-template-columns: 1fr !important;
   overflow: visible !important;
   padding: 1.5rem 0 !important;
   margin: 0 !important;
-  gap: 2rem !important;
+  gap: 1.5rem !important;
 }
 
 .stacked-grid .article-card {
   width: 100% !important;
   min-width: 0 !important;
+  margin-bottom: 0.5rem;
 }
 
-/* Ensure neon background blur effect fits seamlessly in columns rather than overflowing rows */
-.stacked-grid .neon-latest-card {
-  height: 100%;
+/* Remove the intense neon background gradient blur for standard stacked lists */
+.stacked-grid .neon-bg-span {
+  display: none !important;
 }
 
 .featured-grid {
