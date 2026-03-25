@@ -2,7 +2,38 @@
 // FEED PAGE — Tabs + Conditional fields + Browse logic
 // ============================================================
 
+// Load album datalist from static ARTICLES initially
+function initAlbumsDatalist() {
+    if (typeof ARTICLES === 'undefined') return;
+    const list = document.getElementById('album-options');
+    if (!list) return;
+    const albums = new Set();
+    ARTICLES.forEach(a => {
+        if (a.type === 'paravani' && a.album) albums.add(a.album.trim());
+    });
+    list.innerHTML = Array.from(albums).map(al => `<option value="${al}">`).join('');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initNav();
+    updateTagOptions();
+    initAlbumsDatalist();
+
+    // Attach listeners for type radio toggles
+    document.querySelectorAll('input[name="add-type"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const albumContainer = document.getElementById('album-field-container');
+            if (albumContainer) {
+                if (e.target.value === 'paravani') {
+                    albumContainer.style.display = 'block';
+                    document.getElementById('add-album').required = true;
+                } else {
+                    albumContainer.style.display = 'none';
+                    document.getElementById('add-album').required = false;
+                }
+            }
+        });
+    });
 
     // ==========================================
     // ADMIN AUTHENTICATION GUARD
@@ -92,6 +123,24 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (document.getElementById('add-public')) {
                         document.getElementById('add-public').value = (article.public === false || article.public === 'no') ? 'no' : 'yes';
                     }
+
+                    if (article.type === 'paravani') {
+                        const r = document.querySelector('input[name="add-type"][value="paravani"]');
+                        if (r) r.checked = true;
+                        if (document.getElementById('album-field-container')) {
+                            document.getElementById('album-field-container').style.display = 'block';
+                            document.getElementById('add-album').required = true;
+                            document.getElementById('add-album').value = article.album || '';
+                        }
+                    } else {
+                        const r = document.querySelector('input[name="add-type"][value="prasang"]');
+                        if (r) r.checked = true;
+                        if (document.getElementById('album-field-container')) {
+                            document.getElementById('album-field-container').style.display = 'none';
+                            document.getElementById('add-album').required = false;
+                            document.getElementById('add-album').value = '';
+                        }
+                    }
                 }
             })
             .catch(err => console.error("Error loading article for editing:", err));
@@ -165,6 +214,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Build article object
+            const articleType = document.querySelector('input[name="add-type"]:checked') ? document.querySelector('input[name="add-type"]:checked').value : 'prasang';
+            const articleAlbum = document.getElementById('add-album') ? document.getElementById('add-album').value.trim() : '';
+
             const article = {
                 id: editingArticleId || String(Date.now()),
                 title,
@@ -178,6 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 featured: false,
                 category: finalTopic.join(',') || 'bhakti',
                 public: document.getElementById('add-public') ? (document.getElementById('add-public').value !== 'no') : true,
+                type: articleType,
+                album: articleType === 'paravani' ? articleAlbum : ''
             };
 
             // ---- Duplicate Content Detection ----

@@ -228,6 +228,20 @@
                         </div>
                         <div class="feed-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
                             <div class="feed-field">
+                                <label class="feed-label">પ્રકાર (Type)</label>
+                                <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
+                                    <label style="color: var(--text-light); cursor: pointer;"><input type="radio" name="add-type" value="prasang" checked /> પ્રસંગ</label>
+                                    <label style="color: var(--text-light); cursor: pointer;"><input type="radio" name="add-type" value="paravani" /> પરાવાણી</label>
+                                </div>
+                            </div>
+                            <div class="feed-field" id="album-field-container" style="display: none;">
+                                <label class="feed-label" for="add-album">આલ્બમ (Album)</label>
+                                <input type="text" id="add-album" class="feed-input" placeholder="આલ્બમ દાખલ કરો..." list="album-options" />
+                                <datalist id="album-options"></datalist>
+                            </div>
+                        </div>
+                        <div class="feed-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
+                            <div class="feed-field">
                                 <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
                                 <input type="text" id="add-author" class="feed-input" placeholder="લેખક નું નામ..." />
                             </div>

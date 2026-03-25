@@ -206,7 +206,9 @@ async function loadHomeArticles() {
     }
     
     if (ALL_ARTICLES) {
+        // Ensure private articles and Paravani (long-form) are hidden from the Prasang homepage feed
         ALL_ARTICLES = ALL_ARTICLES.filter(a => a.public !== false && a.public !== 'no');
+        ALL_ARTICLES = ALL_ARTICLES.filter(a => a.type !== 'paravani');
     }
 
     if (ALL_ARTICLES && ALL_ARTICLES.length > 0) {

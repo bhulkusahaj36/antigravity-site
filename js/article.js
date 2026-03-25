@@ -80,13 +80,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Format content to preserve paragraphs
   let formattedContent = '';
   if (article.content) {
-    // Split by newlines, trim whitespace, ignore empty lines, wrap in <p>
     formattedContent = article.content
       .split('\n')
       .map(line => line.trim())
       .filter(line => line.length > 0)
       .map(line => `<p>${line}</p>`)
       .join('');
+  }
+
+  // Estimate Reading time
+  let readingTimeBadge = '';
+  if (article.type === 'paravani' && formattedContent) {
+      const textContent = formattedContent.replace(/<[^>]+>/g, ' ');
+      const wordCount = textContent.trim().split(/\s+/).length;
+      const readingTime = Math.max(1, Math.ceil(wordCount / 130)); // slightly slower reading for Gujarati scripts
+      readingTimeBadge = `<div class="reading-time-badge">⏱️ ~${readingTime} min read</div>`;
   }
 
   content.innerHTML = `
@@ -102,6 +110,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         <div class="article-toolbar-actions">
           <div class="article-meta-group">
+            ${readingTimeBadge}
             <span class="card-date">${formatDate(displayDate)}</span>
             ${article.location ? `<span class="article-location-badge">📍 ${article.location}</span>` : ''}
           </div>
@@ -133,6 +142,22 @@ document.addEventListener('DOMContentLoaded', async () => {
       ${getNextArticle(idParam) ? `<a href="article.html?id=${getNextArticle(idParam).id}" style="text-align:right">${getNextArticle(idParam).title} →</a>` : ''}
     </nav>
   `;
+
+  if (article.type === 'paravani') {
+      document.body.classList.add('paravani-reading-mode');
+      const pb = document.createElement('div');
+      pb.className = 'reading-progress-bar';
+      document.body.appendChild(pb);
+
+      window.addEventListener('scroll', () => {
+          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          if (height > 0) {
+              const scrolled = (winScroll / height) * 100;
+              pb.style.width = scrolled + "%";
+          }
+      });
+  }
 
   // Related articles (same category, exclude current)
   const related = ALL_ARTICLES.filter(a => a.category === article.category && String(a.id) !== String(idParam)).slice(0, 4);

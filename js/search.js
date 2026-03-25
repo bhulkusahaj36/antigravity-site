@@ -36,6 +36,7 @@ async function doSearch() {
     }
 
     // Advanced filters
+    const typeVal = document.getElementById('br-type') ? document.getElementById('br-type').value : '';
     const sources = Array.from(document.getElementById('br-source').selectedOptions).map(o => o.value).filter(v => v);
     const topics = Array.from(document.getElementById('br-topic').selectedOptions).map(o => o.value).filter(v => v);
     const prasangs = Array.from(document.getElementById('br-prasang').selectedOptions).map(o => o.value).filter(v => v);
@@ -59,6 +60,10 @@ async function doSearch() {
 
     let results = [...ARTICLES, ...dynamicArticles];
     results = results.filter(a => a.public !== false && a.public !== 'no');
+
+    // Filter purely by type first
+    if (typeVal === 'paravani') results = results.filter(a => a.type === 'paravani');
+    if (typeVal === 'prasang') results = results.filter(a => a.type !== 'paravani');
 
     // Helper to check overlap between array of selections and a single string OR array property from article
     function matches(articleProp, selections) {
@@ -207,6 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
             // Reset native dropdowns
+            if (document.getElementById('br-type')) document.getElementById('br-type').selectedIndex = 0;
             document.getElementById('br-source').selectedIndex = 0;
             document.getElementById('br-topic').selectedIndex = 0;
             document.getElementById('br-prasang').selectedIndex = 0;

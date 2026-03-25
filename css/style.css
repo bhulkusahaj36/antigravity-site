@@ -2894,3 +2894,84 @@ body.copy-protected textarea {
   -ms-user-select: auto;
   user-select: auto;
 }
+
+/* =========================================================
+   PARAVANI LONG-FORM READING MODE
+   ========================================================= */
+body.paravani-reading-mode {
+    background: #f4e8d3 !important; /* Fallback warm paper color */
+    /* User will inject a custom textured background image here later */
+    background-image: url('placeholder-vintage-paper.jpg') !important; 
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    color: #3b2f21 !important;
+}
+
+body.paravani-reading-mode .navbar {
+    background: rgba(244, 232, 211, 0.95);
+    border-bottom: 1px solid rgba(139, 111, 78, 0.2);
+    box-shadow: none;
+}
+
+body.paravani-reading-mode .navbar .nav-link,
+body.paravani-reading-mode .navbar .logo-gu {
+    color: #5c4033;
+    text-shadow: none;
+}
+
+body.paravani-reading-mode .article-reading-mode-box {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    max-width: 800px; /* narrowed for easier reading */
+    margin: 0 auto;
+}
+
+body.paravani-reading-mode .article-title-h1 {
+    color: #4a3623;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(139, 111, 78, 0.3);
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+    text-shadow: none;
+    background: none;
+    -webkit-text-fill-color: initial;
+}
+
+body.paravani-reading-mode .reading-progress-bar {
+    position: fixed;
+    top: 60px; /* below navbar */
+    left: 0;
+    height: 4px;
+    background: #8b6f4e;
+    width: 0%;
+    z-index: 1000;
+    transition: width 0.1s ease;
+}
+
+body.paravani-reading-mode .article-content {
+    font-family: 'Noto Serif Gujarati', serif;
+}
+
+body.paravani-reading-mode .article-content p {
+    font-size: 1.25rem;
+    line-height: 2;
+    color: #2b2118;
+}
+
+/* Reading Time Badge */
+.reading-time-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(139, 111, 78, 0.1);
+    color: #8b6f4e;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    border: 1px solid rgba(139, 111, 78, 0.2);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-right: 0.75rem;
+}
