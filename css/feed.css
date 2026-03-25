@@ -133,8 +133,11 @@
 .feed-field {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    position: relative; /* for inline conditionals */
+    gap: 0;
+    position: relative;
+    min-height: 4.5rem; /* Ensure consistent spacing */
+    justify-content: flex-start;
+    padding-top: 0.5rem;
 }
 
 .feed-field-full {
@@ -149,9 +152,47 @@
 /* Label ------------------------------------------------------- */
 .feed-label {
     font-family: var(--font-gu-sans);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    color: var(--text-secondary);
+    color: var(--text-muted);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left top;
+    margin-bottom: 0.2rem;
+    pointer-events: none; /* Let hover pass to field */
+}
+
+/* Base state for inputs in interactive mode */
+.feed-input,
+.feed-select,
+.cs-wrapper {
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+}
+
+/* Reveal logic */
+.feed-field:hover .feed-input,
+.feed-field:focus-within .feed-input,
+.field-has-value .feed-input,
+.feed-field:hover .feed-select,
+.feed-field:focus-within .feed-select,
+.field-has-value .feed-select,
+.feed-field:hover .cs-wrapper,
+.feed-field:focus-within .cs-wrapper,
+.feed-field .cs-has-value {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Label transformation when field is active/filled */
+.feed-field:hover .feed-label,
+.feed-field:focus-within .feed-label,
+.field-has-value .feed-label,
+.feed-field:has(.cs-has-value) .feed-label {
+    color: var(--gold-400);
+    transform: scale(0.9);
 }
 
 /* Select ----------------------------------------------------- */
@@ -215,10 +256,9 @@
 
 /* Conditional fields slide in -------------------------------- */
 .feed-conditional {
-    margin-top: -1.8rem; /* pull it up to overlay the label area slightly or just sit tight */
+    margin-top: 0.5rem;
     position: relative;
     z-index: 5;
-    background: #000; /* opaque so it hides what's behind */
     animation: slideDown 0.2s ease both;
     border-color: var(--gold-400);
 }

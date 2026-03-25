@@ -272,19 +272,23 @@ function initUIComponents() {
         }
 
         function updateTriggerText() {
+            const selectedOptions = Array.from(nativeSelect.selectedOptions);
+            const hasValue = selectedOptions.some(o => o.value !== "");
+            wrapper.classList.toggle('cs-has-value', hasValue);
+
             if (nativeSelect.multiple) {
-                const selected = Array.from(nativeSelect.selectedOptions).filter(o => o.value !== '');
+                const selectedNonEmpty = selectedOptions.filter(o => o.value !== '');
                 const placeholderOpt = Array.from(nativeSelect.options).find(o => o.value === '');
 
-                if (selected.length === 0) {
-                    valueSpan.textContent = placeholderOpt ? placeholderOpt.text : 'પસંદ કરો...';
-                    valueSpan.className = 'cs-value cs-placeholder';
-                } else if (selected.length <= 2) {
-                    valueSpan.textContent = selected.map(o => getOptionText(o)).join(', ');
-                    valueSpan.className = 'cs-value';
+                if (selectedNonEmpty.length === 0) {
+                    valueSpan.textContent = nativeSelect.getAttribute('placeholder') || (placeholderOpt ? placeholderOpt.text : 'પસંદ કરો...');
+                    valueSpan.classList.add('cs-placeholder');
+                } else if (selectedNonEmpty.length <= 2) {
+                    valueSpan.textContent = selectedNonEmpty.map(o => getOptionText(o)).join(', ');
+                    valueSpan.classList.remove('cs-placeholder');
                 } else {
-                    valueSpan.textContent = `${selected.length} પસંદ થયેલ`;
-                    valueSpan.className = 'cs-value';
+                    valueSpan.textContent = `${selectedNonEmpty.length} પસંદ થયેલ`;
+                    valueSpan.classList.remove('cs-placeholder');
                 }
             } else {
                 const sel = nativeSelect.options[nativeSelect.selectedIndex];
@@ -430,6 +434,22 @@ function initUIComponents() {
     }
 
     document.querySelectorAll('.feed-select').forEach(buildCustomSelect);
+
+    // Track if inputs have values for CSS "Interactive Reveal"
+    function trackInputValues() {
+        const inputs = document.querySelectorAll('.feed-input');
+        inputs.forEach(input => {
+            const field = input.closest('.feed-field');
+            if (!field) return;
+
+            const update = () => {
+                field.classList.toggle('field-has-value', input.value.trim() !== "");
+            };
+            input.addEventListener('input', update);
+            update(); // Initial check
+        });
+    }
+    trackInputValues();
 
     function wireConditional(selectEl) {
         const id = selectEl.id;
