@@ -45,14 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (addTypeSelect) {
         addTypeSelect.addEventListener('change', (e) => {
             const albumContainer = document.getElementById('album-field-container');
-            if (albumContainer) {
-                if (e.target.value === 'paravani') {
+            const prasangOfContainer = document.getElementById('prasang-of-container');
+            const authorContainer = document.getElementById('author-field-container');
+
+            if (e.target.value === 'paravani') {
+                if (albumContainer) {
                     albumContainer.style.display = 'block';
                     document.getElementById('add-album').required = true;
-                } else {
+                }
+                if (prasangOfContainer) prasangOfContainer.style.display = 'none';
+                if (authorContainer) authorContainer.style.display = 'none';
+            } else {
+                if (albumContainer) {
                     albumContainer.style.display = 'none';
                     document.getElementById('add-album').required = false;
                 }
+                if (prasangOfContainer) prasangOfContainer.style.display = 'block';
+                if (authorContainer) authorContainer.style.display = 'block';
             }
         });
     }
@@ -132,6 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             document.getElementById('add-album').required = true;
                             document.getElementById('add-album').value = article.album || '';
                         }
+                        // Hide fields not used for Paravani
+                        if (document.getElementById('prasang-of-container')) document.getElementById('prasang-of-container').style.display = 'none';
+                        if (document.getElementById('author-field-container')) document.getElementById('author-field-container').style.display = 'none';
                     } else {
                         if (document.getElementById('add-type')) document.getElementById('add-type').value = 'prasang';
                         if (document.getElementById('album-field-container')) {
@@ -139,6 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             document.getElementById('add-album').required = false;
                             document.getElementById('add-album').value = '';
                         }
+                        // Show fields for Prasang
+                        if (document.getElementById('prasang-of-container')) document.getElementById('prasang-of-container').style.display = 'block';
+                        if (document.getElementById('author-field-container')) document.getElementById('author-field-container').style.display = 'block';
                     }
                 }
             })
