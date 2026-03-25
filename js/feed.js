@@ -16,8 +16,29 @@ function initAlbumsDatalist() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
-    updateTagOptions();
     initAlbumsDatalist();
+
+    let quill;
+
+    // Initialize Quill Rich Text Editor IMMEDIATELY if container exists
+    if (document.getElementById('editor-container') && typeof Quill !== 'undefined') {
+        quill = new Quill('#editor-container', {
+            theme: 'snow',
+            placeholder: 'અહીં પ્રસંગ લખો (બુલેટ પોઈન્ટ, બોલ્ડ, વગેરેનો ઉપયોગ કરી શકો છો)...',
+            modules: {
+                toolbar: [
+                    [{ 'header': [1, 2, 3, false] }],
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['blockquote', 'code-block'],
+                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                    [{ 'align': [] }],
+                    ['link', 'image'],
+                    ['clean']
+                ]
+            }
+        });
+    }
 
     // Attach listeners for type radio toggles
     const addTypeSelect = document.getElementById('add-type');
@@ -52,27 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ── Add Form submit ────────────────────────────────── */
     const addForm = document.getElementById('addForm');
     const addFeedback = document.getElementById('add-feedback');
-
-    // Initialize Quill Rich Text Editor if container exists
-    let quill;
-    if (document.getElementById('editor-container')) {
-        quill = new Quill('#editor-container', {
-            theme: 'snow',
-            placeholder: 'અહીં પ્રસંગ લખો (બુલેટ પોઈન્ટ, બોલ્ડ, વગેરેનો ઉપયોગ કરી શકો છો)...',
-            modules: {
-                toolbar: [
-                    [{ 'header': [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike'],
-                    [{ 'color': [] }, { 'background': [] }],
-                    ['blockquote', 'code-block'],
-                    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-                    [{ 'align': [] }],
-                    ['link', 'image'],
-                    ['clean']
-                ]
-            }
-        });
-    }
 
     /* ── Admin Edit Mode Initialization ──────────────────── */
     let editingArticleId = null;
