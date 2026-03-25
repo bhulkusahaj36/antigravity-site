@@ -2,21 +2,35 @@
 // FEED PAGE — Tabs + Conditional fields + Browse logic
 // ============================================================
 
-// Load album datalist from static ARTICLES initially
-function initAlbumsDatalist() {
+// Load albums into select from static ARTICLES initially
+function initAlbumDropdown() {
     if (typeof ARTICLES === 'undefined') return;
-    const list = document.getElementById('album-options');
-    if (!list) return;
+    const select = document.getElementById('add-album');
+    if (!select) return;
+    
+    // Clear existing options but keep "Select" and "New"
+    const staticOptions = Array.from(select.querySelectorAll('option[value=""], option[value="new"]'));
+    select.innerHTML = '';
+    staticOptions.forEach(opt => select.appendChild(opt));
+
     const albums = new Set();
     ARTICLES.forEach(a => {
         if (a.type === 'paravani' && a.album) albums.add(a.album.trim());
     });
-    list.innerHTML = Array.from(albums).map(al => `<option value="${al}">`).join('');
+    
+    const sortedAlbums = Array.from(albums).sort();
+    sortedAlbums.forEach(al => {
+        const opt = document.createElement('option');
+        opt.value = al;
+        opt.textContent = al;
+        // Insert before the "new" option
+        select.insertBefore(opt, select.querySelector('option[value="new"]'));
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     initNav();
-    initAlbumsDatalist();
+    initAlbumDropdown();
 
     let quill;
 
@@ -78,6 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     wireDateRadio('add');
     wireDateRadio('br');
+
+    // Wire Album conditional
+    if (document.getElementById('add-album')) {
+        if (typeof wireConditional === 'function') {
+            wireConditional(document.getElementById('add-album'));
+        }
+    }
 
     /* ── Add Form submit ────────────────────────────────── */
     const addForm = document.getElementById('addForm');
@@ -229,13 +250,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Build article object
             const articleType = document.getElementById('add-type') ? document.getElementById('add-type').value : 'prasang';
-            const articleAlbum = document.getElementById('add-album') ? document.getElementById('add-album').value.trim() : '';
+            let articleAlbum = document.getElementById('add-album') ? document.getElementById('add-album').value : '';
+            if (articleAlbum === 'new') {
+                articleAlbum = document.getElementById('add-album-new-text')?.value.trim() || '';
+            }
 
             const article = {
                 id: editingArticleId || String(Date.now()),
                 title,
                 content,
-                author: document.getElementById('add-author').value.trim() || 'અજ્ઞાત',
+                author: document.getElementById('add-author') ? document.getElementById('add-author').value.trim() || 'અજ્ઞાત' : 'અજ્ઞાત',
                 source: finalSource.join(','),
                 topic: finalTopic.join(','),
                 prasang: finalPrasang.join(','),

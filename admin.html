@@ -228,8 +228,11 @@
                             </div>
                             <div class="feed-field" id="album-field-container" style="display: none;">
                                 <label class="feed-label" for="add-album">આલ્બમ (Album)</label>
-                                <input type="text" id="add-album" class="feed-input" placeholder="આલ્બમ દાખલ કરો..." list="album-options" />
-                                <datalist id="album-options"></datalist>
+                                <select id="add-album" class="feed-select">
+                                    <option value="">પસંદ કરો...</option>
+                                    <option value="new">નવો આલ્બમ બનાવો (Create New)...</option>
+                                </select>
+                                <input type="text" id="add-album-new-text" class="feed-input feed-conditional" data-show-for="add-album=new" placeholder="નવા આલ્બમનું નામ..." style="display:none" />
                             </div>
                         </div>
 
