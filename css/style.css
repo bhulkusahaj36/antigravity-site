@@ -174,27 +174,27 @@ body.page-exiting {
 }
 
 /* ============================================================
-   NAVBAR
+   NAVBAR (REFACTORED)
    ============================================================ */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 1000;
   background: transparent;
-  transition: all var(--transition);
+  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
   border-bottom: 1px solid transparent;
-  padding: 0.6rem 0;
+  padding: 0.8rem 0;
 }
 
 .navbar.scrolled {
-  background: rgba(3, 4, 6, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(245, 158, 11, 0.15);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  padding: 0.4rem 0;
+  background: rgba(3, 4, 6, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: 1px solid rgba(245, 107, 11, 0.15);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+  padding: 0.5rem 0;
 }
 
 .nav-inner {
@@ -206,68 +206,108 @@ body.page-exiting {
 
 .nav-logo {
   display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.75rem;
   color: var(--text-white);
 }
 
 .logo-gu {
   font-family: var(--font-gu);
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--gold-400);
   letter-spacing: 0.02em;
 }
 
-.logo-en {
-  font-family: var(--font-en);
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
 .nav-links {
   display: flex;
-  gap: 0.25rem;
+  gap: 0.5rem;
   list-style: none;
+  align-items: center;
 }
 
+/* Base Nav Link */
 .nav-link {
   position: relative;
   font-family: var(--font-en);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-secondary);
-  padding: 0.45rem 0.9rem;
-  transition: color var(--transition);
-  letter-spacing: 0.04em;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background-color: var(--gold-400);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform var(--transition);
+/* ── LUXURY STYLE 1: PILL BUTTON (Pair 1) ── */
+.navbar.nav-pill .nav-links {
+    gap: 1.25rem;
 }
 
-.nav-link:hover,
-.nav-link.active {
+.navbar.nav-pill .nav-link {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(245, 166, 35, 0.35);
+    color: #F0E0C0;
+    border-radius: 50px;
+    height: 46px;
+    padding: 0 28px;
+    text-transform: none; /* Cinematic luxury often uses title case */
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+
+.navbar.nav-pill .nav-link:hover {
+    box-shadow: 0 0 12px rgba(245, 166, 35, 0.4);
+    color: #FFD580;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+.navbar.nav-pill .nav-link.active {
+    background: linear-gradient(135deg, #F5A623, #B8760A);
+    color: #000 !important;
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.75);
+    border: transparent;
+}
+
+/* ── LUXURY STYLE 2: MINIMAL TEXT (Pair 2) ── */
+.navbar.nav-minimal {
+    background: #000000 !important;
+}
+
+.navbar.nav-minimal .nav-link {
+    color: #B0A090;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 1.25rem;
+}
+
+.navbar.nav-minimal .nav-link:hover {
+    color: #F5C842;
+    background: none;
+}
+
+.navbar.nav-minimal .nav-link.active {
+    color: #F5C842 !important;
+    border-bottom: 2px solid #D4A017;
+    text-shadow: 0 0 8px rgba(245, 166, 35, 0.5);
+    border-radius: 0;
+}
+
+/* Responsive Toggle */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
   color: var(--gold-400);
+  font-size: 1.8rem;
+  cursor: pointer;
 }
 
-.nav-link:hover::after,
-.nav-link.active::after {
-  transform: scaleX(1);
-}
 
 /* Hide logo on home page — hero image acts as the branding */
 .home-page .nav-logo {
