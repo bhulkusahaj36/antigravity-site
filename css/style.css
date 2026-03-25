@@ -267,11 +267,11 @@ body.page-exiting {
 }
 
 .navbar.nav-pill .nav-link.active {
-    background: linear-gradient(135deg, #F5A623, #B8760A);
-    color: #000 !important;
+    background: rgba(245, 166, 35, 0.12);
+    color: #FFD580 !important;
     font-weight: 700;
-    box-shadow: 0 0 20px rgba(245, 166, 35, 0.75);
-    border: transparent;
+    box-shadow: 0 0 15px rgba(245, 166, 35, 0.3);
+    border: 1px solid rgba(245, 166, 35, 0.6);
 }
 
 /* ── LUXURY STYLE 2: MINIMAL TEXT (Pair 2) ── */
