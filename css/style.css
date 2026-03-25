@@ -274,26 +274,38 @@ body.page-exiting {
 
 /* ── LUXURY STYLE 2: MINIMAL TEXT (Pair 2) ── */
 .navbar.nav-minimal {
-    background: #000000 !important;
+    background: transparent; /* No solid background by default, allows transparency */
+}
+
+.navbar.nav-minimal.scrolled {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 1px solid rgba(245, 166, 35, 0.2);
 }
 
 .navbar.nav-minimal .nav-link {
     color: #B0A090;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.1em;
-    padding: 0.6rem 1.25rem;
+    text-transform: uppercase;
+    padding: 0.5rem 1.5rem;
+    background: none;
+    border: none;
+    box-shadow: none;
 }
 
 .navbar.nav-minimal .nav-link:hover {
     color: #F5C842;
     background: none;
+    transform: none;
 }
 
 .navbar.nav-minimal .nav-link.active {
     color: #F5C842 !important;
     border-bottom: 2px solid #D4A017;
-    text-shadow: 0 0 8px rgba(245, 166, 35, 0.5);
+    text-shadow: 0 0 10px rgba(245, 166, 35, 0.4);
     border-radius: 0;
+    background: none;
+    box-shadow: none;
 }
 
 /* Responsive Toggle */
