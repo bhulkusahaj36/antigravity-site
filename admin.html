@@ -218,27 +218,28 @@
                         <div class="feed-section-label">લેખ</div>
                         <div id="add-feedback" class="form-feedback" style="display:none; margin-bottom: 2rem;"></div>
 
-                        <div class="feed-field feed-field-full">
-                            <label class="feed-label" for="add-title">શિરોનામ</label>
-                            <input type="text" id="add-title" class="feed-input" placeholder="પ્રસંગ શિરોનામ..." />
-                        </div>
-                        <div class="feed-field feed-field-full">
-                            <label class="feed-label" for="editor-container">સંદેશ / પ્રસંગ</label>
-                            <div id="editor-container" style="height: 350px;"></div>
-                        </div>
                         <div class="feed-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
                             <div class="feed-field">
-                                <label class="feed-label">પ્રકાર (Type)</label>
-                                <div style="display: flex; gap: 1rem; align-items: center; margin-top: 0.5rem;">
-                                    <label style="color: var(--text-light); cursor: pointer;"><input type="radio" name="add-type" value="prasang" checked /> પ્રસંગ</label>
-                                    <label style="color: var(--text-light); cursor: pointer;"><input type="radio" name="add-type" value="paravani" /> પરાવાણી</label>
-                                </div>
+                                <label class="feed-label" for="add-type">પ્રકાર (Type)</label>
+                                <select id="add-type" class="feed-select">
+                                    <option value="prasang">પ્રસંગ</option>
+                                    <option value="paravani">પરાવાણી</option>
+                                </select>
                             </div>
                             <div class="feed-field" id="album-field-container" style="display: none;">
                                 <label class="feed-label" for="add-album">આલ્બમ (Album)</label>
                                 <input type="text" id="add-album" class="feed-input" placeholder="આલ્બમ દાખલ કરો..." list="album-options" />
                                 <datalist id="album-options"></datalist>
                             </div>
+                        </div>
+
+                        <div class="feed-field feed-field-full">
+                            <label class="feed-label" for="add-title">શિરોનામ</label>
+                            <input type="text" id="add-title" class="feed-input" placeholder="પ્રસંગ શિરોનામ..." />
+                        </div>
+                        <div class="feed-field feed-field-full">
+                            <label class="feed-label" for="editor-container">સંદેશ / પ્રસંગ</label>
+                            <div id="editor-container" style="height: 350px; background: rgba(0,0,0,0.2);"></div>
                         </div>
                         <div class="feed-row" style="grid-template-columns: 1fr 1fr; margin-bottom: 1.5rem;">
                             <div class="feed-field">

@@ -20,8 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initAlbumsDatalist();
 
     // Attach listeners for type radio toggles
-    document.querySelectorAll('input[name="add-type"]').forEach(radio => {
-        radio.addEventListener('change', (e) => {
+    const addTypeSelect = document.getElementById('add-type');
+    if (addTypeSelect) {
+        addTypeSelect.addEventListener('change', (e) => {
             const albumContainer = document.getElementById('album-field-container');
             if (albumContainer) {
                 if (e.target.value === 'paravani') {
@@ -33,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         });
-    });
+    }
 
     // ==========================================
     // ADMIN AUTHENTICATION GUARD
@@ -125,16 +126,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     if (article.type === 'paravani') {
-                        const r = document.querySelector('input[name="add-type"][value="paravani"]');
-                        if (r) r.checked = true;
+                        if (document.getElementById('add-type')) document.getElementById('add-type').value = 'paravani';
                         if (document.getElementById('album-field-container')) {
                             document.getElementById('album-field-container').style.display = 'block';
                             document.getElementById('add-album').required = true;
                             document.getElementById('add-album').value = article.album || '';
                         }
                     } else {
-                        const r = document.querySelector('input[name="add-type"][value="prasang"]');
-                        if (r) r.checked = true;
+                        if (document.getElementById('add-type')) document.getElementById('add-type').value = 'prasang';
                         if (document.getElementById('album-field-container')) {
                             document.getElementById('album-field-container').style.display = 'none';
                             document.getElementById('add-album').required = false;
@@ -214,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Build article object
-            const articleType = document.querySelector('input[name="add-type"]:checked') ? document.querySelector('input[name="add-type"]:checked').value : 'prasang';
+            const articleType = document.getElementById('add-type') ? document.getElementById('add-type').value : 'prasang';
             const articleAlbum = document.getElementById('add-album') ? document.getElementById('add-album').value.trim() : '';
 
             const article = {
