@@ -101,12 +101,23 @@
 /* Section label ----------------------------------------------- */
 .feed-section-label {
     font-family: var(--font-en);
-    font-size: 0.72rem;
-    font-weight: 700;
+    font-size: 0.6rem;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--saffron-500);
-    margin-bottom: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--gold-400);
+    margin-bottom: 0.75rem;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feed-section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.2), transparent);
 }
 
 /* Row layout -------------------------------------------------- */
@@ -133,11 +144,9 @@
 .feed-field {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 0.35rem; /* Small gap for floating label feel */
     position: relative;
-    min-height: 4.5rem; /* Ensure consistent spacing */
-    justify-content: flex-start;
-    padding-top: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .feed-field-full {
@@ -151,60 +160,48 @@
 
 /* Label ------------------------------------------------------- */
 .feed-label {
-    font-family: var(--font-gu-sans);
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: left top;
-    margin-bottom: 0.2rem;
-    pointer-events: none; /* Let hover pass to field */
+    font-family: var(--font-en);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--saffron-500);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-left: 0.2rem;
+    transition: color 0.2s ease;
 }
 
-/* Base state for inputs in interactive mode */
+.feed-field:focus-within .feed-label {
+    color: var(--gold-400);
+}
+
+/* Inputs and Selects always visible and robust */
 .feed-input,
 .feed-select,
 .cs-wrapper {
-    opacity: 0;
-    transform: translateY(5px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    pointer-events: none;
-}
-
-/* Reveal logic */
-.feed-field:hover .feed-input,
-.feed-field:focus-within .feed-input,
-.field-has-value .feed-input,
-.feed-field:hover .feed-select,
-.feed-field:focus-within .feed-select,
-.field-has-value .feed-select,
-.feed-field:hover .cs-wrapper,
-.feed-field:focus-within .cs-wrapper,
-.feed-field .cs-has-value {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
     pointer-events: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    transition: all 0.2s ease;
 }
 
-/* Label transformation when field is active/filled */
-.feed-field:hover .feed-label,
-.feed-field:focus-within .feed-label,
-.field-has-value .feed-label,
-.feed-field:has(.cs-has-value) .feed-label {
-    color: var(--gold-400);
-    transform: scale(0.9);
+.cs-wrapper {
+    z-index: 10;
+}
+
+.cs-wrapper.cs-open {
+    z-index: 50; /* Ensure open dropdowns cover labels below */
 }
 
 /* Select ----------------------------------------------------- */
 .feed-select {
     width: 100%;
-    background: transparent;
-    border: 1px solid rgba(245, 158, 11, 0.2);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-family: var(--font-gu-sans);
-    font-size: 0.9rem;
-    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
     cursor: pointer;
     appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
@@ -212,7 +209,6 @@
     background-position: right 0.75rem center;
     background-size: 14px;
     padding-right: 2.2rem;
-    transition: border-color var(--transition), background-color var(--transition);
 }
 
 .feed-select:focus {
@@ -224,20 +220,20 @@
 /* Input ------------------------------------------------------ */
 .feed-input {
     width: 100%;
-    background: transparent;
-    border: 1px solid rgba(245, 158, 11, 0.2);
     border-radius: var(--radius-md);
     color: var(--text-primary);
     font-family: var(--font-gu-sans);
-    font-size: 0.9rem;
-    padding: 0.6rem 0.9rem;
-    transition: border-color var(--transition), background-color var(--transition);
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
 }
 
-.feed-input:focus {
+.feed-input:focus,
+.feed-select:focus,
+.cs-wrapper.cs-open .cs-trigger {
     outline: none;
-    border-color: var(--saffron-400);
-    background-color: rgba(245, 158, 11, 0.06);
+    border-color: var(--gold-400);
+    background-color: rgba(245, 158, 11, 0.08);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.12);
 }
 
 .feed-input::placeholder {
