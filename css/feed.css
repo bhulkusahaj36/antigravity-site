@@ -314,7 +314,7 @@ input:checked + .slider:before {
 
 /* Quill Professional Theme ----------------------------------- */
 .ql-toolbar.ql-snow {
-    background: rgba(255, 255, 255, 0.03) !important;
+    background: transparent !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
@@ -323,7 +323,7 @@ input:checked + .slider:before {
 }
 
 .ql-container.ql-snow {
-    background: rgba(0, 0, 0, 0.2) !important;
+    background: transparent !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-top: none !important;
     border-bottom-left-radius: 12px;
@@ -926,7 +926,7 @@ input:checked + .slider:before {
     font-family: var(--font-gu);
     font-size: 1.05rem;
     color: var(--text-primary);
-    background: transparent;
+    background: transparent !important;
 }
 
 .ql-editor {
