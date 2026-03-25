@@ -367,6 +367,33 @@ input:checked + .slider:before {
     box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
 }
 
+/* Dropdown Options */
+.ql-snow .ql-picker-options {
+    background-color: #111 !important;
+    border: 1px solid rgba(201, 168, 76, 0.4) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8) !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+}
+
+.ql-snow .ql-picker-item {
+    color: #c8b89a !important;
+    padding: 6px 12px !important;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.ql-snow .ql-picker-item:hover,
+.ql-snow .ql-picker-item.ql-selected {
+    color: #C9A84C !important;
+    background: rgba(201, 168, 76, 0.1) !important;
+}
+
+.ql-snow .ql-picker-label {
+    color: #C9A84C !important;
+    outline: none !important;
+}
+
 /* Row layout -------------------------------------------------- */
 .feed-row {
     display: grid;
