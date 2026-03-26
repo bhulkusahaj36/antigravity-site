@@ -20,27 +20,27 @@ function getSorted(articles) {
     });
 }
 
-function buildAvatarCard(id, label, imgFolder, href) {
+function buildAlbumCard(id, label, imgFolder, href) {
     const card = document.createElement('a');
-    card.className = 'avatar-card';
+    card.className = 'album-card';
     card.href = href;
 
     const wrap = document.createElement('div');
-    wrap.className = 'avatar-img-wrap';
+    wrap.className = 'album-img-wrap';
 
     const img = new Image();
     img.onload = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
     img.onerror = () => {
         const cleanLabel = label.replace(/\n/g, ' ');
-        wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
+        wrap.innerHTML = `<span class="album-fallback">${cleanLabel}</span>`;
     };
     img.src = `images/${imgFolder}/${id}.webp`;
     img.alt = label;
     const cleanLabel = label.replace(/\n/g, ' ');
-    wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
+    wrap.innerHTML = `<span class="album-fallback">${cleanLabel}</span>`;
 
     const labelEl = document.createElement('span');
-    labelEl.className = 'avatar-label';
+    labelEl.className = 'album-label';
     labelEl.textContent = label.replace(/\n/g, ' ');
 
     card.appendChild(wrap);
@@ -73,8 +73,7 @@ function renderAlbums() {
 
     albumsList.forEach(album => {
         // Use the album name as both ID and Label.
-        const slug = album.toLowerCase().replace(/\s+/g, '-');
-        const card = buildAvatarCard(slug, album, 'albums', `paravani.html?album=${encodeURIComponent(album)}`);
+        const card = buildAlbumCard(slug, album, 'albums', `paravani.html?album=${encodeURIComponent(album)}`);
         container.appendChild(card);
     });
 }
