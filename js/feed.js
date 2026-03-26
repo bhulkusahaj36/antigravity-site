@@ -146,6 +146,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         sel.dispatchEvent(new Event('change', { bubbles: true }));
                     };
+                    
+                    // Helper for single select with custom UI sync
+                    const setSingleSelect = (id, value) => {
+                        const sel = document.getElementById(id);
+                        if (!sel) return;
+                        sel.value = value || '';
+                        sel.dispatchEvent(new Event('change', { bubbles: true }));
+                    };
 
                     setMultiSelect('add-source', article.source);
                     setMultiSelect('add-topic', article.topic);
@@ -160,7 +168,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (document.getElementById('album-field-container')) {
                             document.getElementById('album-field-container').style.display = 'block';
                             document.getElementById('add-album').required = true;
-                            document.getElementById('add-album').value = article.album || '';
+                            
+                            const albumSelect = document.getElementById('add-album');
+                            const albumVal = article.album || '';
+                            
+                            // Check if this album exists in existing options
+                            const exists = Array.from(albumSelect.options).some(o => o.value === albumVal);
+                            if (exists && albumVal !== "") {
+                                setSingleSelect('add-album', albumVal);
+                            } else if (albumVal !== "") {
+                                // It was a custom created album
+                                setSingleSelect('add-album', 'new');
+                                const customInput = document.getElementById('add-album-new');
+                                if (customInput) {
+                                    customInput.value = albumVal;
+                                    customInput.dispatchEvent(new Event('input', { bubbles: true }));
+                                }
+                            }
                         }
                         // Hide fields not used for Paravani
                         if (document.getElementById('prasang-of-container')) document.getElementById('prasang-of-container').style.display = 'none';
