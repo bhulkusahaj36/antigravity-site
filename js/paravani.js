@@ -73,6 +73,7 @@ function renderAlbums() {
 
     albumsList.forEach(album => {
         // Use the album name as both ID and Label.
+        const slug = album.toLowerCase().replace(/\s+/g, '-');
         const card = buildAlbumCard(slug, album, 'albums', `paravani.html?album=${encodeURIComponent(album)}`);
         container.appendChild(card);
     });
