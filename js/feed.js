@@ -155,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         sel.dispatchEvent(new Event('change', { bubbles: true }));
                     };
 
-                    setMultiSelect('add-source', article.source);
-                    setMultiSelect('add-topic', article.topic);
-                    setMultiSelect('add-prasang', article.prasang);
+                    setMultiSelect('add-source', article.source || '');
+                    setMultiSelect('add-topic', article.topic || '');
+                    setMultiSelect('add-prasang', article.prasang || '');
                     
                     if (document.getElementById('add-public')) {
                         document.getElementById('add-public').value = (article.public === false || article.public === 'no') ? 'no' : 'yes';
@@ -198,7 +198,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         // Show fields for Prasang
                         if (document.getElementById('prasang-of-container')) document.getElementById('prasang-of-container').style.display = 'block';
+                        if (document.getElementById('prasang-of-container')) document.getElementById('prasang-of-container').style.display = 'block';
                         if (document.getElementById('author-field-container')) document.getElementById('author-field-container').style.display = 'block';
+                    }
+
+                    // Add a "Cancel" button to the form actions
+                    const formActions = document.querySelector('#addForm .feed-actions');
+                    if (formActions && !document.getElementById('editCancelBtn')) {
+                        const cancelBtn = document.createElement('button');
+                        cancelBtn.id = 'editCancelBtn';
+                        cancelBtn.type = 'button';
+                        cancelBtn.className = 'btn btn-outline';
+                        cancelBtn.style.borderColor = '#ef4444';
+                        cancelBtn.style.color = '#ef4444';
+                        cancelBtn.textContent = 'Cancel Edit';
+                        cancelBtn.onclick = () => {
+                            if (confirm('Discard changes and return to list?')) {
+                                window.location.href = 'admin.html#panel-manage';
+                                window.location.reload();
+                            }
+                        };
+                        formActions.appendChild(cancelBtn);
                     }
                 }
             })
