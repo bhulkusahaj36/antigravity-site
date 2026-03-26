@@ -175,6 +175,45 @@ function renderPagination(containerId, currentPage, totalPages, onPageChange) {
     }
 }
 
+/**
+ * Setup horizontal scroll controls for a container (prev/next buttons)
+ * @param {HTMLElement} wrapper - The outer wrapper containing the controls and the scrollable list
+ */
+function setupHorizontalScroll(wrapper) {
+    const scrollContainer = wrapper.querySelector('.avatar-row, .cards-grid, .category-chips');
+    const prevBtn = wrapper.closest('section')?.querySelector('.prev-btn') || wrapper.querySelector('.prev-btn');
+    const nextBtn = wrapper.closest('section')?.querySelector('.next-btn') || wrapper.querySelector('.next-btn');
+
+    if (!scrollContainer) return;
+
+    const scrollAmount = 340; // Approx width of card + gap
+
+    if (prevBtn) {
+        prevBtn.onclick = () => {
+            scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        };
+    }
+
+    if (nextBtn) {
+        nextBtn.onclick = () => {
+            scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        };
+    }
+
+    // Optional: Hide/Disable buttons based on scroll position
+    const updateButtons = () => {
+        if (prevBtn) prevBtn.style.opacity = scrollContainer.scrollLeft <= 0 ? '0.3' : '1';
+        if (nextBtn) {
+            const isAtEnd = scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth - 10;
+            nextBtn.style.opacity = isAtEnd ? '0.3' : '1';
+        }
+    };
+
+    scrollContainer.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    setTimeout(updateButtons, 500); // Initial check
+}
+
 // Parse query string param
 function getParam(name) {
     return new URLSearchParams(window.location.search).get(name);

@@ -95,7 +95,7 @@
 
                         <!-- 3-COLUMN PROFESSIONAL GRID -->
                         <div class="feed-grid-3">
-                            
+
                             <!-- ROW 1 -->
                             <div class="feed-field">
                                 <label class="feed-label" for="add-type">
@@ -111,11 +111,13 @@
                                 <label class="feed-label" for="add-album">
                                     <i class="field-icon icon-album"></i> આલ્બમ (Album)
                                 </label>
-                                <select id="add-album" class="feed-select">
+                                <select id="add-album" class="feed-select" data-conditional="add-album">
                                     <option value="">પસંદ કરો...</option>
                                     <option value="new">નવો આલ્બમ બનાવો (Create New)...</option>
                                 </select>
-                                <input type="text" id="add-album-new-text" class="feed-input feed-conditional" data-show-for="add-album=new" placeholder="નવા આલ્બમનું નામ..." style="display:none" />
+                                <input type="text" id="add-album-new-text" class="feed-input feed-conditional"
+                                    data-show-for="add-album=new" placeholder="નવા આલ્બમનું નામ..."
+                                    style="display:none" />
                             </div>
 
                             <div class="feed-field">
@@ -148,9 +150,14 @@
                                     <option value="patrika">પત્રિકા</option>
                                 </select>
                                 <div id="source-conditionals-container">
-                                    <input type="text" id="add-source-santo-text" class="feed-input feed-conditional" data-show-for="add-source=santo" placeholder="સંત નું નામ દાખલ કરો..." style="display:none" />
-                                    <input type="text" id="add-source-bhakto-text" class="feed-input feed-conditional" data-show-for="add-source=bhakto" placeholder="ભક્ત નું નામ દાખલ કરો..." style="display:none" />
-                                    <select id="add-source-granth-select" class="feed-select feed-conditional" data-show-for="add-source=granth" style="display:none" multiple>
+                                    <input type="text" id="add-source-santo-text" class="feed-input feed-conditional"
+                                        data-show-for="add-source=santo" placeholder="સંત નું નામ દાખલ કરો..."
+                                        style="display:none" />
+                                    <input type="text" id="add-source-bhakto-text" class="feed-input feed-conditional"
+                                        data-show-for="add-source=bhakto" placeholder="ભક્ત નું નામ દાખલ કરો..."
+                                        style="display:none" />
+                                    <select id="add-source-granth-select" class="feed-select feed-conditional"
+                                        data-show-for="add-source=granth" style="display:none" multiple>
                                         <option value="">ગ્રંથ પસંદ કરો...</option>
                                         <option value="jivan">જીવનચરિત્ર</option>
                                         <option value="saras">સરસ એક સહજાનંદ</option>
@@ -195,7 +202,9 @@
                                     <option value="katha-varta">કથા-વાર્તા</option>
                                     <option value="other">Other</option>
                                 </select>
-                                <input type="text" id="add-topic-other-text" class="feed-input feed-conditional" data-show-for="add-topic=other" placeholder="વિષય દાખલ કરો..." style="display:none" />
+                                <input type="text" id="add-topic-other-text" class="feed-input feed-conditional"
+                                    data-show-for="add-topic=other" placeholder="વિષય દાખલ કરો..."
+                                    style="display:none" />
                             </div>
 
                             <div class="feed-field">
@@ -205,13 +214,13 @@
                                 <div class="segmented-control" id="date-segmented-control">
                                     <input type="radio" name="add-date-type" value="none" id="date-none" checked>
                                     <label for="date-none">Unknown</label>
-                                    
+
                                     <input type="radio" name="add-date-type" value="date" id="date-single">
                                     <label for="date-single">Single</label>
-                                    
+
                                     <input type="radio" name="add-date-type" value="range" id="date-range">
                                     <label for="date-range">Range</label>
-                                    
+
                                     <div class="segmented-glider"></div>
                                 </div>
                                 <div id="date-picker-container" class="date-picker-reveal">
@@ -232,7 +241,8 @@
                                     <i class="field-icon icon-pin"></i> સ્થળ (Location)
                                 </label>
                                 <div class="input-with-icon">
-                                    <input type="text" id="add-location" class="feed-input" placeholder="સ્થળ દાખલ કરો..." />
+                                    <input type="text" id="add-location" class="feed-input"
+                                        placeholder="સ્થળ દાખલ કરો..." />
                                 </div>
                                 <div class="field-microcopy">City, venue name, or exact address</div>
                             </div>
@@ -241,23 +251,28 @@
                                 <label class="feed-label" for="add-title">
                                     <i class="field-icon icon-title"></i> શિરોનામ (Title/Description)
                                 </label>
-                                <textarea id="add-title" class="feed-input auto-grow" placeholder="પ્રસંગ શિરોનામ..." rows="1"></textarea>
+                                <textarea id="add-title" class="feed-input auto-grow" placeholder="પ્રસંગ શિરોનામ..."
+                                    rows="1"></textarea>
                                 <div class="validation-message" id="v-msg-title"></div>
                             </div>
 
                         </div> <!-- end feed-grid-3 -->
 
                         <!-- HIDDEN ORIGINAL SELECTS (Keep for existing JS logic compatibility) -->
-                        <select id="add-public" style="display:none"><option value="yes">Yes</option><option value="no">No</option></select>
+                        <select id="add-public" style="display:none">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
                         <div id="prasang-of-container" style="display:none;">
-                            <select id="add-prasang" multiple><option value="bhagwan">ભગવાન સ્વામિનારાયણ</option></select>
+                            <select id="add-prasang" multiple>
+                                <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
+                            </select>
                         </div>
 
                         <div id="add-feedback" class="form-feedback" style="display:none; margin-top: 1.5rem;"></div>
-                            <div class="feed-field" id="author-field-container">
-                                <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
-                                <input type="text" id="add-author" class="feed-input" placeholder="લેખક નું નામ..." />
-                            </div>
+                        <div class="feed-field" id="author-field-container">
+                            <label class="feed-label" for="add-author">લેખક (ઐચ્છિક)</label>
+                            <input type="text" id="add-author" class="feed-input" placeholder="લેખક નું નામ..." />
                         </div>
 
                         <div class="feed-field feed-field-full" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
@@ -268,8 +283,8 @@
                         </div>
 
                         <div class="feed-actions">
-                            <button type="submit" class="btn btn-primary">પ્રસંગ સંગ્રહ કરો</button>
-                            <button type="reset" class="btn btn-outline">સાફ કરો</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="reset" class="btn btn-outline">Clear</button>
                         </div>
 
 
@@ -315,7 +330,7 @@
                 <div class="feed-panel" id="panel-sync" style="display:none">
                     <div class="feed-section-label">Maintenance & Sync</div>
                     <p class="feed-subtitle" style="margin-bottom: 2rem;">
-                        Use this tool to export your browser-local category mappings (created on this device) 
+                        Use this tool to export your browser-local category mappings (created on this device)
                         so they can be added to the global `data.js` file for mobile users.
                     </p>
 
@@ -325,7 +340,8 @@
 
                     <div id="exportContainer" style="display:none; margin-top: 2rem;">
                         <label class="feed-label">Copy this code into `js/data.js`:</label>
-                        <textarea id="txtExportArea" class="feed-input" style="height: 300px; font-family: monospace; font-size: 0.85rem;" readonly></textarea>
+                        <textarea id="txtExportArea" class="feed-input"
+                            style="height: 300px; font-family: monospace; font-size: 0.85rem;" readonly></textarea>
                     </div>
                 </div>
 
@@ -390,13 +406,16 @@
                 ══════════════════════════════════════════ -->
                 <div class="feed-panel" id="panel-tasks" style="display:none">
                     <div class="feed-section-label">Tasks Management</div>
-                    
-                    <div style="background: transparent; backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 2rem;">
+
+                    <div
+                        style="background: transparent; backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 2rem;">
                         <h3 style="color: var(--gold-400); margin-top: 0; margin-bottom: 1.5rem;">Create New Task</h3>
-                        <form id="taskCreateForm" style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end;">
+                        <form id="taskCreateForm"
+                            style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end;">
                             <div class="feed-field" style="margin-bottom:0">
                                 <label class="feed-label">Task Name</label>
-                                <input type="text" id="taskNameInput" class="feed-input" placeholder="What needs to be done?" required />
+                                <input type="text" id="taskNameInput" class="feed-input"
+                                    placeholder="What needs to be done?" required />
                             </div>
                             <div class="feed-field" style="margin-bottom:0">
                                 <label class="feed-label">Deadline</label>
