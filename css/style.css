@@ -2820,6 +2820,17 @@ body.page-exiting {
   box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
 }
 
+/* Fix for 6-digit year shown in some browsers */
+input[type="date"] {
+  min-width: 150px;
+  max-width: 100%;
+}
+
+/* Ensure the date input doesn't stretch the year part */
+input[type="date"]::-webkit-datetime-edit-year-field {
+  width: 3.5em !important;
+}
+
 /* ============================================================
    ZEN READING MODE (Immersive / Distraction Free)
    ============================================================ */
