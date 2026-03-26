@@ -392,10 +392,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const eyeIconStr = isPublic ? '👁️' : '🚫';
                     const iconColor = isPublic ? 'var(--gold-400)' : '#ef4444';
                     
+                    const authorStr = art.author || 'અજ્ઞાત';
+                    const albumStr = (art.type === 'paravani' && art.album) ? `<br><span style="font-size:0.8rem; color: var(--gold-500); font-weight: 600;">📁 ${art.album}</span>` : '';
+                    
                     tr.innerHTML = `
                         <td style="padding: 1rem 0.5rem; color: var(--text-light); font-weight: 500;">${art.title || 'Untitled'}</td>
-                        <td style="padding: 1rem 0.5rem; color: var(--text-muted);">
-                            ${art.author || 'અજ્ઞાત'}
+                        <td style="padding: 1rem 0.5rem; color: var(--text-muted); line-height: 1.4;">
+                            ${authorStr} ${albumStr}
                             <button class="toggle-public-btn" data-id="${art.id}" data-public="${isPublic}" style="padding: 0.2rem 0.4rem; font-size: 0.9rem; margin-left: 0.4rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; background: rgba(0,0,0,0.2); cursor: pointer; color: ${iconColor};" title="Toggle Visibility: ${isPublic ? 'Public' : 'Hidden'}">${eyeIconStr}</button>
                         </td>
                         <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${dateStr}</td>
