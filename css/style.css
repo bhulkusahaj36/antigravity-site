@@ -497,7 +497,7 @@ body.page-exiting {
   .hero-calligraphy {
     max-width: 85% !important;
     left: 0 !important;
-    transform: scale(3.5) translateY(-3rem) !important;
+    transform: scale(3.5) translateY(6rem) !important;
     margin-top: 0 !important;
   }
 
