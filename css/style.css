@@ -387,19 +387,19 @@ body.page-exiting {
   }
 
   .hero-top-img {
-    max-height: 42vh;
-    transform: scale(1.05) translateY(2rem);
+    max-height: 48vh;
+    transform: scale(1.1) translateY(2.5rem);
     transform-origin: top center;
-    margin-bottom: -1.5rem;
-    opacity: 0.65;
+    margin-bottom: -1rem;
+    opacity: 0.6;
     z-index: 1;
     pointer-events: none;
   }
 
   .hero-calligraphy {
-    max-width: 90%;
-    transform: scale(1.8) translateY(0.25rem);
-    margin-top: 0;
+    max-width: 100%;
+    transform: scale(2.2) translateY(0.5rem);
+    margin-top: 0.1rem;
     z-index: 2;
     pointer-events: none;
   }
@@ -412,12 +412,12 @@ body.page-exiting {
   }
 
   .hero-quote {
-    padding: 0.85rem 1.25rem;
-    margin-top: 0.25rem;
-    margin-bottom: 2rem;
-    transform: translateY(0.5rem);
-    font-size: 0.9rem;
-    line-height: 1.45;
+    padding: 1rem 1.25rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    transform: translateY(1rem);
+    font-size: 0.95rem;
+    line-height: 1.5;
     position: relative;
     z-index: 4;
   }
@@ -2683,23 +2683,16 @@ body.page-exiting {
     max-width: 110px;
   }
 
-  /* Mobile Hero Adjustments (Tightened) */
+  /* Mobile Hero Adjustments */
   .hero-actions {
-    display: none !important;
-  }
-  .hero-top-img {
-    max-height: 35vh;
-    transform: scale(1.1) translateY(1.5rem);
+    display: flex !important;
+    gap: 0.75rem;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
   }
   .hero-calligraphy {
-    transform: scale(1.6) translateY(0);
-    max-width: 85%;
-  }
-  .hero-quote {
-    font-size: 0.82rem;
-    padding: 0.75rem 1rem;
-    line-height: 1.4;
-    margin-bottom: 1rem;
+    transform: scale(2.2) translateY(0.5rem);
   }
 }
 
