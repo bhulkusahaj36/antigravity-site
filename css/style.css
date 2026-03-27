@@ -374,10 +374,13 @@ body.page-exiting {
     opacity: 0.4;
   }
 
-  /* Layered overlapping layout properly scaled for mobile */
+  /* ── Mobile Hero Layout ──
+     Portrait sits BEHIND calligraphy as a soft background element.
+     Calligraphy + Quote + Buttons stack vertically with clear separation.
+     DO NOT change scale values without testing on real devices.
+     ───────────────────────────────────────────────────────────── */
   .hero-title {
     margin-top: -3.5rem;
-    /* Push entire image/text stack UP */
     margin-bottom: -3.5rem;
     display: flex;
     flex-direction: column;
@@ -420,6 +423,25 @@ body.page-exiting {
     line-height: 1.5;
     position: relative;
     z-index: 4;
+  }
+
+  /* Buttons: stack vertically, full-width on mobile for tap targets */
+  .hero-actions {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 260px;
+    margin: 0 auto;
+    z-index: 5;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.92rem;
   }
 }
 
@@ -2631,11 +2653,6 @@ body.page-exiting {
     display: block;
   }
 
-  .hero-actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
 
   .section-header {
     flex-direction: column;
@@ -2683,17 +2700,6 @@ body.page-exiting {
     max-width: 110px;
   }
 
-  /* Mobile Hero Adjustments */
-  .hero-actions {
-    display: flex !important;
-    gap: 0.75rem;
-    justify-content: center;
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  .hero-calligraphy {
-    transform: scale(2.2) translateY(0.5rem);
-  }
 }
 
 /* ============================================================
