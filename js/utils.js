@@ -655,7 +655,14 @@ function initPageTransitions() {
         });
     });
 
-    // 2. Intercept internal link clicks for the exit animation
+    // 2. BFCACHE FIX: Clear states when navigating back
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            document.body.classList.remove('page-exiting', 'page-entering');
+        }
+    });
+
+    // 3. Intercept internal link clicks for the exit animation
     document.addEventListener('click', (e) => {
         const link = e.target.closest('a');
 
@@ -675,6 +682,11 @@ function initPageTransitions() {
 
         // Apply exiting animation
         document.body.classList.add('page-exiting');
+
+        // FAIL-SAFE: If navigation is cancelled/delayed, restore visibility after 500ms
+        setTimeout(() => {
+            document.body.classList.remove('page-exiting');
+        }, 500);
 
         // Navigate after transition finishes (400ms matches CSS)
         setTimeout(() => {
