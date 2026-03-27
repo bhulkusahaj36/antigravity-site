@@ -1695,14 +1695,14 @@ body.page-exiting {
   font-family: var(--font-gu-sans);
   font-size: 0.85rem;
   font-weight: 700;
-  /* Increased weight for visibility */
   color: var(--text-secondary);
   text-align: center;
   line-height: 1.4;
-  max-width: 154px;
-  /* Matches wrap width for better balance */
-  word-wrap: normal;
-  overflow-wrap: normal;
+  max-width: 200px;
+  word-wrap: normal !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+  hyphens: none !important;
   transition: all 0.3s ease;
 }
 
@@ -1835,14 +1835,14 @@ body.page-exiting {
   font-family: var(--font-gu-sans);
   font-size: 0.85rem;
   font-weight: 700;
-  /* Increased weight for visibility */
   color: var(--text-secondary);
   text-align: center;
   line-height: 1.4;
-  max-width: 154px;
-  /* Matches wrap width for better balance */
-  word-wrap: normal;
-  overflow-wrap: normal;
+  max-width: 200px;
+  word-wrap: normal !important;
+  overflow-wrap: normal !important;
+  word-break: keep-all !important;
+  hyphens: none !important;
   transition: all 0.3s ease;
 }
 
