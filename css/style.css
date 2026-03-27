@@ -374,76 +374,116 @@ body.page-exiting {
     opacity: 0.4;
   }
 
-  /* ── Mobile Hero Layout ──
-     Portrait sits BEHIND calligraphy as a soft background element.
-     Calligraphy + Quote + Buttons stack vertically with clear separation.
-     DO NOT change scale values without testing on real devices.
-     ───────────────────────────────────────────────────────────── */
-  .hero-title {
-    margin-top: -3.5rem;
-    margin-bottom: -3.5rem;
+  /* ── MOBILE HERO: Clean two-layer approach ──────────────────
+     Layer 1 (absolute): Portrait fills top half as a soft bg
+     Layer 2 (flex): Calligraphy → Quote → Buttons stacked
+     ─────────────────────────────────────────────────────────── */
+
+  /* Hero fills viewport, content flows from bottom */
+  .hero {
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding-bottom: 0;
+  }
+
+  /* Content wrapper scrolls up from bottom */
+  .hero-content {
+    padding: 0 1.25rem 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 0;
+    position: relative;
+    z-index: 3;
     width: 100%;
   }
 
-  .hero-top-img {
-    max-height: 48vh;
-    transform: scale(1.1) translateY(2.5rem);
-    transform-origin: top center;
-    margin-bottom: -1rem;
-    opacity: 0.6;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .hero-calligraphy {
-    max-width: 100%;
-    transform: scale(2.2) translateY(0.5rem);
-    margin-top: 0.1rem;
-    z-index: 2;
-    pointer-events: none;
-  }
-
-  .hero-eyebrow {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    z-index: 3;
-    font-size: 0.95rem;
-  }
-
-  .hero-quote {
-    padding: 1rem 1.25rem;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    transform: translateY(1rem);
-    font-size: 0.95rem;
-    line-height: 1.5;
-    position: relative;
-    z-index: 4;
-  }
-
-  /* Buttons: stack vertically, full-width on mobile for tap targets */
-  .hero-actions {
-    display: flex !important;
+  /* hero-title is just the two image stacking container */
+  .hero-title {
+    margin: 0;
+    padding: 0;
+    position: static;
+    width: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+  }
+
+  /* Portrait: absolute, fills the entire upper background */
+  .hero-top-img {
+    position: absolute;
+    top: 64px; /* below navbar */
+    left: 0;
     width: 100%;
+    height: 62vh;
+    max-height: none;
+    object-fit: cover;
+    object-position: center top;
+    transform: none !important;
+    margin: 0;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.2));
+  }
+
+  /* Calligraphy: natural size, no scale tricks */
+  .hero-calligraphy {
+    position: relative;
+    z-index: 2;
+    width: 70%;
     max-width: 260px;
-    margin: 0 auto;
-    z-index: 5;
+    height: auto;
+    max-height: none;
+    transform: none !important;
+    margin: 0 auto 0.5rem;
+    left: 0;
+    filter: drop-shadow(0 0 18px rgba(255, 179, 15, 0.75)) drop-shadow(0 0 40px rgba(255, 179, 15, 0.4));
+  }
+
+  /* Quote box: clean sizing */
+  .hero-quote {
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    max-width: 100%;
+    font-size: 0.9rem;
+    padding: 0.9rem 1.1rem;
+    margin: 0 0 1rem;
+    line-height: 1.5;
+    transform: none;
+    text-align: center;
+  }
+
+  /* 3 Buttons: horizontal row, equal width */
+  .hero-actions {
+    display: flex !important;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    z-index: 4;
+    margin-bottom: 0.5rem;
   }
 
   .hero-actions .btn {
-    width: 100%;
+    flex: 1;
+    max-width: 110px;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.82rem;
+    text-align: center;
     justify-content: center;
-    padding: 0.65rem 1.5rem;
-    font-size: 0.92rem;
+    white-space: nowrap;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
+
 
 /* Decorative horizontal rule */
 .hero::after {
