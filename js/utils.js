@@ -703,11 +703,8 @@ function initSecurity() {
     // 3. Apply Visual Protections
     document.body.classList.add('copy-protected');
 
-    // 4. Block Context Menu (Right-Click)
-    document.addEventListener('contextmenu', e => {
-        e.preventDefault();
-        return false;
-    });
+    // 4. (REMOVED) Block Context Menu (Right-Click) 
+    // Re-enabled as requested to allow standard browser menu functionality.
 
     // 5. Block Copy/Cut/Paste
     document.addEventListener('copy', e => e.preventDefault());
