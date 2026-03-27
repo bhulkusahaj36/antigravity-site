@@ -473,6 +473,7 @@ body.page-exiting {
   left: 3%;
   /* Shift to the right slightly to center on chest */
 }
+
 /* ── MOBILE HERO OVERRIDES ────────────────────────────────────
    IMPORTANT: This block must stay AFTER .hero-top-img and
    .hero-calligraphy desktop rules above. Moving it earlier
@@ -487,7 +488,7 @@ body.page-exiting {
 
   .hero-top-img {
     max-height: 40vh !important;
-    transform: scale(1.4) translateY(-3rem) !important;
+    transform: scale(3.0) translateY(-3rem) !important;
     transform-origin: top center !important;
     margin-bottom: 0 !important;
     opacity: 0.6 !important;
@@ -496,7 +497,7 @@ body.page-exiting {
   .hero-calligraphy {
     max-width: 85% !important;
     left: 0 !important;
-    transform: scale(1.9) translateY(-3rem) !important;
+    transform: scale(3.5) translateY(-3rem) !important;
     margin-top: 0 !important;
   }
 
