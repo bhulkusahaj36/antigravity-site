@@ -225,9 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         cancelBtn.style.color = '#ef4444';
                         cancelBtn.textContent = 'Cancel Edit';
                         cancelBtn.onclick = () => {
-                            if (confirm('Discard changes and return to list?')) {
-                                window.location.href = 'admin.html#panel-manage';
-                                window.location.reload();
+                            if (confirm('Discard changes and start a new article?')) {
+                                window.location.href = window.location.pathname;
                             }
                         };
                         formActions.appendChild(cancelBtn);
