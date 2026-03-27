@@ -421,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
             paravaniPage: 0,
             prasangEnd: false,
             paravaniEnd: false,
-            limit: 15,
+            limit: 10,
             tabsInitialized: false
         };
 
@@ -455,7 +455,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // Search listeners
             document.getElementById('prasangSearchInput')?.addEventListener('input', debounce(() => loadAdminPrasangs(true), 300));
             document.getElementById('paravaniSearchInput')?.addEventListener('input', debounce(() => loadAdminParavanis(true), 300));
+            document.getElementById('prasangSortBy')?.addEventListener('change', () => loadAdminPrasangs(true));
             document.getElementById('albumFilter')?.addEventListener('change', () => loadAdminParavanis(true));
+            document.getElementById('paravaniSortBy')?.addEventListener('change', () => loadAdminParavanis(true));
 
             // Load more listeners
             document.getElementById('loadMorePrasangs')?.addEventListener('click', () => loadAdminPrasangs(false));
@@ -482,8 +484,10 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 const term = document.getElementById('prasangSearchInput')?.value.trim() || '';
+                const sortBy = document.getElementById('prasangSortBy')?.value || '';
                 let url = `/api/articles?type=prasang&page=${manageState.prasangPage}&limit=${manageState.limit}&t=${Date.now()}`;
                 if (term) url += `&search=${encodeURIComponent(term)}`;
+                if (sortBy && sortBy !== 'latest') url += `&sortBy=${encodeURIComponent(sortBy)}`;
 
                 const res = await fetch(url);
                 const articles = await res.json();
@@ -514,10 +518,12 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const album = document.getElementById('albumFilter').value;
                 const term = document.getElementById('paravaniSearchInput')?.value.trim() || '';
+                const sortBy = document.getElementById('paravaniSortBy')?.value || '';
                 
                 let url = `/api/articles?type=paravani&page=${manageState.paravaniPage}&limit=${manageState.limit}&t=${Date.now()}`;
                 if (album) url += `&album=${encodeURIComponent(album)}`;
                 if (term) url += `&search=${encodeURIComponent(term)}`;
+                if (sortBy && sortBy !== 'latest') url += `&sortBy=${encodeURIComponent(sortBy)}`;
                 
                 const res = await fetch(url);
                 const articles = await res.json();
@@ -552,7 +558,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             articles.forEach(art => {
                 const tr = document.createElement('tr');
-                const dateStr = new Date(Number(art.id)).toLocaleDateString();
+                
+                let dateHtml = '';
+                if (art.createdAt) {
+                    dateHtml += `C: ${new Date(art.createdAt).toLocaleDateString()}`;
+                } else {
+                    dateHtml += `C: ${new Date(Number(art.id)).toLocaleDateString()}`;
+                }
+                
+                if (art.updatedAt) {
+                    dateHtml += `<br><span style="opacity: 0.7; font-size: 0.8rem;">M: ${new Date(art.updatedAt).toLocaleDateString()}</span>`;
+                }
+                
                 const isPublic = art.public !== false && art.public !== 'no';
                 const eyeIcon = isPublic ? '👁️' : '🚫';
                 const iconColor = isPublic ? 'var(--gold-400)' : '#ef4444';
@@ -564,7 +581,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 tr.innerHTML = `
                     <td style="font-weight: 500;">${art.title || 'Untitled'}</td>
                     <td>${detailStr}</td>
-                    <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
+                    <td style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">${dateHtml}</td>
                     <td style="text-align: right; white-space: nowrap;">
                         <button class="toggle-public-btn" data-id="${art.id}" data-public="${isPublic}" style="background: none; border: none; cursor: pointer; color: ${iconColor}; margin-right: 0.75rem; font-size: 1.1rem;" title="Toggle Visibility">${eyeIcon}</button>
                         <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: var(--gold-400); color: var(--gold-400); margin-right: 0.5rem;">Edit</a>

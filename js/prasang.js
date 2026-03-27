@@ -57,11 +57,11 @@ function renderResults(articles) {
     grid.innerHTML = '';
     if (articles.length === 0) {
         empty.style.display = 'block';
-        if (count) count.textContent = 'કોઈ લેખ મળ્યો નહીં';
+        if (count) count.textContent = 'No Articles Found';
         return;
     }
     empty.style.display = 'none';
-    if (count) count.textContent = `${articles.length} લેખ`;
+    if (count) count.textContent = `${articles.length} Articles`;
 
     articles.forEach((a, i) => {
         const card = buildCard(a);
@@ -114,7 +114,7 @@ async function init() {
     setHeader();
 
     try {
-        const res = await fetch('/api/articles?t=' + Date.now());
+        const res = await fetch('/api/articles?compact=true&t=' + Date.now());
         if (res.ok) {
             ALL_ARTICLES_PG = await res.json();
         } else {

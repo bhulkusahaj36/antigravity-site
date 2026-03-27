@@ -324,6 +324,13 @@
                     <div id="manage-prasangs" class="manage-section active">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
                             <input type="text" id="prasangSearchInput" class="feed-input" placeholder="Search prasangs..." style="max-width: 350px;" />
+                            <select id="prasangSortBy" class="feed-select" style="max-width: 200px;">
+                                <option value="latest">Latest Addition</option>
+                                <option value="createdAt_desc">Newest Created</option>
+                                <option value="createdAt_asc">Oldest Created</option>
+                                <option value="updatedAt_desc">Recently Modified</option>
+                                <option value="updatedAt_asc">Oldest Modified</option>
+                            </select>
                         </div>
                         <div id="prasangListContainer" class="admin-table-wrapper">
                             <table class="admin-table">
@@ -349,9 +356,18 @@
                     <div id="manage-paravanis" class="manage-section" style="display:none">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
                             <input type="text" id="paravaniSearchInput" class="feed-input" placeholder="Search paravanis..." style="max-width: 350px;" />
-                            <select id="albumFilter" class="feed-select" style="max-width: 200px;">
-                                <option value="">All Albums</option>
-                            </select>
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <select id="albumFilter" class="feed-select" style="max-width: 200px;">
+                                    <option value="">All Albums</option>
+                                </select>
+                                <select id="paravaniSortBy" class="feed-select" style="max-width: 200px;">
+                                    <option value="latest">Latest Addition</option>
+                                    <option value="createdAt_desc">Newest Created</option>
+                                    <option value="createdAt_asc">Oldest Created</option>
+                                    <option value="updatedAt_desc">Recently Modified</option>
+                                    <option value="updatedAt_asc">Oldest Modified</option>
+                                </select>
+                            </div>
                         </div>
                         <div id="paravaniListContainer" class="admin-table-wrapper">
                             <table class="admin-table">

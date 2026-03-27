@@ -118,7 +118,7 @@ function renderLatest() {
     paginationEl.innerHTML = '';
 
     if (targetArticles.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-light);text-align:center;grid-column:1/-1;">આ વિભાગમાં કોઈ પરાવાણી નથી.</p>';
+        grid.innerHTML = '<p style="color:var(--text-light);text-align:center;grid-column:1/-1;">No content found in this section.</p>';
         return;
     }
 
@@ -140,7 +140,7 @@ function renderLatest() {
     if (totalPages > 1) {
         const prevBtn = document.createElement('button');
         prevBtn.className = 'btn btn-outline';
-        prevBtn.textContent = 'પાછળ';
+        prevBtn.textContent = 'Back';
         prevBtn.disabled = currentPage === 1;
         prevBtn.onclick = () => {
             if (currentPage > 1) {
@@ -152,11 +152,11 @@ function renderLatest() {
 
         const pageIndicator = document.createElement('span');
         pageIndicator.style.color = 'var(--text-light)';
-        pageIndicator.textContent = `પેજ ${currentPage} / ${totalPages}`;
+        pageIndicator.textContent = `Page ${currentPage} / ${totalPages}`;
 
         const nextBtn = document.createElement('button');
         nextBtn.className = 'btn btn-outline';
-        nextBtn.textContent = 'આગળ';
+        nextBtn.textContent = 'Next';
         nextBtn.disabled = currentPage === totalPages;
         nextBtn.onclick = () => {
             if (currentPage < totalPages) {
@@ -174,7 +174,7 @@ function renderLatest() {
 
 async function loadParavaniArticles() {
     try {
-        const res = await fetch('/api/articles?t=' + Date.now());
+        const res = await fetch('/api/articles?compact=true&t=' + Date.now());
         if (res.ok) {
             const dynamicArticles = await res.json();
             const dynamicIds = new Set(dynamicArticles.map(a => String(a.id)));

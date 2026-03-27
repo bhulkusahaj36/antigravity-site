@@ -30,10 +30,17 @@ app.http('articles', {
                 const type = request.query.get('type');
                 const album = request.query.get('album');
                 const search = request.query.get('search');
+                const sortBy = request.query.get('sortBy');
+                const compact = request.query.get('compact') === 'true';
+                const specificId = request.query.get('id');
                 const page = parseInt(request.query.get('page') || '0');
                 const limit = parseInt(request.query.get('limit') || '0');
 
-                let query = "SELECT * FROM c";
+                // If compact is true, we fetch everything except the heavy "content" column
+                let query = compact 
+                    ? "SELECT c.id, c.title, c.author, c.source, c.topic, c.prasang, c.category, c.date, c.location, c.featured, c.public, c.type, c.album, c.createdAt, c.updatedAt, LEFT(c.content, 300) as excerpt FROM c"
+                    : "SELECT * FROM c";
+                
                 let params = [];
                 let conditions = [];
 
@@ -50,13 +57,26 @@ app.http('articles', {
                     conditions.push("(CONTAINS(c.title, @search, true) OR CONTAINS(c.content, @search, true))");
                     params.push({ name: "@search", value: search });
                 }
+                if (specificId) {
+                    conditions.push("c.id = @specificId");
+                    params.push({ name: "@specificId", value: specificId });
+                }
 
                 if (conditions.length > 0) {
                     query += " WHERE " + conditions.join(" AND ");
                 }
 
-                // Sorting (id is timestamp string, but let's assume we want newest first)
-                query += " ORDER BY c.id DESC";
+                if (sortBy === 'createdAt_desc') {
+                    query += " ORDER BY c.createdAt DESC";
+                } else if (sortBy === 'createdAt_asc') {
+                    query += " ORDER BY c.createdAt ASC";
+                } else if (sortBy === 'updatedAt_desc') {
+                    query += " ORDER BY c.updatedAt DESC";
+                } else if (sortBy === 'updatedAt_asc') {
+                    query += " ORDER BY c.updatedAt ASC";
+                } else {
+                    query += " ORDER BY c.id DESC";
+                }
 
                 if (limit > 0) {
                     query += ` OFFSET ${page * limit} LIMIT ${limit}`;
@@ -68,13 +88,29 @@ app.http('articles', {
 
             if (request.method === 'POST') {
                 const articleData = await request.json();
+                const now = new Date().toISOString();
+                const c = await getContainer();
+
                 if (!articleData.id) {
                     articleData.id = Date.now().toString();
+                    articleData.createdAt = now;
                 } else {
                     articleData.id = String(articleData.id);
+                    try {
+                        const { resource: existing } = await c.item(articleData.id, articleData.id).read();
+                        if (existing && existing.createdAt) {
+                            articleData.createdAt = existing.createdAt;
+                        } else {
+                            // Fallback for old articles that just have timestamp ID
+                            articleData.createdAt = new Date(Number(articleData.id)).toISOString();
+                        }
+                    } catch (e) {
+                        articleData.createdAt = new Date(Number(articleData.id)).toISOString();
+                    }
                 }
 
-                const c = await getContainer();
+                articleData.updatedAt = now;
+
                 const { resource } = await c.items.upsert(articleData);
                 return { status: 201, jsonBody: resource };
             }

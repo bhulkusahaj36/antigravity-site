@@ -42,7 +42,7 @@ function renderCatArticles() {
 
 async function loadCategoryArticles() {
     try {
-        const response = await fetch('/api/articles?t=' + Date.now());
+        const response = await fetch('/api/articles?compact=true&t=' + Date.now());
         if (response.ok) {
             ALL_ARTICLES = await response.json();
         } else {
@@ -60,7 +60,7 @@ async function loadCategoryArticles() {
 
     const count = ALL_ARTICLES.filter(a => (a.category || a.topic || '').split(',').includes(catId)).length;
     const headingEl = document.getElementById('catArticlesHeading');
-    if (headingEl) headingEl.textContent = `${count} લેખ`;
+    if (headingEl) headingEl.textContent = `${count} Articles`;
 
     renderCatArticles();
 }
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Delay article count rendering until data arrives
     const headingEl = document.getElementById('catArticlesHeading');
-    if (headingEl) headingEl.textContent = `લોડ થઈ રહ્યું છે...`;
+    if (headingEl) headingEl.textContent = `Loading...`;
 
     // Fetch live articles
     loadCategoryArticles();

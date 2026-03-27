@@ -19,32 +19,47 @@ document.addEventListener('DOMContentLoaded', async () => {
   const content = document.getElementById('articleContent');
 
   if (!idParam) {
-    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ મળ્યો નહીં.</p>';
+    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">Article Not Found.</p>';
     return;
   }
 
-  content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ લોડ થઈ રહ્યો છે...</p>';
+  content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">Loading Article...</p>';
 
+  // Fetch the specific article and the compact list in parallel for maximum speed
+  let article = null;
+  let rawArticles = [];
   try {
-    const response = await fetch('/api/articles?t=' + Date.now());
-    if (response.ok) {
-      ALL_ARTICLES = await response.json();
+    const [articleRes, listRes] = await Promise.all([
+      fetch(`/api/articles?id=${encodeURIComponent(idParam)}&t=${Date.now()}`),
+      fetch('/api/articles?compact=true&t=' + Date.now())
+    ]);
+
+    if (articleRes.ok) {
+      const artArr = await articleRes.json();
+      if (artArr.length > 0) article = artArr[0];
+    }
+    
+    if (listRes.ok) {
+        ALL_ARTICLES = await listRes.json();
+        rawArticles = [...ALL_ARTICLES];
     } else {
-      console.error("Failed to fetch articles:", response.status);
-      if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+        if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
     }
   } catch (error) {
     console.error("Error fetching articles API:", error);
-    if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = ARTICLES;
+    if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
+  }
+
+  // Fallback to local search if API specific fetch failed but we have data
+  if (!article && typeof ARTICLES !== 'undefined') {
+      article = ARTICLES.find(a => String(a.id) === String(idParam));
   }
 
   if (ALL_ARTICLES.length > 0) {
-    // Only keep public articles
+    // Only keep public articles for the "Related" feed
     ALL_ARTICLES = ALL_ARTICLES.filter(a => a.public !== false && a.public !== 'no');
     
-    // Check if the requested article exists AT ALL in the fetched JSON (even if private)
-    // We allow direct link access to private articles so the admin can preview them
-    // But we remove them from ALL_ARTICLES so they don't appear in Next/Prev queues or Related list
+    // Sort for Next/Prev queues
     ALL_ARTICLES.sort((a, b) => {
       let dA = a.date && !isNaN(new Date(a.date).getTime()) ? new Date(a.date).getTime() : parseInt(a.id) || 0;
       let dB = b.date && !isNaN(new Date(b.date).getTime()) ? new Date(b.date).getTime() : parseInt(b.id) || 0;
@@ -52,18 +67,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Look up within the full list if available (via another fetch if needed, but normally we just check `response` data before we overwrote ALL_ARTICLES)
-  // Actually, we need to fetch the raw array and find it there to allow direct link previews.
-  let rawArticles = typeof ARTICLES !== 'undefined' ? ARTICLES : [];
-  try {
-      const res = await fetch('/api/articles?t=' + Date.now());
-      if (res.ok) rawArticles = await res.json();
-  } catch (e) {}
-
-  const article = rawArticles.find(a => String(a.id) === String(idParam));
-
   if (!article) {
-    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">લેખ મળ્યો નહીં.</p>';
+    content.innerHTML = '<p style="color:var(--text-muted);padding:4rem 0;">Article Not Found.</p>';
     return;
   }
 
@@ -97,13 +102,28 @@ document.addEventListener('DOMContentLoaded', async () => {
       readingTimeBadge = `<div class="reading-time-badge">⏱️ ~${readingTime} min read</div>`;
   }
 
+  const shareBox = document.createElement('div');
+  shareBox.className = 'article-share-box';
+  shareBox.innerHTML = `
+    <span>Share:</span>
+    <button id="copyLink" class="share-btn" title="Copy Link">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+    </button>
+    <a id="whatsappShare" class="share-btn" target="_blank" rel="noopener noreferrer" title="Share on WhatsApp">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    </a>
+    <a id="facebookShare" class="share-btn" target="_blank" rel="noopener noreferrer" title="Share on Facebook">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+    </a>
+  `;
+
   content.innerHTML = `
     <header class="article-header">
       <div class="article-toolbar">
         <div style="display: flex; align-items: center; gap: 1rem;">
           <button class="article-back-btn" onclick="history.back()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            પાછા
+            Back
           </button>
           <span class="category-badge">${cat}</span>
         </div>

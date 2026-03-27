@@ -192,7 +192,7 @@ async function loadHomeArticles() {
     showSkeletonLoader('articlesGrid', false);
 
     try {
-        const response = await fetch('/api/articles?t=' + Date.now());
+        const response = await fetch('/api/articles?compact=true&t=' + Date.now());
         if (response.ok) {
             ALL_ARTICLES = await response.json();
             console.log("Articles fetched from API");

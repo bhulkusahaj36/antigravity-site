@@ -118,8 +118,8 @@ async function doSearch() {
     }
 
     empty.style.display = 'none';
-    const label = q ? `"<strong>${q}</strong>"` : 'ફિલ્ટર્સ';
-    summary.innerHTML = `${results.length} પરિણામ ${label} માટે`;
+    const label = q ? `"<strong>${q}</strong>"` : 'filters';
+    summary.innerHTML = `${results.length} results for ${label}`;
 
     // Sort by actual upload time (ID timestamp)
     results.sort((a, b) => {
