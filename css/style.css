@@ -374,88 +374,59 @@ body.page-exiting {
     opacity: 0.4;
   }
 
-  /* ── MOBILE HERO: Clean two-layer approach ──────────────────
-     Layer 1 (absolute): Portrait fills top half as a soft bg
-     Layer 2 (flex): Calligraphy → Quote → Buttons stacked
+  /* ── MOBILE HERO: Artistic Layering (Tuned) ─────────────────
+     Portrait, Calligraphy, Quote, Buttons stacked naturally.
+     Scales are precisely tuned to prevent container bleed while
+     maintaining the premium overlapping depth.
      ─────────────────────────────────────────────────────────── */
-
-  /* Hero fills viewport, content flows from bottom */
-  .hero {
-    align-items: flex-end;
-    justify-content: flex-end;
-    padding-bottom: 0;
-  }
-
-  /* Content wrapper scrolls up from bottom */
-  .hero-content {
-    padding: 0 1.25rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    position: relative;
-    z-index: 3;
-    width: 100%;
-  }
-
-  /* hero-title is just the two image stacking container */
+  
   .hero-title {
-    margin: 0;
-    padding: 0;
-    position: static;
-    width: 100%;
+    margin-top: -3.5rem; /* Pulls entire stack up */
+    margin-bottom: -3.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 100%;
   }
 
-  /* Portrait: absolute, fills the entire upper background */
   .hero-top-img {
-    position: absolute;
-    top: 64px; /* below navbar */
-    left: 0;
-    width: 100%;
-    height: 62vh;
-    max-height: none;
-    object-fit: cover;
-    object-position: center top;
-    transform: none !important;
-    margin: 0;
-    opacity: 0.5;
-    z-index: 0;
+    max-height: 40vh; /* Reduced height so it doesn't take over screen */
+    transform: scale(1.1) translateY(1.5rem);
+    transform-origin: top center;
+    margin-bottom: -1.5rem; /* Negative margin to pull calligraphy up over it */
+    opacity: 0.6;
+    z-index: 1;
     pointer-events: none;
-    filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.2));
   }
 
-  /* Calligraphy: natural size, no scale tricks */
   .hero-calligraphy {
-    position: relative;
+    max-width: 85%; /* Constrain width so scaling doesn't push it off screen */
+    transform: scale(1.6) translateY(0); /* Reduced from 2.2 to prevent bleed */
+    margin-top: 0;
     z-index: 2;
-    width: 70%;
-    max-width: 260px;
-    height: auto;
-    max-height: none;
-    transform: none !important;
-    margin: 0 auto 0.5rem;
-    left: 0;
-    filter: drop-shadow(0 0 18px rgba(255, 179, 15, 0.75)) drop-shadow(0 0 40px rgba(255, 179, 15, 0.4));
+    pointer-events: none;
   }
 
-  /* Quote box: clean sizing */
-  .hero-quote {
-    position: relative;
+  .hero-eyebrow {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     z-index: 3;
-    width: 100%;
-    max-width: 100%;
-    font-size: 0.9rem;
-    padding: 0.9rem 1.1rem;
-    margin: 0 0 1rem;
-    line-height: 1.5;
-    transform: none;
-    text-align: center;
+    font-size: 0.95rem;
   }
 
-  /* 3 Buttons: horizontal row, equal width */
+  .hero-quote {
+    padding: 0.85rem 1.1rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    transform: translateY(1rem);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    z-index: 4;
+  }
+
+  /* 3 Buttons: Explicit row layout to prevent stacking/disappearing */
   .hero-actions {
     display: flex !important;
     flex-direction: row;
@@ -463,8 +434,8 @@ body.page-exiting {
     align-items: center;
     gap: 0.5rem;
     width: 100%;
-    z-index: 4;
-    margin-bottom: 0.5rem;
+    z-index: 5;
+    margin-top: 0.2rem;
   }
 
   .hero-actions .btn {
@@ -474,15 +445,9 @@ body.page-exiting {
     font-size: 0.82rem;
     text-align: center;
     justify-content: center;
-    white-space: nowrap;
-  }
-
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
   }
 }
+
 
 
 /* Decorative horizontal rule */
