@@ -453,8 +453,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             // Search listeners
-            document.getElementById('prasangSearchInput')?.addEventListener('input', debounce(filterPrasangs, 300));
-            document.getElementById('paravaniSearchInput')?.addEventListener('input', debounce(filterParavanis, 300));
+            document.getElementById('prasangSearchInput')?.addEventListener('input', debounce(() => loadAdminPrasangs(true), 300));
+            document.getElementById('paravaniSearchInput')?.addEventListener('input', debounce(() => loadAdminParavanis(true), 300));
             document.getElementById('albumFilter')?.addEventListener('change', () => loadAdminParavanis(true));
 
             // Load more listeners
@@ -481,7 +481,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             try {
-                const url = `/api/articles?type=prasang&page=${manageState.prasangPage}&limit=${manageState.limit}&t=${Date.now()}`;
+                const term = document.getElementById('prasangSearchInput')?.value.trim() || '';
+                let url = `/api/articles?type=prasang&page=${manageState.prasangPage}&limit=${manageState.limit}&t=${Date.now()}`;
+                if (term) url += `&search=${encodeURIComponent(term)}`;
+
                 const res = await fetch(url);
                 const articles = await res.json();
                 
@@ -510,8 +513,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 const album = document.getElementById('albumFilter').value;
+                const term = document.getElementById('paravaniSearchInput')?.value.trim() || '';
+                
                 let url = `/api/articles?type=paravani&page=${manageState.paravaniPage}&limit=${manageState.limit}&t=${Date.now()}`;
                 if (album) url += `&album=${encodeURIComponent(album)}`;
+                if (term) url += `&search=${encodeURIComponent(term)}`;
                 
                 const res = await fetch(url);
                 const articles = await res.json();
@@ -700,21 +706,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        function filterPrasangs() {
-            const term = document.getElementById('prasangSearchInput').value.toLowerCase();
-            const rows = document.querySelectorAll('#adminPrasangsList tr');
-            rows.forEach(row => {
-                row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
-            });
-        }
+        
 
-        function filterParavanis() {
-            const term = document.getElementById('paravaniSearchInput').value.toLowerCase();
-            const rows = document.querySelectorAll('#adminParavanisList tr');
-            rows.forEach(row => {
-                row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
-            });
-        }
     } else {
         adminDashboard.style.display = 'none';
         if (loginForm) {

@@ -29,6 +29,7 @@ app.http('articles', {
                 
                 const type = request.query.get('type');
                 const album = request.query.get('album');
+                const search = request.query.get('search');
                 const page = parseInt(request.query.get('page') || '0');
                 const limit = parseInt(request.query.get('limit') || '0');
 
@@ -43,6 +44,11 @@ app.http('articles', {
                 if (album) {
                     conditions.push("c.album = @album");
                     params.push({ name: "@album", value: album });
+                }
+                if (search) {
+                    // Use CONTAINS for case-insensitive search across title and content
+                    conditions.push("(CONTAINS(c.title, @search, true) OR CONTAINS(c.content, @search, true))");
+                    params.push({ name: "@search", value: search });
                 }
 
                 if (conditions.length > 0) {
