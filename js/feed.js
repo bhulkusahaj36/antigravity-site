@@ -161,6 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (document.getElementById('add-public')) {
                         document.getElementById('add-public').value = (article.public === false || article.public === 'no') ? 'no' : 'yes';
+                        const pubToggle = document.getElementById('add-public-toggle');
+                        if (pubToggle) pubToggle.checked = (document.getElementById('add-public').value === 'yes');
+                    }
+                    if (document.getElementById('add-featured')) {
+                        document.getElementById('add-featured').value = (article.featured === true || article.featured === 'yes') ? 'yes' : 'no';
+                        const featToggle = document.getElementById('add-featured-toggle');
+                        if (featToggle) featToggle.checked = (document.getElementById('add-featured').value === 'yes');
                     }
 
                     if (article.type === 'paravani') {
@@ -309,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 prasang: finalPrasang.join(','),
                 date: getDateValue('add'),
                 location: document.getElementById('add-location') ? document.getElementById('add-location').value.trim() : '',
-                featured: false,
+                featured: document.getElementById('add-featured') ? (document.getElementById('add-featured').value === 'yes') : false,
                 category: finalTopic.join(',') || 'bhakti',
                 public: document.getElementById('add-public') ? (document.getElementById('add-public').value !== 'no') : true,
                 type: articleType,

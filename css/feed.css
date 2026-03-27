@@ -938,3 +938,114 @@ input:checked + .slider:before {
     color: var(--text-muted);
     font-style: italic;
 }
+
+/* ============================================================
+   ADMIN MANAGEMENT DASHBOARD STYLES
+   ============================================================ */
+.admin-table-wrapper {
+    background: rgba(12, 12, 18, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-top: 1rem;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-table th {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1.25rem 1rem;
+    font-family: var(--font-en);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-400);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+}
+
+.admin-table td {
+    padding: 1rem;
+    color: var(--text-light);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.table-loading {
+    padding: 3rem !important;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.load-more-container {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.manage-subtab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-en);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.manage-subtab:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.manage-subtab.active {
+    color: var(--gold-400);
+    background: rgba(251, 191, 36, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.2);
+}
+
+.album-badge {
+    padding: 0.2rem 0.6rem;
+    background: rgba(251, 191, 36, 0.1);
+    color: var(--gold-400);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.author-badge {
+    padding: 0.2rem 0.6rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border-radius: 6px;
+    font-size: 0.8rem;
+}
+
+.rename-btn {
+    color: var(--gold-400);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.rename-btn:hover {
+    background: rgba(251, 191, 36, 0.1);
+}

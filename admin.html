@@ -134,6 +134,20 @@
                                 <div class="field-microcopy">Shown in public gallery</div>
                             </div>
 
+                            <div class="feed-field">
+                                <label class="feed-label">
+                                    <i class="field-icon icon-star"></i> Featured
+                                </label>
+                                <div class="toggle-container">
+                                    <label class="switch">
+                                        <input type="checkbox" id="add-featured-toggle">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <span class="toggle-text">Featured (મુખ્ય)</span>
+                                </div>
+                                <div class="field-microcopy">Show in featured section</div>
+                            </div>
+
                             <!-- ROW 2 -->
                             <div class="feed-field">
                                 <label class="feed-label" for="add-source">
@@ -256,6 +270,23 @@
                                 <div class="validation-message" id="v-msg-title"></div>
                             </div>
 
+                            <div class="feed-field" id="prasang-of-container" style="display:none;">
+                                <label class="feed-label" for="add-prasang">
+                                    <i class="field-icon icon-user"></i> પ્રસંગ કોના છે? (Prasang Of)
+                                </label>
+                                <select id="add-prasang" class="feed-select" multiple>
+                                    <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
+                                    <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
+                                    <option value="bhagatji">ભગતજી મહારાજ</option>
+                                    <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
+                                    <option value="yogiji">યોગીજી મહારાજ</option>
+                                    <option value="hariprasad">હરિપ્રસાદ સ્વામીજી મહારાજ</option>
+                                    <option value="prabodh">પ્રબોધ સ્વામીજી</option>
+                                    <option value="bhakto">ભક્તો</option>
+                                    <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
+                                </select>
+                            </div>
+
                         </div> <!-- end feed-grid-3 -->
 
                         <!-- HIDDEN ORIGINAL SELECTS (Keep for existing JS logic compatibility) -->
@@ -263,11 +294,10 @@
                             <option value="yes">Yes</option>
                             <option value="no">No</option>
                         </select>
-                        <div id="prasang-of-container" style="display:none;">
-                            <select id="add-prasang" multiple>
-                                <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
-                            </select>
-                        </div>
+                        <select id="add-featured" style="display:none">
+                            <option value="no">No</option>
+                            <option value="yes">Yes</option>
+                        </select>
 
                         <div id="add-feedback" class="form-feedback" style="display:none; margin-top: 1.5rem;"></div>
                         <div class="feed-field" id="author-field-container">
@@ -295,32 +325,89 @@
                  MANAGE ARTICLES PANEL
             ══════════════════════════════════════════ -->
                 <div class="feed-panel" id="panel-manage" style="display:none">
-                    <div class="feed-section-label">Existing Articles</div>
+                    <div class="feed-section-header">
+                        <div class="feed-section-label">Content Management</div>
+                    </div>
 
-                    <!-- Search inside manage -->
-                    <input type="text" id="adminSearchInput" class="feed-input"
-                        placeholder="Search articles by title or author..."
-                        style="margin-bottom: 1.5rem; max-width: 400px;" />
+                    <!-- SUB-TABS FOR MANAGEMENT -->
+                    <div class="manage-tabs-container" style="margin-bottom: 2rem;">
+                        <div class="manage-tabs" style="display: flex; gap: 0.5rem; background: rgba(255,255,255,0.03); padding: 0.4rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: fit-content;">
+                            <button class="manage-subtab active" data-target="manage-prasangs">Prasangs</button>
+                            <button class="manage-subtab" data-target="manage-paravanis">Paravanis</button>
+                            <button class="manage-subtab" data-target="manage-albums">Albums</button>
+                        </div>
+                    </div>
 
-                    <div id="adminArticlesListContainer" style="overflow-x: auto;">
-                        <table
-                            style="width: 100%; border-collapse: collapse; text-align: left; color: var(--text-light);">
-                            <thead>
-                                <tr style="border-bottom: 1px solid var(--border); color: var(--gold-400);">
-                                    <th style="padding: 1rem 0.5rem;">Title</th>
-                                    <th style="padding: 1rem 0.5rem;">Author / Album</th>
-                                    <th style="padding: 1rem 0.5rem;">Date Added</th>
-                                    <th style="padding: 1rem 0.5rem; text-align: right;">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody id="adminArticlesList">
-                                <tr>
-                                    <td colspan="4"
-                                        style="padding: 2rem; text-align: center; color: var(--text-muted);">Loading
-                                        articles...</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <!-- PRASANGS VIEW -->
+                    <div id="manage-prasangs" class="manage-section active">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+                            <input type="text" id="prasangSearchInput" class="feed-input" placeholder="Search prasangs..." style="max-width: 350px;" />
+                        </div>
+                        <div id="prasangListContainer" class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Date</th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminPrasangsList">
+                                    <tr><td colspan="4" class="table-loading">Loading prasangs...</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="load-more-container">
+                                <button id="loadMorePrasangs" class="btn btn-outline" style="display:none">Load More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PARAVANIS VIEW -->
+                    <div id="manage-paravanis" class="manage-section" style="display:none">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
+                            <input type="text" id="paravaniSearchInput" class="feed-input" placeholder="Search paravanis..." style="max-width: 350px;" />
+                            <select id="albumFilter" class="feed-select" style="max-width: 200px;">
+                                <option value="">All Albums</option>
+                            </select>
+                        </div>
+                        <div id="paravaniListContainer" class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Album</th>
+                                        <th>Date</th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminParavanisList">
+                                    <tr><td colspan="4" class="table-loading">Loading paravanis...</td></tr>
+                                </tbody>
+                            </table>
+                            <div class="load-more-container">
+                                <button id="loadMoreParavanis" class="btn btn-outline" style="display:none">Load More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ALBUMS VIEW -->
+                    <div id="manage-albums" class="manage-section" style="display:none">
+                        <div class="feed-subtitle" style="margin-bottom: 1.5rem;">Manage and Rename Paravani Albums</div>
+                        <div id="albumsListContainer" class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Album Name</th>
+                                        <th>Article Count</th>
+                                        <th style="text-align: right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminAlbumsList">
+                                    <tr><td colspan="3" class="table-loading">Loading albums...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 

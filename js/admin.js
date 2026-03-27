@@ -59,7 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 if (targetId === 'panel-manage') {
-                    loadAdminArticles();
+                    initManageTabs();
+                    // Load the first sub-tab
+                    document.querySelector('.manage-subtab[data-target="manage-prasangs"]')?.click();
                 } else if (targetId === 'panel-dashboard') {
                     loadDashboardAnalytics();
                 } else if (targetId === 'panel-tasks') {
@@ -94,8 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.addEventListener('click', () => {
                         timeBtns.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
-                        const val = btn.getAttribute('data-value');
-                        renderActivityChart(articles, val);
+                        renderDashboardCharts(articles);
                     });
                 });
 
@@ -107,9 +108,32 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderDashboardCharts(articles) {
             const activeBtn = document.querySelector('.time-filter-btn.active');
             const timeFilter = activeBtn ? activeBtn.getAttribute('data-value') : '1M';
-            renderActivityChart(articles, timeFilter);
-            renderCategoryChart(articles);
-            renderFeaturedChart(articles);
+            
+            const filtered = filterArticlesByTimeline(articles, timeFilter);
+            
+            renderActivityChart(articles, timeFilter); 
+            renderCategoryChart(filtered);
+            renderFeaturedChart(filtered);
+
+            const totalSpan = document.getElementById('activityTotalCount');
+            if (totalSpan) totalSpan.innerText = `Total: ${filtered.length}`;
+        }
+
+        function filterArticlesByTimeline(articles, filter) {
+            const now = Date.now();
+            let msLimit = 0;
+            const DAY = 24 * 60 * 60 * 1000;
+
+            if (filter === '1D') msLimit = DAY;
+            else if (filter === '1W') msLimit = 7 * DAY;
+            else if (filter === '1M') msLimit = 30 * DAY;
+            else if (filter === '3M') msLimit = 90 * DAY;
+            else if (filter === '1Y') msLimit = 365 * DAY;
+            else if (filter === '5Y') msLimit = 5 * 365 * DAY;
+            else if (filter === '10Y') msLimit = 10 * 365 * DAY;
+
+            if (msLimit === 0) return articles;
+            return articles.filter(art => (now - Number(art.id)) <= msLimit);
         }
 
         function renderActivityChart(articles, filter) {
@@ -142,10 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const dataPoints = labels.map(l => counts[l]);
-            const totalCount = dataPoints.reduce((sum, curr) => sum + curr, 0);
-            const totalSpan = document.getElementById('activityTotalCount');
-            if (totalSpan) totalSpan.innerText = `Total: ${totalCount}`;
-
+            
             if (dashboardCharts.activity) dashboardCharts.activity.destroy();
             dashboardCharts.activity = new Chart(ctx, {
                 type: (filter === '1D') ? 'bar' : 'line',
@@ -184,7 +205,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const counts = {};
             articles.forEach(art => {
                 const cats = (art.category || art.topic || '').split(',').map(c => c.trim()).filter(Boolean);
-                cats.forEach(c => { const label = topicLabels[c] || c; counts[label] = (counts[label] || 0) + 1; });
+                cats.forEach(c => { 
+                    const label = topicLabels[c] || 'અન્ય'; 
+                    counts[label] = (counts[label] || 0) + 1; 
+                });
             });
             if (dashboardCharts.category) dashboardCharts.category.destroy();
             dashboardCharts.category = new Chart(ctx, {
@@ -205,21 +229,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('featuredChart');
             if (!ctx) return;
             const guruLabels = {
-                'bhagwan': 'ભગવાન સ્વામિનારાયણ', 'gunatit': 'ગુણાતીતાનંદ સ્વામી', 'bhagatji': 'ભગતજી મહારાજ',
-                'shastriji': 'શાસ્ત્રીજી મહારાજ', 'yogiji': 'યોગીજી મહારાજ', 'hariprasad': 'હરિપ્રસાદ સ્વામીજી મહારાજ',
-                'prabodh': 'પ્રબોધ સ્વામીજી', 'bhakto': 'ભક્તો', 'prabhudasbhai': 'પ્રભુદાસભાઈ'
+                'bhagwan': 'ભગવાન સ્વામિનારાયણ', 
+                'gunatit': 'ગુણાતીતાનંદ સ્વામી', 
+                'bhagatji': 'ભગતજી મહારાજ',
+                'shastriji': 'શાસ્ત્રીજી મહારાજ', 
+                'yogiji': 'યોગીજી મહારાજ', 
+                'hariprasad': 'હરિપ્રસાદ સ્વામીજી મહારાજ',
+                'prabodh': 'પ્રબોધ સ્વામીજી', 
+                'bhakto': 'ભક્તો', 
+                'prabhudasbhai': 'પ્રભુદાસભાઈ'
             };
 
-            // Merge custom prasangs
-            if (typeof getCustomTags === 'function') {
-                const custom = getCustomTags();
-                (custom.prasang || []).forEach(t => { if (!guruLabels[t.value]) guruLabels[t.value] = t.label; });
-            }
             const counts = {};
             articles.forEach(art => {
                 const pIds = (art.prasang || '').split(',').map(s => s.trim()).filter(Boolean);
-                pIds.forEach(id => { const label = guruLabels[id] || id; counts[label] = (counts[label] || 0) + 1; });
+                pIds.forEach(id => { 
+                    const label = guruLabels[id] || 'ભક્તો'; // Group unknown into Bhakto
+                    counts[label] = (counts[label] || 0) + 1; 
+                });
             });
+
             if (dashboardCharts.featured) dashboardCharts.featured.destroy();
             dashboardCharts.featured = new Chart(ctx, {
                 type: 'doughnut',
@@ -231,7 +260,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         borderWidth: 0
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { 
+                            position: 'right',
+                            labels: {
+                                filter: function(item, chart) {
+                                    // Optionally filter out legend items with 0 count if desired
+                                    return true;
+                                }
+                            }
+                        } 
+                    } 
+                }
             });
         }
 
@@ -370,90 +413,306 @@ document.addEventListener('DOMContentLoaded', () => {
         // ==========================================
         // MANAGE ARTICLES LOGIC
         // ==========================================
-        async function loadAdminArticles() {
-            const listObj = document.getElementById('adminArticlesList');
-            if (!listObj) return;
-            listObj.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">Loading...</td></tr>';
+        // ==========================================
+        // CONTENT MANAGEMENT LOGIC (REFACTORED)
+        // ==========================================
+        let manageState = {
+            prasangPage: 0,
+            paravaniPage: 0,
+            prasangEnd: false,
+            paravaniEnd: false,
+            limit: 15,
+            tabsInitialized: false
+        };
+
+        function initManageTabs() {
+            if (manageState.tabsInitialized) return;
+            
+            const tabs = document.querySelectorAll('.manage-subtab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-target');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    document.querySelectorAll('.manage-section').forEach(sec => {
+                        sec.style.display = 'none';
+                        sec.classList.remove('active');
+                    });
+                    
+                    const targetEl = document.getElementById(target);
+                    if (targetEl) {
+                        targetEl.style.display = 'block';
+                        targetEl.classList.add('active');
+                    }
+                    
+                    if (target === 'manage-prasangs') loadAdminPrasangs(true);
+                    if (target === 'manage-paravanis') loadAdminParavanis(true);
+                    if (target === 'manage-albums') loadAdminAlbums();
+                });
+            });
+
+            // Search listeners
+            document.getElementById('prasangSearchInput')?.addEventListener('input', debounce(filterPrasangs, 300));
+            document.getElementById('paravaniSearchInput')?.addEventListener('input', debounce(filterParavanis, 300));
+            document.getElementById('albumFilter')?.addEventListener('change', () => loadAdminParavanis(true));
+
+            // Load more listeners
+            document.getElementById('loadMorePrasangs')?.addEventListener('click', () => loadAdminPrasangs(false));
+            document.getElementById('loadMoreParavanis')?.addEventListener('click', () => loadAdminParavanis(false));
+
+            manageState.tabsInitialized = true;
+        }
+
+        function debounce(func, wait) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(this, args), wait);
+            };
+        }
+
+        async function loadAdminPrasangs(reset = true) {
+            const listObj = document.getElementById('adminPrasangsList');
+            if (reset) {
+                manageState.prasangPage = 0;
+                manageState.prasangEnd = false;
+                listObj.innerHTML = '<tr><td colspan="4" class="table-loading">Loading prasangs...</td></tr>';
+            }
+            
             try {
-                const response = await fetch('/api/articles?t=' + Date.now());
-                const articles = await response.json();
-                if (articles.length === 0) {
-                    listObj.innerHTML = '<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2rem;">No articles found.</td></tr>';
+                const url = `/api/articles?type=prasang&page=${manageState.prasangPage}&limit=${manageState.limit}&t=${Date.now()}`;
+                const res = await fetch(url);
+                const articles = await res.json();
+                
+                renderArticleList('adminPrasangsList', articles, 'prasang', reset);
+                
+                const btn = document.getElementById('loadMorePrasangs');
+                if (articles.length < manageState.limit) {
+                    manageState.prasangEnd = true;
+                    if (btn) btn.style.display = 'none';
+                } else {
+                    if (btn) btn.style.display = 'block';
+                    manageState.prasangPage++;
+                }
+            } catch (error) {
+                console.error("Failed to load prasangs", error);
+            }
+        }
+
+        async function loadAdminParavanis(reset = true) {
+            const listObj = document.getElementById('adminParavanisList');
+            if (reset) {
+                manageState.paravaniPage = 0;
+                manageState.paravaniEnd = false;
+                listObj.innerHTML = '<tr><td colspan="4" class="table-loading">Loading paravanis...</td></tr>';
+            }
+            
+            try {
+                const album = document.getElementById('albumFilter').value;
+                let url = `/api/articles?type=paravani&page=${manageState.paravaniPage}&limit=${manageState.limit}&t=${Date.now()}`;
+                if (album) url += `&album=${encodeURIComponent(album)}`;
+                
+                const res = await fetch(url);
+                const articles = await res.json();
+                
+                renderArticleList('adminParavanisList', articles, 'paravani', reset);
+                
+                const btn = document.getElementById('loadMoreParavanis');
+                if (articles.length < manageState.limit) {
+                    manageState.paravaniEnd = true;
+                    if (btn) btn.style.display = 'none';
+                } else {
+                    if (btn) btn.style.display = 'block';
+                    manageState.paravaniPage++;
+                }
+                
+                if (reset) updateAlbumFilter();
+            } catch (error) {
+                console.error("Failed to load paravanis", error);
+            }
+        }
+
+        function renderArticleList(containerId, articles, type, reset) {
+            const listObj = document.getElementById(containerId);
+            if (!listObj) return;
+            
+            if (reset) listObj.innerHTML = '';
+            
+            if (articles.length === 0 && reset) {
+                listObj.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">No ${type}s found.</td></tr>`;
+                return;
+            }
+
+            articles.forEach(art => {
+                const tr = document.createElement('tr');
+                const dateStr = new Date(Number(art.id)).toLocaleDateString();
+                const isPublic = art.public !== false && art.public !== 'no';
+                const eyeIcon = isPublic ? '👁️' : '🚫';
+                const iconColor = isPublic ? 'var(--gold-400)' : '#ef4444';
+                
+                const detailStr = type === 'prasang' 
+                    ? `<span class="author-badge">${art.author || 'અજ્ઞાત'}</span>`
+                    : `<span class="album-badge">${art.album || 'No Album'}</span>`;
+
+                tr.innerHTML = `
+                    <td style="font-weight: 500;">${art.title || 'Untitled'}</td>
+                    <td>${detailStr}</td>
+                    <td style="color: var(--text-muted); font-size: 0.85rem;">${dateStr}</td>
+                    <td style="text-align: right; white-space: nowrap;">
+                        <button class="toggle-public-btn" data-id="${art.id}" data-public="${isPublic}" style="background: none; border: none; cursor: pointer; color: ${iconColor}; margin-right: 0.75rem; font-size: 1.1rem;" title="Toggle Visibility">${eyeIcon}</button>
+                        <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: var(--gold-400); color: var(--gold-400); margin-right: 0.5rem;">Edit</a>
+                        <button class="btn btn-outline delete-btn" data-id="${art.id}" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: #ef4444; color: #ef4444;">Delete</button>
+                    </td>
+                `;
+                listObj.appendChild(tr);
+            });
+            
+            // Attach delete listeners
+            listObj.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.onclick = async (e) => {
+                    const id = e.currentTarget.getAttribute('data-id');
+                    if (confirm('Permanently delete this item?')) {
+                        await fetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE' });
+                        if (type === 'prasang') loadAdminPrasangs(true);
+                        else loadAdminParavanis(true);
+                    }
+                };
+            });
+
+            // Attach toggle visible listeners
+            listObj.querySelectorAll('.toggle-public-btn').forEach(btn => {
+                btn.onclick = async (e) => {
+                    const id = e.currentTarget.getAttribute('data-id');
+                    const currentlyPublic = e.currentTarget.getAttribute('data-public') === 'true';
+                    if (confirm(`Change visibility to ${currentlyPublic ? 'Private/Hidden' : 'Public'}?`)) {
+                        try {
+                            const res = await fetch('/api/articles?t=' + Date.now());
+                            const allArts = await res.json();
+                            const artToUpdate = allArts.find(a => String(a.id) === String(id));
+                            if (artToUpdate) {
+                                artToUpdate.public = !currentlyPublic;
+                                await fetch('/api/articles', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(artToUpdate)
+                                });
+                                if (type === 'prasang') loadAdminPrasangs(true);
+                                else loadAdminParavanis(true);
+                            }
+                        } catch (err) { console.error("Toggle failed", err); }
+                    }
+                };
+            });
+        }
+
+        async function updateAlbumFilter() {
+            const select = document.getElementById('albumFilter');
+            if (!select) return;
+            const currentVal = select.value;
+            
+            try {
+                const res = await fetch('/api/articles?type=paravani&t=' + Date.now());
+                const paravanis = await res.json();
+                const albums = [...new Set(paravanis.map(p => p.album).filter(Boolean))].sort();
+                
+                select.innerHTML = '<option value="">All Albums</option>';
+                albums.forEach(al => {
+                    const opt = document.createElement('option');
+                    opt.value = al;
+                    opt.textContent = al;
+                    select.appendChild(opt);
+                });
+                select.value = currentVal;
+            } catch (err) { console.warn("Fail sync album filter", err); }
+        }
+
+        async function loadAdminAlbums() {
+            const listObj = document.getElementById('adminAlbumsList');
+            if (!listObj) return;
+            listObj.innerHTML = '<tr><td colspan="3" class="table-loading">Loading albums...</td></tr>';
+            
+            try {
+                const res = await fetch('/api/articles?type=paravani&t=' + Date.now());
+                const allParavanis = await res.json();
+                
+                const albumCounts = {};
+                allParavanis.forEach(p => {
+                    if (p.album) albumCounts[p.album] = (albumCounts[p.album] || 0) + 1;
+                });
+                
+                const albums = Object.keys(albumCounts).sort();
+                listObj.innerHTML = '';
+                
+                if (albums.length === 0) {
+                    listObj.innerHTML = '<tr><td colspan="3" style="text-align: center; color: var(--text-muted); padding: 2rem;">No albums found.</td></tr>';
                     return;
                 }
-                articles.sort((a, b) => Number(b.id) - Number(a.id));
-                listObj.innerHTML = '';
-                articles.forEach(art => {
+
+                albums.forEach(album => {
                     const tr = document.createElement('tr');
-                    tr.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
-                    const dateStr = new Date(Number(art.id)).toLocaleDateString();
-                    
-                    const isPublic = art.public !== false && art.public !== 'no';
-                    const eyeIconStr = isPublic ? '👁️' : '🚫';
-                    const iconColor = isPublic ? 'var(--gold-400)' : '#ef4444';
-                    
-                    const authorStr = art.author || 'અજ્ઞાત';
-                    const albumStr = (art.type === 'paravani' && art.album) ? `<br><span style="font-size:0.8rem; color: var(--gold-500); font-weight: 600;">📁 ${art.album}</span>` : '';
-                    
                     tr.innerHTML = `
-                        <td style="padding: 1rem 0.5rem; color: var(--text-light); font-weight: 500;">${art.title || 'Untitled'}</td>
-                        <td style="padding: 1rem 0.5rem; color: var(--text-muted); line-height: 1.4;">
-                            ${authorStr} ${albumStr}
-                            <button class="toggle-public-btn" data-id="${art.id}" data-public="${isPublic}" style="padding: 0.2rem 0.4rem; font-size: 0.9rem; margin-left: 0.4rem; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; background: rgba(0,0,0,0.2); cursor: pointer; color: ${iconColor};" title="Toggle Visibility: ${isPublic ? 'Public' : 'Hidden'}">${eyeIconStr}</button>
-                        </td>
-                        <td style="padding: 1rem 0.5rem; color: var(--text-muted);">${dateStr}</td>
-                        <td style="padding: 1rem 0.5rem; text-align: right;">
-                            <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.85rem; color: var(--gold-400); border-color: var(--gold-400); margin-right: 0.5rem;">Edit</a>
-                            <button class="btn btn-outline delete-btn" data-id="${art.id}" style="padding: 0.25rem 0.75rem; font-size: 0.85rem; color: #ef4444; border-color: #ef4444;">Delete</button>
+                        <td style="font-weight: 600; color: var(--gold-400);">${album}</td>
+                        <td style="color: var(--text-muted);">${albumCounts[album]} articles</td>
+                        <td style="text-align: right;">
+                            <button class="rename-btn" onclick="promptRenameAlbum('${album.replace(/'/g, "\\'")}')">Rename</button>
                         </td>
                     `;
                     listObj.appendChild(tr);
                 });
-                document.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
-                        const id = e.target.getAttribute('data-id');
-                        if (confirm('Delete article?')) {
-                            await fetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE' });
-                            loadAdminArticles();
-                        }
-                    });
-                });
-
-                document.querySelectorAll('.toggle-public-btn').forEach(btn => {
-                    btn.addEventListener('click', async (e) => {
-                        const id = e.currentTarget.getAttribute('data-id');
-                        const currentlyPublic = e.currentTarget.getAttribute('data-public') === 'true';
-                        if (confirm(`Change visibility to ${currentlyPublic ? 'Private/Hidden' : 'Public'}?`)) {
-                            try {
-                                const res = await fetch('/api/articles?t=' + Date.now());
-                                const allArts = await res.json();
-                                const artToUpdate = allArts.find(a => String(a.id) === String(id));
-                                if (artToUpdate) {
-                                    artToUpdate.public = !currentlyPublic;
-                                    await fetch('/api/articles', {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify(artToUpdate)
-                                    });
-                                    loadAdminArticles();
-                                }
-                            } catch (err) { console.error("Visibility toggle failed", err); }
-                        }
-                    });
-                });
-            } catch (e) { console.error(e); }
+            } catch (err) {
+                console.error("Failed to load albums", err);
+            }
         }
-        
-        // Search functionality
-        const searchInput = document.getElementById('adminSearchInput');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase();
-                const rows = document.querySelectorAll('#adminArticlesList tr');
-                rows.forEach(row => {
-                    const text = row.textContent.toLowerCase();
-                    row.style.display = text.includes(term) ? '' : 'none';
-                });
+
+        window.promptRenameAlbum = async (oldName) => {
+            const newName = prompt(`Rename album "${oldName}" to:`, oldName);
+            if (newName && newName !== oldName) {
+                if (confirm(`This will rename the album in all ${oldName} articles. Proceed?`)) {
+                    await renameAlbum(oldName, newName);
+                }
+            }
+        };
+
+        async function renameAlbum(oldName, newName) {
+            try {
+                const res = await fetch(`/api/articles?type=paravani&album=${encodeURIComponent(oldName)}&t=${Date.now()}`);
+                const articlesToUpdate = await res.json();
+                
+                if (articlesToUpdate.length === 0) return alert("No articles found in this album.");
+                
+                let successCount = 0;
+                for (const art of articlesToUpdate) {
+                    art.album = newName;
+                    const saveRes = await fetch('/api/articles', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(art)
+                    });
+                    if (saveRes.ok) successCount++;
+                }
+                
+                alert(`Successfully renamed ${successCount} articles to album "${newName}"`);
+                loadAdminAlbums();
+            } catch (err) {
+                console.error("Rename failed", err);
+                alert("An error occurred during renaming.");
+            }
+        }
+
+        function filterPrasangs() {
+            const term = document.getElementById('prasangSearchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#adminPrasangsList tr');
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
+            });
+        }
+
+        function filterParavanis() {
+            const term = document.getElementById('paravaniSearchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('#adminParavanisList tr');
+            rows.forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(term) ? '' : 'none';
             });
         }
     } else {

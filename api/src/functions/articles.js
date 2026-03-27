@@ -11,7 +11,7 @@ async function getContainer() {
     }
     const client = new CosmosClient(connectionString);
 
-    // Assume Database and Container already exist to save 2 slow network trips on cold starts
+    // Assume Database and Container already exist
     const database = client.database("antigravity");
     const dbContainer = database.container("articles");
 
@@ -26,18 +26,46 @@ app.http('articles', {
         try {
             if (request.method === 'GET') {
                 const c = await getContainer();
-                const { resources } = await c.items.readAll().fetchAll();
+                
+                const type = request.query.get('type');
+                const album = request.query.get('album');
+                const page = parseInt(request.query.get('page') || '0');
+                const limit = parseInt(request.query.get('limit') || '0');
+
+                let query = "SELECT * FROM c";
+                let params = [];
+                let conditions = [];
+
+                if (type) {
+                    conditions.push("c.type = @type");
+                    params.push({ name: "@type", value: type });
+                }
+                if (album) {
+                    conditions.push("c.album = @album");
+                    params.push({ name: "@album", value: album });
+                }
+
+                if (conditions.length > 0) {
+                    query += " WHERE " + conditions.join(" AND ");
+                }
+
+                // Sorting (id is timestamp string, but let's assume we want newest first)
+                query += " ORDER BY c.id DESC";
+
+                if (limit > 0) {
+                    query += ` OFFSET ${page * limit} LIMIT ${limit}`;
+                }
+
+                const { resources } = await c.items.query({ query, parameters: params }).fetchAll();
                 return { jsonBody: resources };
             }
 
             if (request.method === 'POST') {
                 const articleData = await request.json();
-
-                // If it doesn't have an ID, give it a timestamp-based ID
                 if (!articleData.id) {
                     articleData.id = Date.now().toString();
                 } else {
-                    articleData.id = String(articleData.id); // Cosmos DB requires string IDs
+                    articleData.id = String(articleData.id);
                 }
 
                 const c = await getContainer();
@@ -47,9 +75,7 @@ app.http('articles', {
 
             if (request.method === 'DELETE') {
                 const id = request.query.get('id');
-                if (!id) {
-                    return { status: 400, body: "Please pass an id on the query string" };
-                }
+                if (!id) return { status: 400, body: "Please pass an id" };
 
                 const c = await getContainer();
                 await c.item(id, id).delete();
@@ -57,11 +83,8 @@ app.http('articles', {
             }
 
         } catch (error) {
-            context.log("Error interacting with Cosmos DB:", error);
-            return {
-                status: 500,
-                body: "Error connecting to database: " + error.message
-            };
+            context.log("Cosmos DB Error:", error);
+            return { status: 500, body: error.message };
         }
     }
 });
