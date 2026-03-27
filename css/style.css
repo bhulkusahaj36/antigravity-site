@@ -1556,10 +1556,7 @@ body.page-exiting {
   width: 154px;
   height: 154px;
   border-radius: 50%;
-  border-top: 1px solid rgba(245, 158, 11, 0.3);
-  border-left: 1px solid rgba(245, 158, 11, 0.3);
-  border-right: 1px solid rgba(245, 158, 11, 0.3);
-  border-bottom: 5px solid rgba(255, 179, 15, 0.98);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
   position: relative;
@@ -1567,12 +1564,16 @@ body.page-exiting {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  /* Use box-shadow for the bottom golden "shelf" instead of border-bottom to avoid circular segment overlaps */
   box-shadow:
     0 14px 32px rgba(0, 0, 0, 0.9),
-    0 0 0 1px rgba(245, 158, 11, 0.08),
-    0 4px 20px rgba(245, 158, 11, 0.12);
+    0 4px 6px -1px rgba(255, 179, 15, 0.8),
+    0 0 0 1px rgba(245, 158, 11, 0.08);
   transition: transform var(--transition-bounce), box-shadow var(--transition), border-color var(--transition);
   transform: translateZ(0);
+  background-clip: padding-box;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .avatar-img-wrap::after {
@@ -2563,37 +2564,67 @@ body.page-exiting {
 
 /* ============================================================
    RESPONSIVE
+
    ============================================================ */
 @media (max-width: 900px) {
   .article-layout {
     grid-template-columns: 1fr;
   }
-
   .article-sidebar {
     position: static;
   }
-
   .contact-layout {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 700px) {
+  /* Mobile Menu Styles with Staggered Animation */
   .nav-links {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 64px;
     left: 0;
     right: 0;
-    background: var(--navy-800);
+    bottom: 0;
+    background: rgba(3, 4, 6, 0.98);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     flex-direction: column;
-    padding: 1rem;
-    gap: 0.25rem;
-    border-bottom: 1px solid var(--card-border);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    gap: 1.5rem;
+    z-index: 999;
+    border-bottom: none;
   }
 
   .nav-links.open {
     display: flex;
+    animation: fadeInMenu 0.4s ease forwards;
+  }
+
+  .nav-links li {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .nav-links.open li {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Staggered transition delays for nav items */
+  .nav-links.open li:nth-child(1) { transition-delay: 0.1s; }
+  .nav-links.open li:nth-child(2) { transition-delay: 0.15s; }
+  .nav-links.open li:nth-child(3) { transition-delay: 0.2s; }
+  .nav-links.open li:nth-child(4) { transition-delay: 0.25s; }
+  .nav-links.open li:nth-child(5) { transition-delay: 0.3s; }
+
+  @keyframes fadeInMenu {
+    from { opacity: 0; background: rgba(3, 4, 6, 0); }
+    to { opacity: 1; background: rgba(3, 4, 6, 0.98); }
   }
 
   .nav-toggle {
@@ -2603,20 +2634,18 @@ body.page-exiting {
   .hero-actions {
     flex-direction: column;
     align-items: center;
-  }
-
-  .search-box {
-    flex-direction: column;
+    gap: 1rem;
   }
 
   .section-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.5rem;
   }
 }
 
 @media (max-width: 480px) {
-
+  /* Horizontal Scrolling Article Cards on mobile */
   #articlesGrid.cards-grid {
     flex-direction: row;
     display: flex;
@@ -2624,19 +2653,10 @@ body.page-exiting {
     scroll-snap-type: x mandatory;
     padding: 0.75rem 20px 2rem 20px;
     margin: 0 -20px;
-    -webkit-mask-image: linear-gradient(to right,
-        transparent 0px,
-        black 20px,
-        black calc(100% - 20px),
-        transparent 100%);
-    mask-image: linear-gradient(to right,
-        transparent 0px,
-        black 20px,
-        black calc(100% - 20px),
-        transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, black 20px, black calc(100% - 20px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0px, black 20px, black calc(100% - 20px), transparent 100%);
     gap: 1rem;
     scrollbar-width: none;
-    /* Hide for cleaner look */
   }
 
   #articlesGrid.cards-grid .article-card {
@@ -2649,191 +2669,44 @@ body.page-exiting {
     display: none;
   }
 
-  .neon-latest-card .content {
-    padding: 1.5rem 1.4rem;
-  }
-
-  .neon-latest-card .card-title {
-    font-size: 1.28rem; /* Scaled mobile title size */
-    margin-bottom: 0.4rem;
-  }
-
-  .neon-latest-card .card-prasang-label {
-    font-size: 0.9rem;
-    margin-bottom: 0.6rem;
-  }
-
-  .neon-latest-card .card-excerpt {
-    font-size: 0.88rem;
-    line-height: 1.5;
-  }
-
-  /* Adjust the neon blob for horizontal mobile cards */
-  .neon-latest-card .neon-bg-span {
-    top: -5%;
-    left: 10%;
-    width: 80%;
-    height: 110%;
-    filter: blur(20px);
-    opacity: 0.7;
-  }
-
-  /* Remove duplicate cards-grid overrides since it's global now */
-  .featured-grid {
-    display: flex;
-    grid-template-columns: none;
-  }
-
-  .category-cards-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .logo-en {
-    display: none;
-  }
-
-  /* Shrink Avatar Circles on mobile */
-  .avatar-card {
+  /* Shrink Avatar & Album Circles on small mobile */
+  .avatar-card, .album-card {
     width: 130px;
-    height: auto;
     gap: 0.5rem;
   }
-
-  .avatar-img-wrap {
+  .avatar-img-wrap, .album-img-wrap {
     width: 110px;
     height: 110px;
-    border-width: 2px;
-    padding: 4px;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.4);
-    /* Reduced shadow for mobile */
   }
-
-  .avatar-img-wrap img {
-    filter: brightness(1.40);
-    /* Extra Brighter portrait on mobile */
-  }
-
-  .avatar-label {
-    font-size: 0.85rem;
+  .avatar-label, .album-label {
+    font-size: 0.8rem;
     max-width: 110px;
-    /* Constrain label width to match mobile avatar width */
   }
 
-  .avatar-fallback {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--gold-400);
-    text-align: center;
-    padding: 10px;
-    line-height: 1.2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  /* Mobile Hero Adjustments */
+  .hero-actions {
+    display: none !important;
   }
-
-  /* Mobile Hero Calligraphy Layout Updates */
-  .hero-eyebrow {
-    margin-top: 0.5rem;
-    margin-bottom: 2rem;
-  }
-
-  .scroll-btn {
-    display: none;
-  }
-
-  .hero-title {
-    gap: 0;
-  }
-
-  .hero-top-img {
-    max-width: 100%;
-    max-height: 40vh;
-    transform: scale(2.2);
-    margin-bottom: 5vh;
-  }
-
   .hero-calligraphy {
-    max-width: 95vw;
-    margin-top: 0;
-    transform: scale(2.5) translateY(-1rem);
-    left: 0;
-    /* Reset the left shift on mobile */
-  }
-
-  /* Tighter edge fades for mobile */
-  .cards-grid,
-  .avatar-row {
-    -webkit-mask-image: linear-gradient(to right,
-        transparent 0px,
-        black 20px,
-        black calc(100% - 20px),
-        transparent 100%);
-    mask-image: linear-gradient(to right,
-        transparent 0px,
-        black 20px,
-        black calc(100% - 20px),
-        transparent 100%);
+    transform: scale(2.2) translateY(0.5rem);
   }
 }
 
 /* ============================================================
-   SCROLL REVEAL ANIMATIONS
+   COMPONENTS / UTILS
    ============================================================ */
+/* Scroll Reveal */
 .section-reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: opacity, transform;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-
 .section-reveal.reveal-active {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ============================================================
-   ADMIN TOOLS
-   ============================================================ */
-.admin-edit-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.4rem 1rem;
-  font-family: var(--font-gu-sans);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gold-400);
-  background: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--gold-500);
-  border-radius: 20px;
-  text-decoration: none;
-  transition: all var(--transition);
-  margin-top: 0.5rem;
-}
-
-.admin-edit-btn:hover {
-  background: rgba(212, 175, 55, 0.2);
-  color: var(--saffron-400);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3);
-}
-
-/* Fix for 6-digit year shown in some browsers */
-input[type="date"] {
-  min-width: 150px;
-  max-width: 100%;
-}
-
-/* Ensure the date input doesn't stretch the year part */
-input[type="date"]::-webkit-datetime-edit-year-field {
-  width: 3.5em !important;
-}
-
-/* ============================================================
-   ZEN READING MODE (Immersive / Distraction Free)
-   ============================================================ */
+/* Tool Buttons (Zen, Font size) */
 .article-tool-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2846,12 +2719,9 @@ input[type="date"]::-webkit-datetime-edit-year-field {
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  flex-shrink: 0;
   font-family: var(--font-en);
   font-weight: 600;
-  font-size: 1rem;
 }
-
 .article-tool-btn:hover {
   color: var(--saffron-400);
   background: rgba(245, 166, 35, 0.1);
@@ -2859,13 +2729,10 @@ input[type="date"]::-webkit-datetime-edit-year-field {
   transform: scale(1.05);
 }
 
-/* When Zen Mode is Active on the Body */
+/* Zen Reading Mode */
 body.zen-mode {
   background-color: #0b0f19;
-  /* Deeper, calmer dark background */
 }
-
-/* Hide Distractions */
 body.zen-mode .navbar,
 body.zen-mode .footer,
 body.zen-mode .share-bar,
@@ -2873,11 +2740,55 @@ body.zen-mode .article-sidebar,
 body.zen-mode .article-nav,
 body.zen-mode .article-meta-row,
 body.zen-mode .category-badge,
-
+body.zen-mode .article-tags {
+  display: none !important;
 }
 
-@media (max-width: 768px) {
-    .hero-actions {
-        display: none !important;
-    }
+/* Admin Specific */
+.admin-edit-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  font-family: var(--font-gu-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-400);
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--gold-500);
+  border-radius: 20px;
+  transition: all var(--transition);
+  margin-top: 0.5rem;
+}
+.admin-edit-btn:hover {
+  background: rgba(212, 175, 55, 0.2);
+  color: var(--saffron-400);
+  transform: translateY(-2px);
+}
+
+/* Date Picker Fixes */
+input[type="date"] {
+  min-width: 150px;
+}
+input[type="date"]::-webkit-datetime-edit-year-field {
+  width: 3.5em !important;
+}
+
+/* ============================================================
+   SECURITY / COPY PROTECTION
+   ============================================================ */
+/* Global text selection restriction */
+body {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* Allow text selection in inputs, textareas, and specific admin/content areas */
+input, textarea, [contenteditable="true"], .admin-panel, .admin-table, .add-form-container, .bulk-bar, .auth-container {
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important;
 }
