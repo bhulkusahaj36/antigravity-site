@@ -687,19 +687,33 @@ function initPageTransitions() {
 // SECURITY / COPY PROTECTION
 // ============================================================
 function initSecurity() {
-    // Exclude admin pages from copy protection to allow data management
+    // 1. Check for Admin Bypass (Developer Mode)
+    // To enable: Open console once and type: localStorage.setItem('hk_debug_mode', 'true'); then refresh.
+    const isDebugMode = localStorage.getItem('hk_debug_mode') === 'true';
+    if (isDebugMode) {
+        console.log("🛠️ Developer Mode Active: Protections Disabled.");
+        return;
+    }
+
+    // 2. Exclude specific management/login pages
     const path = window.location.pathname.toLowerCase();
     const isUrlAdmin = path.includes('admin') || path.includes('feed.html') || path.includes('recovered_admin');
-
     if (isUrlAdmin) return;
 
+    // 3. Apply Visual Protections
     document.body.classList.add('copy-protected');
 
-    // Explicitly prevent Copy and Cut actions
+    // 4. Block Context Menu (Right-Click)
+    document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        return false;
+    });
+
+    // 5. Block Copy/Cut/Paste
     document.addEventListener('copy', e => e.preventDefault());
     document.addEventListener('cut', e => e.preventDefault());
 
-    // Prevent Keyboard Shortcuts (Copy, Select All, Save, View Source, Inspect Element)
+    // 6. Block Keyboard Shortcuts (F12, Ctrl+Shift+I, Ctrl+U, etc.)
     document.addEventListener('keydown', e => {
         if (
             (e.ctrlKey || e.metaKey) &&
@@ -708,7 +722,8 @@ function initSecurity() {
                 e.key === 'u' || e.key === 'U' ||
                 e.key === 's' || e.key === 'S' ||
                 e.key === 'p' || e.key === 'P' ||
-                e.key === 'x' || e.key === 'X') ||
+                e.key === 'x' || e.key === 'X' ||
+                e.key === 'j' || e.key === 'J') ||
             e.key === 'F12' ||
             (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.key === 'c' || e.key === 'C' || e.key === 'j' || e.key === 'J'))
         ) {
@@ -717,8 +732,31 @@ function initSecurity() {
         }
     });
 
-    // Prevent drag and drop of text/images
+    // 7. Block Drag and Drop
     document.addEventListener('dragstart', e => e.preventDefault());
+
+    // 8. DevTools Deterrent (Debugger Loop)
+    // This pauses the browser if DevTools are opened, making inspection frustrated/impossible for non-developers.
+    if (!isUrlAdmin) {
+        setInterval(() => {
+            (function () {
+                (function a() {
+                    try {
+                        (function b(i) {
+                            if (('' + (i / i)).length !== 1 || i % 20 === 0) {
+                                (function () { }).constructor('debugger')();
+                            } else {
+                                debugger;
+                            }
+                            b(++i);
+                        })(0);
+                    } catch (e) {
+                        setTimeout(a, 5000);
+                    }
+                })();
+            })();
+        }, 5000);
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
