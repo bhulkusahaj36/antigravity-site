@@ -121,8 +121,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const article = articles.find(a => String(a.id) === String(editId));
                 if (article) {
                     document.getElementById('add-title').value = article.title || '';
-                    document.getElementById('add-author').value = article.author || '';
-                    document.getElementById('add-location').value = article.location || '';
+                    if (document.getElementById('add-author')) {
+                        document.getElementById('add-author').value = article.author || '';
+                    }
+                    if (document.getElementById('add-location')) {
+                        document.getElementById('add-location').value = article.location || '';
+                    }
 
                     if (quill) {
                         quill.clipboard.dangerouslyPasteHTML(article.content || '');
@@ -138,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         Array.from(sel.options).forEach(opt => {
                             opt.selected = vals.includes(opt.value);
                             // Custom dropdown UI sync trigger
+
                             const csOpt = opt.closest('.cs-wrapper')?.querySelector(`.cs-option[data-value="${opt.value}"]`);
                             if (csOpt) {
                                 csOpt.classList.toggle('cs-selected', opt.selected);
