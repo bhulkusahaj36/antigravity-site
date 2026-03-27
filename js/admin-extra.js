@@ -64,4 +64,33 @@ document.addEventListener('DOMContentLoaded', () => {
     if (syncTab) {
         syncTab.addEventListener('click', initSyncTool);
     }
+
+    // ── Save as Draft Button ──────────────────────────────────
+    const btnSaveDraft = document.getElementById('btnSaveDraft');
+    if (btnSaveDraft) {
+        btnSaveDraft.addEventListener('click', () => {
+            window._draftMode = true;
+            // Trigger the form's normal submit flow
+            const form = document.getElementById('addForm');
+            if (form) form.requestSubmit();
+        });
+    }
+
+    // ── Preview Button ────────────────────────────────────────
+    const btnPreview = document.getElementById('btnPreview');
+    if (btnPreview) {
+        btnPreview.addEventListener('click', () => {
+            const params = new URLSearchParams(window.location.search);
+            const editId = params.get('editId');
+            if (editId) {
+                window.open(`article.html?id=${editId}`, '_blank');
+            }
+        });
+    }
+
+    // Show Preview button when editing an existing article
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('editId') && btnPreview) {
+        btnPreview.style.display = 'inline-flex';
+    }
 });

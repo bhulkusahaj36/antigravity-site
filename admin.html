@@ -294,8 +294,10 @@
                             <div id="editor-container" style="height: 600px;"></div>
                         </div>
 
-                        <div class="feed-actions">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                        <div class="feed-actions" style="gap: 0.75rem;">
+                            <button type="submit" class="btn btn-primary" id="btnSavePublish">Save & Publish</button>
+                            <button type="button" class="btn btn-outline" id="btnSaveDraft" style="border-color: #f59e0b; color: #f59e0b;">Save as Draft</button>
+                            <button type="button" class="btn btn-outline" id="btnPreview" style="display:none; border-color: #10b981; color: #10b981;">Preview ↗</button>
                             <button type="reset" class="btn btn-outline">Clear</button>
                         </div>
 
@@ -322,28 +324,45 @@
 
                     <!-- PRASANGS VIEW -->
                     <div id="manage-prasangs" class="manage-section active">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
-                            <input type="text" id="prasangSearchInput" class="feed-input" placeholder="Search prasangs..." style="max-width: 350px;" />
-                            <select id="prasangSortBy" class="feed-select" style="max-width: 200px;">
-                                <option value="latest">Latest Addition</option>
-                                <option value="createdAt_desc">Newest Created</option>
-                                <option value="createdAt_asc">Oldest Created</option>
-                                <option value="updatedAt_desc">Recently Modified</option>
-                                <option value="updatedAt_asc">Oldest Modified</option>
-                            </select>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap;">
+                            <input type="text" id="prasangSearchInput" class="feed-input" placeholder="Search prasangs..." style="max-width: 300px;" />
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <select id="prasangStatusFilter" class="feed-select" style="max-width: 150px;">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Drafts</option>
+                                </select>
+                                <select id="prasangSortBy" class="feed-select" style="max-width: 180px;">
+                                    <option value="latest">Latest Addition</option>
+                                    <option value="createdAt_desc">Newest Created</option>
+                                    <option value="createdAt_asc">Oldest Created</option>
+                                    <option value="updatedAt_desc">Recently Modified</option>
+                                    <option value="updatedAt_asc">Oldest Modified</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- BULK ACTION TOOLBAR -->
+                        <div id="prasangBulkBar" class="bulk-action-bar" style="display:none;">
+                            <span id="prasangSelectedCount" class="bulk-count">0 selected</span>
+                            <button class="btn btn-outline bulk-btn" id="bulkPublishPrasang" style="border-color:#10b981;color:#10b981;">Publish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkUnpublishPrasang" style="border-color:#f59e0b;color:#f59e0b;">Unpublish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeletePrasang" style="border-color:#ef4444;color:#ef4444;">Delete</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeselectPrasang">Deselect All</button>
                         </div>
                         <div id="prasangListContainer" class="admin-table-wrapper">
                             <table class="admin-table">
                                 <thead>
                                     <tr>
+                                        <th style="width:40px;"><input type="checkbox" id="selectAllPrasangs" title="Select All" /></th>
                                         <th>Title</th>
+                                        <th>Status</th>
                                         <th>Author</th>
                                         <th>Date</th>
                                         <th style="text-align: right;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="adminPrasangsList">
-                                    <tr><td colspan="4" class="table-loading">Loading prasangs...</td></tr>
+                                    <tr><td colspan="6" class="table-loading">Loading prasangs...</td></tr>
                                 </tbody>
                             </table>
                             <div class="load-more-container">
@@ -354,13 +373,18 @@
 
                     <!-- PARAVANIS VIEW -->
                     <div id="manage-paravanis" class="manage-section" style="display:none">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap;">
-                            <input type="text" id="paravaniSearchInput" class="feed-input" placeholder="Search paravanis..." style="max-width: 350px;" />
-                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                                <select id="albumFilter" class="feed-select" style="max-width: 200px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap;">
+                            <input type="text" id="paravaniSearchInput" class="feed-input" placeholder="Search paravanis..." style="max-width: 300px;" />
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <select id="albumFilter" class="feed-select" style="max-width: 160px;">
                                     <option value="">All Albums</option>
                                 </select>
-                                <select id="paravaniSortBy" class="feed-select" style="max-width: 200px;">
+                                <select id="paravaniStatusFilter" class="feed-select" style="max-width: 150px;">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Drafts</option>
+                                </select>
+                                <select id="paravaniSortBy" class="feed-select" style="max-width: 180px;">
                                     <option value="latest">Latest Addition</option>
                                     <option value="createdAt_desc">Newest Created</option>
                                     <option value="createdAt_asc">Oldest Created</option>
@@ -369,18 +393,28 @@
                                 </select>
                             </div>
                         </div>
+                        <!-- BULK ACTION TOOLBAR -->
+                        <div id="paravaniBulkBar" class="bulk-action-bar" style="display:none;">
+                            <span id="paravaniSelectedCount" class="bulk-count">0 selected</span>
+                            <button class="btn btn-outline bulk-btn" id="bulkPublishParavani" style="border-color:#10b981;color:#10b981;">Publish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkUnpublishParavani" style="border-color:#f59e0b;color:#f59e0b;">Unpublish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeleteParavani" style="border-color:#ef4444;color:#ef4444;">Delete</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeselectParavani">Deselect All</button>
+                        </div>
                         <div id="paravaniListContainer" class="admin-table-wrapper">
                             <table class="admin-table">
                                 <thead>
                                     <tr>
+                                        <th style="width:40px;"><input type="checkbox" id="selectAllParavanis" title="Select All" /></th>
                                         <th>Title</th>
+                                        <th>Status</th>
                                         <th>Album</th>
                                         <th>Date</th>
                                         <th style="text-align: right;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody id="adminParavanisList">
-                                    <tr><td colspan="4" class="table-loading">Loading paravanis...</td></tr>
+                                    <tr><td colspan="6" class="table-loading">Loading paravanis...</td></tr>
                                 </tbody>
                             </table>
                             <div class="load-more-container">

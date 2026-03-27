@@ -20,7 +20,7 @@ async function getContainer() {
 }
 
 app.http('articles', {
-    methods: ['GET', 'POST', 'DELETE'],
+    methods: ['GET', 'POST', 'DELETE', 'PATCH'],
     authLevel: 'anonymous',
     handler: async (request, context) => {
         try {
@@ -33,12 +33,13 @@ app.http('articles', {
                 const sortBy = request.query.get('sortBy');
                 const compact = request.query.get('compact') === 'true';
                 const specificId = request.query.get('id');
+                const status = request.query.get('status');
                 const page = parseInt(request.query.get('page') || '0');
                 const limit = parseInt(request.query.get('limit') || '0');
 
                 // If compact is true, we fetch everything except the heavy "content" column
                 let query = compact 
-                    ? "SELECT c.id, c.title, c.author, c.source, c.topic, c.prasang, c.category, c.date, c.location, c.featured, c.public, c.type, c.album, c.createdAt, c.updatedAt, LEFT(c.content, 300) as excerpt FROM c"
+                    ? "SELECT c.id, c.title, c.author, c.source, c.topic, c.prasang, c.category, c.date, c.location, c.featured, c.public, c.type, c.album, c.status, c.createdAt, c.updatedAt, LEFT(c.content, 300) as excerpt FROM c"
                     : "SELECT * FROM c";
                 
                 let params = [];
@@ -60,6 +61,10 @@ app.http('articles', {
                 if (specificId) {
                     conditions.push("c.id = @specificId");
                     params.push({ name: "@specificId", value: specificId });
+                }
+                if (status) {
+                    conditions.push("c.status = @status");
+                    params.push({ name: "@status", value: status });
                 }
 
                 if (conditions.length > 0) {
@@ -116,12 +121,49 @@ app.http('articles', {
             }
 
             if (request.method === 'DELETE') {
-                const id = request.query.get('id');
-                if (!id) return { status: 400, body: "Please pass an id" };
-
                 const c = await getContainer();
-                await c.item(id, id).delete();
-                return { status: 204 };
+                // Support single ID via query string OR bulk IDs via body
+                const singleId = request.query.get('id');
+                if (singleId) {
+                    await c.item(singleId, singleId).delete();
+                    return { status: 204 };
+                }
+                // Bulk delete: expect { ids: [...] } in the body
+                const body = await request.json();
+                if (body.ids && Array.isArray(body.ids)) {
+                    let deleted = 0;
+                    for (const id of body.ids) {
+                        try {
+                            await c.item(String(id), String(id)).delete();
+                            deleted++;
+                        } catch (e) { context.log(`Delete failed for ${id}:`, e.message); }
+                    }
+                    return { jsonBody: { deleted } };
+                }
+                return { status: 400, body: "Please pass an id or { ids: [...] }" };
+            }
+
+            if (request.method === 'PATCH') {
+                // Bulk update: { ids: [...], updates: { field: value, ... } }
+                const body = await request.json();
+                if (!body.ids || !Array.isArray(body.ids) || !body.updates) {
+                    return { status: 400, body: "Provide { ids: [...], updates: { ... } }" };
+                }
+                const c = await getContainer();
+                const now = new Date().toISOString();
+                let updated = 0;
+                for (const id of body.ids) {
+                    try {
+                        const { resource: existing } = await c.item(String(id), String(id)).read();
+                        if (existing) {
+                            Object.assign(existing, body.updates);
+                            existing.updatedAt = now;
+                            await c.items.upsert(existing);
+                            updated++;
+                        }
+                    } catch (e) { context.log(`Patch failed for ${id}:`, e.message); }
+                }
+                return { jsonBody: { updated } };
             }
 
         } catch (error) {

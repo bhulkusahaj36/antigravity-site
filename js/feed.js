@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: editingArticleId || String(Date.now()),
                 title,
                 content,
-                author: document.getElementById('add-author') ? document.getElementById('add-author').value.trim() || 'અજ્ઞાત' : 'અજ્ઞાત',
+                author: document.getElementById('add-author') ? document.getElementById('add-author').value.trim() || 'Unknown' : 'Unknown',
                 source: finalSource.join(','),
                 topic: finalTopic.join(','),
                 prasang: finalPrasang.join(','),
@@ -322,7 +322,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 location: document.getElementById('add-location') ? document.getElementById('add-location').value.trim() : '',
                 featured: document.getElementById('add-featured') ? (document.getElementById('add-featured').value === 'yes') : false,
                 category: finalTopic.join(',') || 'bhakti',
-                public: document.getElementById('add-public') ? (document.getElementById('add-public').value !== 'no') : true,
+                public: window._draftMode ? false : (document.getElementById('add-public') ? (document.getElementById('add-public').value !== 'no') : true),
+                status: window._draftMode ? 'draft' : 'published',
                 type: articleType,
                 album: articleType === 'paravani' ? articleAlbum : ''
             };
@@ -376,7 +377,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 if (response.ok) {
-                    showFeedback(addFeedback, 'success', '✓ પ્રસંગ સફળતાપૂર્વક ઉમેરાયો!');
+                    const msg = window._draftMode ? '✓ Saved as Draft!' : '✓ Article Published Successfully!';
+                    showFeedback(addFeedback, 'success', msg);
+                    window._draftMode = false;
                     setTimeout(() => {
                         window.location.href = window.location.pathname;
                     }, 1000);

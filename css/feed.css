@@ -1049,3 +1049,68 @@ input:checked + .slider:before {
 .rename-btn:hover {
     background: rgba(251, 191, 36, 0.1);
 }
+
+/* ============================================================
+   BULK ACTION BAR
+   ============================================================ */
+.bulk-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background: rgba(251, 191, 36, 0.06);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+
+.bulk-count {
+    font-weight: 600;
+    color: var(--gold-400);
+    font-size: 0.9rem;
+    margin-right: 0.5rem;
+}
+
+.bulk-btn {
+    padding: 0.3rem 0.75rem !important;
+    font-size: 0.8rem !important;
+}
+
+/* ============================================================
+   STATUS BADGES
+   ============================================================ */
+.status-badge {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+.status-published {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.status-draft {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+/* Row checkbox */
+.admin-table .row-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--gold-400);
+}
+
+.admin-table thead input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--gold-400);
+}

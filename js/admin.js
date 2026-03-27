@@ -425,6 +425,42 @@ document.addEventListener('DOMContentLoaded', () => {
             tabsInitialized: false
         };
 
+        // Bulk selection state
+        let selectedPrasangs = new Set();
+        let selectedParavanis = new Set();
+
+        function updateBulkBar(type) {
+            const set = type === 'prasang' ? selectedPrasangs : selectedParavanis;
+            const bar = document.getElementById(type === 'prasang' ? 'prasangBulkBar' : 'paravaniBulkBar');
+            const countEl = document.getElementById(type === 'prasang' ? 'prasangSelectedCount' : 'paravaniSelectedCount');
+            if (bar) bar.style.display = set.size > 0 ? 'flex' : 'none';
+            if (countEl) countEl.textContent = `${set.size} selected`;
+        }
+
+        async function bulkAction(type, action) {
+            const set = type === 'prasang' ? selectedPrasangs : selectedParavanis;
+            const ids = Array.from(set);
+            if (ids.length === 0) return;
+
+            if (action === 'delete') {
+                if (!confirm(`Permanently delete ${ids.length} article(s)?`)) return;
+                try {
+                    await fetch('/api/articles', { method: 'DELETE', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ ids }) });
+                } catch (e) { console.error('Bulk delete error', e); }
+            } else {
+                const updates = action === 'publish' ? { public: true, status: 'published' } : { public: false, status: 'draft' };
+                const label = action === 'publish' ? 'Publish' : 'Unpublish';
+                if (!confirm(`${label} ${ids.length} article(s)?`)) return;
+                try {
+                    await fetch('/api/articles', { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ ids, updates }) });
+                } catch (e) { console.error('Bulk patch error', e); }
+            }
+
+            set.clear();
+            updateBulkBar(type);
+            if (type === 'prasang') loadAdminPrasangs(true); else loadAdminParavanis(true);
+        }
+
         function initManageTabs() {
             if (manageState.tabsInitialized) return;
             
@@ -456,12 +492,43 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('prasangSearchInput')?.addEventListener('input', debounce(() => loadAdminPrasangs(true), 300));
             document.getElementById('paravaniSearchInput')?.addEventListener('input', debounce(() => loadAdminParavanis(true), 300));
             document.getElementById('prasangSortBy')?.addEventListener('change', () => loadAdminPrasangs(true));
+            document.getElementById('prasangStatusFilter')?.addEventListener('change', () => loadAdminPrasangs(true));
             document.getElementById('albumFilter')?.addEventListener('change', () => loadAdminParavanis(true));
             document.getElementById('paravaniSortBy')?.addEventListener('change', () => loadAdminParavanis(true));
+            document.getElementById('paravaniStatusFilter')?.addEventListener('change', () => loadAdminParavanis(true));
 
             // Load more listeners
             document.getElementById('loadMorePrasangs')?.addEventListener('click', () => loadAdminPrasangs(false));
             document.getElementById('loadMoreParavanis')?.addEventListener('click', () => loadAdminParavanis(false));
+
+            // Select-all checkboxes
+            document.getElementById('selectAllPrasangs')?.addEventListener('change', (e) => {
+                const checked = e.target.checked;
+                document.querySelectorAll('#adminPrasangsList .row-checkbox').forEach(cb => {
+                    cb.checked = checked;
+                    if (checked) selectedPrasangs.add(cb.dataset.id); else selectedPrasangs.delete(cb.dataset.id);
+                });
+                updateBulkBar('prasang');
+            });
+            document.getElementById('selectAllParavanis')?.addEventListener('change', (e) => {
+                const checked = e.target.checked;
+                document.querySelectorAll('#adminParavanisList .row-checkbox').forEach(cb => {
+                    cb.checked = checked;
+                    if (checked) selectedParavanis.add(cb.dataset.id); else selectedParavanis.delete(cb.dataset.id);
+                });
+                updateBulkBar('paravani');
+            });
+
+            // Bulk action buttons
+            document.getElementById('bulkPublishPrasang')?.addEventListener('click', () => bulkAction('prasang', 'publish'));
+            document.getElementById('bulkUnpublishPrasang')?.addEventListener('click', () => bulkAction('prasang', 'unpublish'));
+            document.getElementById('bulkDeletePrasang')?.addEventListener('click', () => bulkAction('prasang', 'delete'));
+            document.getElementById('bulkDeselectPrasang')?.addEventListener('click', () => { selectedPrasangs.clear(); document.getElementById('selectAllPrasangs').checked = false; document.querySelectorAll('#adminPrasangsList .row-checkbox').forEach(cb => cb.checked = false); updateBulkBar('prasang'); });
+
+            document.getElementById('bulkPublishParavani')?.addEventListener('click', () => bulkAction('paravani', 'publish'));
+            document.getElementById('bulkUnpublishParavani')?.addEventListener('click', () => bulkAction('paravani', 'unpublish'));
+            document.getElementById('bulkDeleteParavani')?.addEventListener('click', () => bulkAction('paravani', 'delete'));
+            document.getElementById('bulkDeselectParavani')?.addEventListener('click', () => { selectedParavanis.clear(); document.getElementById('selectAllParavanis').checked = false; document.querySelectorAll('#adminParavanisList .row-checkbox').forEach(cb => cb.checked = false); updateBulkBar('paravani'); });
 
             manageState.tabsInitialized = true;
         }
@@ -479,15 +546,21 @@ document.addEventListener('DOMContentLoaded', () => {
             if (reset) {
                 manageState.prasangPage = 0;
                 manageState.prasangEnd = false;
-                listObj.innerHTML = '<tr><td colspan="4" class="table-loading">Loading prasangs...</td></tr>';
+                selectedPrasangs.clear();
+                updateBulkBar('prasang');
+                const selectAll = document.getElementById('selectAllPrasangs');
+                if (selectAll) selectAll.checked = false;
+                listObj.innerHTML = '<tr><td colspan="6" class="table-loading">Loading prasangs...</td></tr>';
             }
             
             try {
                 const term = document.getElementById('prasangSearchInput')?.value.trim() || '';
                 const sortBy = document.getElementById('prasangSortBy')?.value || '';
+                const statusFilter = document.getElementById('prasangStatusFilter')?.value || '';
                 let url = `/api/articles?type=prasang&page=${manageState.prasangPage}&limit=${manageState.limit}&t=${Date.now()}`;
                 if (term) url += `&search=${encodeURIComponent(term)}`;
                 if (sortBy && sortBy !== 'latest') url += `&sortBy=${encodeURIComponent(sortBy)}`;
+                if (statusFilter) url += `&status=${encodeURIComponent(statusFilter)}`;
 
                 const res = await fetch(url);
                 const articles = await res.json();
@@ -512,18 +585,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (reset) {
                 manageState.paravaniPage = 0;
                 manageState.paravaniEnd = false;
-                listObj.innerHTML = '<tr><td colspan="4" class="table-loading">Loading paravanis...</td></tr>';
+                selectedParavanis.clear();
+                updateBulkBar('paravani');
+                const selectAll = document.getElementById('selectAllParavanis');
+                if (selectAll) selectAll.checked = false;
+                listObj.innerHTML = '<tr><td colspan="6" class="table-loading">Loading paravanis...</td></tr>';
             }
             
             try {
                 const album = document.getElementById('albumFilter').value;
                 const term = document.getElementById('paravaniSearchInput')?.value.trim() || '';
                 const sortBy = document.getElementById('paravaniSortBy')?.value || '';
+                const statusFilter = document.getElementById('paravaniStatusFilter')?.value || '';
                 
                 let url = `/api/articles?type=paravani&page=${manageState.paravaniPage}&limit=${manageState.limit}&t=${Date.now()}`;
                 if (album) url += `&album=${encodeURIComponent(album)}`;
                 if (term) url += `&search=${encodeURIComponent(term)}`;
                 if (sortBy && sortBy !== 'latest') url += `&sortBy=${encodeURIComponent(sortBy)}`;
+                if (statusFilter) url += `&status=${encodeURIComponent(statusFilter)}`;
                 
                 const res = await fetch(url);
                 const articles = await res.json();
@@ -548,11 +627,12 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderArticleList(containerId, articles, type, reset) {
             const listObj = document.getElementById(containerId);
             if (!listObj) return;
+            const selSet = type === 'prasang' ? selectedPrasangs : selectedParavanis;
             
             if (reset) listObj.innerHTML = '';
             
             if (articles.length === 0 && reset) {
-                listObj.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">No ${type}s found.</td></tr>`;
+                listObj.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2.5rem;">No ${type}s found.</td></tr>`;
                 return;
             }
 
@@ -570,25 +650,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     dateHtml += `<br><span style="opacity: 0.7; font-size: 0.8rem;">M: ${new Date(art.updatedAt).toLocaleDateString()}</span>`;
                 }
                 
-                const isPublic = art.public !== false && art.public !== 'no';
-                const eyeIcon = isPublic ? '👁️' : '🚫';
-                const iconColor = isPublic ? 'var(--gold-400)' : '#ef4444';
+                const isDraft = art.status === 'draft';
+                const isPublic = !isDraft && art.public !== false && art.public !== 'no';
+                const statusBadge = isDraft 
+                    ? '<span class="status-badge status-draft">Draft</span>'
+                    : '<span class="status-badge status-published">Published</span>';
                 
                 const detailStr = type === 'prasang' 
-                    ? `<span class="author-badge">${art.author || 'અજ્ઞાત'}</span>`
+                    ? `<span class="author-badge">${art.author || 'Unknown'}</span>`
                     : `<span class="album-badge">${art.album || 'No Album'}</span>`;
 
+                const isChecked = selSet.has(String(art.id)) ? 'checked' : '';
+
                 tr.innerHTML = `
+                    <td><input type="checkbox" class="row-checkbox" data-id="${art.id}" ${isChecked} /></td>
                     <td style="font-weight: 500;">${art.title || 'Untitled'}</td>
+                    <td>${statusBadge}</td>
                     <td>${detailStr}</td>
                     <td style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">${dateHtml}</td>
                     <td style="text-align: right; white-space: nowrap;">
-                        <button class="toggle-public-btn" data-id="${art.id}" data-public="${isPublic}" style="background: none; border: none; cursor: pointer; color: ${iconColor}; margin-right: 0.75rem; font-size: 1.1rem;" title="Toggle Visibility">${eyeIcon}</button>
                         <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: var(--gold-400); color: var(--gold-400); margin-right: 0.5rem;">Edit</a>
                         <button class="btn btn-outline delete-btn" data-id="${art.id}" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: #ef4444; color: #ef4444;">Delete</button>
                     </td>
                 `;
                 listObj.appendChild(tr);
+            });
+
+            // Wire row checkboxes
+            listObj.querySelectorAll('.row-checkbox').forEach(cb => {
+                cb.onchange = () => {
+                    if (cb.checked) selSet.add(cb.dataset.id); else selSet.delete(cb.dataset.id);
+                    updateBulkBar(type);
+                };
             });
             
             // Attach delete listeners
@@ -599,31 +692,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         await fetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE' });
                         if (type === 'prasang') loadAdminPrasangs(true);
                         else loadAdminParavanis(true);
-                    }
-                };
-            });
-
-            // Attach toggle visible listeners
-            listObj.querySelectorAll('.toggle-public-btn').forEach(btn => {
-                btn.onclick = async (e) => {
-                    const id = e.currentTarget.getAttribute('data-id');
-                    const currentlyPublic = e.currentTarget.getAttribute('data-public') === 'true';
-                    if (confirm(`Change visibility to ${currentlyPublic ? 'Private/Hidden' : 'Public'}?`)) {
-                        try {
-                            const res = await fetch('/api/articles?t=' + Date.now());
-                            const allArts = await res.json();
-                            const artToUpdate = allArts.find(a => String(a.id) === String(id));
-                            if (artToUpdate) {
-                                artToUpdate.public = !currentlyPublic;
-                                await fetch('/api/articles', {
-                                    method: 'POST',
-                                    headers: { 'Content-Type': 'application/json' },
-                                    body: JSON.stringify(artToUpdate)
-                                });
-                                if (type === 'prasang') loadAdminPrasangs(true);
-                                else loadAdminParavanis(true);
-                            }
-                        } catch (err) { console.error("Toggle failed", err); }
                     }
                 };
             });
