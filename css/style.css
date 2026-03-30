@@ -2910,111 +2910,35 @@ body::after {
   z-index: -1;
 }
 
-/* 2. Desktop Sidebar Navigation (Glass Obsidian) */
-@media (min-width: 768px) {
-  /* Apply sidebar ONLY on non-admin pages */
-  body:not(.admin-page) .navbar {
-    width: 280px !important;
-    height: 100vh !important;
-    left: 0 !important;
-    top: 0 !important;
-    right: auto !important;
-    bottom: 0 !important;
-    flex-direction: column !important;
-    padding: 2.5rem 1.25rem !important;
-    background: rgba(5, 5, 5, 0.96) !important; /* Darker Glass */
-    background-image: url('../images/mandala.png') !important;
-    background-size: 140% auto !important;
-    background-position: -40px bottom !important;
-    background-repeat: no-repeat !important;
-    background-blend-mode: overlay !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.05) !important; /* Silver metallic edge */
-    border-bottom: none !important;
-    box-shadow: 15px 0 50px rgba(0, 0, 0, 0.9) !important;
-    backdrop-filter: blur(40px) !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    overflow: hidden !important;
-    z-index: 2000 !important;
-  }
-
-  /* Mandala fade overlay for sidebar */
-  body:not(.admin-page) .navbar::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(5, 5, 5, 0.98) 0%, rgba(5, 5, 5, 0.5) 100%);
-    pointer-events: none;
-    z-index: -1;
-  }
-
-  body:not(.admin-page) .nav-inner {
-    flex-direction: column !important;
-    height: auto !important;
-    gap: 3rem !important;
-    width: 100% !important;
-    align-items: center !important;
-    padding: 0 !important;
-  }
-
-  body:not(.admin-page) .logo-gu {
-    font-size: 1.15rem !important;
-    text-align: center !important;
-    color: var(--saffron-500) !important; /* Brighter gold logo */
-    margin-bottom: 0.5rem;
-    text-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
-  }
-
-  body:not(.admin-page) .nav-links {
-    flex-direction: column !important;
-    width: 100% !important;
-    gap: 0.85rem !important;
-    display: flex !important;
-  }
-
-  body:not(.admin-page) .nav-link {
-    width: 100% !important;
-    justify-content: center !important;
-    border-radius: 12px !important; /* Sharper roundness for modern look */
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.04) !important;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.06) !important;
-    height: 50px !important;
-    font-size: 0.85rem !important;
-    color: var(--text-secondary) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.1em !important;
-  }
-
-  /* Electric Glow Hover */
-  body:not(.admin-page) .nav-link:hover,
-  body:not(.admin-page) .nav-link.active {
-    background: rgba(255, 184, 0, 0.05) !important;
-    border-color: rgba(255, 184, 0, 0.5) !important;
-    border-bottom: 3px solid var(--saffron-500) !important;
-    transform: translateX(6px) !important;
-    color: var(--saffron-500) !important;
-    box-shadow: 0 6px 20px rgba(255, 184, 0, 0.12) !important;
-  }
-
-  /* Shift main content on desktop — EXCLUDED from admin page */
-  body:not(.admin-page):not(.zen-mode) .hero,
-  body:not(.admin-page):not(.zen-mode) .section,
-  body:not(.admin-page):not(.zen-mode) .footer,
-  body:not(.admin-page):not(.zen-mode) .share-bar,
-  body:not(.admin-page):not(.zen-mode) .article-main {
-    margin-left: 280px !important;
-    width: calc(100% - 280px) !important;
-  }
-
-  body:not(.admin-page) .nav-toggle { display: none !important; }
+/* 2. Top-Bar Obsidian (Desktop & Global) */
+.navbar {
+  background: rgba(5, 5, 5, 0.8) !important;
+  backdrop-filter: blur(25px) !important;
+  -webkit-backdrop-filter: blur(25px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
 }
 
-/* 3. Hero Image Organic Blending - Darker Fade */
+.logo-gu {
+  color: var(--saffron-500) !important;
+  text-shadow: 0 0 15px rgba(255, 184, 0, 0.4) !important;
+}
+
+.nav-link {
+  color: var(--text-secondary) !important;
+  transition: all 0.3s ease !important;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--saffron-500) !important;
+  text-shadow: 0 0 10px rgba(255, 184, 0, 0.3) !important;
+}
+
+/* 3. Hero Image Visibility - Much Stronger for Mobile */
 .hero-top-img {
   mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
   -webkit-mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
-  opacity: 0.4 !important; /* Dimmed slightly to let electric saffron shine */
+  opacity: 0.4 !important;
   filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.2)) brightness(0.8) !important;
 }
 
@@ -3022,7 +2946,7 @@ body::after {
   filter: drop-shadow(0 0 25px rgba(255, 184, 0, 0.6)) drop-shadow(0 0 50px rgba(255, 184, 0, 0.3)) !important;
 }
 
-/* 4. Organic Shapes — Keeping the beautiful asymmetric cards but with intense shadow glows */
+/* 4. Organic Shapes & Intensity Shadow Glows */
 :root {
   --radius-organic: 30px 70px 40px 80px / 50px 40px 90px 60px;
 }
@@ -3034,11 +2958,6 @@ body::after {
   box-shadow: 0 20px 40px rgba(0,0,0,0.8) !important;
 }
 
-/* Skeletons */
-.skeleton-card {
-  border-radius: var(--radius-md) !important;
-}
-
 .article-card:hover {
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
@@ -3046,87 +2965,52 @@ body::after {
   box-shadow: 0 20px 50px rgba(255, 184, 0, 0.15), 0 0 0 1px rgba(255, 184, 0, 0.4) !important;
 }
 
-.sidebar-card {
-  border-radius: var(--radius-md) !important;
-  background: rgba(15, 15, 15, 0.8) !important;
-  border: 1px solid rgba(255,255,255,0.05) !important;
-}
-
-/* Typography Enhancements for Pitch Black */
-.card-title, .section h2 {
-    color: #ffffff !important;
-}
-
-/* Buttons */
-.btn {
-   background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(255,184,0,0.02)) !important;
-   border: 1px solid rgba(255,184,0,0.4) !important;
-   color: #ffb800 !important;
-}
-.btn:hover {
-   background: rgba(255,184,0,0.2) !important;
-   box-shadow: 0 0 30px rgba(255,184,0,0.3) !important;
-}
-
 /* 5. Minimalist Zen Mode (3.0 Obsidian) */
 body.zen-mode {
-  background: #000000 !important; /* Ultimate absolute black */
-}
-
-body.zen-mode #bgCanvas,
-body.zen-mode .navbar,
-body.zen-mode .footer,
-body.zen-mode .share-bar,
-body.zen-mode .article-sidebar,
-body.zen-mode .article-nav,
-body.zen-mode .article-back-btn,
-body.zen-mode .category-badge,
-body.zen-mode .article-meta-group,
-body.zen-mode .article-toolbar-actions,
-body.zen-mode .reading-progress-container {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
-  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1) !important;
-}
-
-body.zen-mode .article-body {
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  padding: 15vh 1.5rem !important;
-  max-width: 720px !important;
-  margin: 0 auto !important;
+  background: #000000 !important;
 }
 
 body.zen-mode .article-title-h1 {
-  font-size: 2.8rem !important;
-  text-align: center;
-  margin-bottom: 4rem !important;
   background: linear-gradient(135deg, #ffffff 0%, #ffb800 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
 
-body.zen-mode .article-content {
-  color: #d4d4d4 !important; /* Perfect contrast grey on black */
-  font-size: 1.4rem !important;
-  line-height: 2.1 !important;
-  opacity: 0.95;
-}
-
 /* Mobile Tweak */
 @media (max-width: 767px) {
   body {
     background-image: 
-        radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.08) 0%, transparent 50%) !important;
+        radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.15) 0%, transparent 50%) !important;
   }
 
-  /* Increase hero image opacity heavily on mobile to ensure visibility */
+  /* Extreme hero visibility boost */
   .hero-top-img {
-    opacity: 0.85 !important; 
-    filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.4)) brightness(1) !important;
+    opacity: 0.95 !important; 
+    filter: drop-shadow(0 0 40px rgba(255, 184, 0, 0.6)) brightness(1.2) contrast(1.1) !important;
+    transform: scale(2.4) translateY(-2.5rem) !important;
+  }
+
+  .hero-calligraphy {
+    filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.8)) !important;
+    transform: scale(3.8) translateY(-0.5rem) !important;
+  }
+
+  /* Fix Outerglow UI for article cards */
+  .cards-grid {
+    padding-bottom: 3rem !important; /* Extra space so glow isn't cut off */
+    overflow: visible !important;
+  }
+
+  .neon-bg-span {
+    filter: blur(20px) !important;
+    opacity: 0.8 !important;
+    width: 90% !important;
+    left: 5% !important;
+  }
+
+  .neon-latest-card .content {
+    border-bottom: 5px solid rgba(255, 184, 0, 1) !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 5px 20px rgba(255, 184, 0, 0.3) !important;
   }
 }
