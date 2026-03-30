@@ -174,7 +174,7 @@ function renderLatest() {
 
 async function loadParavaniArticles() {
     try {
-        const res = await fetch('/api/articles?compact=true&t=' + Date.now());
+        const res = await fetch('/api/articles?compact=true');
         if (res.ok) {
             const dynamicArticles = await res.json();
             const dynamicIds = new Set(dynamicArticles.map(a => String(a.id)));

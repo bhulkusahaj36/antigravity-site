@@ -114,7 +114,7 @@ async function init() {
     setHeader();
 
     try {
-        const res = await fetch('/api/articles?compact=true&t=' + Date.now());
+        const res = await fetch('/api/articles?compact=true');
         if (res.ok) {
             ALL_ARTICLES_PG = await res.json();
         } else {

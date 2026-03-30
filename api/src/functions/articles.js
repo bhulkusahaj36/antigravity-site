@@ -88,7 +88,16 @@ app.http('articles', {
                 }
 
                 const { resources } = await c.items.query({ query, parameters: params }).fetchAll();
-                return { jsonBody: resources };
+
+                // Cache-Control: compact list caches for 5 min, full articles for 1 min
+                const cacheSeconds = compact ? 300 : 60;
+                return {
+                    jsonBody: resources,
+                    headers: {
+                        'Cache-Control': `public, max-age=${cacheSeconds}, stale-while-revalidate=${cacheSeconds * 3}`,
+                        'Content-Type': 'application/json'
+                    }
+                };
             }
 
             if (request.method === 'POST') {

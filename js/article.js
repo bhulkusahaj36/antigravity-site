@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   let rawArticles = [];
   try {
     const [articleRes, listRes] = await Promise.all([
-      fetch(`/api/articles?id=${encodeURIComponent(idParam)}&t=${Date.now()}`),
-      fetch('/api/articles?compact=true&t=' + Date.now())
+      fetch(`/api/articles?id=${encodeURIComponent(idParam)}`),
+      fetch('/api/articles?compact=true')
     ]);
 
     if (articleRes.ok) {
