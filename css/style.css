@@ -3123,5 +3123,10 @@ body.zen-mode .article-content {
     background-image: 
         radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.08) 0%, transparent 50%) !important;
   }
-}
 
+  /* Increase hero image opacity heavily on mobile to ensure visibility */
+  .hero-top-img {
+    opacity: 0.85 !important; 
+    filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.4)) brightness(1) !important;
+  }
+}
