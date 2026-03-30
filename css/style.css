@@ -2865,173 +2865,182 @@ textarea,
 }
 
 /* ============================================================
-   CONCEPT 2: ORGANIC SAFFRON OVERRIDES
+   CONCEPT 2.1: FINAL ORGANIC SAFFRON REFINEMENT
    ============================================================ */
 
-/* 1. Global Background & Organic Shapes */
+/* 1. Global Background & Premium Depth */
 body {
+  background-color: #0d0905 !important; /* Deepest Espresso */
   background-image: 
-    url('../images/mandala.png'),
-    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
-  background-size: 800px auto, cover;
-  background-position: center bottom -200px, center;
-  background-repeat: no-repeat, no-repeat;
+    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 70%),
+    radial-gradient(circle at 0% 100%, rgba(64, 34, 22, 0.12) 0%, transparent 50%) !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
 }
 
-/* Organic blobs for background accents */
-body::before {
+/* Subtlest background Noise/Texture */
+body::after {
   content: '';
   position: fixed;
-  top: -10%;
-  left: -10%;
-  width: 40vw;
-  height: 40vw;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
-  border-radius: var(--radius-organic);
-  z-index: -1;
-  filter: blur(60px);
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.015;
+  pointer-events: none;
+  z-index: 100;
 }
 
-/* 2. Desktop Sidebar Navigation */
-@media (min-width: 901px) {
+/* 2. Desktop Sidebar Navigation (Strict 768px+ Breakpoint) */
+@media (min-width: 768px) {
   .navbar {
-    width: 280px;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    right: auto;
-    bottom: 0;
-    flex-direction: column;
-    padding: 2.5rem 1.5rem;
-    background: rgba(26, 18, 11, 0.98);
-    border-right: 1px solid rgba(245, 158, 11, 0.12);
-    border-bottom: none;
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(30px);
+    width: 280px !important;
+    height: 100vh !important;
+    left: 0 !important;
+    top: 0 !important;
+    right: auto !important;
+    bottom: 0 !important;
+    flex-direction: column !important;
+    padding: 2.5rem 1.25rem !important;
+    background: rgba(18, 12, 8, 0.98) !important;
+    background-image: url('../images/mandala.png') !important; /* Mandala strictly in sidebar */
+    background-size: 140% auto !important;
+    background-position: -40px bottom -80px !important;
+    background-repeat: no-repeat !important;
+    background-blend-mode: overlay !important;
+    border-right: 1px solid rgba(245, 158, 11, 0.12) !important;
+    border-bottom: none !important;
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(40px) !important;
     display: flex !important;
-    justify-content: flex-start;
-    overflow-y: auto;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+    z-index: 2000 !important;
+  }
+
+  /* Overlay for sidebar mandala to keep it subtle */
+  .navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(18, 12, 8, 0.95) 0%, rgba(18, 12, 8, 0.4) 100%);
+    pointer-events: none;
+    z-index: -1;
   }
 
   .nav-inner {
     flex-direction: column !important;
     height: auto !important;
     gap: 3rem !important;
-    width: 100%;
-    align-items: center;
-    padding: 0;
+    width: 100% !important;
+    align-items: center !important;
+    padding: 0 !important;
   }
 
   .logo-gu {
-    font-size: 1.1rem;
-    text-align: center;
+    font-size: 1.1rem !important;
+    text-align: center !important;
+    color: var(--saffron-400) !important;
+    margin-bottom: 1rem;
   }
 
   .nav-links {
     flex-direction: column !important;
-    width: 100%;
-    gap: 1rem;
+    width: 100% !important;
+    gap: 1rem !important;
     display: flex !important;
-    padding: 0;
   }
 
   .nav-link {
     width: 100% !important;
     justify-content: center !important;
-    border-radius: var(--radius-md) !important;
-    background: rgba(255, 255, 255, 0.03) !important;
-    border: 1px solid rgba(245, 158, 11, 0.1) !important;
-    border-bottom: 3px solid rgba(245, 158, 11, 0.3) !important;
-    transition: all var(--transition) !important;
-    height: 48px !important;
-    padding: 0 1rem !important;
+    border-radius: 16px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(245, 158, 11, 0.08) !important;
+    border-bottom: 2px solid rgba(245, 158, 11, 0.15) !important;
+    height: 50px !important;
     font-size: 0.85rem !important;
+    color: var(--text-secondary) !important;
   }
 
   .nav-link:hover, .nav-link.active {
     background: rgba(245, 158, 11, 0.08) !important;
     border-color: rgba(245, 158, 11, 0.4) !important;
-    border-bottom: 4px solid var(--saffron-500) !important;
-    transform: translateX(5px);
-    color: var(--saffron-400) !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid var(--saffron-500) !important;
+    transform: translateX(6px);
+    color: var(--saffron-300) !important;
   }
 
-  /* Shift main content on desktop */
+  /* Shift main content strictly above 768px */
   body:not(.zen-mode) .hero,
   body:not(.zen-mode) .section,
   body:not(.zen-mode) .footer,
   body:not(.zen-mode) .share-bar,
-  body:not(.zen-mode) .article-main {
+  body:not(.zen-mode) .article-container {
     margin-left: 280px !important;
     width: calc(100% - 280px) !important;
   }
+
+  .nav-toggle { display: none !important; }
 }
 
-/* 3. Organic Card Aesthetics */
-.article-card, .sidebar-card, .skeleton-card, .btn {
+/* 3. Hero Blending Overhaul */
+.hero-top-img {
+  mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
+  -webkit-mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
+  opacity: 0.5 !important;
+  filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.15)) brightness(0.85) !important;
+}
+
+.hero-calligraphy {
+  filter: drop-shadow(0 0 25px rgba(255, 179, 15, 0.5)) drop-shadow(0 0 50px rgba(245, 158, 11, 0.2)) !important;
+}
+
+/* 4. Refined Organic Shapes */
+:root {
+  --radius-organic: 30px 70px 40px 80px / 50px 40px 90px 60px;
+}
+
+.article-card, .btn {
   border-radius: var(--radius-organic) !important;
-  transition: all var(--transition-slow);
 }
 
 .article-card:hover {
-  border-radius: 30% 70% 40% 60% / 50% 60% 30% 40% !important;
-  background: linear-gradient(135deg, var(--card-hover-bg), #3a2218);
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.7);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
+  background: linear-gradient(135deg, rgba(64, 34, 22, 0.5), rgba(26, 18, 11, 0.9)) !important;
+  transform: translateY(-8px) scale(1.02) !important;
 }
 
-/* 4. Immersive Reading Mode Overhaul */
+/* 5. Minimalist Zen Mode (2.1) */
 body.zen-mode {
-  background: #1a110a !important; /* Extremely deep espresso */
-  overflow-x: hidden;
-}
-
-body.zen-mode #bgCanvas,
-body.zen-mode .navbar,
-body.zen-mode .footer,
-body.zen-mode .share-bar,
-body.zen-mode .article-sidebar,
-body.zen-mode .article-nav,
-body.zen-mode .article-back-btn,
-body.zen-mode .category-badge,
-body.zen-mode .article-meta-group,
-body.zen-mode .article-toolbar-actions,
-body.zen-mode .reading-progress-container {
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none;
-  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  background: #0a0705 !important;
 }
 
 body.zen-mode .article-body {
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  padding-top: 10vh !important;
-  max-width: 840px !important;
-  margin: 0 auto;
+  padding: 15vh 1.5rem !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
 }
 
 body.zen-mode .article-title-h1 {
+  font-size: 2.8rem !important;
   text-align: center;
-  margin-bottom: 5rem;
-  background: linear-gradient(135deg, #fdfaf5 0%, #F59E0B 100%) !important;
+  margin-bottom: 6rem !important;
+  background: linear-gradient(135deg, #fdfaf5 0%, #fbbf24 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
 
 body.zen-mode .article-content {
-  color: #F5EBE0 !important;
-  font-size: calc(1.3rem * var(--font-scale)) !important;
-  line-height: 2 !important;
+  color: #ede2d5 !important;
+  font-size: 1.4rem !important;
+  line-height: 2.1 !important;
+  opacity: 0.9;
 }
 
-/* 5. Mobile Adjustments for Swipe Experience */
-@media (max-width: 768px) {
+/* Mobile Tweak */
+@media (max-width: 767px) {
   body {
-    background-size: 500px auto, cover;
+    background-image: 
+        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%) !important;
   }
 }
