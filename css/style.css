@@ -20,11 +20,11 @@
 :root {
   --font-scale: 1;
   /* Base backgrounds — original deep dark */
-  --bg-900: #030406;
-  --bg-800: #07090c;
-  --bg-700: #0c0f14;
-  --bg-600: #12161d;
-  --bg-500: #1a202a;
+  --bg-900: #1a120b; /* Deepest Espresso */
+  --bg-800: #2b1c14; /* Deep Espresso */
+  --bg-700: #402216; /* Terracotta */
+  --bg-600: #543224; /* Warm Earth */
+  --bg-500: #6b4436; /* Light Earth */
 
   /* Saffron / Amber accent */
   --saffron-200: #fef3c7;
@@ -33,7 +33,7 @@
   --saffron-500: #f59e0b;
   --saffron-600: #d97706;
   --saffron-700: #b45309;
-  --saffron-glow: rgba(245, 158, 11, 0.35);
+  --saffron-glow: rgba(245, 158, 11, 0.4);
 
   /* Gold / Metallic */
   --gold-300: #fce38a;
@@ -44,40 +44,42 @@
 
   /* ── Text Hierarchy — professional warm tones ── */
   /* H1 / Article Title: crisp white for max authority */
-  --text-white: #ffffff;
+  --text-white: #fdfaf5;
   /* Section titles, card titles: warm bright ivory */
-  --text-title: #f8f0e0;
+  --text-title: #f8f0e0; /* Meditative Ivory */
   /* Body / paragraph text: soft warm off-white, easy on eyes */
-  --text-primary: #e8dfd0;
+  --text-primary: #e8dfd0; /* Soft Cream */
   /* Secondary labels, meta, excerpts: muted warm */
   --text-secondary: #c8b89a;
   /* Captions, dates, muted labels */
   --text-muted: #8a7d6e;
 
   /* Cards (original glass) */
-  --card-bg: rgba(12, 12, 18, 0.65);
-  --card-border: rgba(245, 158, 11, 0.12);
-  --card-hover-bg: rgba(20, 20, 30, 0.85);
-  --card-hover-border: rgba(245, 158, 11, 0.35);
+  --card-bg: rgba(43, 28, 20, 0.7);
+  --card-border: rgba(245, 158, 11, 0.15);
+  --card-hover-bg: rgba(64, 34, 22, 0.85);
+  --card-hover-border: rgba(245, 158, 11, 0.4);
 
   /* Spacing & Radius */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-organic: 40% 60% 70% 30% / 40% 50% 60% 50%;
   --radius-pill: 999px;
 
   /* Transitions */
-  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  --transition: 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-  --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-slow: 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-bounce: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Shadows */
-  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-  --shadow-card: 0 16px 48px rgba(0, 0, 0, 0.7);
-  --shadow-glow: 0 0 30px rgba(245, 158, 11, 0.12);
-  --shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 24px 64px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.15);
+  --shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.03);
 
   /* Legacy aliases */
   --navy-900: var(--bg-900);
@@ -183,7 +185,7 @@ body.page-exiting {
   right: 0;
   z-index: 1000;
   background: transparent;
-  transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: all var(--transition);
   border-bottom: 1px solid transparent;
   padding: 0.8rem 0;
 }
@@ -2860,4 +2862,176 @@ textarea,
   -moz-user-select: auto !important;
   -ms-user-select: auto !important;
   user-select: auto !important;
+}
+
+/* ============================================================
+   CONCEPT 2: ORGANIC SAFFRON OVERRIDES
+   ============================================================ */
+
+/* 1. Global Background & Organic Shapes */
+body {
+  background-image: 
+    url('../images/mandala.png'),
+    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.12) 0%, transparent 60%);
+  background-size: 800px auto, cover;
+  background-position: center bottom -200px, center;
+  background-repeat: no-repeat, no-repeat;
+}
+
+/* Organic blobs for background accents */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+  border-radius: var(--radius-organic);
+  z-index: -1;
+  filter: blur(60px);
+}
+
+/* 2. Desktop Sidebar Navigation */
+@media (min-width: 901px) {
+  .navbar {
+    width: 280px;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    flex-direction: column;
+    padding: 2.5rem 1.5rem;
+    background: rgba(26, 18, 11, 0.98);
+    border-right: 1px solid rgba(245, 158, 11, 0.12);
+    border-bottom: none;
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(30px);
+    display: flex !important;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  .nav-inner {
+    flex-direction: column !important;
+    height: auto !important;
+    gap: 3rem !important;
+    width: 100%;
+    align-items: center;
+    padding: 0;
+  }
+
+  .logo-gu {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .nav-links {
+    flex-direction: column !important;
+    width: 100%;
+    gap: 1rem;
+    display: flex !important;
+    padding: 0;
+  }
+
+  .nav-link {
+    width: 100% !important;
+    justify-content: center !important;
+    border-radius: var(--radius-md) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border: 1px solid rgba(245, 158, 11, 0.1) !important;
+    border-bottom: 3px solid rgba(245, 158, 11, 0.3) !important;
+    transition: all var(--transition) !important;
+    height: 48px !important;
+    padding: 0 1rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    background: rgba(245, 158, 11, 0.08) !important;
+    border-color: rgba(245, 158, 11, 0.4) !important;
+    border-bottom: 4px solid var(--saffron-500) !important;
+    transform: translateX(5px);
+    color: var(--saffron-400) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Shift main content on desktop */
+  body:not(.zen-mode) .hero,
+  body:not(.zen-mode) .section,
+  body:not(.zen-mode) .footer,
+  body:not(.zen-mode) .share-bar,
+  body:not(.zen-mode) .article-main {
+    margin-left: 280px !important;
+    width: calc(100% - 280px) !important;
+  }
+}
+
+/* 3. Organic Card Aesthetics */
+.article-card, .sidebar-card, .skeleton-card, .btn {
+  border-radius: var(--radius-organic) !important;
+  transition: all var(--transition-slow);
+}
+
+.article-card:hover {
+  border-radius: 30% 70% 40% 60% / 50% 60% 30% 40% !important;
+  background: linear-gradient(135deg, var(--card-hover-bg), #3a2218);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.7);
+}
+
+/* 4. Immersive Reading Mode Overhaul */
+body.zen-mode {
+  background: #1a110a !important; /* Extremely deep espresso */
+  overflow-x: hidden;
+}
+
+body.zen-mode #bgCanvas,
+body.zen-mode .navbar,
+body.zen-mode .footer,
+body.zen-mode .share-bar,
+body.zen-mode .article-sidebar,
+body.zen-mode .article-nav,
+body.zen-mode .article-back-btn,
+body.zen-mode .category-badge,
+body.zen-mode .article-meta-group,
+body.zen-mode .article-toolbar-actions,
+body.zen-mode .reading-progress-container {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none;
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+
+body.zen-mode .article-body {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding-top: 10vh !important;
+  max-width: 840px !important;
+  margin: 0 auto;
+}
+
+body.zen-mode .article-title-h1 {
+  text-align: center;
+  margin-bottom: 5rem;
+  background: linear-gradient(135deg, #fdfaf5 0%, #F59E0B 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+body.zen-mode .article-content {
+  color: #F5EBE0 !important;
+  font-size: calc(1.3rem * var(--font-scale)) !important;
+  line-height: 2 !important;
+}
+
+/* 5. Mobile Adjustments for Swipe Experience */
+@media (max-width: 768px) {
+  body {
+    background-size: 500px auto, cover;
+  }
 }

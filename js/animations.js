@@ -23,34 +23,34 @@ function initHeroParallax() {
     const heroActions = document.querySelector('.hero-actions');
     const heroBg = document.querySelector('.hero-overlay'); // Changed from #bgCanvas to prevent interaction blocking
 
-    // Entrance Animation
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    // Entrance Animation - Slower & Meditative
+    const tl = gsap.timeline({ defaults: { ease: "power3.inOut" } });
     
     if (heroTitle) {
-        gsap.set(heroTitle, { y: 30, opacity: 0 });
-        tl.to(heroTitle, { y: 0, opacity: 1, duration: 1.2, delay: 0.2 });
+        gsap.set(heroTitle, { y: 40, opacity: 0 });
+        tl.to(heroTitle, { y: 0, opacity: 1, duration: 2.2, delay: 0.4 });
     }
     
     if (heroQuote) {
-        gsap.set(heroQuote, { y: 20, opacity: 0 });
-        tl.to(heroQuote, { y: 0, opacity: 1, duration: 1 }, "-=0.8");
+        gsap.set(heroQuote, { y: 30, opacity: 0 });
+        tl.to(heroQuote, { y: 0, opacity: 1, duration: 2 }, "-=1.6");
     }
     
     if (heroActions) {
         gsap.set(heroActions, { y: 20, opacity: 0 });
-        tl.to(heroActions, { y: 0, opacity: 1, duration: 1 }, "-=0.6");
+        tl.to(heroActions, { y: 0, opacity: 1, duration: 1.8 }, "-=1.4");
     }
 
-    // Scroll Parallax
+    // Scroll Parallax - Smoother scrub
     if (heroBg) {
         gsap.to(heroBg, {
-            yPercent: 30, // Move down slightly as you scroll down
+            yPercent: 40, 
             ease: "none",
             scrollTrigger: {
                 trigger: ".hero",
                 start: "top top",
                 end: "bottom top",
-                scrub: true
+                scrub: 1.5 // Added lag for smoothness
             }
         });
     }
@@ -64,19 +64,19 @@ function initDynamicCardReveals() {
         if (cards.length === 0) return;
 
         // Reset state
-        gsap.set(cards, { y: 40, opacity: 0, rotationX: 5 });
+        gsap.set(cards, { y: 60, opacity: 0, rotationX: 10 });
 
         ScrollTrigger.create({
             trigger: gridElement,
-            start: "top 85%", // Trigger when the grid is 15% from the bottom of the viewport
+            start: "top 90%", // Trigger slightly earlier
             onEnter: () => {
                 gsap.to(cards, {
                     y: 0,
                     opacity: 1,
                     rotationX: 0,
-                    duration: 0.8,
-                    stagger: 0.1, // Cascade effect
-                    ease: "back.out(1.2)",
+                    duration: 1.5,
+                    stagger: 0.15, // Cascade effect
+                    ease: "power3.out",
                     overwrite: "auto"
                 });
             },

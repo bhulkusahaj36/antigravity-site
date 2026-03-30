@@ -216,7 +216,49 @@ document.addEventListener('DOMContentLoaded', async () => {
   initZenMode();
   initFontAdjuster();
   initReadingProgress();
+  initSwipeGestures();
 });
+
+// ============================================================
+// SWIPE GESTURES FOR MOBILE NAVIGATION
+// ============================================================
+function initSwipeGestures() {
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const swipeThreshold = 80;
+
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, { passive: true });
+
+  function handleSwipe() {
+    const deltaX = touchEndX - touchStartX;
+    const currentId = getParam('id');
+
+    if (Math.abs(deltaX) > swipeThreshold) {
+      if (deltaX > 0) {
+        // Swipe Right -> Previous Article
+        const prev = getPrevArticle(currentId);
+        if (prev) {
+          document.body.classList.add('page-exiting');
+          setTimeout(() => { window.location.href = `article.html?id=${prev.id}`; }, 400);
+        }
+      } else {
+        // Swipe Left -> Next Article
+        const next = getNextArticle(currentId);
+        if (next) {
+          document.body.classList.add('page-exiting');
+          setTimeout(() => { window.location.href = `article.html?id=${next.id}`; }, 400);
+        }
+      }
+    }
+  }
+}
 
 // ============================================================
 // FONT ADJUSTER LOGIC
