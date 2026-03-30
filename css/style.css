@@ -2865,12 +2865,12 @@ textarea,
 }
 
 /* ============================================================
-   CONCEPT 2.1: FINAL ORGANIC SAFFRON REFINEMENT
+   CONCEPT 2.1: ORGANIC SAFFRON — FINAL & FIXED
    ============================================================ */
 
 /* 1. Global Background & Premium Depth */
 body {
-  background-color: #0d0905 !important; /* Deepest Espresso */
+  background-color: #0d0905 !important;
   background-image: 
     radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 70%),
     radial-gradient(circle at 0% 100%, rgba(64, 34, 22, 0.12) 0%, transparent 50%) !important;
@@ -2878,7 +2878,7 @@ body {
   background-size: cover !important;
 }
 
-/* Subtlest background Noise/Texture */
+/* Subtle texture overlay — FIXED z-index (was 100, blocked clicks) */
 body::after {
   content: '';
   position: fixed;
@@ -2886,12 +2886,13 @@ body::after {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   opacity: 0.015;
   pointer-events: none;
-  z-index: 100;
+  z-index: -1; /* FIX: was z-index:100 which blocked all pointer events */
 }
 
-/* 2. Desktop Sidebar Navigation (Strict 768px+ Breakpoint) */
+/* 2. Desktop Sidebar Navigation — EXCLUDED from admin page */
 @media (min-width: 768px) {
-  .navbar {
+  /* Apply sidebar ONLY on non-admin pages */
+  body:not(.admin-page) .navbar {
     width: 280px !important;
     height: 100vh !important;
     left: 0 !important;
@@ -2901,9 +2902,9 @@ body::after {
     flex-direction: column !important;
     padding: 2.5rem 1.25rem !important;
     background: rgba(18, 12, 8, 0.98) !important;
-    background-image: url('../images/mandala.png') !important; /* Mandala strictly in sidebar */
+    background-image: url('../images/mandala.png') !important;
     background-size: 140% auto !important;
-    background-position: -40px bottom -80px !important;
+    background-position: -40px bottom !important;
     background-repeat: no-repeat !important;
     background-blend-mode: overlay !important;
     border-right: 1px solid rgba(245, 158, 11, 0.12) !important;
@@ -2916,8 +2917,8 @@ body::after {
     z-index: 2000 !important;
   }
 
-  /* Overlay for sidebar mandala to keep it subtle */
-  .navbar::before {
+  /* Mandala fade overlay for sidebar */
+  body:not(.admin-page) .navbar::before {
     content: '';
     position: absolute;
     inset: 0;
@@ -2926,7 +2927,7 @@ body::after {
     z-index: -1;
   }
 
-  .nav-inner {
+  body:not(.admin-page) .nav-inner {
     flex-direction: column !important;
     height: auto !important;
     gap: 3rem !important;
@@ -2935,54 +2936,57 @@ body::after {
     padding: 0 !important;
   }
 
-  .logo-gu {
+  body:not(.admin-page) .logo-gu {
     font-size: 1.1rem !important;
     text-align: center !important;
     color: var(--saffron-400) !important;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
   }
 
-  .nav-links {
+  body:not(.admin-page) .nav-links {
     flex-direction: column !important;
     width: 100% !important;
-    gap: 1rem !important;
+    gap: 0.85rem !important;
     display: flex !important;
   }
 
-  .nav-link {
+  body:not(.admin-page) .nav-link {
     width: 100% !important;
     justify-content: center !important;
-    border-radius: 16px !important;
+    border-radius: 14px !important;
     background: rgba(255, 255, 255, 0.02) !important;
     border: 1px solid rgba(245, 158, 11, 0.08) !important;
     border-bottom: 2px solid rgba(245, 158, 11, 0.15) !important;
     height: 50px !important;
     font-size: 0.85rem !important;
     color: var(--text-secondary) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
   }
 
-  .nav-link:hover, .nav-link.active {
+  body:not(.admin-page) .nav-link:hover,
+  body:not(.admin-page) .nav-link.active {
     background: rgba(245, 158, 11, 0.08) !important;
     border-color: rgba(245, 158, 11, 0.4) !important;
     border-bottom: 3px solid var(--saffron-500) !important;
-    transform: translateX(6px);
+    transform: translateX(6px) !important;
     color: var(--saffron-300) !important;
   }
 
-  /* Shift main content strictly above 768px */
-  body:not(.zen-mode) .hero,
-  body:not(.zen-mode) .section,
-  body:not(.zen-mode) .footer,
-  body:not(.zen-mode) .share-bar,
-  body:not(.zen-mode) .article-container {
+  /* Shift main content on desktop — EXCLUDED from admin page */
+  body:not(.admin-page):not(.zen-mode) .hero,
+  body:not(.admin-page):not(.zen-mode) .section,
+  body:not(.admin-page):not(.zen-mode) .footer,
+  body:not(.admin-page):not(.zen-mode) .share-bar,
+  body:not(.admin-page):not(.zen-mode) .article-main {
     margin-left: 280px !important;
     width: calc(100% - 280px) !important;
   }
 
-  .nav-toggle { display: none !important; }
+  body:not(.admin-page) .nav-toggle { display: none !important; }
 }
 
-/* 3. Hero Blending Overhaul */
+/* 3. Hero Image Organic Blending */
 .hero-top-img {
   mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
   -webkit-mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
@@ -2994,13 +2998,19 @@ body::after {
   filter: drop-shadow(0 0 25px rgba(255, 179, 15, 0.5)) drop-shadow(0 0 50px rgba(245, 158, 11, 0.2)) !important;
 }
 
-/* 4. Refined Organic Shapes */
+/* 4. Organic Shapes — ONLY on article cards, NOT buttons or skeletons */
 :root {
   --radius-organic: 30px 70px 40px 80px / 50px 40px 90px 60px;
 }
 
-.article-card, .btn {
+/* FIX: Was applied to .btn causing blob-shaped buttons. Buttons stay pill-shaped. */
+.article-card {
   border-radius: var(--radius-organic) !important;
+}
+
+/* Skeleton cards should stay rectangular — not blobs */
+.skeleton-card {
+  border-radius: var(--radius-md) !important;
 }
 
 .article-card:hover {
@@ -3009,12 +3019,38 @@ body::after {
   transform: translateY(-8px) scale(1.02) !important;
 }
 
-/* 5. Minimalist Zen Mode (2.1) */
+/* 5. Sidebar card (article page right column) stays clean */
+.sidebar-card {
+  border-radius: var(--radius-md) !important;
+}
+
+/* 6. Immersive Zen Mode — Full element hiding list */
 body.zen-mode {
   background: #0a0705 !important;
 }
 
+body.zen-mode #bgCanvas,
+body.zen-mode .navbar,
+body.zen-mode .footer,
+body.zen-mode .share-bar,
+body.zen-mode .article-sidebar,
+body.zen-mode .article-nav,
+body.zen-mode .article-back-btn,
+body.zen-mode .category-badge,
+body.zen-mode .article-meta-group,
+body.zen-mode .article-toolbar-actions,
+body.zen-mode .reading-progress-container {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+
 body.zen-mode .article-body {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
   padding: 15vh 1.5rem !important;
   max-width: 720px !important;
   margin: 0 auto !important;
@@ -3023,7 +3059,7 @@ body.zen-mode .article-body {
 body.zen-mode .article-title-h1 {
   font-size: 2.8rem !important;
   text-align: center;
-  margin-bottom: 6rem !important;
+  margin-bottom: 4rem !important;
   background: linear-gradient(135deg, #fdfaf5 0%, #fbbf24 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
@@ -3037,10 +3073,11 @@ body.zen-mode .article-content {
   opacity: 0.9;
 }
 
-/* Mobile Tweak */
+/* Mobile: No sidebar shifts */
 @media (max-width: 767px) {
   body {
     background-image: 
         radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%) !important;
   }
 }
+
