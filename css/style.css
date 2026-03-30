@@ -2865,31 +2865,52 @@ textarea,
 }
 
 /* ============================================================
-   CONCEPT 2.1: ORGANIC SAFFRON — FINAL & FIXED
+   CONCEPT 3.0: MIDNIGHT OBSIDIAN — ULTRA PREMIUM DARK
    ============================================================ */
+
+/* ── OVERRIDING ROOT VARIABLES GLOBALLY FOR THIS THEME ── */
+:root {
+  --bg-900: #020202 !important; /* Pure OLED Black */
+  --bg-800: #0a0a0a !important; /* Deep Obsidian */
+  --bg-700: #121212 !important;
+  --bg-600: #1a1a1a !important;
+  --saffron-400: #facc15 !important;
+  --saffron-500: #ffb800 !important; /* Electric Glow Saffron */
+  --saffron-600: #f59e0b !important;
+  --saffron-glow: rgba(255, 184, 0, 0.4) !important;
+  --text-primary: #e5e5e5 !important;
+  --text-title: #ffffff !important;
+  --text-muted: #737373 !important;
+  /* Card redefinitions */
+  --card-bg: rgba(10, 10, 10, 0.8) !important;
+  --card-hover-bg: rgba(20, 20, 20, 0.95) !important;
+  --card-border: rgba(255, 184, 0, 0.15) !important;
+  --card-hover-border: rgba(255, 184, 0, 0.5) !important;
+}
 
 /* 1. Global Background & Premium Depth */
 body {
-  background-color: #0d0905 !important;
+  background-color: var(--bg-900) !important;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.05) 0%, transparent 70%),
-    radial-gradient(circle at 0% 100%, rgba(64, 34, 22, 0.12) 0%, transparent 50%) !important;
+    radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.02) 0%, transparent 50%) !important;
   background-attachment: fixed !important;
   background-size: cover !important;
+  color: var(--text-primary) !important;
 }
 
-/* Subtle texture overlay — FIXED z-index (was 100, blocked clicks) */
+/* Subtle texture overlay — Keeps it from looking perfectly flat */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.015;
+  opacity: 0.025; /* Slightly increased for pure black */
   pointer-events: none;
-  z-index: -1; /* FIX: was z-index:100 which blocked all pointer events */
+  z-index: -1;
 }
 
-/* 2. Desktop Sidebar Navigation — EXCLUDED from admin page */
+/* 2. Desktop Sidebar Navigation (Glass Obsidian) */
 @media (min-width: 768px) {
   /* Apply sidebar ONLY on non-admin pages */
   body:not(.admin-page) .navbar {
@@ -2901,15 +2922,15 @@ body::after {
     bottom: 0 !important;
     flex-direction: column !important;
     padding: 2.5rem 1.25rem !important;
-    background: rgba(18, 12, 8, 0.98) !important;
+    background: rgba(5, 5, 5, 0.96) !important; /* Darker Glass */
     background-image: url('../images/mandala.png') !important;
     background-size: 140% auto !important;
     background-position: -40px bottom !important;
     background-repeat: no-repeat !important;
     background-blend-mode: overlay !important;
-    border-right: 1px solid rgba(245, 158, 11, 0.12) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05) !important; /* Silver metallic edge */
     border-bottom: none !important;
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.5) !important;
+    box-shadow: 15px 0 50px rgba(0, 0, 0, 0.9) !important;
     backdrop-filter: blur(40px) !important;
     display: flex !important;
     justify-content: flex-start !important;
@@ -2922,7 +2943,7 @@ body::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(18, 12, 8, 0.95) 0%, rgba(18, 12, 8, 0.4) 100%);
+    background: linear-gradient(to bottom, rgba(5, 5, 5, 0.98) 0%, rgba(5, 5, 5, 0.5) 100%);
     pointer-events: none;
     z-index: -1;
   }
@@ -2937,10 +2958,11 @@ body::after {
   }
 
   body:not(.admin-page) .logo-gu {
-    font-size: 1.1rem !important;
+    font-size: 1.15rem !important;
     text-align: center !important;
-    color: var(--saffron-400) !important;
+    color: var(--saffron-500) !important; /* Brighter gold logo */
     margin-bottom: 0.5rem;
+    text-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
   }
 
   body:not(.admin-page) .nav-links {
@@ -2953,24 +2975,26 @@ body::after {
   body:not(.admin-page) .nav-link {
     width: 100% !important;
     justify-content: center !important;
-    border-radius: 14px !important;
+    border-radius: 12px !important; /* Sharper roundness for modern look */
     background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(245, 158, 11, 0.08) !important;
-    border-bottom: 2px solid rgba(245, 158, 11, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.04) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.06) !important;
     height: 50px !important;
     font-size: 0.85rem !important;
     color: var(--text-secondary) !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
+    letter-spacing: 0.1em !important;
   }
 
+  /* Electric Glow Hover */
   body:not(.admin-page) .nav-link:hover,
   body:not(.admin-page) .nav-link.active {
-    background: rgba(245, 158, 11, 0.08) !important;
-    border-color: rgba(245, 158, 11, 0.4) !important;
+    background: rgba(255, 184, 0, 0.05) !important;
+    border-color: rgba(255, 184, 0, 0.5) !important;
     border-bottom: 3px solid var(--saffron-500) !important;
     transform: translateX(6px) !important;
-    color: var(--saffron-300) !important;
+    color: var(--saffron-500) !important;
+    box-shadow: 0 6px 20px rgba(255, 184, 0, 0.12) !important;
   }
 
   /* Shift main content on desktop — EXCLUDED from admin page */
@@ -2986,47 +3010,67 @@ body::after {
   body:not(.admin-page) .nav-toggle { display: none !important; }
 }
 
-/* 3. Hero Image Organic Blending */
+/* 3. Hero Image Organic Blending - Darker Fade */
 .hero-top-img {
   mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
   -webkit-mask-image: radial-gradient(circle at center, black 30%, rgba(0,0,0,0.5) 60%, transparent 95%) !important;
-  opacity: 0.5 !important;
-  filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.15)) brightness(0.85) !important;
+  opacity: 0.4 !important; /* Dimmed slightly to let electric saffron shine */
+  filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.2)) brightness(0.8) !important;
 }
 
 .hero-calligraphy {
-  filter: drop-shadow(0 0 25px rgba(255, 179, 15, 0.5)) drop-shadow(0 0 50px rgba(245, 158, 11, 0.2)) !important;
+  filter: drop-shadow(0 0 25px rgba(255, 184, 0, 0.6)) drop-shadow(0 0 50px rgba(255, 184, 0, 0.3)) !important;
 }
 
-/* 4. Organic Shapes — ONLY on article cards, NOT buttons or skeletons */
+/* 4. Organic Shapes — Keeping the beautiful asymmetric cards but with intense shadow glows */
 :root {
   --radius-organic: 30px 70px 40px 80px / 50px 40px 90px 60px;
 }
 
-/* FIX: Was applied to .btn causing blob-shaped buttons. Buttons stay pill-shaped. */
 .article-card {
   border-radius: var(--radius-organic) !important;
+  background: var(--card-bg) !important;
+  border: 1px solid rgba(255,255,255,0.03) !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8) !important;
 }
 
-/* Skeleton cards should stay rectangular — not blobs */
+/* Skeletons */
 .skeleton-card {
   border-radius: var(--radius-md) !important;
 }
 
 .article-card:hover {
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
-  background: linear-gradient(135deg, rgba(64, 34, 22, 0.5), rgba(26, 18, 11, 0.9)) !important;
+  background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
+  box-shadow: 0 20px 50px rgba(255, 184, 0, 0.15), 0 0 0 1px rgba(255, 184, 0, 0.4) !important;
 }
 
-/* 5. Sidebar card (article page right column) stays clean */
 .sidebar-card {
   border-radius: var(--radius-md) !important;
+  background: rgba(15, 15, 15, 0.8) !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
 }
 
-/* 6. Immersive Zen Mode — Full element hiding list */
+/* Typography Enhancements for Pitch Black */
+.card-title, .section h2 {
+    color: #ffffff !important;
+}
+
+/* Buttons */
+.btn {
+   background: linear-gradient(135deg, rgba(255,184,0,0.1), rgba(255,184,0,0.02)) !important;
+   border: 1px solid rgba(255,184,0,0.4) !important;
+   color: #ffb800 !important;
+}
+.btn:hover {
+   background: rgba(255,184,0,0.2) !important;
+   box-shadow: 0 0 30px rgba(255,184,0,0.3) !important;
+}
+
+/* 5. Minimalist Zen Mode (3.0 Obsidian) */
 body.zen-mode {
-  background: #0a0705 !important;
+  background: #000000 !important; /* Ultimate absolute black */
 }
 
 body.zen-mode #bgCanvas,
@@ -3060,24 +3104,24 @@ body.zen-mode .article-title-h1 {
   font-size: 2.8rem !important;
   text-align: center;
   margin-bottom: 4rem !important;
-  background: linear-gradient(135deg, #fdfaf5 0%, #fbbf24 100%) !important;
+  background: linear-gradient(135deg, #ffffff 0%, #ffb800 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
 }
 
 body.zen-mode .article-content {
-  color: #ede2d5 !important;
+  color: #d4d4d4 !important; /* Perfect contrast grey on black */
   font-size: 1.4rem !important;
   line-height: 2.1 !important;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
-/* Mobile: No sidebar shifts */
+/* Mobile Tweak */
 @media (max-width: 767px) {
   body {
     background-image: 
-        radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 50%) !important;
+        radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.08) 0%, transparent 50%) !important;
   }
 }
 
