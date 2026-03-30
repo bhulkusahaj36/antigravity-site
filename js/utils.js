@@ -236,7 +236,7 @@ function initUIComponents() {
         <polyline points="20 6 9 17 4 12"></polyline>
     </svg>`;
 
-    function buildCustomSelect(nativeSelect) {
+    window.buildCustomSelect = function(nativeSelect) {
         if (nativeSelect._csWrapper) return; // Prevent double build
 
         const wrapper = document.createElement('div');
@@ -472,7 +472,7 @@ function initUIComponents() {
         });
     }
 
-    document.querySelectorAll('.feed-select').forEach(buildCustomSelect);
+    document.querySelectorAll('.feed-select').forEach(window.buildCustomSelect);
 
     // Track if inputs have values for CSS "Interactive Reveal"
     function trackInputValues() {

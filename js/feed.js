@@ -2,35 +2,63 @@
 // FEED PAGE — Tabs + Conditional fields + Browse logic
 // ============================================================
 
-// Load albums into select from static ARTICLES initially
-function initAlbumDropdown() {
-    if (typeof ARTICLES === 'undefined') return;
+// Load albums into select from static ARTICLES and API initially
+async function initAlbumDropdown() {
     const select = document.getElementById('add-album');
     if (!select) return;
     
-    // Clear existing options but keep "Select" and "New"
+    let articlesList = [];
+    if (typeof ARTICLES !== 'undefined') {
+        articlesList = [...ARTICLES];
+    }
+
+    // Default static fetch for any newly created articles pending static build
+    try {
+        const res = await fetch('/api/articles?t=' + Date.now());
+        if (res.ok) {
+            const dynamic = await res.json();
+            articlesList = [...articlesList, ...dynamic];
+        }
+    } catch(e) {
+        console.error("Error fetching albums:", e);
+    }
+    
+    // Clear existing options but keep 'Select' and 'New'
     const staticOptions = Array.from(select.querySelectorAll('option[value=""], option[value="new"]'));
     select.innerHTML = '';
     staticOptions.forEach(opt => select.appendChild(opt));
 
     const albums = new Set();
-    ARTICLES.forEach(a => {
+    articlesList.forEach(a => {
         if (a.type === 'paravani' && a.album) albums.add(a.album.trim());
     });
     
     const sortedAlbums = Array.from(albums).sort();
     sortedAlbums.forEach(al => {
-        const opt = document.createElement('option');
-        opt.value = al;
-        opt.textContent = al;
-        // Insert before the "new" option
-        select.insertBefore(opt, select.querySelector('option[value="new"]'));
+        // Prevent empty or duplicate built in tags
+        if (al !== 'new' && al !== '') {
+            const opt = document.createElement('option');
+            opt.value = al;
+            opt.textContent = al;
+            // Insert before the 'new' option
+            select.insertBefore(opt, select.querySelector('option[value="new"]'));
+        }
     });
+
+    // Rebuild Custom Select UI if it was already built
+    if (select._csWrapper) {
+        select._csWrapper.remove();
+        delete select._csWrapper;
+        select.classList.remove('cs-hidden');
+    }
+    if (typeof window.buildCustomSelect === 'function') {
+        window.buildCustomSelect(select);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     initNav();
-    initAlbumDropdown();
+    await initAlbumDropdown();
 
     let quill;
 
@@ -191,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             } else if (albumVal !== "") {
                                 // It was a custom created album
                                 setSingleSelect('add-album', 'new');
-                                const customInput = document.getElementById('add-album-new');
+                                const customInput = document.getElementById('add-album-new-text');
                                 if (customInput) {
                                     customInput.value = albumVal;
                                     customInput.dispatchEvent(new Event('input', { bubbles: true }));
