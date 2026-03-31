@@ -391,6 +391,11 @@ function initUIComponents() {
                         otherLi.setAttribute('aria-selected', isSel);
                     });
 
+                    // Auto-close for all multiselects EXCEPT Subject (topic)
+                    if (nativeSelect.id !== 'add-topic' && nativeSelect.id !== 'br-topic') {
+                        closeDropdown();
+                    }
+
                 } else {
                     nativeSelect.value = opt.value;
                     nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));

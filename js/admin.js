@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (localStorage.getItem('hk_isAdmin') === 'true') {
         adminOverlay.style.display = 'none';
         adminDashboard.style.display = 'block';
+        if (document.getElementById('navAdminTitle')) {
+            document.getElementById('navAdminTitle').style.display = 'inline-block';
+        }
 
         // Add a Logout button dynamically to the navbar
         const navLinks = document.getElementById('navLinks');
@@ -111,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const filtered = filterArticlesByTimeline(articles, timeFilter);
             
-            renderActivityChart(articles, timeFilter); 
+            renderActivityChart(filtered, timeFilter); 
             renderCategoryChart(filtered);
             renderFeaturedChart(filtered);
 
@@ -120,20 +123,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function filterArticlesByTimeline(articles, filter) {
-            const now = Date.now();
-            let msLimit = 0;
-            const DAY = 24 * 60 * 60 * 1000;
+            const now = new Date();
+            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
 
-            if (filter === '1D') msLimit = DAY;
-            else if (filter === '1W') msLimit = 7 * DAY;
-            else if (filter === '1M') msLimit = 30 * DAY;
-            else if (filter === '3M') msLimit = 90 * DAY;
-            else if (filter === '1Y') msLimit = 365 * DAY;
-            else if (filter === '5Y') msLimit = 5 * 365 * DAY;
-            else if (filter === '10Y') msLimit = 10 * 365 * DAY;
+            if (filter === '1D') {
+                return articles.filter(art => Number(art.id) >= startOfToday);
+            }
 
-            if (msLimit === 0) return articles;
-            return articles.filter(art => (now - Number(art.id)) <= msLimit);
+            let daysToSubtract = 0;
+            if (filter === '1W') daysToSubtract = 6; // Past 7 days including today
+            else if (filter === '1M') daysToSubtract = 29; // Past 30 days
+            else if (filter === '3M') daysToSubtract = 89;
+            else if (filter === '1Y') daysToSubtract = 364;
+            else if (filter === '5Y') daysToSubtract = (5 * 365) - 1;
+            else if (filter === '10Y') daysToSubtract = (10 * 365) - 1;
+
+            if (daysToSubtract > 0) {
+                const startTime = startOfToday - (daysToSubtract * 24 * 60 * 60 * 1000);
+                return articles.filter(art => Number(art.id) >= startTime);
+            }
+
+            return articles;
         }
 
         function renderActivityChart(articles, filter) {

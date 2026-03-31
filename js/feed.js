@@ -106,6 +106,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (authorContainer) authorContainer.style.display = 'block';
             }
         });
+        
+        // Trigger immediately to sync UI with default value
+        addTypeSelect.dispatchEvent(new Event('change'));
     }
 
     // ==========================================

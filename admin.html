@@ -27,9 +27,12 @@
 
     <nav class="navbar nav-pill" id="navbar">
         <div class="container nav-inner">
-            <a href="index.html" class="nav-link" style="color:var(--gold-400); font-weight:bold;">
-                ← Back to Public Website
-            </a>
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <a href="index.html" class="nav-link" style="color:var(--gold-400); font-weight:bold; padding-left: 0;">
+                    ← Back to Public Website
+                </a>
+                <span style="color: var(--text-light); font-size: 1.25rem; font-weight: 600; font-family: 'Playfair Display', serif; display: none;" id="navAdminTitle">Admin Dashboard</span>
+            </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#" id="logoutBtn" class="nav-link" style="color: #ef4444; display: none;">Logout</a></li>
             </ul>
@@ -55,12 +58,7 @@
 
     <!-- MAIN ADMIN DASHBOARD -->
     <div id="admin-dashboard" style="display: none;">
-        <section class="page-hero">
-            <div class="container">
-                <h1 class="page-title">Admin Dashboard</h1>
-                <p class="page-subtitle">Add or Edit Articles</p>
-            </div>
-        </section>
+
 
         <section class="section feed-section">
             <div class="container">
