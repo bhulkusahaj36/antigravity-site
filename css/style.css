@@ -327,22 +327,18 @@ img {
 }
 
 /* ---------- Scrollbar ---------- */
+/* Global Scrollbar Removal - Premium App Feel */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none !important;
+  width: 0;
+  height: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--bg-800);
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
 }
 
-::-webkit-scrollbar-thumb {
-  background: var(--bg-600);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--saffron-500);
-}
 
 /* ============================================================
    ELEGANT FADE PAGE TRANSITION
@@ -1371,9 +1367,7 @@ body.page-exiting {
 }
 
 
-.cards-grid::-webkit-scrollbar {
-  height: 8px;
-}
+
 
 .cards-grid::-webkit-scrollbar-track {
   background: var(--navy-800);
