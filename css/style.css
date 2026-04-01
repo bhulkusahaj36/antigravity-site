@@ -116,6 +116,7 @@ body::before {
   background-size: 100% auto;
   z-index: -2;
   pointer-events: none;
+  display: none; /* Hidden per user request */
 }
 
 /* Dark gradient overlay: transparent in hero, dark in content */
@@ -477,7 +478,7 @@ body.page-exiting {
   pointer-events: none;
   opacity: 0.45;
   /* Back to somewhat transparent */
-  display: none !important; /* Hiding for now per user request */
+  display: block;
 }
 
 .hero-calligraphy {
@@ -495,7 +496,7 @@ body.page-exiting {
   pointer-events: none;
   left: 3%;
   /* Shift to the right slightly to center on chest */
-  display: none !important; /* Hiding for now per user request */
+  display: block;
 }
 
 /* ── MOBILE HERO OVERRIDES ────────────────────────────────────
