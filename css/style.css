@@ -1237,8 +1237,11 @@ body.page-exiting {
   }
 
   #articlesGrid.cards-grid .article-card {
-    min-width: 0;
-    width: 100%;
+    /* Show exactly 5 cards in desktop view.
+       Calculation: (100% container width - 4 gaps of 1.5rem) / 5 cards */
+    min-width: calc((100% - 6rem) / 5);
+    width: calc((100% - 6rem) / 5);
+    flex-shrink: 0;
     padding: 1.25rem 1rem;
   }
 
@@ -2595,11 +2598,9 @@ body.page-exiting {
    FOOTER
    ============================================================ */
 .footer {
-  background: linear-gradient(180deg, var(--bg-800) 0%, var(--bg-900) 100%);
-  border-top: 1px solid rgba(245, 158, 11, 0.2);
-  box-shadow:
-    0 -1px 0 rgba(245, 158, 11, 0.08),
-    0 -20px 60px rgba(245, 158, 11, 0.04);
+  background: transparent;
+  border-top: none;
+  box-shadow: none;
   padding: 2.5rem 0;
   margin-top: auto;
   position: relative;
@@ -2996,11 +2997,11 @@ body::after {
 
 /* 2. Top-Bar Obsidian (Desktop & Global) */
 .navbar {
-  background: rgba(5, 5, 5, 0.8) !important;
-  backdrop-filter: blur(25px) !important;
-  -webkit-backdrop-filter: blur(25px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
 }
 
 .logo-gu {
