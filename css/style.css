@@ -529,6 +529,7 @@ body.page-exiting {
   pointer-events: none;
   opacity: 0.45;
   /* Back to somewhat transparent */
+  display: none !important; /* Hiding for now per user request */
 }
 
 .hero-calligraphy {
@@ -546,6 +547,7 @@ body.page-exiting {
   pointer-events: none;
   left: 3%;
   /* Shift to the right slightly to center on chest */
+  display: none !important; /* Hiding for now per user request */
 }
 
 /* ── MOBILE HERO OVERRIDES ────────────────────────────────────
@@ -3100,3 +3102,5 @@ body.zen-mode .article-title-h1 {
   }
 }
 
+. r e a d i n g - p r o g r e s s - c o n t a i n e r   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   }   / *   H i d i n g   p r o g r e s s   b a r   p e r   u s e r   r e q u e s t   * /  
+ 

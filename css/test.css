@@ -2918,6 +2918,7 @@ body.zen-mode .zen-mode-toggle {
    DYNAMIC READING PROGRESS BAR
    ============================================================ */
 .reading-progress-container {
+  display: none !important; /* Removed per user request */
   position: fixed;
   top: 0;
   left: 0;
