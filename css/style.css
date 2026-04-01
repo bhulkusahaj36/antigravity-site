@@ -1143,14 +1143,13 @@ body.page-exiting {
 /* Home Page specific latest articles grid — 5 columns */
 @media (min-width: 1024px) {
   #articlesGrid.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    overflow: visible;
-    gap: 1rem;
-    padding-right: 0;
-    /* Remove edge fade for full-grid desktop layout */
-    -webkit-mask-image: none;
-    mask-image: none;
+    display: flex;
+    overflow-x: auto;
+    overflow-y: visible;
+    gap: 1.5rem;
+    /* Re-enable edge fade for scrolling */
+    -webkit-mask-image: linear-gradient(to right, transparent 0px, black 120px, black calc(100% - 120px), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0px, black 120px, black calc(100% - 120px), transparent 100%);
   }
 
   #articlesGrid.cards-grid .article-card {
