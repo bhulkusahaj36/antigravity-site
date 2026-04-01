@@ -844,10 +844,11 @@ body.page-exiting {
    PAGE HERO (inner pages)
    ============================================================ */
 .page-hero {
-  padding: 7rem 0 3rem;
-  background: #000000;
+  padding: 5rem 0 2.5rem;
+  background: var(--bg-900);
   border-bottom: 1px solid rgba(245, 158, 11, 0.14);
   position: relative;
+  text-align: center;
 }
 
 .page-hero::after {
