@@ -130,6 +130,117 @@ body {
   line-height: 1.7;
   min-height: 100vh;
   display: flex;
+/* 
+    ============================================================
+    PRODUCTION STYLES: bhulku.com (style.css)
+    ============================================================
+*/
+/* ============================================================
+   HARIPRABODHAM KATHAMRUT — Global Stylesheet
+   Rich Indigo + Warm Saffron theme
+   ============================================================ */
+
+/* ---------- Reset & Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --font-scale: 1;
+  /* Base backgrounds — original deep dark */
+  --bg-900: #1a120b; /* Deepest Espresso */
+  --bg-800: #2b1c14; /* Deep Espresso */
+  --bg-700: #402216; /* Terracotta */
+  --bg-600: #543224; /* Warm Earth */
+  --bg-500: #6b4436; /* Light Earth */
+
+  /* Saffron / Amber accent */
+  --saffron-200: #fef3c7;
+  --saffron-300: #fde68a;
+  --saffron-400: #fbbf24;
+  --saffron-500: #f59e0b;
+  --saffron-600: #d97706;
+  --saffron-700: #b45309;
+  --saffron-glow: rgba(245, 158, 11, 0.4);
+
+  /* Gold / Metallic */
+  --gold-300: #fce38a;
+  --gold-400: #fcd34d;
+  --gold-500: #fbbf24;
+  --gold-600: #d4af37;
+  --gold-gradient: linear-gradient(135deg, #fcd34d, #f59e0b);
+
+  /* ── Text Hierarchy — professional warm tones ── */
+  /* H1 / Article Title: crisp white for max authority */
+  --text-white: #fdfaf5;
+  /* Section titles, card titles: warm bright ivory */
+  --text-title: #f8f0e0; /* Meditative Ivory */
+  /* Body / paragraph text: soft warm off-white, easy on eyes */
+  --text-primary: #e8dfd0; /* Soft Cream */
+  /* Secondary labels, meta, excerpts: muted warm */
+  --text-secondary: #c8b89a;
+  /* Captions, dates, muted labels */
+  --text-muted: #8a7d6e;
+
+  /* Cards (original glass) */
+  --card-bg: rgba(43, 28, 20, 0.7);
+  --card-border: rgba(245, 158, 11, 0.15);
+  --card-hover-bg: rgba(64, 34, 22, 0.85);
+  --card-hover-border: rgba(245, 158, 11, 0.4);
+
+  /* Spacing & Radius */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 32px;
+  --radius-organic: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  --radius-pill: 999px;
+
+  /* Transitions */
+  --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-slow: 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+  --transition-bounce: 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 24px 64px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 40px rgba(245, 158, 11, 0.15);
+  --shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.03);
+
+  /* Legacy aliases */
+  --navy-900: var(--bg-900);
+  --navy-800: var(--bg-800);
+  --navy-700: var(--bg-700);
+  --navy-600: var(--bg-600);
+  --navy-500: var(--bg-500);
+  --gold-glow: var(--saffron-glow);
+
+  /* Typography */
+  --font-gu: 'Noto Serif Gujarati', serif;
+  --font-gu-sans: 'Noto Sans Gujarati', sans-serif;
+  --font-en: 'DM Sans', 'Inter', sans-serif;
+  --font-heading: 'Playfair Display', 'DM Sans', serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-900);
+  /* Background rendered via body::before fixed pseudo-element (see below) */
+  color: var(--text-primary);
+  font-family: var(--font-gu-sans), var(--font-en);
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
   flex-direction: column;
   overflow-x: hidden;
   position: relative;
@@ -147,13 +258,17 @@ body {
 */
 body::before {
   content: '';
-  position: absolute;
-  inset: 0;
+  position: absolute; /* Bound to page flow for scrolling */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* Spans full body length */
   background-image: url('../images/Background.webp');
   background-repeat: no-repeat;
   background-position: top center;
-  /* Ensure the background covers the entire height of the page */
-  background-size: cover;
+  /* Using 100% width auto-height to maintain the original designed ratio.
+     This ensures the yellow line in the image aligns with the 100vh hero marker on desktop. */
+  background-size: 100% auto;
   z-index: -2;
   pointer-events: none;
 }
@@ -448,11 +563,6 @@ body.page-exiting {
   #bgCanvas {
     opacity: 0.4;
   }
-
-  /* NOTE: Hero element overrides (.hero-title, .hero-top-img, .hero-calligraphy,
-     .hero-quote, .hero-actions) are in a SEPARATE media query block AFTER
-     the desktop rules below — this is critical so they aren't overridden
-     by the desktop transform values. DO NOT add hero rules here. */
 }
 
 /* Decorative horizontal rule */
@@ -1283,7 +1393,6 @@ body.page-exiting {
 }
 
 /* Modifier for stacked single-column layout instead of horizontal scroll */
-/* Modifier for stacked single-column layout instead of horizontal scroll */
 .stacked-grid {
   display: grid !important;
   grid-template-columns: 1fr !important;
@@ -1390,10 +1499,6 @@ body.page-exiting {
   background: rgba(24, 18, 8, 0.85);
   border-top-color: rgba(245, 158, 11, 0.45);
 }
-
-
-
-
 
 .card-prasang-label {
   font-family: var(--font-gu-sans);
@@ -1699,8 +1804,6 @@ body.page-exiting {
   z-index: 2;
   transition: box-shadow var(--transition);
 }
-
-/* Removed dark gap overlay hack as per user request */
 
 .avatar-card:hover .avatar-img-wrap {
   box-shadow:
@@ -2688,7 +2791,6 @@ body.page-exiting {
 
 /* ============================================================
    RESPONSIVE
-
    ============================================================ */
 @media (max-width: 900px) {
   .article-layout {
@@ -3099,5 +3201,4 @@ body.zen-mode .article-title-h1 {
   }
 }
 
-. r e a d i n g - p r o g r e s s - c o n t a i n e r   {   d i s p l a y :   n o n e   ! i m p o r t a n t ;   }   / *   H i d i n g   p r o g r e s s   b a r   p e r   u s e r   r e q u e s t   * /  
- 
+.reading-progress-container { display: none !important; } /* Hiding progress bar per user request */
