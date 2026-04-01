@@ -116,7 +116,8 @@ body::before {
   background-size: 100% auto;
   z-index: -2;
   pointer-events: none;
-  display: none; /* Hidden per user request */
+  display: block; /* Restored per user request to bring back background design */
+  opacity: 0.65; /* Balanced opacity to prevent 'messy' appearance while keeping depth */
 }
 
 /* Dark gradient overlay: transparent in hero, dark in content */
@@ -1300,13 +1301,23 @@ body.page-exiting {
 }
 
 /* Distinct neon colors for cards based on ordering (2-color premium cycle) */
-.neon-latest-card:nth-child(2n+1) .neon-bg-span {
-  background: linear-gradient(135deg, var(--saffron-500), #ffffff);
+.neon-latest-card:nth-child(4n+1) .neon-bg-span {
+  background: linear-gradient(135deg, var(--saffron-500), #ffffff, #ff8f59);
 }
 
-.neon-latest-card:nth-child(2n) .neon-bg-span {
-  background: linear-gradient(135deg, #ffffff, var(--saffron-400));
+.neon-latest-card:nth-child(4n+2) .neon-bg-span {
+  background: linear-gradient(135deg, #f43f5e, #fbbf24, #ec4899);
 }
+
+.neon-latest-card:nth-child(4n+3) .neon-bg-span {
+  background: linear-gradient(135deg, #3b82f6, #ffffff, #8b5cf6);
+}
+
+.neon-latest-card:nth-child(4n) .neon-bg-span {
+  background: linear-gradient(135deg, #10b981, #fcd34d, #3b82f6);
+}
+
+/* Unified vibrant multicolored design cycling every 4 cards */
 
 .neon-latest-card .content {
   background: rgba(24, 18, 8, 0.75);
