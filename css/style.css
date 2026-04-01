@@ -3076,8 +3076,9 @@ body.light-mode {
 }
 
 body.light-mode::before {
-  opacity: 0.1;
-  filter: grayscale(0.2) contrast(1.1);
+  opacity: 0.35;
+  filter: grayscale(0.1) contrast(1.15) brightness(0.95);
+  mix-blend-mode: multiply;
 }
 
 body.light-mode::after {
