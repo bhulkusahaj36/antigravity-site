@@ -27,16 +27,13 @@ function formatDate(iso) {
 
     const now = new Date();
     const diffMs = now - d;
-    const diffSec = Math.floor(diffMs / 1000);
-    const diffMin = Math.floor(diffSec / 60);
-    const diffHr = Math.floor(diffMin / 60);
-    const diffDay = Math.floor(diffHr / 24);
+    const diffDay = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffSec < 60) return 'હમણાં જ';
-    if (diffMin < 60) return `${diffMin} મિનિટ પહેલા`;
-    if (diffHr < 24) return `${diffHr} કલાક પહેલા`;
-    if (diffDay === 1) return 'ગઈ કાલે';
-    if (diffDay === 0) return 'આજે';
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startOfYesterday = new Date(startOfToday.getTime() - 24 * 60 * 60 * 1000);
+
+    if (d >= startOfToday) return 'આજે';
+    if (d >= startOfYesterday) return 'ગઈ કાલે';
     if (diffDay < 7) return `${diffDay} દિવસ પહેલા`;
 
     // Older than a week — show full date

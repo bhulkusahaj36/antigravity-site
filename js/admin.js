@@ -87,6 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     articles = [...ARTICLES, ...articles];
                 }
 
+                // Deduplicate by ID
+                const seen = new Set();
+                articles = articles.filter(art => {
+                    if (seen.has(art.id)) return false;
+                    seen.add(art.id);
+                    return true;
+                });
+
                 if (typeof Chart !== 'undefined') {
                     Chart.defaults.color = '#e5e7eb';
                     Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
