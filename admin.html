@@ -26,13 +26,13 @@
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
     <nav class="navbar nav-pill" id="navbar">
-        <div class="container nav-inner">
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <div class="container nav-inner" style="position: relative;">
+            <div style="display: flex; align-items: center;">
                 <a href="index.html" class="nav-link" style="color:var(--gold-400); font-weight:bold; padding-left: 0;">
                     ← Back to Public Website
                 </a>
-                <span style="color: var(--text-light); font-size: 1.25rem; font-weight: 600; font-family: 'Playfair Display', serif; display: none;" id="navAdminTitle">Admin Dashboard</span>
             </div>
+            <span style="color: var(--text-light); font-size: 1.25rem; font-weight: 600; font-family: 'Playfair Display', serif; display: none; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap;" id="navAdminTitle">Admin Dashboard</span>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#" id="logoutBtn" class="nav-link" style="color: #ef4444; display: none;">Logout</a></li>
             </ul>
@@ -57,7 +57,7 @@
     </div>
 
     <!-- MAIN ADMIN DASHBOARD -->
-    <div id="admin-dashboard" style="display: none;">
+    <div id="admin-dashboard" style="display: none; margin-top: 2.5rem;">
 
 
         <section class="section feed-section">
