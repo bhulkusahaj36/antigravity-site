@@ -1301,11 +1301,11 @@ body.page-exiting {
 
 /* Distinct neon colors for cards based on ordering (2-color premium cycle) */
 .neon-latest-card:nth-child(2n+1) .neon-bg-span {
-  background: linear-gradient(135deg, #f43f5e, var(--saffron-400));
+  background: linear-gradient(135deg, var(--saffron-500), #ffffff);
 }
 
 .neon-latest-card:nth-child(2n) .neon-bg-span {
-  background: linear-gradient(135deg, #3b82f6, #ec4899);
+  background: linear-gradient(135deg, #ffffff, var(--saffron-400));
 }
 
 .neon-latest-card .content {
