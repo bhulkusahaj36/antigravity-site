@@ -3047,3 +3047,90 @@ body.zen-mode .article-title-h1 {
 }
 
 .reading-progress-container { display: none !important; } /* Hiding progress bar per user request */
+
+/* ============================================================
+   LIGHT THEME INVERT
+   ============================================================ */
+body.light-mode {
+  --bg-900: #f6ebe3;
+  --bg-800: #eeeff1;
+  --bg-700: #f2e3d5;
+  --bg-600: #e8d0bd;
+  --bg-500: #d9b8a0;
+
+  --text-white: #1a120b;
+  --text-title: #2b1c14;
+  --text-primary: #3b281b;
+  --text-secondary: #5a4030;
+  --text-muted: #755b48;
+
+  --card-bg: rgba(255, 250, 246, 0.85);
+  --card-border: rgba(240, 186, 154, 0.3);
+  --card-hover-bg: rgba(255, 255, 255, 0.95);
+  --card-hover-border: rgba(240, 186, 154, 0.6);
+
+  --saffron-glow: rgba(240, 186, 154, 0.4);
+  --shadow-glow: 0 0 30px rgba(240, 186, 154, 0.2);
+  --shadow-inner: inset 0 1px 1px rgba(0, 0, 0, 0.03);
+}
+
+body.light-mode::before {
+  opacity: 0.1;
+  filter: grayscale(0.2) contrast(1.1);
+}
+
+body.light-mode::after {
+  background: linear-gradient(
+    135deg,
+    rgba(240, 186, 154, 0.92)  0%,
+    rgba(246, 235, 227, 0.92)  45%,
+    rgba(238, 239, 241, 0.95)  100%
+  );
+}
+
+body.light-mode .hero-quote {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 20px 40px rgba(180, 83, 9, 0.15), inset 0 1px 2px rgba(255, 255, 255, 1);
+  color: #b45309;
+  text-shadow: 0 1px 1px #fcd34d, 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .hero-quote .quote-author {
+  color: var(--text-secondary);
+  text-shadow: none;
+}
+
+body.light-mode .logo-gu {
+  color: var(--saffron-700);
+}
+
+body.light-mode .nav-link {
+  color: var(--text-primary);
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+  color: var(--gold-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  border-radius: 50%;
+}
+
+.theme-toggle:hover {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--gold-500);
+  transform: scale(1.1);
+}
+
+body.light-mode .theme-toggle {
+  color: var(--saffron-700);
+}
+
+body.light-mode .theme-toggle:hover {
+  background: rgba(180, 83, 9, 0.1);
+}
