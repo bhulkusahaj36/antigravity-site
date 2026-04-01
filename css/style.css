@@ -476,8 +476,8 @@ body.page-exiting {
   /* Scale grows downward, top never gets clipped */
   margin-bottom: -2rem;
   pointer-events: none;
-  opacity: 0.45;
-  /* Back to somewhat transparent */
+  opacity: 0.85;
+  /* Brighter branding visibility */
   display: block;
 }
 
