@@ -1282,40 +1282,7 @@ body.page-exiting {
 }
 
 .neon-latest-card .neon-bg-span {
-  position: absolute;
-  top: -8%;
-  left: 5%;
-  width: 90%;
-  height: 115%;
-  border-radius: 12px;
-  transition: all 0.5s ease-in-out;
-  z-index: -1;
-  filter: blur(35px); /* Much softer atmospheric glow */
-  opacity: 0.75;
-  transform: skewX(10deg);
-}
-
-.neon-latest-card:hover .neon-bg-span {
-  transform: skewX(0deg) scale(1.05);
-  filter: blur(25px);
-  opacity: 0.9;
-}
-
-/* Distinct neon colors for cards based on ordering (2-color premium cycle) */
-.neon-latest-card:nth-child(4n+1) .neon-bg-span {
-  background: linear-gradient(135deg, var(--saffron-500), #ffffff, #ff8f59);
-}
-
-.neon-latest-card:nth-child(4n+2) .neon-bg-span {
-  background: linear-gradient(135deg, #f43f5e, #fbbf24, #ec4899);
-}
-
-.neon-latest-card:nth-child(4n+3) .neon-bg-span {
-  background: linear-gradient(135deg, #3b82f6, #ffffff, #8b5cf6);
-}
-
-.neon-latest-card:nth-child(4n) .neon-bg-span {
-  background: linear-gradient(135deg, #10b981, #fcd34d, #3b82f6);
+  display: none !important;
 }
 
 /* Unified vibrant multicolored design cycling every 4 cards */
