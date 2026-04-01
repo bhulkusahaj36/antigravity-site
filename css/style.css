@@ -139,7 +139,7 @@ body {
    The Background.webp image is portrait (tall).
    We use TWO layered fixed pseudo-elements so the image
    properly covers the full page respecting aspect ratio:
-   - body::before = the image itself (fixed, covers entire page)
+   - body::before = the image itself (absolute, covers entire page)
    - body::after  = gradient overlay for readability on content sections
 
    The image's natural midpoint (yellow line at ~50% height) is
@@ -147,16 +147,13 @@ body {
 */
 body::before {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-image: url('../images/Background.webp');
   background-repeat: no-repeat;
   background-position: top center;
-  /* 100% width auto-height: image fills full viewport width.
-     The portrait image is ~1:1.73 ratio, so at 100vw width it will be
-     ~173vh tall. Top ~50% = hero zone (saints+globe), bottom ~50% = cosmic space.
-     background-attachment: fixed means it stays put as you scroll. */
-  background-size: 100% auto;
+  /* Ensure the background covers the entire height of the page */
+  background-size: cover;
   z-index: -2;
   pointer-events: none;
 }
@@ -164,7 +161,7 @@ body::before {
 /* Dark gradient overlay: transparent in hero, dark in content */
 body::after {
   content: '';
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
