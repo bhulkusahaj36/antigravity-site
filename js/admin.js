@@ -87,11 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     articles = [...ARTICLES, ...articles];
                 }
 
-                // Deduplicate by ID
+                // Deduplicate by ID (ensure type matching)
                 const seen = new Set();
                 articles = articles.filter(art => {
-                    if (seen.has(art.id)) return false;
-                    seen.add(art.id);
+                    const idStr = String(art.id);
+                    if (seen.has(idStr)) return false;
+                    seen.add(idStr);
                     return true;
                 });
 
