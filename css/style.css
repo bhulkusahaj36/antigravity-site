@@ -116,7 +116,7 @@ body::before {
   background-size: 100% auto;
   z-index: -2;
   pointer-events: none;
-  display: block; /* Restored per user request to bring back background design */
+  display: none; /* Hidden per user request; focusing on card background color shades */
   opacity: 0.65; /* Balanced opacity to prevent 'messy' appearance while keeping depth */
 }
 
