@@ -1301,7 +1301,7 @@ body.page-exiting {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  box-shadow: none;
+  box-shadow: none !important;
   transition: all 0.5s ease-in-out;
   position: relative;
   overflow: hidden;
@@ -2954,14 +2954,14 @@ body::after {
   border-radius: var(--radius-organic) !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255,255,255,0.03) !important;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.8) !important;
+  box-shadow: none !important;
 }
 
 .article-card:hover {
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
-  box-shadow: 0 20px 50px rgba(255, 184, 0, 0.15), 0 0 0 1px rgba(255, 184, 0, 0.4) !important;
+  box-shadow: none !important;
 }
 
 /* 5. Minimalist Zen Mode (3.0 Obsidian) */
