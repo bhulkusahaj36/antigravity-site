@@ -1886,7 +1886,7 @@ body.page-exiting {
 .category-card:hover {
   border-color: rgba(251, 191, 36, 0.4);
   transform: translateY(-6px);
-  box-shadow: var(--shadow-inner), var(--shadow-card), var(--shadow-glow);
+  box-shadow: none !important;
   background: var(--card-hover);
 }
 
@@ -3008,6 +3008,7 @@ body.zen-mode .article-title-h1 {
   .neon-latest-card .content {
     border-bottom: 5px solid rgba(255, 184, 0, 1) !important;
     box-shadow: none !important;
+    background: none !important; /* Extra measure to ensure no sneaky background shapes */
   }
 }
 
@@ -3233,4 +3234,7 @@ body.light-mode .article-card .content,
 body.light-mode .neon-latest-card,
 body.light-mode .neon-latest-card .content {
     box-shadow: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    text-shadow: none !important;
 }
