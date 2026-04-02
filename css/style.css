@@ -3395,7 +3395,12 @@ body.light-mode .footer-links a:hover {
   color: #d97706 !important;
 }
 
-/* Particle Visibility Adjustment */
+/* Global Logo Visibility in Light Mode */
+body.light-mode .logo-gu {
+  color: #b45309 !important;
+  text-shadow: none !important;
+}
+
 body.light-mode #particles-js {
   opacity: 0.3 !important;
   filter: contrast(1.2);
