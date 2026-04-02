@@ -3275,6 +3275,30 @@ body.light-mode .neon-latest-card .content {
   background: var(--card-bg) !important;
 }
 
+/* Fix Category Badge & Back Button in Light Mode */
+body.light-mode .category-badge {
+  color: #78350f !important;
+  background: linear-gradient(135deg, #fef3c7, #fcd34d) !important;
+  box-shadow: 0 2px 4px rgba(180, 83, 9, 0.1) !important;
+  border: 1px solid rgba(180, 83, 9, 0.2) !important;
+}
+
+body.light-mode .article-back-btn {
+  background: #fff !important;
+  color: #92400e !important;
+  border: 1px solid rgba(180, 83, 9, 0.3) !important;
+  box-shadow: none !important;
+}
+
+body.light-mode .article-back-btn:hover {
+  background: #fef3c7 !important;
+}
+
+body.light-mode .article-location-badge {
+  color: #92400e !important;
+  background: rgba(180, 83, 9, 0.05) !important;
+}
+
 /* Fix Article Reading Page Readability in Light Mode */
 body.light-mode .article-content {
   color: var(--text-primary) !important;
