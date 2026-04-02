@@ -486,9 +486,14 @@ body.page-exiting {
   /* Scale grows downward, top never gets clipped */
   margin-bottom: -2rem;
   pointer-events: none;
-  opacity: 0.85;
-  /* Brighter branding visibility */
+  opacity: 1 !important;
+  /* Brighter branding visibility - fully visible in both modes */
   display: block;
+}
+
+body.light-mode .hero-top-img {
+  filter: contrast(1.1) brightness(1.0) !important;
+  opacity: 1 !important;
 }
 
 .hero-calligraphy {
@@ -3059,16 +3064,18 @@ body.light-mode {
 }
 
 body.light-mode::before {
-  opacity: 0.65;
-  filter: contrast(0.8) brightness(0.95);
-  /* Removed mix-blend-mode for cleaner image visibility */
+  opacity: 1 !important;
+  filter: contrast(1.1) brightness(1.0) !important;
+  /* Ensure the background image is fully opaque and vibrant */
 }
 
 body.light-mode::after {
+  /* LIGHT OVERLAY: drastically reduced from 0.95 to 0.2 to remove "obstacle" masking the image */
   background: linear-gradient(135deg,
-      rgba(240, 186, 154, 0.92) 0%,
-      rgba(246, 235, 227, 0.92) 45%,
-      rgba(238, 239, 241, 0.95) 100%);
+      rgba(240, 186, 154, 0.25) 0%,
+      rgba(246, 235, 227, 0.20) 45%,
+      rgba(238, 239, 241, 0.15) 100%) !important;
+  opacity: 1 !important;
 }
 
 body.light-mode .hero-quote {
