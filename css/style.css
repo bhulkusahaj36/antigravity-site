@@ -226,11 +226,11 @@ body.page-exiting {
 }
 
 .navbar.scrolled {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
+  background: rgba(10, 10, 10, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 184, 0, 0.15) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7) !important;
   padding: 0.5rem 0;
 }
 
@@ -316,9 +316,11 @@ body.page-exiting {
 }
 
 .navbar.nav-minimal.scrolled {
-  background: transparent !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
+  background: rgba(10, 10, 10, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 184, 0, 0.15) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7) !important;
 }
 
 .navbar.nav-minimal .nav-link {
@@ -2925,13 +2927,7 @@ body::after {
 }
 
 /* 2. Top-Bar Obsidian (Desktop & Global) */
-.navbar {
-  background: transparent !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-}
+/* The navbar is transparent at the absolute top, but once scrolled, it will take the .scrolled glassmorphic background */
 
 .logo-gu {
   color: var(--saffron-500) !important;
@@ -3324,4 +3320,83 @@ body.light-mode .article-meta-group .card-date {
 
 body.light-mode .reading-time-badge {
   color: var(--text-muted) !important;
+}
+
+/* Light Mode Scrolled Navbar Glassmorphism */
+body.light-mode .navbar.scrolled {
+  background: rgba(255, 252, 248, 0.98) !important; /* Higher opacity to prevent collision */
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(180, 83, 9, 0.15) !important;
+  box-shadow: 0 4px 20px rgba(180, 83, 9, 0.08) !important;
+}
+
+/* Fix Chip & Button Visibility in Light Mode */
+body.light-mode .category-chip {
+  background: #fff !important;
+  color: #92400e !important;
+  border: 1px solid rgba(180, 83, 9, 0.3) !important;
+}
+
+body.light-mode .category-chip.active {
+  background: #f59e0b !important;
+  color: #fff !important;
+  border-color: #d97706 !important;
+}
+
+body.light-mode .btn-outline {
+  background: #fff !important;
+  color: #92400e !important;
+  border-color: rgba(180, 83, 9, 0.4) !important;
+}
+
+/* Share Bar & Footer Visibility */
+body.light-mode .share-bar {
+  background: rgba(255, 252, 248, 0.8) !important;
+  border-top: 1px solid rgba(180, 83, 9, 0.1) !important;
+  border-bottom: 1px solid rgba(180, 83, 9, 0.1) !important;
+}
+
+body.light-mode .share-label {
+  color: #92400e !important;
+  font-weight: 600;
+}
+
+body.light-mode .share-btn {
+  background: #fff !important;
+  border-color: rgba(180, 83, 9, 0.3) !important;
+  color: #d97706 !important;
+}
+
+body.light-mode .share-btn:hover {
+  background: #fef3c7 !important;
+  border-color: #d97706 !important;
+}
+
+body.light-mode .footer {
+  background: #faf7f2 !important;
+  border-top: 1px solid rgba(180, 83, 9, 0.1) !important;
+}
+
+body.light-mode .footer-brand p {
+  color: #92400e !important;
+}
+
+body.light-mode .footer .logo-gu {
+  color: #b45309 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .footer-links a {
+  color: #92400e !important;
+}
+
+body.light-mode .footer-links a:hover {
+  color: #d97706 !important;
+}
+
+/* Particle Visibility Adjustment */
+body.light-mode #particles-js {
+  opacity: 0.3 !important;
+  filter: contrast(1.2);
 }
