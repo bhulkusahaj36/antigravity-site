@@ -1,27 +1,25 @@
 // ============================================================
-// PRASANGS HUB PAGE – Prasang category browser
-// Mirrors the home page Featured (prasang avatar row) pattern
+// PRASANGS HUB PAGE — Search, filter, browse
 // ============================================================
 
-const ITEMS_PER_PAGE_PG = 10;
-let currentPagePG = 1;
-let ALL_PRASANG_ARTICLES = [];
+const PS_PAGE_SIZE = 10;
+let ps_page = 1;
+let PS_ALL = [];           // All loaded articles (non-paravani, public)
+let ps_query = '';         // Current search keyword
+let ps_filterPrasang = ''; // Current prasang filter
+let ps_filterTopic = '';   // Current topic filter
+let ps_filterSource = '';  // Current source filter
+let ps_sort = 'latest';    // Sort mode
+let ps_isSearching = false; // Whether user has active search/filter
 
 // Ordered prasang sequence (same as home.js renderFeatured)
-const PRASANG_SEQUENCE = [
-    'bhagwan',
-    'gunatit',
-    'bhagatji',
-    'shastriji',
-    'yogiji',
-    'hariprasad',
-    'prabodh',
-    'bhakto',
-    'prabhudasbhai',
+const PS_PRASANG_SEQUENCE = [
+    'bhagwan', 'gunatit', 'bhagatji', 'shastriji',
+    'yogiji', 'hariprasad', 'prabodh', 'bhakto', 'prabhudasbhai',
 ];
 
-// Build a circular avatar card (matches home.js buildAvatarCard exactly)
-function buildPrasangAvatarCard(id, label) {
+// ── Avatar Row ──────────────────────────────────────────────
+function ps_buildAvatarCard(id, label) {
     const card = document.createElement('a');
     card.className = 'avatar-card';
     card.href = `prasang.html?prasang=${encodeURIComponent(id)}`;
@@ -37,127 +35,402 @@ function buildPrasangAvatarCard(id, label) {
         } else if (img.src.endsWith('.svg')) {
             img.src = `images/prasang/${id}.jpg`;
         } else {
-            const cleanLabel = label.replace(/\n/g, ' ');
-            wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
+            wrap.innerHTML = `<span class="avatar-fallback">${label}</span>`;
         }
     };
     img.src = `images/prasang/${id}.webp`;
     img.alt = label;
-    const cleanLabel = label.replace(/\n/g, ' ');
-    wrap.innerHTML = `<span class="avatar-fallback">${cleanLabel}</span>`;
+    wrap.innerHTML = `<span class="avatar-fallback">${label}</span>`;
 
     const labelEl = document.createElement('span');
     labelEl.className = 'avatar-label';
-    labelEl.textContent = label.replace(/\n/g, ' ');
+    labelEl.textContent = label;
 
     card.appendChild(wrap);
     card.appendChild(labelEl);
     return card;
 }
 
-function renderPrasangAvatarRow() {
+function ps_renderAvatarRow() {
     const container = document.getElementById('prasangGrid');
     if (!container) return;
     container.innerHTML = '';
     container.className = 'avatar-row';
 
-    PRASANG_SEQUENCE.forEach(key => {
-        // PRASANG_LABELS is defined in data.js
+    PS_PRASANG_SEQUENCE.forEach(key => {
         const label = (typeof PRASANG_LABELS !== 'undefined' && PRASANG_LABELS[key]) || key;
-        const card = buildPrasangAvatarCard(key, label);
+        const card = ps_buildAvatarCard(key, label);
         container.appendChild(card);
     });
 
-    // Init scroll buttons after rendering
     if (typeof setupHorizontalScroll === 'function') {
-        const wrappers = document.querySelectorAll('.avatar-row-wrapper');
-        wrappers.forEach(w => setupHorizontalScroll(w));
+        document.querySelectorAll('.avatar-row-wrapper').forEach(w => setupHorizontalScroll(w));
     }
 }
 
-function getSortedPG(articles) {
-    return [...articles].sort((a, b) => {
-        const dA = parseInt(a.id) || 0;
-        const dB = parseInt(b.id) || 0;
-        return dB - dA;
-    });
+// ── Filtering & Search Logic ────────────────────────────────
+
+/** Normalize text for fuzzy search */
+function ps_norm(str) {
+    return (str || '').toLowerCase().trim();
 }
 
-function renderLatestPrasang() {
-    const grid = document.getElementById('prasangsGrid');
-    const paginationEl = document.getElementById('pagination');
-    if (!grid || !paginationEl) return;
+/** Check if article matches a comma-separated field (e.g. prasang, topic) */
+function ps_fieldMatch(fieldVal, filterVal) {
+    if (!filterVal) return true;
+    const parts = (fieldVal || '').split(',').map(s => s.trim());
+    return parts.includes(filterVal);
+}
 
-    const sorted = getSortedPG(ALL_PRASANG_ARTICLES);
+/** Highlight keyword in text */
+function ps_highlight(text, keyword) {
+    if (!keyword) return text;
+    const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const re = new RegExp(`(${escaped})`, 'gi');
+    return text.replace(re, '<mark class="ps-highlight">$1</mark>');
+}
 
+/** Build a card, optionally highlighting a keyword in title/excerpt */
+function ps_buildCard(article, keyword) {
+    const el = document.createElement('div');
+    el.className = 'article-card neon-latest-card card-animate';
+
+    let excerptText = '';
+    if (article.excerpt) {
+        const plain = article.excerpt.replace(/<[^>]*>?/gm, '');
+        excerptText = plain.substring(0, 120).trim() + (plain.length > 120 ? '…' : '');
+    } else if (article.content) {
+        const plain = article.content.replace(/<[^>]*>?/gm, '');
+        excerptText = plain.substring(0, 120).trim() + (plain.length > 120 ? '…' : '');
+    }
+
+    const displayLabel = (typeof getCategoryName === 'function')
+        ? (getCategoryName(article.prasang) || getCategoryName(article.category || article.topic || ''))
+        : '';
+
+    const titleHtml = ps_highlight(article.title || '', keyword);
+    const excerptHtml = ps_highlight(excerptText, keyword);
+
+    el.innerHTML = `
+        <span class="neon-bg-span"></span>
+        <div class="content">
+          ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
+          <h3 class="card-title">${titleHtml}</h3>
+          <p class="card-prasang-label">${displayLabel}</p>
+          <p class="card-excerpt">${excerptHtml}</p>
+        </div>
+    `;
+
+    el.addEventListener('click', () => {
+        window.location.href = `article.html?id=${article.id}`;
+    });
+    return el;
+}
+
+/** Get filtered & sorted article list */
+function ps_getFiltered() {
+    const q = ps_norm(ps_query);
+
+    let results = PS_ALL.filter(a => {
+        // Prasang filter
+        if (ps_filterPrasang && !ps_fieldMatch(a.prasang, ps_filterPrasang)) return false;
+        // Topic filter
+        if (ps_filterTopic && !ps_fieldMatch(a.topic || a.category, ps_filterTopic)) return false;
+        // Source filter
+        if (ps_filterSource && !ps_fieldMatch(a.source, ps_filterSource)) return false;
+        // Keyword search
+        if (q) {
+            const fields = [a.title, a.excerpt, a.content, a.prasang, a.topic, a.source]
+                .map(f => ps_norm(f || '')).join(' ');
+            if (!fields.includes(q)) return false;
+        }
+        return true;
+    });
+
+    // Sort
+    results = results.sort((a, b) => {
+        const dA = parseInt(a.id) || 0;
+        const dB = parseInt(b.id) || 0;
+        return ps_sort === 'oldest' ? dA - dB : dB - dA;
+    });
+
+    return results;
+}
+
+// ── Render ──────────────────────────────────────────────────
+
+function ps_render() {
+    const grid = document.getElementById('psResultsGrid');
+    const emptyEl = document.getElementById('psEmpty');
+    const emptyMsg = document.getElementById('psEmptyMsg');
+    const summaryEl = document.getElementById('psSummary');
+    const paginationEl = document.getElementById('psPagination');
+    if (!grid) return;
+
+    const results = ps_getFiltered();
+    const isFiltered = ps_isSearching;
+    const total = results.length;
+
+    // Update summary
+    const q = ps_query.trim();
+    if (isFiltered) {
+        let summaryParts = [];
+        if (q) summaryParts.push(`"<strong>${q}</strong>"`);
+        if (ps_filterPrasang && typeof PRASANG_LABELS !== 'undefined') {
+            summaryParts.push(PRASANG_LABELS[ps_filterPrasang] || ps_filterPrasang);
+        }
+        const filterDesc = summaryParts.length ? ` · ${summaryParts.join(', ')}` : '';
+        summaryEl.innerHTML = `<strong>${total}</strong> results found${filterDesc}`;
+    } else {
+        summaryEl.innerHTML = `<strong>${PS_ALL.length}</strong> prasang articles`;
+    }
+
+    // Slice for pagination
+    const totalPages = Math.ceil(total / PS_PAGE_SIZE) || 1;
+    if (ps_page > totalPages) ps_page = 1;
+    const start = (ps_page - 1) * PS_PAGE_SIZE;
+    const slice = results.slice(start, start + PS_PAGE_SIZE);
+
+    // Render cards
     grid.innerHTML = '';
     paginationEl.innerHTML = '';
 
-    if (sorted.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:2rem;">કોઈ પ્રસંગ લેખ મળ્યા નથી.</p>';
+    if (slice.length === 0) {
+        emptyEl.style.display = 'block';
+        if (q) {
+            emptyMsg.textContent = `"${q}" માટે કોઈ પ્રસંગ મળ્યા નથી.`;
+        } else {
+            emptyMsg.textContent = 'આ ફિલ્ટર માટે કોઈ પ્રસંગ મળ્યા નથી.';
+        }
         return;
     }
 
-    const totalPages = Math.ceil(sorted.length / ITEMS_PER_PAGE_PG);
-    const slice = sorted.slice((currentPagePG - 1) * ITEMS_PER_PAGE_PG, currentPagePG * ITEMS_PER_PAGE_PG);
+    emptyEl.style.display = 'none';
 
     slice.forEach((a, i) => {
-        const card = buildCard(a, true);
-        card.style.animationDelay = `${i * 0.06}s`;
+        const card = ps_buildCard(a, q);
         grid.appendChild(card);
         if (typeof gsap !== 'undefined') {
             gsap.fromTo(card,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.5, delay: i * 0.05, ease: 'power2.out' }
+                { opacity: 0, y: 18 },
+                { opacity: 1, y: 0, duration: 0.45, delay: i * 0.045, ease: 'power2.out' }
             );
         }
     });
 
-    if (totalPages > 1) {
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'btn btn-outline';
-        prevBtn.textContent = 'Back';
-        prevBtn.disabled = currentPagePG === 1;
-        prevBtn.onclick = () => {
-            if (currentPagePG > 1) {
-                currentPagePG--;
-                renderLatestPrasang();
-                window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
-            }
-        };
+    // Pagination
+    ps_buildPagination(paginationEl, ps_page, totalPages, grid);
+}
 
-        const pageIndicator = document.createElement('span');
-        pageIndicator.style.color = 'var(--text-light)';
-        pageIndicator.textContent = `Page ${currentPagePG} / ${totalPages}`;
+function ps_buildPagination(container, current, total, scrollTarget) {
+    if (total <= 1) return;
 
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'btn btn-outline';
-        nextBtn.textContent = 'Next';
-        nextBtn.disabled = currentPagePG === totalPages;
-        nextBtn.onclick = () => {
-            if (currentPagePG < totalPages) {
-                currentPagePG++;
-                renderLatestPrasang();
-                window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
-            }
-        };
+    const nav = (label, page, disabled) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn btn-outline';
+        btn.textContent = label;
+        btn.disabled = disabled;
+        btn.style.padding = '0.5rem 1.2rem';
+        btn.style.fontSize = '0.85rem';
+        btn.addEventListener('click', () => {
+            ps_page = page;
+            ps_render();
+            scrollTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        return btn;
+    };
 
-        paginationEl.appendChild(prevBtn);
-        paginationEl.appendChild(pageIndicator);
-        paginationEl.appendChild(nextBtn);
+    const indicator = document.createElement('span');
+    indicator.style.cssText = 'color:var(--text-muted);font-size:0.85rem;align-self:center;';
+    indicator.textContent = `${current} / ${total}`;
+
+    container.appendChild(nav('← Back', current - 1, current === 1));
+    container.appendChild(indicator);
+    container.appendChild(nav('Next →', current + 1, current === total));
+}
+
+// ── Active Filter Chips ─────────────────────────────────────
+
+function ps_renderChips() {
+    const container = document.getElementById('psActiveChips');
+    const clearBtn = document.getElementById('psClearBtn');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const chips = [];
+
+    if (ps_query.trim()) {
+        chips.push({ label: `"${ps_query}"`, clear: () => { ps_query = ''; document.getElementById('psSearchInput').value = ''; } });
+    }
+    if (ps_filterPrasang) {
+        const label = (typeof PRASANG_LABELS !== 'undefined' && PRASANG_LABELS[ps_filterPrasang]) || ps_filterPrasang;
+        chips.push({ label, clear: () => { ps_filterPrasang = ''; document.getElementById('psFilterPrasang').value = ''; } });
+    }
+    if (ps_filterTopic) {
+        const sel = document.getElementById('psFilterTopic');
+        const opt = sel ? Array.from(sel.options).find(o => o.value === ps_filterTopic) : null;
+        const label = opt ? opt.text : ps_filterTopic;
+        chips.push({ label, clear: () => { ps_filterTopic = ''; document.getElementById('psFilterTopic').value = ''; } });
+    }
+    if (ps_filterSource) {
+        const sel = document.getElementById('psFilterSource');
+        const opt = sel ? Array.from(sel.options).find(o => o.value === ps_filterSource) : null;
+        const label = opt ? opt.text : ps_filterSource;
+        chips.push({ label, clear: () => { ps_filterSource = ''; document.getElementById('psFilterSource').value = ''; } });
+    }
+
+    chips.forEach(chip => {
+        const el = document.createElement('div');
+        el.className = 'ps-chip';
+        el.innerHTML = `${chip.label} <span class="ps-chip-x" aria-label="Remove">×</span>`;
+        el.addEventListener('click', () => {
+            chip.clear();
+            ps_updateSearchState();
+            ps_page = 1;
+            ps_renderChips();
+            ps_render();
+        });
+        container.appendChild(el);
+    });
+
+    if (clearBtn) {
+        clearBtn.classList.toggle('visible', chips.length > 0);
     }
 }
 
-async function loadPrasangsArticles() {
-    // Show skeleton while loading
-    const grid = document.getElementById('prasangsGrid');
+function ps_updateSearchState() {
+    ps_isSearching = !!(ps_query.trim() || ps_filterPrasang || ps_filterTopic || ps_filterSource);
+}
+
+// ── Event Wiring ─────────────────────────────────────────────
+
+function ps_wireEvents() {
+    const searchInput = document.getElementById('psSearchInput');
+    const searchBtn = document.getElementById('psSearchBtn');
+    const clearBtn = document.getElementById('psClearBtn');
+    const filterPrasang = document.getElementById('psFilterPrasang');
+    const filterTopic = document.getElementById('psFilterTopic');
+    const filterSource = document.getElementById('psFilterSource');
+    const sortSel = document.getElementById('psSortSelect');
+
+    // Instant search as user types (debounced 300ms)
+    let debounceTimer;
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                ps_query = searchInput.value;
+                ps_updateSearchState();
+                ps_page = 1;
+                ps_renderChips();
+                ps_render();
+            }, 300);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                clearTimeout(debounceTimer);
+                ps_query = searchInput.value;
+                ps_updateSearchState();
+                ps_page = 1;
+                ps_renderChips();
+                ps_render();
+            }
+        });
+    }
+
+    // Search button
+    if (searchBtn) {
+        searchBtn.addEventListener('click', () => {
+            ps_query = (searchInput ? searchInput.value : '');
+            ps_updateSearchState();
+            ps_page = 1;
+            ps_renderChips();
+            ps_render();
+        });
+    }
+
+    // Filter dropdowns
+    if (filterPrasang) {
+        filterPrasang.addEventListener('change', () => {
+            ps_filterPrasang = filterPrasang.value;
+            ps_updateSearchState();
+            ps_page = 1;
+            ps_renderChips();
+            ps_render();
+        });
+    }
+    if (filterTopic) {
+        filterTopic.addEventListener('change', () => {
+            ps_filterTopic = filterTopic.value;
+            ps_updateSearchState();
+            ps_page = 1;
+            ps_renderChips();
+            ps_render();
+        });
+    }
+    if (filterSource) {
+        filterSource.addEventListener('change', () => {
+            ps_filterSource = filterSource.value;
+            ps_updateSearchState();
+            ps_page = 1;
+            ps_renderChips();
+            ps_render();
+        });
+    }
+
+    // Sort
+    if (sortSel) {
+        sortSel.addEventListener('change', () => {
+            ps_sort = sortSel.value;
+            ps_page = 1;
+            ps_render();
+        });
+    }
+
+    // Clear all
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            ps_query = '';
+            ps_filterPrasang = '';
+            ps_filterTopic = '';
+            ps_filterSource = '';
+            if (searchInput) searchInput.value = '';
+            if (filterPrasang) filterPrasang.value = '';
+            if (filterTopic) filterTopic.value = '';
+            if (filterSource) filterSource.value = '';
+            ps_updateSearchState();
+            ps_page = 1;
+            ps_renderChips();
+            ps_render();
+        });
+    }
+}
+
+// ── If arriving from avatar click on home (via ?prasang=xxx) ─
+function ps_checkUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    const p = params.get('prasang');
+    if (p) {
+        ps_filterPrasang = p;
+        const sel = document.getElementById('psFilterPrasang');
+        if (sel) sel.value = p;
+        ps_updateSearchState();
+    }
+}
+
+// ── Data Load ────────────────────────────────────────────────
+
+async function ps_load() {
+    // Show skeleton
+    const grid = document.getElementById('psResultsGrid');
     if (grid) {
         grid.className = 'cards-grid stacked-grid';
         grid.innerHTML = Array(4).fill(`
-            <div class="skeleton-card" style="animation: pulse 1.5s infinite;">
-                <div class="skeleton-line skeleton-title" style="background: var(--card-border);"></div>
-                <div class="skeleton-line skeleton-body1" style="background: var(--card-border); margin-top: 1rem;"></div>
-                <div class="skeleton-line skeleton-body2" style="background: var(--card-border);"></div>
+            <div class="skeleton-card" style="animation:pulse 1.5s infinite;">
+                <div class="skeleton-line skeleton-title" style="background:var(--card-border);"></div>
+                <div class="skeleton-line skeleton-body1" style="background:var(--card-border);margin-top:1rem;"></div>
+                <div class="skeleton-line skeleton-body2" style="background:var(--card-border);"></div>
             </div>
         `).join('');
     }
@@ -166,38 +439,33 @@ async function loadPrasangsArticles() {
         const res = await fetch('/api/articles?compact=true');
         if (res.ok) {
             const dynamic = await res.json();
-            const dynamicIds = new Set(dynamic.map(a => String(a.id)));
-            const staticFiltered = typeof ARTICLES !== 'undefined'
-                ? ARTICLES.filter(a => !dynamicIds.has(String(a.id)))
+            const dynIds = new Set(dynamic.map(a => String(a.id)));
+            const staticData = typeof ARTICLES !== 'undefined'
+                ? ARTICLES.filter(a => !dynIds.has(String(a.id)))
                 : [];
-            let combined = [...staticFiltered, ...dynamic];
-            // Show all public, non-paravani articles (same logic as home.js)
-            ALL_PRASANG_ARTICLES = combined.filter(a =>
+            PS_ALL = [...staticData, ...dynamic].filter(a =>
                 a.public !== false && a.public !== 'no' && a.type !== 'paravani'
             );
         } else {
-            if (typeof ARTICLES !== 'undefined') {
-                ALL_PRASANG_ARTICLES = ARTICLES.filter(a =>
-                    a.public !== false && a.public !== 'no' && a.type !== 'paravani'
-                );
-            }
+            throw new Error('API error');
         }
-    } catch (e) {
-        console.warn('Falling back to local static data:', e);
+    } catch (_) {
         if (typeof ARTICLES !== 'undefined') {
-            ALL_PRASANG_ARTICLES = ARTICLES.filter(a =>
+            PS_ALL = ARTICLES.filter(a =>
                 a.public !== false && a.public !== 'no' && a.type !== 'paravani'
             );
         }
     }
 
-    renderLatestPrasang();
+    ps_renderChips();
+    ps_render();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Avatar row is static — render immediately
-    renderPrasangAvatarRow();
+// ── Init ─────────────────────────────────────────────────────
 
-    // Load articles from API
-    loadPrasangsArticles();
+document.addEventListener('DOMContentLoaded', () => {
+    ps_renderAvatarRow();
+    ps_checkUrlParams();
+    ps_wireEvents();
+    ps_load();
 });

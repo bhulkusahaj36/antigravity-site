@@ -16,6 +16,275 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet" />
+
+    <style>
+        /* ── Prasangs Page Specific Styles ────────────────────── */
+        .ps-search-section {
+            padding: 1.5rem 0 0.5rem;
+        }
+
+        /* Search bar – wider than default search-box */
+        .ps-search-bar {
+            display: flex;
+            gap: 0.6rem;
+            max-width: 100%;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+
+        .ps-search-input {
+            flex: 1;
+            background: rgba(26, 18, 11, 0.8);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: var(--radius-pill);
+            color: var(--text-primary);
+            font-family: var(--font-gu-sans);
+            font-size: 1.05rem;
+            padding: 0.75rem 1.5rem;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+            backdrop-filter: blur(8px);
+        }
+
+        .ps-search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .ps-search-input:focus {
+            border-color: var(--gold-500);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.12), 0 0 20px rgba(245, 158, 11, 0.08);
+        }
+
+        .ps-search-btn {
+            flex-shrink: 0;
+            padding: 0.75rem 1.75rem;
+            font-size: 0.95rem;
+        }
+
+        /* Filters row */
+        .ps-filters {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .ps-filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .ps-filter-label {
+            font-family: var(--font-en);
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .ps-filter-select {
+            background: rgba(26, 18, 11, 0.85);
+            border: 1px solid rgba(245, 158, 11, 0.18);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-family: var(--font-gu-sans);
+            font-size: 0.9rem;
+            padding: 0.55rem 0.85rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+            backdrop-filter: blur(8px);
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238a7d6e' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            padding-right: 2rem;
+        }
+
+        .ps-filter-select:focus {
+            border-color: var(--gold-500);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .ps-filter-select option {
+            background: #1a120b;
+            color: var(--text-primary);
+        }
+
+        .ps-clear-btn {
+            flex-shrink: 0;
+            padding: 0.55rem 1.2rem;
+            font-size: 0.85rem;
+            align-self: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            white-space: nowrap;
+        }
+
+        .ps-clear-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Active filter chips */
+        .ps-active-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+            min-height: 0;
+        }
+
+        .ps-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(245, 158, 11, 0.12);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--radius-pill);
+            padding: 0.3rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--gold-400);
+            font-family: var(--font-gu-sans);
+            cursor: pointer;
+            transition: background 0.2s;
+            user-select: none;
+        }
+
+        .ps-chip:hover {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .ps-chip-x {
+            font-size: 1rem;
+            line-height: 1;
+            opacity: 0.7;
+        }
+
+        /* Results summary */
+        .ps-summary {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.25rem;
+            min-height: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-gu-sans);
+        }
+
+        .ps-summary strong {
+            color: var(--gold-400);
+        }
+
+        .ps-summary-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Section header tweak for the results area */
+        .ps-results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            gap: 1rem;
+        }
+
+        .ps-results-heading {
+            font-family: var(--font-gu);
+            font-size: 1.4rem;
+            color: var(--gold-400);
+            margin: 0;
+        }
+
+        /* Sort select */
+        .ps-sort-select {
+            background: rgba(26, 18, 11, 0.7);
+            border: 1px solid rgba(245, 158, 11, 0.18);
+            border-radius: var(--radius-pill);
+            color: var(--text-secondary);
+            font-family: var(--font-en);
+            font-size: 0.82rem;
+            padding: 0.35rem 0.9rem;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .ps-sort-select:focus {
+            border-color: var(--gold-500);
+        }
+
+        /* Highlighted keyword in cards */
+        mark.ps-highlight {
+            background: rgba(245, 158, 11, 0.28);
+            color: var(--gold-300);
+            border-radius: 2px;
+            padding: 0 1px;
+        }
+
+        /* Empty state override */
+        .ps-empty {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+        }
+
+        .ps-empty-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.4;
+        }
+
+        .ps-empty p {
+            font-family: var(--font-gu-sans);
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* ── Divider between avatar row and search ── */
+        .ps-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.2), transparent);
+            margin: 0.5rem 0 1.5rem;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            .ps-filters {
+                gap: 0.5rem;
+            }
+
+            .ps-filter-group {
+                min-width: calc(50% - 0.25rem);
+                flex: 0 0 calc(50% - 0.25rem);
+            }
+
+            .ps-clear-btn {
+                width: 100%;
+                flex: 0 0 100%;
+            }
+
+            .ps-search-btn {
+                padding: 0.75rem 1rem;
+            }
+        }
+    </style>
 </head>
 
 <body class="prasangs-page">
@@ -35,7 +304,7 @@
                 <li><a href="search.html" class="nav-link">Search</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle Theme">
-                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                         <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     </button>
                 </li>
@@ -51,8 +320,8 @@
         </div>
     </section>
 
-    <!-- PRASANG CATEGORIES (Avatar Row) -->
-    <section class="section categories-highlight" id="prasangsSection">
+    <!-- PRASANG AVATAR ROW -->
+    <section class="section categories-highlight" id="prasangsSection" style="padding-bottom:0.5rem;">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">પ્રસંગ પ્રકાર</h2>
@@ -67,14 +336,110 @@
         </div>
     </section>
 
-    <!-- LATEST PRASANG ARTICLES -->
-    <section class="section articles-section" id="latestSection">
+    <!-- SEARCH + FILTER + RESULTS -->
+    <section class="section ps-search-section" id="searchSection">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" id="latestHeading">Latest પ્રસંગ</h2>
+
+            <div class="ps-divider"></div>
+
+            <!-- Search bar -->
+            <div class="ps-search-bar">
+                <input
+                    type="search"
+                    id="psSearchInput"
+                    class="ps-search-input"
+                    placeholder="શીર્ષક, વિષય, પ્રસંગ શોધો..."
+                    aria-label="Search prasangs"
+                    autocomplete="off"
+                />
+                <button class="btn btn-primary ps-search-btn" id="psSearchBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    શોધો
+                </button>
             </div>
-            <div class="cards-grid stacked-grid" id="prasangsGrid"></div>
-            <div class="pagination" id="pagination"></div>
+
+            <!-- Filter row -->
+            <div class="ps-filters">
+
+                <div class="ps-filter-group">
+                    <label class="ps-filter-label" for="psFilterPrasang">પ્રસંગ of</label>
+                    <select id="psFilterPrasang" class="ps-filter-select">
+                        <option value="">બધા</option>
+                        <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
+                        <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
+                        <option value="bhagatji">ભગતજી મહારાજ</option>
+                        <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
+                        <option value="yogiji">યોગીજી મહારાજ</option>
+                        <option value="hariprasad">હરિપ્રસાદ સ્વામીજી</option>
+                        <option value="prabodh">પ્રબોધ સ્વામીજી</option>
+                        <option value="bhakto">ભક્તો</option>
+                        <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
+                    </select>
+                </div>
+
+                <div class="ps-filter-group">
+                    <label class="ps-filter-label" for="psFilterTopic">વિષય</label>
+                    <select id="psFilterTopic" class="ps-filter-select">
+                        <option value="">બધા</option>
+                        <option value="mahima">મહિમા</option>
+                        <option value="atmiyata">આત્મીયતા</option>
+                        <option value="nishtha">નિષ્ઠા</option>
+                        <option value="seva">સેવા</option>
+                        <option value="bhagvadi">ભગવદી</option>
+                        <option value="bhakti">ભક્તોનો મહિમા</option>
+                        <option value="saralata">સરળતા</option>
+                        <option value="swadharm">સ્વધર્મ</option>
+                        <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
+                        <option value="bhajan">ભજન/સ્વામિ. મહામંત્ર</option>
+                        <option value="vachanamrut">વચનામૃત</option>
+                        <option value="swamini">સ્વામીની વાતો</option>
+                        <option value="shikshapatri">શિક્ષાપત્રી</option>
+                        <option value="samagam">સમાગમ</option>
+                        <option value="katha-varta">કથા-વાર્તા</option>
+                    </select>
+                </div>
+
+                <div class="ps-filter-group">
+                    <label class="ps-filter-label" for="psFilterSource">સ્ત્રોત</label>
+                    <select id="psFilterSource" class="ps-filter-select">
+                        <option value="">બધા</option>
+                        <option value="swamiji">સ્વામીજી પરાવાણી</option>
+                        <option value="prabodh">પ્રબોધ સ્વામી પ.</option>
+                        <option value="santo">સંતો પ્રવચન</option>
+                        <option value="bhakto">ભક્તો</option>
+                        <option value="granth">ગ્રંથ</option>
+                        <option value="vicharan">વિચરણ રિપોર્ટ</option>
+                        <option value="patrika">પત્રિકા</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-outline ps-clear-btn" id="psClearBtn" title="Clear all filters">✕ Clear</button>
+            </div>
+
+            <!-- Active filter chips -->
+            <div class="ps-active-chips" id="psActiveChips"></div>
+
+            <!-- Results summary + sort -->
+            <div class="ps-results-header">
+                <div class="ps-summary" id="psSummary"></div>
+                <select class="ps-sort-select" id="psSortSelect" aria-label="Sort">
+                    <option value="latest">Latest First</option>
+                    <option value="oldest">Oldest First</option>
+                </select>
+            </div>
+
+            <!-- Results grid -->
+            <div class="cards-grid stacked-grid" id="psResultsGrid"></div>
+
+            <!-- Empty state -->
+            <div class="ps-empty" id="psEmpty" style="display:none;">
+                <div class="ps-empty-icon">🔍</div>
+                <p id="psEmptyMsg">કોઈ પ્રસંગ મળ્યા નથી.</p>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination" id="psPagination"></div>
+
         </div>
     </section>
 
