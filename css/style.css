@@ -1015,29 +1015,66 @@ body.light-mode .hero-top-img {
   z-index: 1;
 }
 
-.prasang-back-btn {
+/* ============================================================
+   MODERN BACK BUTTON (UIverse themed)
+   ============================================================ */
+.modern-back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  font-family: var(--font-gu-sans);
-  font-size: 0.85rem;
-  color: var(--text-secondary);
+  width: 12rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  position: relative;
+  background: var(--bg-900);
+  border: 4px solid var(--card-border);
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  font-weight: 600;
   text-decoration: none;
+  font-family: var(--font-gu-sans);
   margin-bottom: 1.5rem;
-  padding: 0.3rem 0.9rem;
-  border-top: 1px solid rgba(245, 158, 11, 0.15);
-  border-left: 1px solid rgba(245, 158, 11, 0.15);
-  border-right: 1px solid rgba(245, 158, 11, 0.15);
-  border-bottom: 3px solid rgba(212, 160, 23, 0.6);
-  border-radius: 999px;
-  background: var(--card-bg);
-  transition: all var(--transition);
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
 }
 
-.prasang-back-btn:hover {
-  color: var(--gold-400);
-  border-color: var(--gold-600);
-  background: rgba(212, 160, 23, 0.06);
+.modern-back-btn .btn-text {
+  transform: translateX(3rem);
+  position: relative;
+  z-index: 20;
+  color: var(--text-title);
+  transition: color 0.5s ease;
+  width: 100%;
+  text-align: center;
+  padding-right: 1.5rem;
+  margin: 0;
+}
+
+.modern-back-btn:hover .btn-text {
+  color: var(--bg-900);
+}
+
+.modern-back-btn .icon-container {
+  background: var(--saffron-500);
+  border-radius: 0.75rem;
+  height: calc(100% - 8px);
+  width: 25%;
+  display: grid;
+  place-items: center;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  z-index: 10;
+  transition: width 0.5s ease;
+}
+
+.modern-back-btn:hover .icon-container {
+  width: calc(100% - 8px);
+}
+
+.modern-back-btn svg {
+  width: 25px;
+  height: 25px;
+  color: var(--bg-900);
 }
 
 .prasang-banner-content {
@@ -3659,30 +3696,6 @@ body.light-mode #particles-js {
     inset 0 1px 0 rgba(255, 225, 150, 0.2);
 }
 
-/* Gradient bg for the top decorative area */
-.carousel-3d-img {
-  flex-shrink: 0;
-  height: 80px;
-  background: radial-gradient(
-    ellipse at top,
-    rgba(245, 158, 11, 0.3) 0%,
-    rgba(26, 18, 11, 0.6) 100%
-  );
-  border-bottom: 1px solid rgba(245, 158, 11, 0.15);
-  position: relative;
-}
-
-/* Small saffron orb decoration on the top zone */
-.carousel-3d-img::after {
-  content: '✦';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 1.6rem;
-  color: rgba(251, 191, 36, 0.45);
-  text-shadow: 0 0 18px rgba(245, 158, 11, 0.6);
-}
 
 /* Text content area */
 .carousel-3d-content {

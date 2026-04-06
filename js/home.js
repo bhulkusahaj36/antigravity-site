@@ -150,7 +150,6 @@ function renderArticles() {
         const excerptText = plainText.substring(0, 90).trim() + (plainText.length > 90 ? '...' : '');
 
         item.innerHTML = `
-            <div class="carousel-3d-img"></div>
             <div class="carousel-3d-content">
                 ${a.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
                 <h3 class="carousel-3d-title">${a.title}</h3>
