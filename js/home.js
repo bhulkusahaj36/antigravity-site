@@ -130,13 +130,43 @@ function renderArticles() {
     const sorted = getSorted(ALL_ARTICLES).slice(0, 10);
 
     grid.innerHTML = '';
+    // Remove old class if any
+    grid.className = 'carousel-3d-inner';
+
+    const count = sorted.length;
+    // Set the quantity CSS variable on the inner element so card transforms work correctly
+    grid.style.setProperty('--quantity', count);
+
     sorted.forEach((a, i) => {
-        const card = buildCard(a, true);
-        card.style.animationDelay = `${i * 0.07}s`;
-        grid.appendChild(card);
+        const item = document.createElement('div');
+        item.className = 'carousel-3d-card';
+        item.style.setProperty('--index', i);
+
+        // Determine label
+        const displayLabel = getCategoryName(a.prasang) || getCategoryName(a.category || a.topic || 'bhakti');
+
+        // Excerpt text
+        const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
+        const excerptText = plainText.substring(0, 90).trim() + (plainText.length > 90 ? '...' : '');
+
+        item.innerHTML = `
+            <div class="carousel-3d-img"></div>
+            <div class="carousel-3d-content">
+                ${a.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
+                <h3 class="carousel-3d-title">${a.title}</h3>
+                <p class="carousel-3d-label">${displayLabel}</p>
+                <p class="carousel-3d-excerpt">${excerptText}</p>
+            </div>
+        `;
+
+        item.addEventListener('click', () => {
+            window.location.href = `article.html?id=${a.id}`;
+        });
+
+        grid.appendChild(item);
     });
 
-    // Clear pagination for home page latest section
+    // Clear old pagination
     const paginationEl = document.getElementById('pagination');
     if (paginationEl) paginationEl.innerHTML = '';
 }

@@ -19,7 +19,7 @@
     <link rel="icon" type="image/webp" href="images/logo.webp" />
     <link rel="shortcut icon" href="images/Logo.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="images/Logo.webp" />
-    <link rel="stylesheet" href="css/style.css?v=2.1" />
+    <link rel="stylesheet" href="css/style.css?v=2.2" />
 
     <!-- PRELOAD CRITICAL ASSETS FOR FASTER PAINT -->
     <link rel="preload" href="images/kathamrut.webp" as="image" />
@@ -111,18 +111,15 @@
         </div>
     </section>
 
-    <!-- LATEST ARTICLES -->
+    <!-- LATEST ARTICLES — 3D Rotating Carousel -->
     <section class="section articles-section" id="articles">
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">Latest</h2>
-                <div class="scroll-controls">
-                    <button class="scroll-btn prev-btn" aria-label="Previous">‹</button>
-                    <button class="scroll-btn next-btn" aria-label="Next">›</button>
-                </div>
             </div>
-            <div class="cards-grid" id="articlesGrid"></div>
-            <div class="pagination" id="pagination"></div>
+            <div class="carousel-3d-wrapper">
+                <div class="carousel-3d-inner" id="articlesGrid"></div>
+            </div>
         </div>
     </section>
 
