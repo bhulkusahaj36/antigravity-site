@@ -3687,7 +3687,7 @@ body.light-mode #particles-js {
 /* The rotating cylinder — all positional maths happen here */
 .carousel-3d-inner {
   --w: 200px;
-  --h: 280px;
+  --h: 224px;
   --translateZ: 420px;
   --rotateX: -10deg;
   --perspective: 1200px;
@@ -3806,7 +3806,7 @@ body.light-mode #particles-js {
 
   .carousel-3d-inner {
     --w: 155px;
-    --h: 220px;
+    --h: 176px;
     --translateZ: 300px;
   }
 }
