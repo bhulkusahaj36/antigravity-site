@@ -107,7 +107,7 @@ async function init() {
     currentPrasang = getQueryParam('prasang');
 
     if (!currentPrasang) {
-        window.location.href = 'index.html';
+        window.location.href = 'prasangs.html';
         return;
     }
 
