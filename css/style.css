@@ -580,14 +580,14 @@ body.light-mode .hero-top-img {
    ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero-title {
-    margin-top: -7rem !important;
-    margin-bottom: -3.5rem !important;
+    margin-top: -6rem !important;
+    margin-bottom: 0rem !important;
     animation: none;
   }
 
   .hero-top-img {
     max-height: 40vh !important;
-    transform: scale(2.3) translateY(-3rem) !important;
+    transform: scale(2.0) translateY(-2rem) !important;
     transform-origin: top center !important;
     margin-bottom: 0 !important;
     opacity: 0.6 !important;
@@ -596,15 +596,15 @@ body.light-mode .hero-top-img {
   .hero-calligraphy {
     max-width: 85% !important;
     left: 0 !important;
-    transform: scale(3.5) translateY(-0.7rem) !important;
+    transform: scale(2.2) translateY(-0.5rem) !important;
     margin-top: 0 !important;
   }
 
   .hero-quote {
-    padding: 0.85rem 1.1rem !important;
-    margin-top: 0 !important;
+    padding: 1rem 1.1rem !important;
+    margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
-    transform: translateY(1rem) !important;
+    transform: none !important;
     font-size: 0.95rem !important;
   }
 
@@ -620,9 +620,10 @@ body.light-mode .hero-top-img {
 
   .hero-actions .btn {
     flex: 1 !important;
-    max-width: 110px !important;
-    padding: 0.6rem 0.5rem !important;
-    font-size: 0.82rem !important;
+    max-width: 120px !important;
+    padding: 0.6rem 0.4rem !important;
+    font-size: 0.85rem !important;
+    white-space: nowrap !important;
   }
 
   .section-header {
