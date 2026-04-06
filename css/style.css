@@ -165,7 +165,7 @@ body::before {
   height: 100vh;
   z-index: -3; /* Moved further back */
   pointer-events: none;
-  opacity: 0.4; /* Made bit more transparent */
+  opacity: 0.8; /* Increased opacity as requested */
   background-image: repeating-linear-gradient(
       0deg,
       transparent,
@@ -203,7 +203,7 @@ body::before {
 }
 
 body.light-mode::before {
-  opacity: 0.25; /* Even more subtle in light mode */
+  opacity: 0.6; /* Increased opacity for light mode */
   background-image: repeating-linear-gradient(
       0deg, transparent, transparent 19px, rgba(0, 0, 0, 0.02) 19px, rgba(0, 0, 0, 0.02) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.02) 39px, rgba(0, 0, 0, 0.02) 40px
     ),
