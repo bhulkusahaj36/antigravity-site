@@ -151,36 +151,65 @@ body {
 }
 
 /* === SPLIT BACKGROUND SYSTEM ===
-   The Background.webp image is portrait (tall).
-   We use TWO layered fixed pseudo-elements so the image
-   properly covers the full page respecting aspect ratio:
-   - body::before = the image itself (absolute, covers entire page)
-   - body::after  = gradient overlay for readability on content sections
-
-   The image's natural midpoint (yellow line at ~50% height) is
-   placed at exactly the hero/content boundary via background-position.
+   We now use a premium circuit/grill pattern in the background
+   The yellow dots and lines fit the Organic Saffron theme.
+   body::before = circuit pattern (fixed)
+   body::after  = gradient overlay for readability
 */
 body::before {
   content: '';
-  position: absolute;
-  /* Bound to page flow for scrolling */
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  /* Spans full body length */
-  background-image: url('../images/Background.webp');
-  background-repeat: no-repeat;
-  background-position: top center;
-  /* Using 100% width auto-height to maintain the original designed ratio.
-     This ensures the yellow line in the image aligns with the 100vh hero marker on desktop. */
-  background-size: 100% auto;
+  width: 100vw;
+  height: 100vh;
   z-index: -2;
   pointer-events: none;
-  display: none;
-  /* Hidden per user request; focusing on card background color shades */
-  opacity: 0.65;
-  /* Balanced opacity to prevent 'messy' appearance while keeping depth */
+  background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 19px,
+      rgba(245, 158, 11, 0.03) 19px,
+      rgba(245, 158, 11, 0.03) 20px,
+      transparent 20px,
+      transparent 39px,
+      rgba(245, 158, 11, 0.03) 39px,
+      rgba(245, 158, 11, 0.03) 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 19px,
+      rgba(245, 158, 11, 0.03) 19px,
+      rgba(245, 158, 11, 0.03) 20px,
+      transparent 20px,
+      transparent 39px,
+      rgba(245, 158, 11, 0.03) 39px,
+      rgba(245, 158, 11, 0.03) 40px
+    ),
+    radial-gradient(
+      circle at 20px 20px,
+      rgba(245, 158, 11, 0.06) 2px,
+      transparent 2px
+    ),
+    radial-gradient(
+      circle at 40px 40px,
+      rgba(245, 158, 11, 0.06) 2px,
+      transparent 2px
+    );
+  background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px;
+  display: block;
+}
+
+body.light-mode::before {
+  background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 19px, rgba(0, 0, 0, 0.035) 19px, rgba(0, 0, 0, 0.035) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.035) 39px, rgba(0, 0, 0, 0.035) 40px
+    ),
+    repeating-linear-gradient(
+      90deg, transparent, transparent 19px, rgba(0, 0, 0, 0.035) 19px, rgba(0, 0, 0, 0.035) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.035) 39px, rgba(0, 0, 0, 0.035) 40px
+    ),
+    radial-gradient(circle at 20px 20px, rgba(0, 0, 0, 0.07) 2px, transparent 2px),
+    radial-gradient(circle at 40px 40px, rgba(0, 0, 0, 0.07) 2px, transparent 2px);
 }
 
 /* Dark gradient overlay: transparent in hero, dark in content */
