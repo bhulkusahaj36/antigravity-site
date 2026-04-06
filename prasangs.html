@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="gu">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>àªªà«àª°àª¸àª‚àª—à«‹ â€“ àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</title>
-    <meta name="description" content="àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤ â€“ àª­àª—àªµàª¾àª¨ àª…àª¨à«‡ àª¸àª‚àª¤à«‹àª¨àª¾ àªªà«àª°àª¸àª‚àª— àª…àª¨à«àª¸àª¾àª° àª­àª•à«àª¤àª¿ àª²à«‡àª–" />
+    <title>પ્રસંગો – હરિપ્રબોધમ કથામૃત</title>
+    <meta name="description" content="હરિપ્રબોધમ કથામૃત – ભગવાન અને સંતોના પ્રસંગ અનુસાર ભક્તિ લેખ" />
     <link rel="icon" type="image/webp" href="images/Logo.webp" />
     <link rel="icon" type="image/webp" href="images/logo.webp" />
     <link rel="shortcut icon" href="images/Logo.webp" type="image/webp" />
@@ -18,12 +18,12 @@
         rel="stylesheet" />
 
     <style>
-        /* â”€â”€ Prasangs Page Specific Styles â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* ── Prasangs Page Specific Styles ────────────────────── */
         .ps-search-section {
             padding: 1.5rem 0 0.5rem;
         }
 
-        /* Search bar â€“ wider than default search-box */
+        /* Search bar – wider than default search-box */
         .ps-search-bar {
             display: flex;
             gap: 0.6rem;
@@ -257,7 +257,7 @@
             margin: 0;
         }
 
-        /* â”€â”€ Divider between avatar row and search â”€â”€ */
+        /* ── Divider between avatar row and search ── */
         .ps-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.2), transparent);
@@ -288,6 +288,7 @@
 </head>
 
 <body class="prasangs-page">
+
     <!-- GLOBAL PAGE LOADER -->
     <div id="global-loader" class="global-loader">
         <div class="loader">
@@ -310,18 +311,19 @@
         </div>
     </div>
 
+
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
     <!-- NAV -->
     <nav class="navbar nav-minimal" id="navbar">
         <div class="container nav-inner">
             <a href="index.html" class="nav-logo">
-                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
             </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="prasangs.html" class="nav-link active">àªªà«àª°àª¸àª‚àª—à«‹</a></li>
-                <li><a href="paravani.html" class="nav-link">àªªàª°àª¾àªµàª¾àª£à«€</a></li>
+                <li><a href="prasangs.html" class="nav-link active">પ્રસંગો</a></li>
+                <li><a href="paravani.html" class="nav-link">પરાવાણી</a></li>
                 <li><a href="search.html" class="nav-link">Search</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle Theme">
@@ -336,8 +338,8 @@
     <!-- HERO -->
     <section class="page-hero">
         <div class="container">
-            <h1 class="page-title">àªªà«àª°àª¸àª‚àª—à«‹</h1>
-            <p class="page-subtitle">àª­àª—àªµàª¾àª¨ àª…àª¨à«‡ àª¸àª‚àª¤à«‹àª¨àª¾ àª¦àª¿àªµà«àª¯ àªªà«àª°àª¸àª‚àª—</p>
+            <h1 class="page-title">પ્રસંગો</h1>
+            <p class="page-subtitle">ભગવાન અને સંતોના દિવ્ય પ્રસંગ</p>
         </div>
     </section>
 
@@ -345,10 +347,10 @@
     <section class="section categories-highlight" id="prasangsSection" style="padding-bottom:0.5rem;">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">àªªà«àª°àª¸àª‚àª— àªªà«àª°àª•àª¾àª°</h2>
+                <h2 class="section-title">પ્રસંગ પ્રકાર</h2>
                 <div class="scroll-controls">
-                    <button class="scroll-btn prev-btn" aria-label="Previous">â€¹</button>
-                    <button class="scroll-btn next-btn" aria-label="Next">â€º</button>
+                    <button class="scroll-btn prev-btn" aria-label="Previous">‹</button>
+                    <button class="scroll-btn next-btn" aria-label="Next">›</button>
                 </div>
             </div>
             <div class="avatar-row-wrapper">
@@ -369,13 +371,13 @@
                     type="search"
                     id="psSearchInput"
                     class="ps-search-input"
-                    placeholder="àª¶à«€àª°à«àª·àª•, àªµàª¿àª·àª¯, àªªà«àª°àª¸àª‚àª— àª¶à«‹àª§à«‹..."
+                    placeholder="શીર્ષક, વિષય, પ્રસંગ શોધો..."
                     aria-label="Search prasangs"
                     autocomplete="off"
                 />
                 <button class="btn btn-primary ps-search-btn" id="psSearchBtn">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    àª¶à«‹àª§à«‹
+                    શોધો
                 </button>
             </div>
 
@@ -383,58 +385,58 @@
             <div class="ps-filters">
 
                 <div class="ps-filter-group">
-                    <label class="ps-filter-label" for="psFilterPrasang">àªªà«àª°àª¸àª‚àª— of</label>
+                    <label class="ps-filter-label" for="psFilterPrasang">પ્રસંગ of</label>
                     <select id="psFilterPrasang" class="ps-filter-select">
-                        <option value="">àª¬àª§àª¾</option>
-                        <option value="bhagwan">àª­àª—àªµàª¾àª¨ àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£</option>
-                        <option value="gunatit">àª—à«àª£àª¾àª¤à«€àª¤àª¾àª¨àª‚àª¦ àª¸à«àªµàª¾àª®à«€</option>
-                        <option value="bhagatji">àª­àª—àª¤àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
-                        <option value="shastriji">àª¶àª¾àª¸à«àª¤à«àª°à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
-                        <option value="yogiji">àª¯à«‹àª—à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
-                        <option value="hariprasad">àª¹àª°àª¿àªªà«àª°àª¸àª¾àª¦ àª¸à«àªµàª¾àª®à«€àªœà«€</option>
-                        <option value="prabodh">àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€àªœà«€</option>
-                        <option value="bhakto">àª­àª•à«àª¤à«‹</option>
-                        <option value="prabhudasbhai">àªªà«àª°àª­à«àª¦àª¾àª¸àª­àª¾àªˆ</option>
+                        <option value="">બધા</option>
+                        <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
+                        <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
+                        <option value="bhagatji">ભગતજી મહારાજ</option>
+                        <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
+                        <option value="yogiji">યોગીજી મહારાજ</option>
+                        <option value="hariprasad">હરિપ્રસાદ સ્વામીજી</option>
+                        <option value="prabodh">પ્રબોધ સ્વામીજી</option>
+                        <option value="bhakto">ભક્તો</option>
+                        <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
                     </select>
                 </div>
 
                 <div class="ps-filter-group">
-                    <label class="ps-filter-label" for="psFilterTopic">àªµàª¿àª·àª¯</label>
+                    <label class="ps-filter-label" for="psFilterTopic">વિષય</label>
                     <select id="psFilterTopic" class="ps-filter-select">
-                        <option value="">àª¬àª§àª¾</option>
-                        <option value="mahima">àª®àª¹àª¿àª®àª¾</option>
-                        <option value="atmiyata">àª†àª¤à«àª®à«€àª¯àª¤àª¾</option>
-                        <option value="nishtha">àª¨àª¿àª·à«àª àª¾</option>
-                        <option value="seva">àª¸à«‡àªµàª¾</option>
-                        <option value="bhagvadi">àª­àª—àªµàª¦à«€</option>
-                        <option value="bhakti">àª­àª•à«àª¤à«‹àª¨à«‹ àª®àª¹àª¿àª®àª¾</option>
-                        <option value="saralata">àª¸àª°àª³àª¤àª¾</option>
-                        <option value="swadharm">àª¸à«àªµàª§àª°à«àª®</option>
-                        <option value="swadhyay">àª¸à«àªµàª¾àª§à«àª¯àª¾àª¯-àª­àªœàª¨</option>
-                        <option value="bhajan">àª­àªœàª¨/àª¸à«àªµàª¾àª®àª¿. àª®àª¹àª¾àª®àª‚àª¤à«àª°</option>
-                        <option value="vachanamrut">àªµàªšàª¨àª¾àª®à«ƒàª¤</option>
-                        <option value="swamini">àª¸à«àªµàª¾àª®à«€àª¨à«€ àªµàª¾àª¤à«‹</option>
-                        <option value="shikshapatri">àª¶àª¿àª•à«àª·àª¾àªªàª¤à«àª°à«€</option>
-                        <option value="samagam">àª¸àª®àª¾àª—àª®</option>
-                        <option value="katha-varta">àª•àª¥àª¾-àªµàª¾àª°à«àª¤àª¾</option>
+                        <option value="">બધા</option>
+                        <option value="mahima">મહિમા</option>
+                        <option value="atmiyata">આત્મીયતા</option>
+                        <option value="nishtha">નિષ્ઠા</option>
+                        <option value="seva">સેવા</option>
+                        <option value="bhagvadi">ભગવદી</option>
+                        <option value="bhakti">ભક્તોનો મહિમા</option>
+                        <option value="saralata">સરળતા</option>
+                        <option value="swadharm">સ્વધર્મ</option>
+                        <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
+                        <option value="bhajan">ભજન/સ્વામિ. મહામંત્ર</option>
+                        <option value="vachanamrut">વચનામૃત</option>
+                        <option value="swamini">સ્વામીની વાતો</option>
+                        <option value="shikshapatri">શિક્ષાપત્રી</option>
+                        <option value="samagam">સમાગમ</option>
+                        <option value="katha-varta">કથા-વાર્તા</option>
                     </select>
                 </div>
 
                 <div class="ps-filter-group">
-                    <label class="ps-filter-label" for="psFilterSource">àª¸à«àª¤à«àª°à«‹àª¤</label>
+                    <label class="ps-filter-label" for="psFilterSource">સ્ત્રોત</label>
                     <select id="psFilterSource" class="ps-filter-select">
-                        <option value="">àª¬àª§àª¾</option>
-                        <option value="swamiji">àª¸à«àªµàª¾àª®à«€àªœà«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
-                        <option value="prabodh">àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€ àªª.</option>
-                        <option value="santo">àª¸àª‚àª¤à«‹ àªªà«àª°àªµàªšàª¨</option>
-                        <option value="bhakto">àª­àª•à«àª¤à«‹</option>
-                        <option value="granth">àª—à«àª°àª‚àª¥</option>
-                        <option value="vicharan">àªµàª¿àªšàª°àª£ àª°àª¿àªªà«‹àª°à«àªŸ</option>
-                        <option value="patrika">àªªàª¤à«àª°àª¿àª•àª¾</option>
+                        <option value="">બધા</option>
+                        <option value="swamiji">સ્વામીજી પરાવાણી</option>
+                        <option value="prabodh">પ્રબોધ સ્વામી પ.</option>
+                        <option value="santo">સંતો પ્રવચન</option>
+                        <option value="bhakto">ભક્તો</option>
+                        <option value="granth">ગ્રંથ</option>
+                        <option value="vicharan">વિચરણ રિપોર્ટ</option>
+                        <option value="patrika">પત્રિકા</option>
                     </select>
                 </div>
 
-                <button class="btn btn-outline ps-clear-btn" id="psClearBtn" title="Clear all filters">âœ• Clear</button>
+                <button class="btn btn-outline ps-clear-btn" id="psClearBtn" title="Clear all filters">✕ Clear</button>
             </div>
 
             <!-- Active filter chips -->
@@ -454,8 +456,8 @@
 
             <!-- Empty state -->
             <div class="ps-empty" id="psEmpty" style="display:none;">
-                <div class="ps-empty-icon">ðŸ”</div>
-                <p id="psEmptyMsg">àª•à«‹àªˆ àªªà«àª°àª¸àª‚àª— àª®àª³à«àª¯àª¾ àª¨àª¥à«€.</p>
+                <div class="ps-empty-icon">🔍</div>
+                <p id="psEmptyMsg">કોઈ પ્રસંગ મળ્યા નથી.</p>
             </div>
 
             <!-- Pagination -->
@@ -468,13 +470,13 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
-                <p>Â© 2026 àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</p>
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
             </div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <a href="prasangs.html">àªªà«àª°àª¸àª‚àª—à«‹</a>
-                <a href="paravani.html">àªªàª°àª¾àªµàª¾àª£à«€</a>
+                <a href="prasangs.html">પ્રસંગો</a>
+                <a href="paravani.html">પરાવાણી</a>
                 <a href="search.html">Search</a>
             </div>
         </div>

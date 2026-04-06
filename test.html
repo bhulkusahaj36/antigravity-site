@@ -1,10 +1,10 @@
-﻿<!-- 
+<!-- 
     ============================================================
     TEST/STAGING ENVIRONMENT (test.html)
     Safe to experiment. Does NOT affect production (index.html).
-    CSS  â†’ css/test-style.css  (imports style.css + overrides)
-    JS   â†’ js/test.js          (experimental logic)
-    Data â†’ js/data.js          (shared â€” same live Firebase data)
+    CSS  → css/test-style.css  (imports style.css + overrides)
+    JS   → js/test.js          (experimental logic)
+    Data → js/data.js          (shared — same live Firebase data)
     ============================================================
 -->
 <!DOCTYPE html>
@@ -13,8 +13,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[TEST] àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</title>
-    <meta name="description" content="TEST PAGE â€” àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤" />
+    <title>[TEST] હરિપ્રબોધમ કથામૃત</title>
+    <meta name="description" content="TEST PAGE — હરિપ્રબોધમ કથામૃત" />
     <meta name="robots" content="noindex, nofollow" />
 
     <!-- TEST CSS: imports production styles then applies overrides -->
@@ -33,6 +33,7 @@
 </head>
 
 <body class="home-page">
+
     <!-- GLOBAL PAGE LOADER -->
     <div id="global-loader" class="global-loader">
         <div class="loader">
@@ -55,8 +56,9 @@
         </div>
     </div>
 
+
     <!-- ============================================================
-         TEST BADGE â€” remove this when merging to production
+         TEST BADGE — remove this when merging to production
          ============================================================ -->
     <div id="testBadge" style="
         position: fixed;
@@ -72,7 +74,7 @@
         border-radius: 999px;
         pointer-events: none;
         letter-spacing: 0.05em;
-    ">âš— TEST PAGE</div>
+    ">⚗ TEST PAGE</div>
 
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
@@ -80,7 +82,7 @@
     <nav class="navbar" id="navbar">
         <div class="container nav-inner">
             <a href="test.html" class="nav-logo">
-                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
             </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
             <ul class="nav-links" id="navLinks">
@@ -96,19 +98,19 @@
         <div class="container hero-content">
             <h1 class="hero-title">
                 <img src="images/right-main.webp" alt="" class="hero-top-img" />
-                <img src="images/kathamrut.webp" alt="àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤" class="hero-calligraphy" />
-                <span class="sr-only">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
+                <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy" />
+                <span class="sr-only">હરિપ્રબોધમ કથામૃત</span>
             </h1>
             <div class="hero-quote">
                 <span class="quote-mark">&ldquo;</span>
-                <span id="quoteText">àª¹à«ˆàª¯àª¾àª®àª¾àª‚ àªŸà«‹àªª àª¸à«àª°à«àªšàª¿ àª°àª¾àª–àª¨àª¾àª°àª¨à«‡ àª•àª¥àª¾àªµàª°à«àª¤àª¾ àª¸àª®àªœàª¾àªµàªµàª¾àª®àª¾àª‚ àªœàª°àª¾àª¯ àª¤àª•àª²à«€àª« àª¨ àªªàª¡à«‡.</span>
+                <span id="quoteText">હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
                 <span class="quote-mark">&rdquo;</span>
-                <span class="quote-author" id="quoteAuthor">- àª—à«àª°à«àª¹àª°à«€ àª¹àª°àª¿àªªà«àª°àª¸àª¾àª¦ àª¸à«àªµàª¾àª®à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</span>
+                <span class="quote-author" id="quoteAuthor">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</span>
                 <div class="quote-dots" id="quotePagination"></div>
             </div>
             <div class="hero-actions">
                 <a href="#articles" class="btn btn-primary">Read More</a>
-                <a href="paravani.html" class="btn btn-primary">àªªàª°àª¾àªµàª¾àª£à«€</a>
+                <a href="paravani.html" class="btn btn-primary">પરાવાણી</a>
                 <a href="search.html" class="btn btn-outline">Search</a>
             </div>
 
@@ -142,8 +144,8 @@
             <div class="section-header">
                 <h2 class="section-title">Featured</h2>
                 <div class="scroll-controls">
-                    <button class="scroll-btn prev-btn" aria-label="Previous">â€¹</button>
-                    <button class="scroll-btn next-btn" aria-label="Next">â€º</button>
+                    <button class="scroll-btn prev-btn" aria-label="Previous">‹</button>
+                    <button class="scroll-btn next-btn" aria-label="Next">›</button>
                 </div>
             </div>
             <div class="avatar-row-wrapper">
@@ -158,8 +160,8 @@
             <div class="section-header">
                 <h2 class="section-title">Categories</h2>
                 <div class="scroll-controls">
-                    <button class="scroll-btn prev-btn" aria-label="Previous">â€¹</button>
-                    <button class="scroll-btn next-btn" aria-label="Next">â€º</button>
+                    <button class="scroll-btn prev-btn" aria-label="Previous">‹</button>
+                    <button class="scroll-btn next-btn" aria-label="Next">›</button>
                 </div>
             </div>
             <div class="avatar-row-wrapper">
@@ -172,8 +174,8 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
-                <p>Â© 2026 àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</p>
+                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
             </div>
             <div class="footer-links">
                 <a href="test.html">Home</a>
@@ -184,10 +186,10 @@
 
     <!-- ============================================================
          SCRIPTS
-         data.js  â†’ shared live data (same as production)
-         utils.js â†’ shared utilities (same as production)
-         test.js  â†’ experimental logic (replaces home.js here)
-         particles.js â†’ shared canvas particles (same as production)
+         data.js  → shared live data (same as production)
+         utils.js → shared utilities (same as production)
+         test.js  → experimental logic (replaces home.js here)
+         particles.js → shared canvas particles (same as production)
          ============================================================ -->
     <script src="js/data.js" defer></script>
     <script src="js/utils.js" defer></script>
