@@ -611,17 +611,17 @@ body.light-mode .hero-top-img {
    ─────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero-title {
-    margin-top: -6rem !important;
+    margin-top: -7.5rem !important;
     margin-bottom: 0rem !important;
     animation: none;
   }
 
   .hero-top-img {
     max-height: 40vh !important;
-    transform: scale(2.0) translateY(-2rem) !important;
+    transform: scale(2.2) translateY(-1.5rem) !important;
     transform-origin: top center !important;
     margin-bottom: 0 !important;
-    opacity: 0.6 !important;
+    opacity: 0.8 !important;
   }
 
   .hero-calligraphy {
@@ -632,11 +632,12 @@ body.light-mode .hero-top-img {
   }
 
   .hero-quote {
-    padding: 1rem 1.1rem !important;
+    padding: 1.25rem 1.2rem !important;
     margin-top: 1.5rem !important;
     margin-bottom: 1.5rem !important;
     transform: none !important;
     font-size: 0.95rem !important;
+    border-radius: var(--radius-lg) !important; /* Fix horizontal cut-off from pill shape */
   }
 
   /* 3 Buttons: explicit row layout */
