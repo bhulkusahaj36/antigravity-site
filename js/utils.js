@@ -815,3 +815,12 @@ function initTheme() {
         });
     });
 }
+
+// Global Page Loader hide logic
+window.addEventListener('load', () => {
+    const loader = document.getElementById('global-loader');
+    if (loader) {
+        loader.classList.add('fade-out');
+        setTimeout(() => loader.remove(), 600);
+    }
+});

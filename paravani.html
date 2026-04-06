@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="gu">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>પરાવાણી – હરિપ્રબોધમ કથામૃત</title>
-    <meta name="description" content="હરિપ્રબોધમ કથામૃત – પરાવાણી અને લાંબા લેખો" />
+    <title>àªªàª°àª¾àªµàª¾àª£à«€ â€“ àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</title>
+    <meta name="description" content="àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤ â€“ àªªàª°àª¾àªµàª¾àª£à«€ àª…àª¨à«‡ àª²àª¾àª‚àª¬àª¾ àª²à«‡àª–à«‹" />
     <link rel="icon" type="image/webp" href="images/Logo.webp" />
     <link rel="icon" type="image/webp" href="images/logo.webp" />
     <link rel="shortcut icon" href="images/Logo.webp" type="image/webp" />
@@ -20,18 +20,39 @@
 </head>
 
 <body class="paravani-page">
+    <!-- GLOBAL PAGE LOADER -->
+    <div id="global-loader" class="global-loader">
+        <div class="loader">
+            <div class="book-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 126 75" class="book">
+                    <rect stroke-width="3" stroke="var(--gold-500)" rx="7.5" height="70" width="121" y="2.5" x="2.5"></rect>
+                    <line stroke-width="3" stroke="var(--gold-500)" y2="75" x2="63.5" x1="63.5"></line>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M25 20H50"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M101 20H76"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M16 30L50 30"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M110 30L76 30"></path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="var(--gold-500)" viewBox="0 0 65 75" class="book-page">
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M40 20H15"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M49 35H15"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M49 50H15"></path>
+                    <path stroke-width="3" stroke="var(--gold-500)" d="M2.5 2.5H55C59.1421 2.5 62.5 5.85786 62.5 10V65C62.5 69.1421 59.1421 72.5 55 72.5H2.5V2.5Z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
 
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
     <!-- NAV -->
     <nav class="navbar nav-minimal" id="navbar">
         <div class="container nav-inner">
             <a href="index.html" class="nav-logo">
-                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
+                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
             </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">&#9776;</button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="prasangs.html" class="nav-link">પ્રસંગો</a></li>
-                <li><a href="paravani.html" class="nav-link active">પરાવાણી</a></li>
+                <li><a href="prasangs.html" class="nav-link">àªªà«àª°àª¸àª‚àª—à«‹</a></li>
+                <li><a href="paravani.html" class="nav-link active">àªªàª°àª¾àªµàª¾àª£à«€</a></li>
                 <li><a href="search.html" class="nav-link">Search</a></li>
                 <li>
                     <button class="theme-toggle" aria-label="Toggle Theme">
@@ -46,8 +67,8 @@
     <!-- HERO -->
     <section class="page-hero">
         <div class="container">
-            <h1 class="page-title">પરાવાણી</h1>
-            <p class="page-subtitle">ઊંડાણપૂર્વક અભ્યાસ અને મનન માટે</p>
+            <h1 class="page-title">àªªàª°àª¾àªµàª¾àª£à«€</h1>
+            <p class="page-subtitle">àªŠàª‚àª¡àª¾àª£àªªà«‚àª°à«àªµàª• àª…àª­à«àª¯àª¾àª¸ àª…àª¨à«‡ àª®àª¨àª¨ àª®àª¾àªŸà«‡</p>
         </div>
     </section>
 
@@ -55,10 +76,10 @@
     <section class="section categories-highlight" id="albumsSection">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Albums (આલ્બમ્સ)</h2>
+                <h2 class="section-title">Albums (àª†àª²à«àª¬àª®à«àª¸)</h2>
                 <div class="scroll-controls">
-                    <button class="scroll-btn prev-btn" aria-label="Previous">‹</button>
-                    <button class="scroll-btn next-btn" aria-label="Next">›</button>
+                    <button class="scroll-btn prev-btn" aria-label="Previous">â€¹</button>
+                    <button class="scroll-btn next-btn" aria-label="Next">â€º</button>
                 </div>
             </div>
             <div class="avatar-row-wrapper">
@@ -71,7 +92,7 @@
     <section class="section featured-section" id="featuredSection" style="display:none;">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Featured પરાવાણી</h2>
+                <h2 class="section-title">Featured àªªàª°àª¾àªµàª¾àª£à«€</h2>
             </div>
             <div class="cards-grid stacked-grid" id="featuredParavaniGrid"></div>
         </div>
@@ -81,7 +102,7 @@
     <section class="section articles-section" id="latestSection">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Latest પરાવાણી</h2>
+                <h2 class="section-title">Latest àªªàª°àª¾àªµàª¾àª£à«€</h2>
             </div>
             <div class="cards-grid stacked-grid" id="paravaniGrid"></div>
             <div class="pagination" id="pagination"></div>
@@ -92,13 +113,13 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
-                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
+                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
+                <p>Â© 2026 àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</p>
             </div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <a href="prasangs.html">પ્રસંગો</a>
-                <a href="paravani.html">પરાવાણી</a>
+                <a href="prasangs.html">àªªà«àª°àª¸àª‚àª—à«‹</a>
+                <a href="paravani.html">àªªàª°àª¾àªµàª¾àª£à«€</a>
                 <a href="search.html">Search</a>
             </div>
         </div>

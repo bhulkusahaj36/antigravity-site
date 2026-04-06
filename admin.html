@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="gu">
 
 <head>
@@ -22,6 +22,27 @@
 </head>
 
 <body class="admin-page">
+    <!-- GLOBAL PAGE LOADER -->
+    <div id="global-loader" class="global-loader">
+        <div class="loader">
+            <div class="book-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 126 75" class="book">
+                    <rect stroke-width="3" stroke="var(--gold-500)" rx="7.5" height="70" width="121" y="2.5" x="2.5"></rect>
+                    <line stroke-width="3" stroke="var(--gold-500)" y2="75" x2="63.5" x1="63.5"></line>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M25 20H50"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M101 20H76"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M16 30L50 30"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M110 30L76 30"></path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="var(--gold-500)" viewBox="0 0 65 75" class="book-page">
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M40 20H15"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M49 35H15"></path>
+                    <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M49 50H15"></path>
+                    <path stroke-width="3" stroke="var(--gold-500)" d="M2.5 2.5H55C59.1421 2.5 62.5 5.85786 62.5 10V65C62.5 69.1421 59.1421 72.5 55 72.5H2.5V2.5Z"></path>
+                </svg>
+            </div>
+        </div>
+    </div>
 
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
@@ -29,7 +50,7 @@
         <div class="container nav-inner" style="position: relative;">
             <div style="display: flex; align-items: center;">
                 <a href="index.html" class="nav-link" style="color:var(--gold-400); font-weight:bold; padding-left: 0;">
-                    ← Back to Public Website
+                    â† Back to Public Website
                 </a>
                 <button id="adminThemeToggle" class="theme-toggle-admin" aria-label="Toggle Theme">
                   <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
@@ -84,18 +105,18 @@
 
                 <!-- TABS -->
                 <div class="feed-tabs">
-                    <button class="feed-tab active" data-target="panel-add">પ્રસંગ
-                        ઉમેરો / સંપાદિત કરો (Add/Edit)</button>
-                    <button class="feed-tab" data-target="panel-manage">લેખ
-                        મેનેજ કરો (Manage)</button>
+                    <button class="feed-tab active" data-target="panel-add">àªªà«àª°àª¸àª‚àª—
+                        àª‰àª®à«‡àª°à«‹ / àª¸àª‚àªªàª¾àª¦àª¿àª¤ àª•àª°à«‹ (Add/Edit)</button>
+                    <button class="feed-tab" data-target="panel-manage">àª²à«‡àª–
+                        àª®à«‡àª¨à«‡àªœ àª•àª°à«‹ (Manage)</button>
                     <button class="feed-tab" data-target="panel-dashboard">Dashboard</button>
                     <button class="feed-tab" data-target="panel-tasks">Tasks</button>
                     <button class="feed-tab" data-target="panel-sync">Maintenance</button>
                 </div>
 
-                <!-- ══════════════════════════════════════════
+                <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                  ADD NEW ENTRY FORM
-            ══════════════════════════════════════════ -->
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
                 <div class="feed-panel active" id="panel-add">
                     <form id="addForm" class="feed-form" novalidate>
 
@@ -110,24 +131,24 @@
                             <!-- ROW 1 -->
                             <div class="feed-field">
                                 <label class="feed-label" for="add-type">
-                                    <i class="field-icon icon-type"></i> પ્રકાર (Type)
+                                    <i class="field-icon icon-type"></i> àªªà«àª°àª•àª¾àª° (Type)
                                 </label>
                                 <select id="add-type" class="feed-select">
-                                    <option value="prasang">પ્રસંગ</option>
-                                    <option value="paravani">પરાવાણી</option>
+                                    <option value="prasang">àªªà«àª°àª¸àª‚àª—</option>
+                                    <option value="paravani">àªªàª°àª¾àªµàª¾àª£à«€</option>
                                 </select>
                             </div>
 
                             <div class="feed-field" id="album-field-container">
                                 <label class="feed-label" for="add-album">
-                                    <i class="field-icon icon-album"></i> આલ્બમ (Album)
+                                    <i class="field-icon icon-album"></i> àª†àª²à«àª¬àª® (Album)
                                 </label>
                                 <select id="add-album" class="feed-select" data-conditional="add-album">
-                                    <option value="">પસંદ કરો...</option>
-                                    <option value="new">નવો આલ્બમ બનાવો (Create New)...</option>
+                                    <option value="">àªªàª¸àª‚àª¦ àª•àª°à«‹...</option>
+                                    <option value="new">àª¨àªµà«‹ àª†àª²à«àª¬àª® àª¬àª¨àª¾àªµà«‹ (Create New)...</option>
                                 </select>
                                 <input type="text" id="add-album-new-text" class="feed-input feed-conditional"
-                                    data-show-for="add-album=new" placeholder="નવા આલ્બમનું નામ..."
+                                    data-show-for="add-album=new" placeholder="àª¨àªµàª¾ àª†àª²à«àª¬àª®àª¨à«àª‚ àª¨àª¾àª®..."
                                     style="display:none" />
                             </div>
 
@@ -140,7 +161,7 @@
                                         <input type="checkbox" id="add-public-toggle" checked>
                                         <span class="slider round"></span>
                                     </label>
-                                    <span class="toggle-text">Public (પબ્લિક)</span>
+                                    <span class="toggle-text">Public (àªªàª¬à«àª²àª¿àª•)</span>
                                 </div>
                                 <div class="field-microcopy">Shown in public gallery</div>
                             </div>
@@ -150,79 +171,79 @@
                             <!-- ROW 2 -->
                             <div class="feed-field">
                                 <label class="feed-label" for="add-source">
-                                    <i class="field-icon icon-source"></i> સ્રોત (Source)
+                                    <i class="field-icon icon-source"></i> àª¸à«àª°à«‹àª¤ (Source)
                                 </label>
                                 <select id="add-source" class="feed-select" data-conditional="add-source" multiple>
-                                    <option value="">પસંદ કરો...</option>
-                                    <option value="swamiji">સ્વામીજી પરાવાણી</option>
-                                    <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
-                                    <option value="santo">સંતો પરવાણી</option>
-                                    <option value="bhakto">ભક્તોની પરાવાણી</option>
-                                    <option value="granth">ગ્રંથ</option>
-                                    <option value="vicharan">વિચરણ રિપોર્ટ</option>
-                                    <option value="patrika">પત્રિકા</option>
+                                    <option value="">àªªàª¸àª‚àª¦ àª•àª°à«‹...</option>
+                                    <option value="swamiji">àª¸à«àªµàª¾àª®à«€àªœà«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
+                                    <option value="prabodh">àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
+                                    <option value="santo">àª¸àª‚àª¤à«‹ àªªàª°àªµàª¾àª£à«€</option>
+                                    <option value="bhakto">àª­àª•à«àª¤à«‹àª¨à«€ àªªàª°àª¾àªµàª¾àª£à«€</option>
+                                    <option value="granth">àª—à«àª°àª‚àª¥</option>
+                                    <option value="vicharan">àªµàª¿àªšàª°àª£ àª°àª¿àªªà«‹àª°à«àªŸ</option>
+                                    <option value="patrika">àªªàª¤à«àª°àª¿àª•àª¾</option>
                                 </select>
                                 <div id="source-conditionals-container">
                                     <input type="text" id="add-source-santo-text" class="feed-input feed-conditional"
-                                        data-show-for="add-source=santo" placeholder="સંત નું નામ દાખલ કરો..."
+                                        data-show-for="add-source=santo" placeholder="àª¸àª‚àª¤ àª¨à«àª‚ àª¨àª¾àª® àª¦àª¾àª–àª² àª•àª°à«‹..."
                                         style="display:none" />
                                     <input type="text" id="add-source-bhakto-text" class="feed-input feed-conditional"
-                                        data-show-for="add-source=bhakto" placeholder="ભક્ત નું નામ દાખલ કરો..."
+                                        data-show-for="add-source=bhakto" placeholder="àª­àª•à«àª¤ àª¨à«àª‚ àª¨àª¾àª® àª¦àª¾àª–àª² àª•àª°à«‹..."
                                         style="display:none" />
                                     <select id="add-source-granth-select" class="feed-select feed-conditional"
                                         data-show-for="add-source=granth" style="display:none" multiple>
-                                        <option value="">ગ્રંથ પસંદ કરો...</option>
-                                        <option value="jivan">જીવનચરિત્ર</option>
-                                        <option value="saras">સરસ એક સહજાનંદ</option>
-                                        <option value="chaitanya">ચૈતન્ય ધોધ</option>
-                                        <option value="sudha">સુધાસિંધુ એક સહજાનંદ</option>
-                                        <option value="ambarish">અંબરીશ ઉપનિષદ</option>
-                                        <option value="anirdeshi">અનિર્દેશી અમૃત</option>
-                                        <option value="amrutpathey">અમૃતપાથેય</option>
-                                        <option value="aatampathey">આતમપાથેય</option>
-                                        <option value="manan">મનન ચિંતન</option>
-                                        <option value="pardarshi">પારદર્શી પરવાણી</option>
-                                        <option value="sahrudayi">સહ્રદયી</option>
-                                        <option value="chinmay">ચિન્મય ધોધ</option>
-                                        <option value="samarth">સમર્થની સાધુતા</option>
-                                        <option value="aksharjatan">અક્ષરજતન</option>
-                                        <option value="anya">અન્ય</option>
+                                        <option value="">àª—à«àª°àª‚àª¥ àªªàª¸àª‚àª¦ àª•àª°à«‹...</option>
+                                        <option value="jivan">àªœà«€àªµàª¨àªšàª°àª¿àª¤à«àª°</option>
+                                        <option value="saras">àª¸àª°àª¸ àªàª• àª¸àª¹àªœàª¾àª¨àª‚àª¦</option>
+                                        <option value="chaitanya">àªšà«ˆàª¤àª¨à«àª¯ àª§à«‹àª§</option>
+                                        <option value="sudha">àª¸à«àª§àª¾àª¸àª¿àª‚àª§à« àªàª• àª¸àª¹àªœàª¾àª¨àª‚àª¦</option>
+                                        <option value="ambarish">àª…àª‚àª¬àª°à«€àª¶ àª‰àªªàª¨àª¿àª·àª¦</option>
+                                        <option value="anirdeshi">àª…àª¨àª¿àª°à«àª¦à«‡àª¶à«€ àª…àª®à«ƒàª¤</option>
+                                        <option value="amrutpathey">àª…àª®à«ƒàª¤àªªàª¾àª¥à«‡àª¯</option>
+                                        <option value="aatampathey">àª†àª¤àª®àªªàª¾àª¥à«‡àª¯</option>
+                                        <option value="manan">àª®àª¨àª¨ àªšàª¿àª‚àª¤àª¨</option>
+                                        <option value="pardarshi">àªªàª¾àª°àª¦àª°à«àª¶à«€ àªªàª°àªµàª¾àª£à«€</option>
+                                        <option value="sahrudayi">àª¸àª¹à«àª°àª¦àª¯à«€</option>
+                                        <option value="chinmay">àªšàª¿àª¨à«àª®àª¯ àª§à«‹àª§</option>
+                                        <option value="samarth">àª¸àª®àª°à«àª¥àª¨à«€ àª¸àª¾àª§à«àª¤àª¾</option>
+                                        <option value="aksharjatan">àª…àª•à«àª·àª°àªœàª¤àª¨</option>
+                                        <option value="anya">àª…àª¨à«àª¯</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="feed-field">
                                 <label class="feed-label" for="add-topic">
-                                    <i class="field-icon icon-subject"></i> વિષય (Subject)
+                                    <i class="field-icon icon-subject"></i> àªµàª¿àª·àª¯ (Subject)
                                 </label>
                                 <select id="add-topic" class="feed-select" data-conditional="add-topic" multiple>
-                                    <option value="">પસંદ કરો...</option>
-                                    <option value="mahima">મહિમા</option>
-                                    <option value="atmiyata">આત્મીયતા</option>
-                                    <option value="nishtha">નિષ્ઠા</option>
-                                    <option value="seva">સેવા</option>
-                                    <option value="bhagvadi">ભગવદી</option>
-                                    <option value="bhakti">ભક્તોનો મહિમા</option>
-                                    <option value="saralata">સરળતા</option>
-                                    <option value="swadharm">સ્વધર્મ</option>
-                                    <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
-                                    <option value="bhajan">ભજન/સ્વામિનારાયણ મહામંત્ર</option>
-                                    <option value="svasarap">સ્વસારપ</option>
-                                    <option value="vachanamrut">વચનામૃત</option>
-                                    <option value="swamini">સ્વામીની વાતો</option>
-                                    <option value="shikshapatri">શિક્ષાપત્રી</option>
-                                    <option value="samagam">સમાગમ</option>
-                                    <option value="katha-varta">કથા-વાર્તા</option>
+                                    <option value="">àªªàª¸àª‚àª¦ àª•àª°à«‹...</option>
+                                    <option value="mahima">àª®àª¹àª¿àª®àª¾</option>
+                                    <option value="atmiyata">àª†àª¤à«àª®à«€àª¯àª¤àª¾</option>
+                                    <option value="nishtha">àª¨àª¿àª·à«àª àª¾</option>
+                                    <option value="seva">àª¸à«‡àªµàª¾</option>
+                                    <option value="bhagvadi">àª­àª—àªµàª¦à«€</option>
+                                    <option value="bhakti">àª­àª•à«àª¤à«‹àª¨à«‹ àª®àª¹àª¿àª®àª¾</option>
+                                    <option value="saralata">àª¸àª°àª³àª¤àª¾</option>
+                                    <option value="swadharm">àª¸à«àªµàª§àª°à«àª®</option>
+                                    <option value="swadhyay">àª¸à«àªµàª¾àª§à«àª¯àª¾àª¯-àª­àªœàª¨</option>
+                                    <option value="bhajan">àª­àªœàª¨/àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£ àª®àª¹àª¾àª®àª‚àª¤à«àª°</option>
+                                    <option value="svasarap">àª¸à«àªµàª¸àª¾àª°àªª</option>
+                                    <option value="vachanamrut">àªµàªšàª¨àª¾àª®à«ƒàª¤</option>
+                                    <option value="swamini">àª¸à«àªµàª¾àª®à«€àª¨à«€ àªµàª¾àª¤à«‹</option>
+                                    <option value="shikshapatri">àª¶àª¿àª•à«àª·àª¾àªªàª¤à«àª°à«€</option>
+                                    <option value="samagam">àª¸àª®àª¾àª—àª®</option>
+                                    <option value="katha-varta">àª•àª¥àª¾-àªµàª¾àª°à«àª¤àª¾</option>
                                     <option value="other">Other</option>
                                 </select>
                                 <input type="text" id="add-topic-other-text" class="feed-input feed-conditional"
-                                    data-show-for="add-topic=other" placeholder="વિષય દાખલ કરો..."
+                                    data-show-for="add-topic=other" placeholder="àªµàª¿àª·àª¯ àª¦àª¾àª–àª² àª•àª°à«‹..."
                                     style="display:none" />
                             </div>
 
                             <div class="feed-field">
                                 <label class="feed-label">
-                                    <i class="field-icon icon-calendar"></i> પ્રસંગ તારીખ
+                                    <i class="field-icon icon-calendar"></i> àªªà«àª°àª¸àª‚àª— àª¤àª¾àª°à«€àª–
                                 </label>
                                 <div class="segmented-control" id="date-segmented-control">
                                     <input type="radio" name="add-date-type" value="none" id="date-none" checked>
@@ -242,7 +263,7 @@
                                     </div>
                                     <div id="add-date-range-reveal" class="date-range-row" style="display:none">
                                         <input type="date" class="feed-input" id="add-date-from" placeholder="From" />
-                                        <span class="date-separator">—</span>
+                                        <span class="date-separator">â€”</span>
                                         <input type="date" class="feed-input" id="add-date-to" placeholder="To" />
                                     </div>
                                 </div>
@@ -251,38 +272,38 @@
                             <!-- ROW 3 -->
                             <div class="feed-field">
                                 <label class="feed-label" for="add-location">
-                                    <i class="field-icon icon-pin"></i> સ્થળ (Location)
+                                    <i class="field-icon icon-pin"></i> àª¸à«àª¥àª³ (Location)
                                 </label>
                                 <div class="input-with-icon">
                                     <input type="text" id="add-location" class="feed-input"
-                                        placeholder="સ્થળ દાખલ કરો..." />
+                                        placeholder="àª¸à«àª¥àª³ àª¦àª¾àª–àª² àª•àª°à«‹..." />
                                 </div>
                                 <div class="field-microcopy">City, venue name, or exact address</div>
                             </div>
 
                             <div class="feed-field feed-col-span-2">
                                 <label class="feed-label" for="add-title">
-                                    <i class="field-icon icon-title"></i> શિરોનામ (Title/Description)
+                                    <i class="field-icon icon-title"></i> àª¶àª¿àª°à«‹àª¨àª¾àª® (Title/Description)
                                 </label>
-                                <textarea id="add-title" class="feed-input auto-grow" placeholder="પ્રસંગ શિરોનામ..."
+                                <textarea id="add-title" class="feed-input auto-grow" placeholder="àªªà«àª°àª¸àª‚àª— àª¶àª¿àª°à«‹àª¨àª¾àª®..."
                                     rows="1"></textarea>
                                 <div class="validation-message" id="v-msg-title"></div>
                             </div>
 
                             <div class="feed-field" id="prasang-of-container" style="display:none;">
                                 <label class="feed-label" for="add-prasang">
-                                    <i class="field-icon icon-user"></i> પ્રસંગ કોના છે? (Prasang Of)
+                                    <i class="field-icon icon-user"></i> àªªà«àª°àª¸àª‚àª— àª•à«‹àª¨àª¾ àª›à«‡? (Prasang Of)
                                 </label>
                                 <select id="add-prasang" class="feed-select" multiple>
-                                    <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
-                                    <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
-                                    <option value="bhagatji">ભગતજી મહારાજ</option>
-                                    <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
-                                    <option value="yogiji">યોગીજી મહારાજ</option>
-                                    <option value="hariprasad">હરિપ્રસાદ સ્વામીજી મહારાજ</option>
-                                    <option value="prabodh">પ્રબોધ સ્વામીજી</option>
-                                    <option value="bhakto">ભક્તો</option>
-                                    <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
+                                    <option value="bhagwan">àª­àª—àªµàª¾àª¨ àª¸à«àªµàª¾àª®àª¿àª¨àª¾àª°àª¾àª¯àª£</option>
+                                    <option value="gunatit">àª—à«àª£àª¾àª¤à«€àª¤àª¾àª¨àª‚àª¦ àª¸à«àªµàª¾àª®à«€</option>
+                                    <option value="bhagatji">àª­àª—àª¤àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                                    <option value="shastriji">àª¶àª¾àª¸à«àª¤à«àª°à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                                    <option value="yogiji">àª¯à«‹àª—à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                                    <option value="hariprasad">àª¹àª°àª¿àªªà«àª°àª¸àª¾àª¦ àª¸à«àªµàª¾àª®à«€àªœà«€ àª®àª¹àª¾àª°àª¾àªœ</option>
+                                    <option value="prabodh">àªªà«àª°àª¬à«‹àª§ àª¸à«àªµàª¾àª®à«€àªœà«€</option>
+                                    <option value="bhakto">àª­àª•à«àª¤à«‹</option>
+                                    <option value="prabhudasbhai">àªªà«àª°àª­à«àª¦àª¾àª¸àª­àª¾àªˆ</option>
                                 </select>
                             </div>
 
@@ -300,7 +321,7 @@
 
                         <div class="feed-field feed-field-full" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
                             <label class="feed-label">
-                                <i class="field-icon icon-content"></i> સંદેશ / પ્રસંગ (Content / Description)
+                                <i class="field-icon icon-content"></i> àª¸àª‚àª¦à«‡àª¶ / àªªà«àª°àª¸àª‚àª— (Content / Description)
                             </label>
                             <div id="editor-container" style="height: 600px;"></div>
                         </div>
@@ -310,7 +331,7 @@
                             <button type="button" class="btn btn-outline" id="btnSaveDraft"
                                 style="border-color: #f59e0b; color: #f59e0b;">Save as Draft</button>
                             <button type="button" class="btn btn-outline" id="btnPreview"
-                                style="display:none; border-color: #10b981; color: #10b981;">Preview ↗</button>
+                                style="display:none; border-color: #10b981; color: #10b981;">Preview â†—</button>
                             <button type="reset" class="btn btn-outline">Clear</button>
                         </div>
 
@@ -318,9 +339,9 @@
                     </form>
                 </div>
 
-                <!-- ══════════════════════════════════════════
+                <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                  MANAGE ARTICLES PANEL
-            ══════════════════════════════════════════ -->
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
                 <div class="feed-panel" id="panel-manage" style="display:none">
                     <div class="feed-section-header">
                         <div class="feed-section-label">Content Management</div>
@@ -478,9 +499,9 @@
                     </div>
                 </div>
 
-                <!-- ══════════════════════════════════════════
+                <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                  MAINTENANCE & SYNC PANEL
-            ══════════════════════════════════════════ -->
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
                 <div class="feed-panel" id="panel-sync" style="display:none">
                     <div class="feed-section-label">Maintenance & Sync</div>
                     <p class="feed-subtitle" style="margin-bottom: 2rem;">
@@ -499,9 +520,9 @@
                     </div>
                 </div>
 
-                <!-- ══════════════════════════════════════════
+                <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                  DASHBOARD PANEL
-            ══════════════════════════════════════════ -->
+            â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
                 <div class="feed-panel" id="panel-dashboard" style="display:none">
                     <div class="feed-section-label">Dashboard Analytics</div>
 
@@ -555,9 +576,9 @@
                     </div>
                 </div>
 
-                <!-- ══════════════════════════════════════════
+                <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                      TASKS MANAGEMENT PANEL
-                ══════════════════════════════════════════ -->
+                â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
                 <div class="feed-panel" id="panel-tasks" style="display:none">
                     <div class="feed-section-label">Tasks Management</div>
 
@@ -599,8 +620,8 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div class="footer-brand">
-                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
-                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
+                <span class="logo-gu">àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</span>
+                <p>Â© 2026 àª¹àª°àª¿àªªà«àª°àª¬à«‹àª§àª® àª•àª¥àª¾àª®à«ƒàª¤</p>
             </div>
             <div class="footer-links">
                 <!-- No public links in admin -->

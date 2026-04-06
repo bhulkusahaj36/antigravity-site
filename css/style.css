@@ -3527,3 +3527,50 @@ body.light-mode #particles-js {
   opacity: 0.3 !important;
   filter: contrast(1.2);
 }
+/* ============================================================
+   GLOBAL PAGE LOADER (Book Animation)
+   ============================================================ */
+.global-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-900);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.global-loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+.global-loader .loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.global-loader .book-wrapper {
+  width: 150px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+}
+.global-loader .book {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0px 8px 15px rgba(245, 158, 11, 0.15));
+}
+.global-loader .book-wrapper .book-page {
+  width: 50%;
+  height: auto;
+  position: absolute;
+  animation: paging 1.2s linear infinite;
+  transform-origin: left;
+}
+@keyframes paging {
+  0% { transform: rotateY(0deg) skewY(0deg); }
+  50% { transform: rotateY(90deg) skewY(-20deg); }
+  100% { transform: rotateY(180deg) skewY(0deg); }
+}
