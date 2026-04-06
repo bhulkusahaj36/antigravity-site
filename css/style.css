@@ -3702,8 +3702,8 @@ body.light-mode #particles-js {
   animation: carousel-rotate 28s linear infinite;
 }
 
-/* Pause rotation on hover so user can read a specific card */
-.carousel-3d-wrapper:hover .carousel-3d-inner {
+/* Pause rotation ONLY when user hovers over an actual card */
+.carousel-3d-inner:has(.carousel-3d-card:hover) {
   animation-play-state: paused;
 }
 
