@@ -163,8 +163,9 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -2;
+  z-index: -3; /* Moved further back */
   pointer-events: none;
+  opacity: 0.4; /* Made bit more transparent */
   background-image: repeating-linear-gradient(
       0deg,
       transparent,
@@ -202,14 +203,15 @@ body::before {
 }
 
 body.light-mode::before {
+  opacity: 0.25; /* Even more subtle in light mode */
   background-image: repeating-linear-gradient(
-      0deg, transparent, transparent 19px, rgba(0, 0, 0, 0.035) 19px, rgba(0, 0, 0, 0.035) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.035) 39px, rgba(0, 0, 0, 0.035) 40px
+      0deg, transparent, transparent 19px, rgba(0, 0, 0, 0.02) 19px, rgba(0, 0, 0, 0.02) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.02) 39px, rgba(0, 0, 0, 0.02) 40px
     ),
     repeating-linear-gradient(
-      90deg, transparent, transparent 19px, rgba(0, 0, 0, 0.035) 19px, rgba(0, 0, 0, 0.035) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.035) 39px, rgba(0, 0, 0, 0.035) 40px
+      90deg, transparent, transparent 19px, rgba(0, 0, 0, 0.02) 19px, rgba(0, 0, 0, 0.02) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.02) 39px, rgba(0, 0, 0, 0.02) 40px
     ),
-    radial-gradient(circle at 20px 20px, rgba(0, 0, 0, 0.07) 2px, transparent 2px),
-    radial-gradient(circle at 40px 40px, rgba(0, 0, 0, 0.07) 2px, transparent 2px);
+    radial-gradient(circle at 20px 20px, rgba(0, 0, 0, 0.04) 2px, transparent 2px),
+    radial-gradient(circle at 40px 40px, rgba(0, 0, 0, 0.04) 2px, transparent 2px);
 }
 
 /* Dark gradient overlay: transparent in hero, dark in content */
