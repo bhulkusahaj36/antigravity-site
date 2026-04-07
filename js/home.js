@@ -170,20 +170,48 @@ function renderArticles() {
     if (paginationEl) paginationEl.innerHTML = '';
 }
 
-function initRotatingQuote() {
+async function initRotatingQuote() {
     const el = document.getElementById('quoteText');
     if (!el) return;
+
+    let quotes = [];
+
+    // Try to fetch live quotes from the API (admin-managed)
+    try {
+        const res = await fetch('/api/quotes', { signal: AbortSignal.timeout(5000) });
+        if (res.ok) {
+            const apiQuotes = await res.json();
+            if (apiQuotes && apiQuotes.length > 0) {
+                quotes = apiQuotes; // Each item has { text, author }
+            }
+        }
+    } catch (err) {
+        console.warn('Could not fetch quotes from API, using static fallback:', err.message);
+    }
+
+    // Fallback to the static QUOTES array from data.js
+    if (quotes.length === 0 && typeof QUOTES !== 'undefined' && QUOTES.length > 0) {
+        quotes = QUOTES;
+    }
+
+    if (quotes.length === 0) return;
+
+    // Show first quote immediately
+    const firstQ = quotes[0];
+    el.textContent = typeof firstQ === 'string' ? firstQ : firstQ.text;
+
     let idx = 0;
     setInterval(() => {
         el.style.opacity = '0';
         setTimeout(() => {
-            idx = (idx + 1) % QUOTES.length;
-            const q = QUOTES[idx];
+            idx = (idx + 1) % quotes.length;
+            const q = quotes[idx];
             el.textContent = typeof q === 'string' ? q : q.text;
             el.style.opacity = '1';
         }, 400);
     }, 4000);
 }
+
 
 function showSkeletonLoader(containerId, isAvatar = false) {
     const container = document.getElementById(containerId);

@@ -401,9 +401,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Save to Azure API
             try {
+                const adminToken = sessionStorage.getItem('hk_admin_token') || '';
                 const response = await fetch('/api/articles', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'X-Admin-Token': adminToken },
                     body: JSON.stringify(article)
                 });
 

@@ -1,5 +1,14 @@
 // admin.js - Secure Admin Panel Intercept and Login Logic
 
+// ── Token helper — reads from sessionStorage ─────────────────────────────────
+function getAdminToken() {
+    return sessionStorage.getItem('hk_admin_token') || '';
+}
+
+function adminHeaders(extra = {}) {
+    return { 'Content-Type': 'application/json', 'X-Admin-Token': getAdminToken(), ...extra };
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     // We only execute this script on the admin.html page
     const adminOverlay = document.getElementById('admin-login-overlay');
@@ -336,6 +345,121 @@ document.addEventListener('DOMContentLoaded', () => {
         window.initManageTabs = function() { initManageTabsInternal(); };
 
         // ==========================================
+        // QUOTES MANAGEMENT SYSTEM
+        // ==========================================
+        let _quotesLoaded = false;
+
+        window.initQuotesPanel = async function() {
+            // Wire the add form once
+            if (!_quotesLoaded) {
+                _quotesLoaded = true;
+                const form = document.getElementById('quoteAddForm');
+                if (form) {
+                    form.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+                        const text = document.getElementById('quoteText').value.trim();
+                        const author = document.getElementById('quoteAuthor').value.trim();
+                        const feedback = document.getElementById('quoteFeedback');
+                        const submitBtn = document.getElementById('quoteSubmitBtn');
+
+                        if (!text) return;
+                        submitBtn.disabled = true;
+                        submitBtn.textContent = 'Saving...';
+
+                        try {
+                            const res = await fetch('/api/quotes', {
+                                method: 'POST',
+                                headers: adminHeaders(),
+                                body: JSON.stringify({ text, author, active: true })
+                            });
+                            if (res.ok) {
+                                form.reset();
+                                feedback.textContent = '✓ Quote added!';
+                                feedback.style.color = '#10b981';
+                                feedback.style.display = 'block';
+                                setTimeout(() => { feedback.style.display = 'none'; }, 3000);
+                                await loadQuotes();
+                            } else {
+                                const err = await res.text();
+                                feedback.textContent = 'Error: ' + err;
+                                feedback.style.color = '#ef4444';
+                                feedback.style.display = 'block';
+                            }
+                        } catch (err) {
+                            feedback.textContent = 'Connection error: ' + err.message;
+                            feedback.style.color = '#ef4444';
+                            feedback.style.display = 'block';
+                        }
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Add Quote';
+                    });
+                }
+            }
+            await loadQuotes();
+        };
+
+        async function loadQuotes() {
+            const tbody = document.getElementById('adminQuotesList');
+            if (!tbody) return;
+            tbody.innerHTML = '<tr><td colspan="4" class="table-loading">Loading quotes...</td></tr>';
+
+            try {
+                const res = await fetch('/api/quotes?all=true', { headers: { 'X-Admin-Token': getAdminToken() } });
+                const quotes = await res.json();
+
+                if (!quotes.length) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:var(--text-muted); padding:2rem;">No quotes yet. Add one above!</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                quotes.forEach(q => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-size:0.9rem; line-height:1.5;">${q.text}</td>
+                        <td style="color:var(--saffron-400); font-size:0.85rem; white-space:nowrap;">${q.author || '—'}</td>
+                        <td style="text-align:center;">
+                            <label class="switch" title="${q.active ? 'Active' : 'Inactive'}">
+                                <input type="checkbox" ${q.active ? 'checked' : ''} 
+                                    onchange="toggleQuoteActive('${q.id}', this.checked)" />
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                        <td style="text-align:right; white-space:nowrap;">
+                            <button class="table-action-btn delete" onclick="deleteQuote('${q.id}')">Delete</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ef4444; padding:1.5rem;">Error loading quotes: ${err.message}</td></tr>`;
+            }
+        }
+
+        window.toggleQuoteActive = async (id, active) => {
+            try {
+                await fetch(`/api/quotes?id=${encodeURIComponent(id)}`, {
+                    method: 'PATCH',
+                    headers: adminHeaders(),
+                    body: JSON.stringify({ active })
+                });
+            } catch (err) { console.error('Toggle quoe failed:', err); }
+        };
+
+        window.deleteQuote = async (id) => {
+            if (!confirm('Delete this quote?')) return;
+            try {
+                await fetch(`/api/quotes?id=${encodeURIComponent(id)}`, {
+                    method: 'DELETE',
+                    headers: { 'X-Admin-Token': getAdminToken() }
+                });
+                await loadQuotes();
+            } catch (err) { console.error('Delete quote failed:', err); }
+        };
+
+
+
+        // ==========================================
         // TASKS MANAGEMENT SYSTEM
         // ==========================================
         let adminTasks = JSON.parse(localStorage.getItem('hk_admin_tasks') || '[]');
@@ -497,14 +621,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (action === 'delete') {
                 if (!confirm(`Permanently delete ${ids.length} article(s)?`)) return;
                 try {
-                    await fetch('/api/articles', { method: 'DELETE', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ ids }) });
+                    await fetch('/api/articles', { method: 'DELETE', headers: adminHeaders(), body: JSON.stringify({ ids }) });
                 } catch (e) { console.error('Bulk delete error', e); }
             } else {
                 const updates = action === 'publish' ? { public: true, status: 'published' } : { public: false, status: 'draft' };
                 const label = action === 'publish' ? 'Publish' : 'Unpublish';
                 if (!confirm(`${label} ${ids.length} article(s)?`)) return;
                 try {
-                    await fetch('/api/articles', { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ ids, updates }) });
+                    await fetch('/api/articles', { method: 'PATCH', headers: adminHeaders(), body: JSON.stringify({ ids, updates }) });
                 } catch (e) { console.error('Bulk patch error', e); }
             }
 
@@ -742,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.onclick = async (e) => {
                     const id = e.currentTarget.getAttribute('data-id');
                     if (confirm('Permanently delete this item?')) {
-                        await fetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE' });
+                        await fetch('/api/articles?id=' + encodeURIComponent(id), { method: 'DELETE', headers: adminHeaders() });
                         if (type === 'prasang') loadAdminPrasangs(true);
                         else loadAdminParavanis(true);
                     }
@@ -830,7 +954,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     art.album = newName;
                     const saveRes = await fetch('/api/articles', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: adminHeaders(),
                         body: JSON.stringify(art)
                     });
                     if (saveRes.ok) successCount++;
@@ -853,8 +977,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 const id = document.getElementById('adminId').value;
                 const pass = document.getElementById('adminPassword').value;
+                const apiToken = document.getElementById('adminApiToken')?.value.trim() || '';
                 if (id === 'admin' && pass === 'hariamrut') {
                     localStorage.setItem('hk_isAdmin', 'true');
+                    // Store the API token in sessionStorage (cleared on tab close)
+                    if (apiToken) sessionStorage.setItem('hk_admin_token', apiToken);
                     window.location.reload();
                 } else {
                     if (loginError) loginError.style.display = 'block';

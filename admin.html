@@ -60,10 +60,17 @@
                     <input type="text" id="adminId" class="feed-input" placeholder="Enter admin ID"
                         autocomplete="username" />
                 </div>
-                <div class="feed-field" style="margin-bottom:1.5rem;">
+                <div class="feed-field" style="margin-bottom:1rem;">
                     <label class="feed-label" for="adminPassword">Password</label>
                     <input type="password" id="adminPassword" class="feed-input" placeholder="Enter password"
                         autocomplete="current-password" />
+                </div>
+                <div class="feed-field" style="margin-bottom:1.5rem;">
+                    <label class="feed-label" for="adminApiToken">API Token
+                        <span style="font-size:0.74rem; font-weight:400; opacity:0.65; margin-left:0.4rem;">(optional — required for write access)</span>
+                    </label>
+                    <input type="password" id="adminApiToken" class="feed-input" placeholder="Paste ADMIN_SECRET_TOKEN..."
+                        autocomplete="off" />
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
             </form>
@@ -145,6 +152,13 @@
                         <line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
                     Manage
+                </div>
+
+                <div class="admin-nav-item" data-panel="panel-quotes" id="nav-quotes" role="button" tabindex="0">
+                    <svg class="admin-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    Quotes
                 </div>
 
                 <div class="admin-sidebar-section">Tools</div>
@@ -622,6 +636,56 @@
                 </div>
 
                 <!-- ══════════════════════════════════════════
+                     QUOTES PANEL
+                ══════════════════════════════════════════ -->
+                <div class="admin-panel" id="panel-quotes">
+                    <div class="admin-panel-header">
+                        <div class="admin-panel-title">Quotes</div>
+                        <div class="admin-panel-subtitle">Manage rotating hero quotes — shown on the home page</div>
+                    </div>
+
+                    <!-- Add form -->
+                    <div class="admin-form-card" style="margin-bottom:1.5rem;">
+                        <div class="admin-form-section-label">Add New Quote</div>
+                        <form id="quoteAddForm" style="display:flex; flex-direction:column; gap:1rem;">
+                            <div class="feed-field">
+                                <label class="feed-label" for="quoteText">Quote Text (Gujarati)</label>
+                                <textarea id="quoteText" class="feed-input auto-grow" rows="2"
+                                    placeholder="અહીં અવતરણ લખો..." required></textarea>
+                            </div>
+                            <div class="feed-field">
+                                <label class="feed-label" for="quoteAuthor">Author</label>
+                                <input type="text" id="quoteAuthor" class="feed-input"
+                                    placeholder="e.g. ગુરુહરી હરિપ્રસાદ સ્વામીજી" />
+                            </div>
+                            <div style="display:flex; gap:0.75rem; align-items:center;">
+                                <button type="submit" class="btn btn-primary" id="quoteSubmitBtn">Add Quote</button>
+                                <div id="quoteFeedback" style="font-size:0.85rem; display:none;"></div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Quotes list -->
+                    <div class="admin-table-card">
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Quote</th>
+                                        <th>Author</th>
+                                        <th style="text-align:center; width:90px;">Active</th>
+                                        <th style="text-align:right;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminQuotesList">
+                                    <tr><td colspan="4" class="table-loading">Loading quotes...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════════════════════════════════
                      TASKS PANEL
                 ══════════════════════════════════════════ -->
                 <div class="admin-panel" id="panel-tasks">
@@ -711,6 +775,12 @@
                         <line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
                     <span class="admin-mobile-nav-label">Manage</span>
+                </button>
+                <button class="admin-mobile-nav-btn" data-panel="panel-quotes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    <span class="admin-mobile-nav-label">Quotes</span>
                 </button>
                 <button class="admin-mobile-nav-btn" data-panel="panel-tasks">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

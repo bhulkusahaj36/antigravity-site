@@ -18,6 +18,7 @@ const PANEL_LABELS = {
     'panel-dashboard': 'Dashboard',
     'panel-add':       'Add / Edit',
     'panel-manage':    'Manage',
+    'panel-quotes':    'Quotes',
     'panel-tasks':     'Tasks',
     'panel-sync':      'Maintenance',
 };
@@ -58,6 +59,8 @@ function initSidebarNav() {
             }
         } else if (targetPanelId === 'panel-dashboard') {
             if (typeof loadDashboardAnalytics === 'function') loadDashboardAnalytics();
+        } else if (targetPanelId === 'panel-quotes') {
+            if (typeof initQuotesPanel === 'function') initQuotesPanel();
         } else if (targetPanelId === 'panel-tasks') {
             if (typeof renderTasks === 'function') renderTasks();
         } else if (targetPanelId === 'panel-sync') {

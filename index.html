@@ -28,9 +28,30 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Non-blocking font load: avoids render-blocking stylesheet -->
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "\u0ab9\u0ab0\u0abf\u0aaa\u0acd\u0ab0\u0aac\u0acb\u0aa7\u0aae \u0a95\u0aa5\u0abe\u0aae\u0ac3\u0aa4",
+        "inLanguage": "gu",
+        "url": "https://bhulkusahaj36.github.io/antigravity-site/",
+        "description": "\u0a97\u0ac1\u0a9c\u0ab0\u0abe\u0aa4\u0ac0 \u0aad\u0a95\u0acd\u0aa4\u0abf \u0ab8\u0abe\u0ab9\u0abf\u0aa4\u0acd\u0aaf \u0a85\u0aa8\u0ac7 \u0aa7\u0abe\u0ab0\u0acd\u0aae\u0abf\u0a95 \u0ab2\u0ac7\u0a96",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://bhulkusahaj36.github.io/antigravity-site/search.html?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
 </head>
 
 <body class="home-page">
@@ -91,7 +112,7 @@
             </h1>
             <div class="hero-quote">
                 <span class="quote-mark">&ldquo;</span>
-                <span>હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
+                <span id="quoteText">હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
                 <span class="quote-mark">&rdquo;</span>
                 <span class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</span>
                 <div class="quote-dots">

@@ -10,13 +10,42 @@ async function getContainer() {
         throw new Error("Missing AzureCosmosDBConnectionString in Environment Variables");
     }
     const client = new CosmosClient(connectionString);
-
-    // Assume Database and Container already exist
     const database = client.database("antigravity");
     const dbContainer = database.container("articles");
-
     container = dbContainer;
     return container;
+}
+
+// ── Auth ────────────────────────────────────────────────────────────────────
+function isAuthorized(request) {
+    const token = request.headers.get('X-Admin-Token');
+    const expected = process.env.ADMIN_SECRET_TOKEN;
+    if (!expected) {
+        // ADMIN_SECRET_TOKEN not set — write access disabled for safety
+        return false;
+    }
+    return token && token === expected;
+}
+
+// ── Input Validation & Sanitization ─────────────────────────────────────────
+function validateAndSanitize(data) {
+    if (!data.title?.trim()) throw new Error('Title is required');
+    if (data.title.length > 500) throw new Error('Title exceeds 500 characters');
+    if (data.content?.length > 600_000) throw new Error('Content too large (>600KB)');
+
+    // Strip script tags server-side as a defense-in-depth measure
+    if (data.content) {
+        data.content = data.content.replace(/<script[\s\S]*?<\/script>/gi, '');
+    }
+
+    // Whitelist allowed fields — drop anything unexpected
+    const allowed = [
+        'id', 'title', 'content', 'type', 'topic', 'source', 'prasang',
+        'album', 'location', 'date', 'public', 'status', 'featured', 'author',
+        'createdAt', 'updatedAt', 'category', 'excerpt'
+    ];
+    Object.keys(data).forEach(k => { if (!allowed.includes(k)) delete data[k]; });
+    return data;
 }
 
 app.http('articles', {
@@ -24,9 +53,10 @@ app.http('articles', {
     authLevel: 'anonymous',
     handler: async (request, context) => {
         try {
+            // ── GET  (public, no auth required) ─────────────────────────────
             if (request.method === 'GET') {
                 const c = await getContainer();
-                
+
                 const type = request.query.get('type');
                 const album = request.query.get('album');
                 const search = request.query.get('search');
@@ -37,11 +67,10 @@ app.http('articles', {
                 const page = parseInt(request.query.get('page') || '0');
                 const limit = parseInt(request.query.get('limit') || '0');
 
-                // If compact is true, we fetch everything except the heavy "content" column
-                let query = compact 
+                let query = compact
                     ? "SELECT c.id, c.title, c.author, c.source, c.topic, c.prasang, c.category, c.date, c.location, c.featured, c.public, c.type, c.album, c.status, c.createdAt, c.updatedAt, LEFT(c.content, 300) as excerpt FROM c"
                     : "SELECT * FROM c";
-                
+
                 let params = [];
                 let conditions = [];
 
@@ -54,7 +83,6 @@ app.http('articles', {
                     params.push({ name: "@album", value: album });
                 }
                 if (search) {
-                    // Use CONTAINS for case-insensitive search across title and content
                     conditions.push("(CONTAINS(c.title, @search, true) OR CONTAINS(c.content, @search, true))");
                     params.push({ name: "@search", value: search });
                 }
@@ -89,7 +117,6 @@ app.http('articles', {
 
                 const { resources } = await c.items.query({ query, parameters: params }).fetchAll();
 
-                // Cache-Control: compact list caches for 5 min, full articles for 1 min
                 const cacheSeconds = compact ? 300 : 60;
                 return {
                     jsonBody: resources,
@@ -100,8 +127,21 @@ app.http('articles', {
                 };
             }
 
+            // ── WRITE OPERATIONS — require auth ──────────────────────────────
+            if (['POST', 'DELETE', 'PATCH'].includes(request.method)) {
+                if (!isAuthorized(request)) {
+                    return {
+                        status: 401,
+                        body: 'Unauthorized: missing or invalid X-Admin-Token',
+                        headers: { 'Content-Type': 'text/plain' }
+                    };
+                }
+            }
+
+            // ── POST (create / upsert article) ───────────────────────────────
             if (request.method === 'POST') {
-                const articleData = await request.json();
+                const rawData = await request.json();
+                const articleData = validateAndSanitize(rawData);
                 const now = new Date().toISOString();
                 const c = await getContainer();
 
@@ -115,7 +155,6 @@ app.http('articles', {
                         if (existing && existing.createdAt) {
                             articleData.createdAt = existing.createdAt;
                         } else {
-                            // Fallback for old articles that just have timestamp ID
                             articleData.createdAt = new Date(Number(articleData.id)).toISOString();
                         }
                     } catch (e) {
@@ -129,15 +168,14 @@ app.http('articles', {
                 return { status: 201, jsonBody: resource };
             }
 
+            // ── DELETE ───────────────────────────────────────────────────────
             if (request.method === 'DELETE') {
                 const c = await getContainer();
-                // Support single ID via query string OR bulk IDs via body
                 const singleId = request.query.get('id');
                 if (singleId) {
                     await c.item(singleId, singleId).delete();
                     return { status: 204 };
                 }
-                // Bulk delete: expect { ids: [...] } in the body
                 const body = await request.json();
                 if (body.ids && Array.isArray(body.ids)) {
                     let deleted = 0;
@@ -152,8 +190,8 @@ app.http('articles', {
                 return { status: 400, body: "Please pass an id or { ids: [...] }" };
             }
 
+            // ── PATCH (bulk update) ──────────────────────────────────────────
             if (request.method === 'PATCH') {
-                // Bulk update: { ids: [...], updates: { field: value, ... } }
                 const body = await request.json();
                 if (!body.ids || !Array.isArray(body.ids) || !body.updates) {
                     return { status: 400, body: "Provide { ids: [...], updates: { ... } }" };
