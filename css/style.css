@@ -582,8 +582,9 @@ body.page-exiting {
   overflow: visible; /* CRITICAL for 3D cards */
 }
 
-/* Optional separator line (now vertical) */
+/* Optional separator line (now vertical) - Hidden per user request */
 .hero-latest-area::before {
+  display: none !important;
   content: '';
   position: absolute;
   top: 10%;
