@@ -193,14 +193,15 @@ html {
 }
 
 .hero-latest-area .carousel-3d-inner {
-  --w: 160px !important;
-  --h: 210px !important;
-  --translateZ: 360px !important;
+  --w: 140px !important;
+  --h: 200px !important;
+  --translateZ: 260px !important;
+  --rotateX: 0deg !important; /* Stop the cylinder from tilting down into the next section */
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 160px !important;
-  height: 210px !important;
+  width: 140px !important;
+  height: 200px !important;
 }
 
 .hero-latest-area .card-content {
@@ -553,10 +554,7 @@ body.page-exiting {
   display: flex;
   flex-direction: column;
   background: transparent;
-  /* overflow:hidden clips the 3D carousel cards that translateZ into the viewer's space.
-     Use overflow-x:clip to still prevent horizontal scrollbar without blocking 3D transforms. */
-  overflow-x: clip;
-  overflow-y: visible;
+  overflow: hidden;
 }
 
 .hero-split-container {
@@ -3840,6 +3838,8 @@ body.light-mode #particles-js {
   transform:
     rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(var(--translateZ));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   background: rgba(26, 18, 11, 0.0);
   /* The radial gradient fills the card with a saffron-tinted glow */
   background-image: radial-gradient(
