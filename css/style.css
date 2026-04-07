@@ -809,35 +809,7 @@ body.page-exiting {
   transform: translateX(-50%) translateY(15px);
 }
 
-/* Subtle shimmer sweep across the quote box */
-.hero-quote::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(105deg,
-      transparent 40%,
-      rgba(255, 215, 80, 0.06) 50%,
-      transparent 60%);
-  animation: quoteShimmer 4s 1.5s ease-in-out infinite;
-  pointer-events: none;
-}
 
-@keyframes quoteShimmer {
-  0% {
-    left: -100%;
-  }
-
-  50% {
-    left: 140%;
-  }
-
-  100% {
-    left: 140%;
-  }
-}
 
 .quote-mark {
   font-size: 1.4em;
@@ -3367,12 +3339,7 @@ body.light-mode .hero-quote {
   text-shadow: none !important;
 }
 
-body.light-mode .hero-quote::after,
-body.light-mode .hero-quote::before {
-  display: none !important;
-  box-shadow: none !important;
-  background: none !important;
-}
+
 
 body.light-mode .hero-quote .quote-author {
   color: var(--text-secondary);
