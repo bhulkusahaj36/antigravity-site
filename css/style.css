@@ -681,7 +681,7 @@ body.page-exiting {
   max-height: 450px; /* Increased from 250px */
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(255, 179, 15, 0.7)) drop-shadow(0 0 45px rgba(255, 179, 15, 0.4));
-  transform: scale(2.25) translateY(-4rem); /* Moved up */
+  transform: scale(2.25) translateY(-1.5rem); /* Adjusted slightly lower */
   z-index: 2;
   position: relative;
   pointer-events: none;
