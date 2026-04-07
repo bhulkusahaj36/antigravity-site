@@ -3736,6 +3736,10 @@ body.light-mode #particles-js {
   visibility: hidden;
   pointer-events: none;
 }
+.global-loader.fade-out * {
+  animation: none !important;
+  transition: none !important;
+}
 .global-loader .loader {
   display: flex;
   align-items: center;

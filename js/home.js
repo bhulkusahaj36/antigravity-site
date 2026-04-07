@@ -138,6 +138,8 @@ function renderArticles() {
     grid.style.setProperty('--quantity', count);
 
     sorted.forEach((a, i) => {
+        if (!a || !a.title) return; // Skip invalid entries
+        
         const item = document.createElement('div');
         item.className = 'carousel-3d-card';
         item.style.setProperty('--index', i);

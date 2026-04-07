@@ -43,7 +43,8 @@ function formatDate(iso) {
 // Get category name by id (handles comma-separated and custom tags)
 function getCategoryName(idText) {
     if (!idText) return '';
-    const ids = idText.split(',').map(s => s.trim()).filter(Boolean);
+    const str = String(idText);
+    const ids = str.split(',').map(s => s.trim()).filter(Boolean);
 
     let allCustomTags = [];
     try {
@@ -120,6 +121,8 @@ function getCategory(id) {
 
 // Build a single article card element with 3D flip effect
 function buildCard(article, isLatest = false) {
+    if (!article || !article.title) return null; // Skip invalid entries
+
     const el = document.createElement('div');
     el.className = 'article-card neon-latest-card card-animate';
 
