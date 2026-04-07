@@ -3734,6 +3734,7 @@ body.light-mode #particles-js {
 .global-loader.fade-out {
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
 }
 .global-loader .loader {
   display: flex;
