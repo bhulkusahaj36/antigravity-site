@@ -187,21 +187,21 @@ html {
 
 /* 3D Carousel within Hero - constrained height */
 .hero-latest-area .carousel-3d-wrapper {
-  height: 480px !important;
-  margin-top: -2rem;
+  height: 420px !important;
+  margin-top: -1.5rem;
   overflow: visible !important;
 }
 
 .hero-latest-area .carousel-3d-inner {
-  --w: 240px !important;
-  --h: 350px !important;
-  --translateZ: 450px !important;
+  --w: 200px !important;
+  --h: 290px !important;
+  --translateZ: 380px !important;
   --rotateX: 0deg !important; /* Stop the cylinder from tilting down into the next section */
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 240px !important;
-  height: 350px !important;
+  width: 200px !important;
+  height: 290px !important;
 }
 
 body {
