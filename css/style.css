@@ -187,29 +187,21 @@ html {
 
 /* 3D Carousel within Hero - constrained height */
 .hero-latest-area .carousel-3d-wrapper {
-  height: 280px !important;
-  margin-top: 0;
+  height: 480px !important;
+  margin-top: -2rem;
   overflow: visible !important;
 }
 
 .hero-latest-area .carousel-3d-inner {
-  --w: 140px !important;
-  --h: 200px !important;
-  --translateZ: 260px !important;
+  --w: 240px !important;
+  --h: 350px !important;
+  --translateZ: 450px !important;
   --rotateX: 0deg !important; /* Stop the cylinder from tilting down into the next section */
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 140px !important;
-  height: 200px !important;
-}
-
-.hero-latest-area .card-content {
-  padding: 0.8rem !important;
-}
-
-.hero-latest-area .card-title {
-  font-size: 0.8rem !important;
+  width: 240px !important;
+  height: 350px !important;
 }
 
 body {
@@ -3793,8 +3785,8 @@ body.light-mode #particles-js {
 .carousel-3d-card {
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
   transform:
@@ -3802,15 +3794,31 @@ body.light-mode #particles-js {
     translateZ(var(--translateZ));
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 10px 40px rgba(0, 0, 0, 0.4);
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    0 15px 45px rgba(0, 0, 0, 0.45);
   transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.4s ease, border-color 0.4s ease;
   display: flex;
   flex-direction: column;
+}
+
+/* Glass Refined Surface Glint */
+.carousel-3d-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.12) 0%, 
+      transparent 35%, 
+      transparent 100%);
+  pointer-events: none;
+  z-index: 10;
 }
 
 .carousel-3d-card:hover {
@@ -3830,53 +3838,54 @@ body.light-mode #particles-js {
 /* Text content area */
 .carousel-3d-content {
   flex: 1;
-  padding: 1.8rem 1.6rem;
+  padding: 2.2rem 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  gap: 0.6rem;
+  justify-content: center;
+  gap: 0.8rem;
   overflow: hidden;
+  text-align: center;
 }
 
 .carousel-3d-title {
   font-family: var(--font-gu);
-  font-size: 1.45rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: #ffffff;
-  line-height: 1.4;
-  margin: 0.2rem 0;
+  line-height: 1.35;
+  margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  letter-spacing: -0.01em;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--saffron-400);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.15em;
   margin: 0;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.85rem;
+  font-size: 0.95rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.75);
-  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.65;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-top: 0.4rem;
+  margin: 0.2rem 0 0;
   letter-spacing: 0.01em;
 }
 
