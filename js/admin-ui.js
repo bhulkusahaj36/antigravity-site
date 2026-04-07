@@ -1,9 +1,10 @@
 /**
  * admin-ui.js
- * Handles high-end interactive components for the Admin Dashboard.
+ * Handles the new sidebar navigation + all interactive UI components.
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    initSidebarNav();
     initVisibilityToggle();
     initFeaturedToggle();
     initSegmentedDateControl();
@@ -11,6 +12,81 @@ document.addEventListener('DOMContentLoaded', () => {
     initUnsavedIndicator();
     insertFieldIcons();
 });
+
+// ── Panel/Breadcrumb labels ─────────────────────────────────
+const PANEL_LABELS = {
+    'panel-dashboard': 'Dashboard',
+    'panel-add':       'Add / Edit',
+    'panel-manage':    'Manage',
+    'panel-tasks':     'Tasks',
+    'panel-sync':      'Maintenance',
+};
+
+/**
+ * Initialises sidebar + mobile bottom nav navigation.
+ * Replaces the old .feed-tab system.
+ */
+function initSidebarNav() {
+    const navItems      = document.querySelectorAll('.admin-nav-item');
+    const mobileButtons = document.querySelectorAll('.admin-mobile-nav-btn');
+    const panels        = document.querySelectorAll('.admin-panel');
+    const breadcrumb    = document.getElementById('adminBreadcrumbCurrent');
+
+    function switchPanel(targetPanelId) {
+        // Deactivate all nav items
+        navItems.forEach(n => n.classList.remove('active'));
+        mobileButtons.forEach(b => b.classList.remove('active'));
+
+        // Activate matching nav items
+        document.querySelectorAll(`[data-panel="${targetPanelId}"]`).forEach(el => {
+            el.classList.add('active');
+        });
+
+        // Update breadcrumb
+        if (breadcrumb) breadcrumb.textContent = PANEL_LABELS[targetPanelId] || '';
+
+        // Switch panels
+        panels.forEach(p => p.classList.remove('active'));
+        const target = document.getElementById(targetPanelId);
+        if (target) target.classList.add('active');
+
+        // Trigger panel-specific logic
+        if (targetPanelId === 'panel-manage') {
+            if (typeof initManageTabs === 'function') {
+                initManageTabs();
+                document.querySelector('.manage-subtab[data-target="manage-prasangs"]')?.click();
+            }
+        } else if (targetPanelId === 'panel-dashboard') {
+            if (typeof loadDashboardAnalytics === 'function') loadDashboardAnalytics();
+        } else if (targetPanelId === 'panel-tasks') {
+            if (typeof renderTasks === 'function') renderTasks();
+        } else if (targetPanelId === 'panel-sync') {
+            if (typeof initSyncTool === 'function') initSyncTool();
+        }
+    }
+
+    // Sidebar items
+    navItems.forEach(item => {
+        item.addEventListener('click', () => switchPanel(item.getAttribute('data-panel')));
+        item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                switchPanel(item.getAttribute('data-panel'));
+            }
+        });
+    });
+
+    // Mobile bottom bar buttons
+    mobileButtons.forEach(btn => {
+        btn.addEventListener('click', () => switchPanel(btn.getAttribute('data-panel')));
+    });
+
+    // Auto-load dashboard on page load
+    // (the dashboard panel is already .active, so just call once DOM is settled)
+    setTimeout(() => {
+        if (typeof loadDashboardAnalytics === 'function') loadDashboardAnalytics();
+    }, 100);
+}
 
 /**
  * Syncs the Visibility Toggle Switch with the hidden Select element
@@ -26,7 +102,6 @@ function initVisibilityToggle() {
         hiddenSelect.dispatchEvent(new Event('change', { bubbles: true }));
     });
 
-    // Initial sync
     toggle.checked = (hiddenSelect.value === 'yes');
 }
 
@@ -44,7 +119,6 @@ function initFeaturedToggle() {
         hiddenSelect.dispatchEvent(new Event('change', { bubbles: true }));
     });
 
-    // Initial sync
     toggle.checked = (hiddenSelect.value === 'yes');
 }
 
@@ -77,11 +151,8 @@ function initSegmentedDateControl() {
         }
     };
 
-    radios.forEach(r => {
-        r.addEventListener('change', () => updateReveal(r.value));
-    });
+    radios.forEach(r => r.addEventListener('change', () => updateReveal(r.value)));
 
-    // Initial state
     const checked = document.querySelector('input[name="add-date-type"]:checked');
     if (checked) updateReveal(checked.value);
 }
@@ -90,17 +161,10 @@ function initSegmentedDateControl() {
  * Auto-growing Textarea Logic
  */
 function initAutoGrowTextarea() {
-    const textareas = document.querySelectorAll('.auto-grow');
-    
-    textareas.forEach(ta => {
-        const adjustHeight = () => {
-            ta.style.height = 'auto';
-            ta.style.height = (ta.scrollHeight) + 'px';
-        };
-        
-        ta.addEventListener('input', adjustHeight);
-        // Initial adjust
-        setTimeout(adjustHeight, 0);
+    document.querySelectorAll('.auto-grow').forEach(ta => {
+        const adjust = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
+        ta.addEventListener('input', adjust);
+        setTimeout(adjust, 0);
     });
 }
 
@@ -113,20 +177,16 @@ function initUnsavedIndicator() {
     if (!form || !indicator) return;
 
     let isDirty = false;
-    const inputs = form.querySelectorAll('input, select, textarea');
-    
     const setDirty = () => {
         if (!isDirty) {
             isDirty = true;
-            indicator.style.display = 'block';
+            indicator.style.display = 'inline-block';
         }
     };
 
-    inputs.forEach(input => {
+    form.querySelectorAll('input, select, textarea').forEach(input => {
         input.addEventListener('change', setDirty);
-        if (input.tagName === 'INPUT' || input.tagName === 'TEXTAREA') {
-            input.addEventListener('input', setDirty);
-        }
+        if (input.tagName !== 'SELECT') input.addEventListener('input', setDirty);
     });
 
     form.addEventListener('submit', () => {
@@ -136,27 +196,23 @@ function initUnsavedIndicator() {
 }
 
 /**
- * Inserts high-quality monochrome SVG icons
+ * Inserts SVG icons into field-icon elements
  */
 function insertFieldIcons() {
     const icons = {
-        'icon-type': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>',
-        'icon-album': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
-        'icon-eye': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
-        'icon-star': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-        'icon-source': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+        'icon-type':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg>',
+        'icon-album':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>',
+        'icon-eye':     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+        'icon-source':  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
         'icon-subject': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
-        'icon-calendar': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
-        'icon-pin': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="12" r="3"/></svg>',
-        'icon-title': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>',
-        'icon-user': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
-        'icon-content': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>'
+        'icon-calendar':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+        'icon-pin':     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="12" r="3"/></svg>',
+        'icon-title':   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>',
+        'icon-user':    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+        'icon-content': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
     };
 
     Object.keys(icons).forEach(cls => {
-        const containers = document.querySelectorAll('.' + cls);
-        containers.forEach(c => {
-            c.innerHTML = icons[cls];
-        });
+        document.querySelectorAll('.' + cls).forEach(c => { c.innerHTML = icons[cls]; });
     });
 }

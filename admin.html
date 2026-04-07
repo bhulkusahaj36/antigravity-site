@@ -4,26 +4,26 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard</title>
+    <title>Admin Dashboard — હરિપ્રબોધમ</title>
     <meta name="description" content="Secure Admin Environment" />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/webp" href="images/Logo.webp" />
-    <link rel="icon" type="image/webp" href="images/logo.webp" />
     <link rel="shortcut icon" href="images/Logo.webp" type="image/webp" />
     <link rel="apple-touch-icon" href="images/Logo.webp" />
     <link rel="stylesheet" href="css/style.css?v=2.1" />
     <link rel="stylesheet" href="css/feed.css" />
+    <link rel="stylesheet" href="css/admin.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet" />
-    <!-- Quill Rich Text Editor -->
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
 </head>
 
 <body class="admin-page">
 
-    <!-- GLOBAL PAGE LOADER -->
+    <!-- ── PAGE LOADER ───────────────────────────────────────── -->
     <div id="global-loader" class="global-loader">
         <div class="loader">
             <div class="book-wrapper">
@@ -45,533 +45,210 @@
         </div>
     </div>
 
-
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
-    <nav class="navbar nav-pill" id="navbar">
-        <div class="container nav-inner" style="position: relative;">
-            <div style="display: flex; align-items: center;">
-                <a href="index.html" class="nav-link" style="color:var(--gold-400); font-weight:bold; padding-left: 0;">
-                    ← Back to Public Website
-                </a>
-                <button id="adminThemeToggle" class="theme-toggle-admin" aria-label="Toggle Theme">
-                  <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
-                    <circle cx="12" cy="12" r="5"></circle>
-                    <line x1="12" y1="1" x2="12" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="23"></line>
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                    <line x1="1" y1="12" x2="3" y2="12"></line>
-                    <line x1="21" y1="12" x2="23" y2="12"></line>
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                  </svg>
-                  <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                  </svg>
-                </button>
-            </div>
-            <span
-                style="color: var(--text-light); font-size: 1.25rem; font-weight: 600; font-family: 'Playfair Display', serif; display: none; position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap;"
-                id="navAdminTitle">Admin Dashboard</span>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#" id="logoutBtn" class="nav-link" style="color: #ef4444; display: none;">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- LOGIN SCREEN -->
-    <div id="admin-login-overlay"
-        style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 2rem;">
-        <div class="card-animate"
-            style="background: transparent; padding: 3rem; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); width: 100%; max-width: 400px; text-align: center;">
-            <h2 style="color: var(--gold-400); margin-bottom: 2rem;">Admin Access Only</h2>
+    <!-- ══════════════════════════════════════════════════════════
+         LOGIN SCREEN
+    ══════════════════════════════════════════════════════════ -->
+    <div id="admin-login-overlay">
+        <div class="admin-login-card card-animate">
+            <div class="admin-login-logo">હરિપ્રબોધમ કથામૃત</div>
+            <div class="admin-login-subtitle">Admin Access Only</div>
             <form id="adminLoginForm">
-                <input type="text" id="adminId" class="feed-input" placeholder="Admin ID" style="margin-bottom: 1rem;"
-                    autocomplete="username" />
-                <input type="password" id="adminPassword" class="feed-input" placeholder="Password"
-                    style="margin-bottom: 1.5rem;" autocomplete="current-password" />
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <div class="feed-field" style="margin-bottom:1rem;">
+                    <label class="feed-label" for="adminId">Admin ID</label>
+                    <input type="text" id="adminId" class="feed-input" placeholder="Enter admin ID"
+                        autocomplete="username" />
+                </div>
+                <div class="feed-field" style="margin-bottom:1.5rem;">
+                    <label class="feed-label" for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" class="feed-input" placeholder="Enter password"
+                        autocomplete="current-password" />
+                </div>
+                <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
             </form>
-            <div id="loginError" style="color: #ef4444; margin-top: 1rem; display: none;">Invalid credentials</div>
+            <div id="loginError" style="color:#ef4444; margin-top:1rem; font-size:0.85rem; display:none;">
+                ⚠ Invalid credentials. Please try again.
+            </div>
         </div>
     </div>
 
-    <!-- MAIN ADMIN DASHBOARD -->
-    <!-- MAIN ADMIN DASHBOARD -->
-    <div id="admin-dashboard" style="display: none; padding-top: 10rem;">
+    <!-- ══════════════════════════════════════════════════════════
+         ADMIN APP SHELL (shown after login)
+    ══════════════════════════════════════════════════════════ -->
+    <div id="admin-app">
 
+        <!-- ── TOP BAR ─────────────────────────────────────────── -->
+        <header class="admin-topbar">
+            <div class="admin-topbar-left">
+                <span class="admin-topbar-logo">હ.ક.</span>
+                <span class="admin-topbar-sep">/</span>
+                <nav class="admin-breadcrumb" aria-label="breadcrumb">
+                    Admin <span aria-hidden="true">›</span> <span id="adminBreadcrumbCurrent">Dashboard</span>
+                </nav>
+            </div>
+            <div class="admin-topbar-actions">
+                <button id="adminThemeToggle" class="theme-toggle-admin" aria-label="Toggle Theme" title="Toggle Theme">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="display:none;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <a href="index.html" style="font-family:var(--font-en); font-size:0.78rem; color:var(--text-muted); font-weight:500;"
+                    title="Back to public site">← Public Site</a>
+                <button id="adminLogoutBtn" style="display:none;">Logout</button>
+            </div>
+        </header>
 
-        <section class="section feed-section">
-            <div class="container">
+        <!-- ── APP BODY ────────────────────────────────────────── -->
+        <div class="admin-body">
 
-                <!-- TABS -->
-                <div class="feed-tabs">
-                    <button class="feed-tab active" data-target="panel-add">પ્રસંગ
-                        ઉમેરો / સંપાદિત કરો (Add/Edit)</button>
-                    <button class="feed-tab" data-target="panel-manage">લેખ
-                        મેનેજ કરો (Manage)</button>
-                    <button class="feed-tab" data-target="panel-dashboard">Dashboard</button>
-                    <button class="feed-tab" data-target="panel-tasks">Tasks</button>
-                    <button class="feed-tab" data-target="panel-sync">Maintenance</button>
+            <!-- ── SIDEBAR ───────────────────────────────────────── -->
+            <aside class="admin-sidebar" role="navigation" aria-label="Admin Navigation">
+
+                <div class="admin-sidebar-section">Content</div>
+
+                <div class="admin-nav-item active" data-panel="panel-dashboard" id="nav-dashboard" role="button" tabindex="0">
+                    <svg class="admin-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    Dashboard
                 </div>
 
-                <!-- ══════════════════════════════════════════
-                 ADD NEW ENTRY FORM
-            ══════════════════════════════════════════ -->
-                <div class="feed-panel active" id="panel-add">
-                    <form id="addForm" class="feed-form" novalidate>
-
-                        <div class="feed-section-header">
-                            <div class="feed-section-label">General Details</div>
-                            <div id="unsaved-indicator" class="unsaved-dot" style="display:none;"></div>
-                        </div>
-
-                        <!-- 3-COLUMN PROFESSIONAL GRID -->
-                        <div class="feed-grid-3">
-
-                            <!-- ROW 1 -->
-                            <div class="feed-field">
-                                <label class="feed-label" for="add-type">
-                                    <i class="field-icon icon-type"></i> પ્રકાર (Type)
-                                </label>
-                                <select id="add-type" class="feed-select">
-                                    <option value="prasang">પ્રસંગ</option>
-                                    <option value="paravani">પરાવાણી</option>
-                                </select>
-                            </div>
-
-                            <div class="feed-field" id="album-field-container">
-                                <label class="feed-label" for="add-album">
-                                    <i class="field-icon icon-album"></i> આલ્બમ (Album)
-                                </label>
-                                <select id="add-album" class="feed-select" data-conditional="add-album">
-                                    <option value="">પસંદ કરો...</option>
-                                    <option value="new">નવો આલ્બમ બનાવો (Create New)...</option>
-                                </select>
-                                <input type="text" id="add-album-new-text" class="feed-input feed-conditional"
-                                    data-show-for="add-album=new" placeholder="નવા આલ્બમનું નામ..."
-                                    style="display:none" />
-                            </div>
-
-                            <div class="feed-field">
-                                <label class="feed-label">
-                                    <i class="field-icon icon-eye"></i> Visibility
-                                </label>
-                                <div class="toggle-container">
-                                    <label class="switch">
-                                        <input type="checkbox" id="add-public-toggle" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <span class="toggle-text">Public (પબ્લિક)</span>
-                                </div>
-                                <div class="field-microcopy">Shown in public gallery</div>
-                            </div>
-
-
-
-                            <!-- ROW 2 -->
-                            <div class="feed-field">
-                                <label class="feed-label" for="add-source">
-                                    <i class="field-icon icon-source"></i> સ્રોત (Source)
-                                </label>
-                                <select id="add-source" class="feed-select" data-conditional="add-source" multiple>
-                                    <option value="">પસંદ કરો...</option>
-                                    <option value="swamiji">સ્વામીજી પરાવાણી</option>
-                                    <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
-                                    <option value="santo">સંતો પરવાણી</option>
-                                    <option value="bhakto">ભક્તોની પરાવાણી</option>
-                                    <option value="granth">ગ્રંથ</option>
-                                    <option value="vicharan">વિચરણ રિપોર્ટ</option>
-                                    <option value="patrika">પત્રિકા</option>
-                                </select>
-                                <div id="source-conditionals-container">
-                                    <input type="text" id="add-source-santo-text" class="feed-input feed-conditional"
-                                        data-show-for="add-source=santo" placeholder="સંત નું નામ દાખલ કરો..."
-                                        style="display:none" />
-                                    <input type="text" id="add-source-bhakto-text" class="feed-input feed-conditional"
-                                        data-show-for="add-source=bhakto" placeholder="ભક્ત નું નામ દાખલ કરો..."
-                                        style="display:none" />
-                                    <select id="add-source-granth-select" class="feed-select feed-conditional"
-                                        data-show-for="add-source=granth" style="display:none" multiple>
-                                        <option value="">ગ્રંથ પસંદ કરો...</option>
-                                        <option value="jivan">જીવનચરિત્ર</option>
-                                        <option value="saras">સરસ એક સહજાનંદ</option>
-                                        <option value="chaitanya">ચૈતન્ય ધોધ</option>
-                                        <option value="sudha">સુધાસિંધુ એક સહજાનંદ</option>
-                                        <option value="ambarish">અંબરીશ ઉપનિષદ</option>
-                                        <option value="anirdeshi">અનિર્દેશી અમૃત</option>
-                                        <option value="amrutpathey">અમૃતપાથેય</option>
-                                        <option value="aatampathey">આતમપાથેય</option>
-                                        <option value="manan">મનન ચિંતન</option>
-                                        <option value="pardarshi">પારદર્શી પરવાણી</option>
-                                        <option value="sahrudayi">સહ્રદયી</option>
-                                        <option value="chinmay">ચિન્મય ધોધ</option>
-                                        <option value="samarth">સમર્થની સાધુતા</option>
-                                        <option value="aksharjatan">અક્ષરજતન</option>
-                                        <option value="anya">અન્ય</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="feed-field">
-                                <label class="feed-label" for="add-topic">
-                                    <i class="field-icon icon-subject"></i> વિષય (Subject)
-                                </label>
-                                <select id="add-topic" class="feed-select" data-conditional="add-topic" multiple>
-                                    <option value="">પસંદ કરો...</option>
-                                    <option value="mahima">મહિમા</option>
-                                    <option value="atmiyata">આત્મીયતા</option>
-                                    <option value="nishtha">નિષ્ઠા</option>
-                                    <option value="seva">સેવા</option>
-                                    <option value="bhagvadi">ભગવદી</option>
-                                    <option value="bhakti">ભક્તોનો મહિમા</option>
-                                    <option value="saralata">સરળતા</option>
-                                    <option value="swadharm">સ્વધર્મ</option>
-                                    <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
-                                    <option value="bhajan">ભજન/સ્વામિનારાયણ મહામંત્ર</option>
-                                    <option value="svasarap">સ્વસારપ</option>
-                                    <option value="vachanamrut">વચનામૃત</option>
-                                    <option value="swamini">સ્વામીની વાતો</option>
-                                    <option value="shikshapatri">શિક્ષાપત્રી</option>
-                                    <option value="samagam">સમાગમ</option>
-                                    <option value="katha-varta">કથા-વાર્તા</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <input type="text" id="add-topic-other-text" class="feed-input feed-conditional"
-                                    data-show-for="add-topic=other" placeholder="વિષય દાખલ કરો..."
-                                    style="display:none" />
-                            </div>
-
-                            <div class="feed-field">
-                                <label class="feed-label">
-                                    <i class="field-icon icon-calendar"></i> પ્રસંગ તારીખ
-                                </label>
-                                <div class="segmented-control" id="date-segmented-control">
-                                    <input type="radio" name="add-date-type" value="none" id="date-none" checked>
-                                    <label for="date-none">Unknown</label>
-
-                                    <input type="radio" name="add-date-type" value="date" id="date-single">
-                                    <label for="date-single">Single</label>
-
-                                    <input type="radio" name="add-date-type" value="range" id="date-range">
-                                    <label for="date-range">Range</label>
-
-                                    <div class="segmented-glider"></div>
-                                </div>
-                                <div id="date-picker-container" class="date-picker-reveal">
-                                    <div id="add-date-single-reveal" style="display:none">
-                                        <input type="date" class="feed-input" id="add-date-val" />
-                                    </div>
-                                    <div id="add-date-range-reveal" class="date-range-row" style="display:none">
-                                        <input type="date" class="feed-input" id="add-date-from" placeholder="From" />
-                                        <span class="date-separator">—</span>
-                                        <input type="date" class="feed-input" id="add-date-to" placeholder="To" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- ROW 3 -->
-                            <div class="feed-field">
-                                <label class="feed-label" for="add-location">
-                                    <i class="field-icon icon-pin"></i> સ્થળ (Location)
-                                </label>
-                                <div class="input-with-icon">
-                                    <input type="text" id="add-location" class="feed-input"
-                                        placeholder="સ્થળ દાખલ કરો..." />
-                                </div>
-                                <div class="field-microcopy">City, venue name, or exact address</div>
-                            </div>
-
-                            <div class="feed-field feed-col-span-2">
-                                <label class="feed-label" for="add-title">
-                                    <i class="field-icon icon-title"></i> શિરોનામ (Title/Description)
-                                </label>
-                                <textarea id="add-title" class="feed-input auto-grow" placeholder="પ્રસંગ શિરોનામ..."
-                                    rows="1"></textarea>
-                                <div class="validation-message" id="v-msg-title"></div>
-                            </div>
-
-                            <div class="feed-field" id="prasang-of-container" style="display:none;">
-                                <label class="feed-label" for="add-prasang">
-                                    <i class="field-icon icon-user"></i> પ્રસંગ કોના છે? (Prasang Of)
-                                </label>
-                                <select id="add-prasang" class="feed-select" multiple>
-                                    <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
-                                    <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
-                                    <option value="bhagatji">ભગતજી મહારાજ</option>
-                                    <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
-                                    <option value="yogiji">યોગીજી મહારાજ</option>
-                                    <option value="hariprasad">હરિપ્રસાદ સ્વામીજી મહારાજ</option>
-                                    <option value="prabodh">પ્રબોધ સ્વામીજી</option>
-                                    <option value="bhakto">ભક્તો</option>
-                                    <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
-                                </select>
-                            </div>
-
-                        </div> <!-- end feed-grid-3 -->
-
-                        <!-- HIDDEN ORIGINAL SELECTS (Keep for existing JS logic compatibility) -->
-                        <select id="add-public" style="display:none">
-                            <option value="yes">Yes</option>
-                            <option value="no">No</option>
-                        </select>
-
-
-                        <div id="add-feedback" class="form-feedback" style="display:none; margin-top: 1.5rem;"></div>
-
-
-                        <div class="feed-field feed-field-full" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
-                            <label class="feed-label">
-                                <i class="field-icon icon-content"></i> સંદેશ / પ્રસંગ (Content / Description)
-                            </label>
-                            <div id="editor-container" style="height: 600px;"></div>
-                        </div>
-
-                        <div class="feed-actions" style="gap: 0.75rem;">
-                            <button type="submit" class="btn btn-primary" id="btnSavePublish">Save & Publish</button>
-                            <button type="button" class="btn btn-outline" id="btnSaveDraft"
-                                style="border-color: #f59e0b; color: #f59e0b;">Save as Draft</button>
-                            <button type="button" class="btn btn-outline" id="btnPreview"
-                                style="display:none; border-color: #10b981; color: #10b981;">Preview ↗</button>
-                            <button type="reset" class="btn btn-outline">Clear</button>
-                        </div>
-
-
-                    </form>
+                <div class="admin-nav-item" data-panel="panel-add" id="nav-add" role="button" tabindex="0">
+                    <svg class="admin-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                    Add / Edit
                 </div>
 
-                <!-- ══════════════════════════════════════════
-                 MANAGE ARTICLES PANEL
-            ══════════════════════════════════════════ -->
-                <div class="feed-panel" id="panel-manage" style="display:none">
-                    <div class="feed-section-header">
-                        <div class="feed-section-label">Content Management</div>
-                    </div>
-
-                    <!-- SUB-TABS FOR MANAGEMENT -->
-                    <div class="manage-tabs-container" style="margin-bottom: 2rem;">
-                        <div class="manage-tabs"
-                            style="display: flex; gap: 0.5rem; background: rgba(255,255,255,0.03); padding: 0.4rem; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); width: fit-content;">
-                            <button class="manage-subtab active" data-target="manage-prasangs">Prasangs</button>
-                            <button class="manage-subtab" data-target="manage-paravanis">Paravanis</button>
-                            <button class="manage-subtab" data-target="manage-albums">Albums</button>
-                        </div>
-                    </div>
-
-                    <!-- PRASANGS VIEW -->
-                    <div id="manage-prasangs" class="manage-section active">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap;">
-                            <input type="text" id="prasangSearchInput" class="feed-input"
-                                placeholder="Search prasangs..." style="max-width: 300px;" />
-                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                                <select id="prasangStatusFilter" class="feed-select" style="max-width: 150px;">
-                                    <option value="">All Status</option>
-                                    <option value="published">Published</option>
-                                    <option value="draft">Drafts</option>
-                                </select>
-                                <select id="prasangSortBy" class="feed-select" style="max-width: 180px;">
-                                    <option value="latest">Latest Addition</option>
-                                    <option value="createdAt_desc">Newest Created</option>
-                                    <option value="createdAt_asc">Oldest Created</option>
-                                    <option value="updatedAt_desc">Recently Modified</option>
-                                    <option value="updatedAt_asc">Oldest Modified</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- BULK ACTION TOOLBAR -->
-                        <div id="prasangBulkBar" class="bulk-action-bar" style="display:none;">
-                            <span id="prasangSelectedCount" class="bulk-count">0 selected</span>
-                            <button class="btn btn-outline bulk-btn" id="bulkPublishPrasang"
-                                style="border-color:#10b981;color:#10b981;">Publish</button>
-                            <button class="btn btn-outline bulk-btn" id="bulkUnpublishPrasang"
-                                style="border-color:#f59e0b;color:#f59e0b;">Unpublish</button>
-                            <button class="btn btn-outline bulk-btn" id="bulkDeletePrasang"
-                                style="border-color:#ef4444;color:#ef4444;">Delete</button>
-                            <button class="btn btn-outline bulk-btn" id="bulkDeselectPrasang">Deselect All</button>
-                        </div>
-                        <div id="prasangListContainer" class="admin-table-wrapper">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width:40px;"><input type="checkbox" id="selectAllPrasangs"
-                                                title="Select All" /></th>
-                                        <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Author</th>
-                                        <th>Date</th>
-                                        <th style="text-align: right;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminPrasangsList">
-                                    <tr>
-                                        <td colspan="6" class="table-loading">Loading prasangs...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="load-more-container">
-                                <button id="loadMorePrasangs" class="btn btn-outline" style="display:none">Load
-                                    More</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PARAVANIS VIEW -->
-                    <div id="manage-paravanis" class="manage-section" style="display:none">
-                        <div
-                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; flex-wrap: wrap;">
-                            <input type="text" id="paravaniSearchInput" class="feed-input"
-                                placeholder="Search paravanis..." style="max-width: 300px;" />
-                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                                <select id="albumFilter" class="feed-select" style="max-width: 160px;">
-                                    <option value="">All Albums</option>
-                                </select>
-                                <select id="paravaniStatusFilter" class="feed-select" style="max-width: 150px;">
-                                    <option value="">All Status</option>
-                                    <option value="published">Published</option>
-                                    <option value="draft">Drafts</option>
-                                </select>
-                                <select id="paravaniSortBy" class="feed-select" style="max-width: 180px;">
-                                    <option value="latest">Latest Addition</option>
-                                    <option value="createdAt_desc">Newest Created</option>
-                                    <option value="createdAt_asc">Oldest Created</option>
-                                    <option value="updatedAt_desc">Recently Modified</option>
-                                    <option value="updatedAt_asc">Oldest Modified</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- BULK ACTION TOOLBAR -->
-                        <div id="paravaniBulkBar" class="bulk-action-bar" style="display:none;">
-                            <span id="paravaniSelectedCount" class="bulk-count">0 selected</span>
-                            <button class="btn btn-outline bulk-btn" id="bulkPublishParavani"
-                                style="border-color:#10b981;color:#10b981;">Publish</button>
-                            <button class="btn btn-outline bulk-btn" id="bulkUnpublishParavani"
-                                style="border-color:#f59e0b;color:#f59e0b;">Unpublish</button>
-                            <button class="btn btn-outline bulk-btn" id="bulkDeleteParavani"
-                                style="border-color:#ef4444;color:#ef4444;">Delete</button>
-                            <button class="btn btn-outline bulk-btn" id="bulkDeselectParavani">Deselect All</button>
-                        </div>
-                        <div id="paravaniListContainer" class="admin-table-wrapper">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width:40px;"><input type="checkbox" id="selectAllParavanis"
-                                                title="Select All" /></th>
-                                        <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Album</th>
-                                        <th>Date</th>
-                                        <th style="text-align: right;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminParavanisList">
-                                    <tr>
-                                        <td colspan="6" class="table-loading">Loading paravanis...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="load-more-container">
-                                <button id="loadMoreParavanis" class="btn btn-outline" style="display:none">Load
-                                    More</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- ALBUMS VIEW -->
-                    <div id="manage-albums" class="manage-section" style="display:none">
-                        <div class="feed-subtitle" style="margin-bottom: 1.5rem;">Manage and Rename Paravani Albums
-                        </div>
-                        <div id="albumsListContainer" class="admin-table-wrapper">
-                            <table class="admin-table">
-                                <thead>
-                                    <tr>
-                                        <th>Album Name</th>
-                                        <th>Article Count</th>
-                                        <th style="text-align: right;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="adminAlbumsList">
-                                    <tr>
-                                        <td colspan="3" class="table-loading">Loading albums...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="admin-nav-item" data-panel="panel-manage" id="nav-manage" role="button" tabindex="0">
+                    <svg class="admin-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    Manage
                 </div>
 
-                <!-- ══════════════════════════════════════════
-                 MAINTENANCE & SYNC PANEL
-            ══════════════════════════════════════════ -->
-                <div class="feed-panel" id="panel-sync" style="display:none">
-                    <div class="feed-section-label">Maintenance & Sync</div>
-                    <p class="feed-subtitle" style="margin-bottom: 2rem;">
-                        Use this tool to export your browser-local category mappings (created on this device)
-                        so they can be added to the global `data.js` file for mobile users.
-                    </p>
+                <div class="admin-sidebar-section">Tools</div>
 
-                    <div class="feed-actions" style="justify-content: flex-start; gap: 1rem;">
-                        <button id="btnExportTags" class="btn btn-primary">Export Category Mappings</button>
-                    </div>
-
-                    <div id="exportContainer" style="display:none; margin-top: 2rem;">
-                        <label class="feed-label">Copy this code into `js/data.js`:</label>
-                        <textarea id="txtExportArea" class="feed-input"
-                            style="height: 300px; font-family: monospace; font-size: 0.85rem;" readonly></textarea>
-                    </div>
+                <div class="admin-nav-item" data-panel="panel-tasks" id="nav-tasks" role="button" tabindex="0">
+                    <svg class="admin-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 11 12 14 22 4"/>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                    Tasks
                 </div>
 
-                <!-- ══════════════════════════════════════════
-                 DASHBOARD PANEL
-            ══════════════════════════════════════════ -->
-                <div class="feed-panel" id="panel-dashboard" style="display:none">
-                    <div class="feed-section-label">Dashboard Analytics</div>
+                <div class="admin-nav-item" data-panel="panel-sync" id="nav-sync" role="button" tabindex="0">
+                    <svg class="admin-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10"/>
+                        <polyline points="1 20 1 14 7 14"/>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                    </svg>
+                    Maintenance
+                </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 2rem; margin-bottom: 2rem;">
-                        <div
-                            style="background: transparent; backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
-                            <div
-                                style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
-                                <h3 style="color: var(--text-light); margin: 0; margin-top: 0.25rem;">
-                                    Articles Added Over Time
-                                    <span id="activityTotalCount"
-                                        style="font-size: 1rem; color: var(--gold-400); font-weight: normal; margin-left: 0.5rem; padding: 0.15rem 0.5rem; background: rgba(251, 191, 36, 0.1); border-radius: 4px;"></span>
-                                </h3>
-                                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 0.5rem;">
-                                    <div class="chart-time-filters" id="dashboardTimeFilterGroup">
-                                        <button class="time-filter-btn" data-value="1D">1D</button>
-                                        <button class="time-filter-btn" data-value="1W">1W</button>
-                                        <button class="time-filter-btn active" data-value="1M">1M</button>
-                                        <button class="time-filter-btn" data-value="3M">3M</button>
-                                        <button class="time-filter-btn" data-value="1Y">1Y</button>
-                                        <button class="time-filter-btn" data-value="5Y">5Y</button>
-                                        <button class="time-filter-btn" data-value="10Y">10Y</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="position: relative; height: 300px; width: 100%;">
-                                <canvas id="activityChart"></canvas>
-                            </div>
+            </aside>
+
+            <!-- ── MAIN CONTENT ───────────────────────────────────── -->
+            <main class="admin-content">
+
+                <!-- ══════════════════════════════════════════
+                     DASHBOARD PANEL
+                ══════════════════════════════════════════ -->
+                <div class="admin-panel active" id="panel-dashboard">
+                    <div class="admin-panel-header">
+                        <div class="admin-panel-title">Dashboard</div>
+                        <div class="admin-panel-subtitle">Overview of your content and activity</div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="admin-stats-grid">
+                        <div class="admin-stat-card">
+                            <svg class="admin-stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                            </svg>
+                            <div class="admin-stat-value" id="stat-prasangs">—</div>
+                            <div class="admin-stat-label">Prasangs</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <svg class="admin-stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                            </svg>
+                            <div class="admin-stat-value" id="stat-paravanis">—</div>
+                            <div class="admin-stat-label">Paravanis</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <svg class="admin-stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+                            </svg>
+                            <div class="admin-stat-value" id="stat-albums">—</div>
+                            <div class="admin-stat-label">Albums</div>
+                        </div>
+                        <div class="admin-stat-card">
+                            <svg class="admin-stat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <div class="admin-stat-value" id="stat-drafts">—</div>
+                            <div class="admin-stat-label">Drafts</div>
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                        <div
-                            style="background: transparent; backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
-                            <h3
-                                style="color: var(--text-light); margin-top: 0; margin-bottom: 1rem; text-align: center;">
-                                Articles by Category</h3>
-                            <div style="position: relative; height: 300px; width: 100%;">
+                    <!-- Activity Chart -->
+                    <div class="admin-chart-card">
+                        <div class="admin-chart-header">
+                            <div class="admin-chart-title">Articles Added Over Time
+                                <span id="activityTotalCount" style="font-size:0.8rem; color:var(--saffron-400); font-weight:400; margin-left:0.5rem;"></span>
+                            </div>
+                            <div class="chart-time-filters" id="dashboardTimeFilterGroup">
+                                <button class="time-filter-btn" data-value="1D">1D</button>
+                                <button class="time-filter-btn" data-value="1W">1W</button>
+                                <button class="time-filter-btn active" data-value="1M">1M</button>
+                                <button class="time-filter-btn" data-value="3M">3M</button>
+                                <button class="time-filter-btn" data-value="1Y">1Y</button>
+                                <button class="time-filter-btn" data-value="All">All</button>
+                            </div>
+                        </div>
+                        <div style="position:relative; height:260px;">
+                            <canvas id="activityChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Category + Prasang Of Charts -->
+                    <div class="admin-charts-row">
+                        <div class="admin-chart-card" style="margin-bottom:0;">
+                            <div class="admin-chart-header">
+                                <div class="admin-chart-title">By Subject (Topic)</div>
+                            </div>
+                            <div style="position:relative; height:240px;">
                                 <canvas id="categoryChart"></canvas>
                             </div>
                         </div>
-                        <div
-                            style="background: transparent; backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05);">
-                            <h3
-                                style="color: var(--text-light); margin-top: 0; margin-bottom: 1rem; text-align: center;">
-                                Articles by Featured</h3>
-                            <div style="position: relative; height: 300px; width: 100%;">
+                        <div class="admin-chart-card" style="margin-bottom:0;">
+                            <div class="admin-chart-header">
+                                <div class="admin-chart-title">By Prasang Of</div>
+                            </div>
+                            <div style="position:relative; height:240px;">
                                 <canvas id="featuredChart"></canvas>
                             </div>
                         </div>
@@ -579,63 +256,485 @@
                 </div>
 
                 <!-- ══════════════════════════════════════════
-                     TASKS MANAGEMENT PANEL
+                     ADD / EDIT PANEL
                 ══════════════════════════════════════════ -->
-                <div class="feed-panel" id="panel-tasks" style="display:none">
-                    <div class="feed-section-label">Tasks Management</div>
-
-                    <div
-                        style="background: transparent; backdrop-filter: blur(8px); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.05); margin-bottom: 2rem;">
-                        <h3 style="color: var(--gold-400); margin-top: 0; margin-bottom: 1.5rem;">Create New Task</h3>
-                        <form id="taskCreateForm"
-                            style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 1rem; align-items: end;">
-                            <div class="feed-field" style="margin-bottom:0">
-                                <label class="feed-label">Task Name</label>
-                                <input type="text" id="taskNameInput" class="feed-input"
-                                    placeholder="What needs to be done?" required />
-                            </div>
-                            <div class="feed-field" style="margin-bottom:0">
-                                <label class="feed-label">Deadline</label>
-                                <input type="date" id="taskDeadlineInput" class="feed-input" required />
-                            </div>
-                            <div class="feed-field" style="margin-bottom:0">
-                                <label class="feed-label">Priority</label>
-                                <select id="taskPriorityInput" class="feed-select">
-                                    <option value="low">Low</option>
-                                    <option value="medium" selected>Medium</option>
-                                    <option value="high">High</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="height: 48px;">Add Task</button>
-                        </form>
+                <div class="admin-panel" id="panel-add">
+                    <div class="admin-panel-header">
+                        <div class="admin-panel-title">Add / Edit Entry
+                            <div id="unsaved-indicator" class="unsaved-dot" style="display:none; margin-left:0.5rem;"></div>
+                        </div>
+                        <div class="admin-panel-subtitle">Create a new prasang or paravani entry</div>
                     </div>
 
-                    <div id="taskListContainer" style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
-                        <!-- Tasks dynamically rendered here -->
+                    <div class="admin-form-card">
+                        <form id="addForm" novalidate>
+
+                            <!-- SECTION: General Details -->
+                            <div class="admin-form-section-label">General Details</div>
+                            <div class="feed-grid-3" style="margin-bottom:1.25rem;">
+
+                                <div class="feed-field">
+                                    <label class="feed-label" for="add-type">
+                                        <i class="field-icon icon-type"></i> પ્રકાર (Type)
+                                    </label>
+                                    <select id="add-type" class="feed-select">
+                                        <option value="prasang">પ્રસંગ</option>
+                                        <option value="paravani">પરાવાણી</option>
+                                    </select>
+                                </div>
+
+                                <div class="feed-field" id="album-field-container">
+                                    <label class="feed-label" for="add-album">
+                                        <i class="field-icon icon-album"></i> આલ્બમ (Album)
+                                    </label>
+                                    <select id="add-album" class="feed-select" data-conditional="add-album">
+                                        <option value="">પસંદ કરો...</option>
+                                        <option value="new">નવો આલ્બમ બનાવો (Create New)...</option>
+                                    </select>
+                                    <input type="text" id="add-album-new-text" class="feed-input feed-conditional"
+                                        data-show-for="add-album=new" placeholder="નવા આલ્બમનું નામ..."
+                                        style="display:none; margin-top:0.4rem;" />
+                                </div>
+
+                                <div class="feed-field">
+                                    <label class="feed-label">
+                                        <i class="field-icon icon-eye"></i> Visibility
+                                    </label>
+                                    <div class="toggle-container">
+                                        <label class="switch">
+                                            <input type="checkbox" id="add-public-toggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                        <span class="toggle-text">Public</span>
+                                    </div>
+                                    <div class="field-microcopy">Shown in public gallery</div>
+                                </div>
+
+                                <!-- ROW 2 -->
+                                <div class="feed-field">
+                                    <label class="feed-label" for="add-source">
+                                        <i class="field-icon icon-source"></i> સ્રોત (Source)
+                                    </label>
+                                    <select id="add-source" class="feed-select" data-conditional="add-source" multiple>
+                                        <option value="">પસંદ કરો...</option>
+                                        <option value="swamiji">સ્વામીજી પરાવાણી</option>
+                                        <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
+                                        <option value="santo">સંતો પરવાણી</option>
+                                        <option value="bhakto">ભક્તોની પરાવાણી</option>
+                                        <option value="granth">ગ્રંથ</option>
+                                        <option value="vicharan">વિચરણ રિપોર્ટ</option>
+                                        <option value="patrika">પત્રિકા</option>
+                                    </select>
+                                    <div id="source-conditionals-container">
+                                        <input type="text" id="add-source-santo-text" class="feed-input feed-conditional"
+                                            data-show-for="add-source=santo" placeholder="સંત નું નામ..."
+                                            style="display:none; margin-top:0.4rem;" />
+                                        <input type="text" id="add-source-bhakto-text" class="feed-input feed-conditional"
+                                            data-show-for="add-source=bhakto" placeholder="ભક્ત નું નામ..."
+                                            style="display:none; margin-top:0.4rem;" />
+                                        <select id="add-source-granth-select" class="feed-select feed-conditional"
+                                            data-show-for="add-source=granth" style="display:none; margin-top:0.4rem;" multiple>
+                                            <option value="">ગ્રંથ પસંદ કરો...</option>
+                                            <option value="jivan">જીવનચરિત્ર</option>
+                                            <option value="saras">સરસ એક સહજાનંદ</option>
+                                            <option value="chaitanya">ચૈતન્ય ધોધ</option>
+                                            <option value="sudha">સુધાસિંધુ એક સહજાનંદ</option>
+                                            <option value="ambarish">અંબરીશ ઉપનિષદ</option>
+                                            <option value="anirdeshi">અનિર્દેશી અમૃત</option>
+                                            <option value="amrutpathey">અમૃતપાથેય</option>
+                                            <option value="aatampathey">આતમપાથેય</option>
+                                            <option value="manan">મનન ચિંતન</option>
+                                            <option value="pardarshi">પારદર્શી પરવાણી</option>
+                                            <option value="sahrudayi">સહ્રદયી</option>
+                                            <option value="chinmay">ચિન્મય ધોધ</option>
+                                            <option value="samarth">સમર્થની સાધુતા</option>
+                                            <option value="aksharjatan">અક્ષરજતન</option>
+                                            <option value="anya">અન્ય</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="feed-field">
+                                    <label class="feed-label" for="add-topic">
+                                        <i class="field-icon icon-subject"></i> વિષય (Subject)
+                                    </label>
+                                    <select id="add-topic" class="feed-select" data-conditional="add-topic" multiple>
+                                        <option value="">પસંદ કરો...</option>
+                                        <option value="mahima">મહિમા</option>
+                                        <option value="atmiyata">આત્મીયતા</option>
+                                        <option value="nishtha">નિષ્ઠા</option>
+                                        <option value="seva">સેવા</option>
+                                        <option value="bhagvadi">ભગવદી</option>
+                                        <option value="bhakti">ભક્તોનો મહિમા</option>
+                                        <option value="saralata">સરળતા</option>
+                                        <option value="swadharm">સ્વધર્મ</option>
+                                        <option value="swadhyay">સ્વાધ્યાય-ભજન</option>
+                                        <option value="bhajan">ભજન/સ્વામિનારાયણ મહામંત્ર</option>
+                                        <option value="svasarap">સ્વસારપ</option>
+                                        <option value="vachanamrut">વચનામૃત</option>
+                                        <option value="swamini">સ્વામીની વાતો</option>
+                                        <option value="shikshapatri">શિક્ષાપત્રી</option>
+                                        <option value="samagam">સમાગમ</option>
+                                        <option value="katha-varta">કથા-વાર્તા</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <input type="text" id="add-topic-other-text" class="feed-input feed-conditional"
+                                        data-show-for="add-topic=other" placeholder="વિષય દાખલ કરો..."
+                                        style="display:none; margin-top:0.4rem;" />
+                                </div>
+
+                                <div class="feed-field">
+                                    <label class="feed-label">
+                                        <i class="field-icon icon-calendar"></i> પ્રસંગ તારીખ
+                                    </label>
+                                    <div class="segmented-control" id="date-segmented-control">
+                                        <input type="radio" name="add-date-type" value="none" id="date-none" checked>
+                                        <label for="date-none">Unknown</label>
+                                        <input type="radio" name="add-date-type" value="date" id="date-single">
+                                        <label for="date-single">Single</label>
+                                        <input type="radio" name="add-date-type" value="range" id="date-range">
+                                        <label for="date-range">Range</label>
+                                        <div class="segmented-glider"></div>
+                                    </div>
+                                    <div id="date-picker-container" class="date-picker-reveal">
+                                        <div id="add-date-single-reveal" style="display:none">
+                                            <input type="date" class="feed-input" id="add-date-val" />
+                                        </div>
+                                        <div id="add-date-range-reveal" class="date-range-row" style="display:none">
+                                            <input type="date" class="feed-input" id="add-date-from" />
+                                            <span class="date-separator">—</span>
+                                            <input type="date" class="feed-input" id="add-date-to" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ROW 3 -->
+                                <div class="feed-field">
+                                    <label class="feed-label" for="add-location">
+                                        <i class="field-icon icon-pin"></i> સ્થળ (Location)
+                                    </label>
+                                    <input type="text" id="add-location" class="feed-input" placeholder="સ્થળ..." />
+                                    <div class="field-microcopy">City, venue, or address</div>
+                                </div>
+
+                                <div class="feed-field feed-col-span-2">
+                                    <label class="feed-label" for="add-title">
+                                        <i class="field-icon icon-title"></i> શિરોનામ (Title)
+                                    </label>
+                                    <textarea id="add-title" class="feed-input auto-grow" placeholder="પ્રસંગ શિરોનામ..." rows="1"></textarea>
+                                    <div class="validation-message" id="v-msg-title"></div>
+                                </div>
+
+                                <div class="feed-field" id="prasang-of-container" style="display:none;">
+                                    <label class="feed-label" for="add-prasang">
+                                        <i class="field-icon icon-user"></i> પ્રસંગ કોના છે? (Prasang Of)
+                                    </label>
+                                    <select id="add-prasang" class="feed-select" multiple>
+                                        <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
+                                        <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
+                                        <option value="bhagatji">ભગતજી મહારાજ</option>
+                                        <option value="shastriji">શાસ્ત્રીજી મહારાજ</option>
+                                        <option value="yogiji">યોગીજી મહારાજ</option>
+                                        <option value="hariprasad">હરિપ્રસાદ સ્વામીજી મહારાજ</option>
+                                        <option value="prabodh">પ્રબોધ સ્વામીજી</option>
+                                        <option value="bhakto">ભક્તો</option>
+                                        <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <!-- Hidden compatibility select -->
+                            <select id="add-public" style="display:none">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+
+                            <div id="add-feedback" class="form-feedback" style="display:none; margin-bottom:1rem;"></div>
+
+                            <!-- SECTION: Content -->
+                            <div class="admin-form-section-label" style="margin-top:0.5rem;">Content</div>
+                            <div class="feed-field" style="margin-bottom:0.5rem;">
+                                <label class="feed-label">
+                                    <i class="field-icon icon-content"></i> સંદેશ / પ્રસંગ
+                                </label>
+                                <div id="editor-container" style="height:500px;"></div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="feed-actions" style="margin-top:1rem;">
+                                <button type="submit" class="btn btn-primary" id="btnSavePublish">Save &amp; Publish</button>
+                                <button type="button" class="btn btn-outline" id="btnSaveDraft"
+                                    style="border-color:#f59e0b; color:#f59e0b;">Save Draft</button>
+                                <button type="button" class="btn btn-outline" id="btnPreview"
+                                    style="display:none; border-color:#10b981; color:#10b981;">Preview ↗</button>
+                                <button type="reset" class="btn btn-outline">Clear</button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
 
-            </div>
-        </section>
-    </div> <!-- /admin-dashboard -->
+                <!-- ══════════════════════════════════════════
+                     MANAGE PANEL
+                ══════════════════════════════════════════ -->
+                <div class="admin-panel" id="panel-manage">
+                    <div class="admin-panel-header">
+                        <div class="admin-panel-title">Manage Content</div>
+                        <div class="admin-panel-subtitle">Browse, search, and edit all entries</div>
+                    </div>
 
-    <footer class="footer">
-        <div class="container footer-inner">
-            <div class="footer-brand">
-                <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
-                <p>© 2026 હરિપ્રબોધમ કથામૃત</p>
-            </div>
-            <div class="footer-links">
-                <!-- No public links in admin -->
-            </div>
+                    <!-- Sub-tab bar -->
+                    <div class="admin-subtab-bar">
+                        <button class="admin-subtab active manage-subtab" data-target="manage-prasangs">Prasangs</button>
+                        <button class="admin-subtab manage-subtab" data-target="manage-paravanis">Paravanis</button>
+                        <button class="admin-subtab manage-subtab" data-target="manage-albums">Albums</button>
+                    </div>
+
+                    <!-- ── PRASANGS ────────────────────────────── -->
+                    <div id="manage-prasangs" class="manage-section active">
+                        <div class="admin-manage-toolbar">
+                            <input type="text" id="prasangSearchInput" class="feed-input"
+                                placeholder="Search prasangs..." style="max-width:280px; flex:1;" />
+                            <div class="admin-manage-filters">
+                                <select id="prasangStatusFilter" class="feed-select" style="max-width:140px;">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Drafts</option>
+                                </select>
+                                <select id="prasangSortBy" class="feed-select" style="max-width:170px;">
+                                    <option value="latest">Latest Added</option>
+                                    <option value="createdAt_desc">Newest First</option>
+                                    <option value="createdAt_asc">Oldest First</option>
+                                    <option value="updatedAt_desc">Recently Modified</option>
+                                    <option value="updatedAt_asc">Oldest Modified</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="prasangBulkBar" class="bulk-action-bar">
+                            <span id="prasangSelectedCount" class="bulk-count">0 selected</span>
+                            <button class="btn btn-outline bulk-btn" id="bulkPublishPrasang" style="border-color:#10b981;color:#10b981;">Publish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkUnpublishPrasang" style="border-color:#f59e0b;color:#f59e0b;">Unpublish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeletePrasang" style="border-color:#ef4444;color:#ef4444;">Delete</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeselectPrasang">Deselect All</button>
+                        </div>
+
+                        <div id="prasangListContainer" class="admin-table-card">
+                            <div class="admin-table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:36px;"><input type="checkbox" id="selectAllPrasangs" title="Select All" /></th>
+                                            <th>Title</th>
+                                            <th>Status</th>
+                                            <th>Author</th>
+                                            <th>Date</th>
+                                            <th style="text-align:right;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminPrasangsList">
+                                        <tr><td colspan="6" class="table-loading">Loading prasangs...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="load-more-container">
+                                <button id="loadMorePrasangs" class="btn btn-outline" style="display:none;">Load More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── PARAVANIS ───────────────────────────── -->
+                    <div id="manage-paravanis" class="manage-section" style="display:none;">
+                        <div class="admin-manage-toolbar">
+                            <input type="text" id="paravaniSearchInput" class="feed-input"
+                                placeholder="Search paravanis..." style="max-width:280px; flex:1;" />
+                            <div class="admin-manage-filters">
+                                <select id="albumFilter" class="feed-select" style="max-width:160px;">
+                                    <option value="">All Albums</option>
+                                </select>
+                                <select id="paravaniStatusFilter" class="feed-select" style="max-width:140px;">
+                                    <option value="">All Status</option>
+                                    <option value="published">Published</option>
+                                    <option value="draft">Drafts</option>
+                                </select>
+                                <select id="paravaniSortBy" class="feed-select" style="max-width:170px;">
+                                    <option value="latest">Latest Added</option>
+                                    <option value="createdAt_desc">Newest First</option>
+                                    <option value="createdAt_asc">Oldest First</option>
+                                    <option value="updatedAt_desc">Recently Modified</option>
+                                    <option value="updatedAt_asc">Oldest Modified</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="paravaniBulkBar" class="bulk-action-bar">
+                            <span id="paravaniSelectedCount" class="bulk-count">0 selected</span>
+                            <button class="btn btn-outline bulk-btn" id="bulkPublishParavani" style="border-color:#10b981;color:#10b981;">Publish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkUnpublishParavani" style="border-color:#f59e0b;color:#f59e0b;">Unpublish</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeleteParavani" style="border-color:#ef4444;color:#ef4444;">Delete</button>
+                            <button class="btn btn-outline bulk-btn" id="bulkDeselectParavani">Deselect All</button>
+                        </div>
+
+                        <div id="paravaniListContainer" class="admin-table-card">
+                            <div class="admin-table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:36px;"><input type="checkbox" id="selectAllParavanis" title="Select All" /></th>
+                                            <th>Title</th>
+                                            <th>Status</th>
+                                            <th>Album</th>
+                                            <th>Date</th>
+                                            <th style="text-align:right;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminParavanisList">
+                                        <tr><td colspan="6" class="table-loading">Loading paravanis...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="load-more-container">
+                                <button id="loadMoreParavanis" class="btn btn-outline" style="display:none;">Load More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ── ALBUMS ──────────────────────────────── -->
+                    <div id="manage-albums" class="manage-section" style="display:none;">
+                        <div id="albumsListContainer" class="admin-table-card">
+                            <div class="admin-table-wrapper">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Album Name</th>
+                                            <th>Articles</th>
+                                            <th style="text-align:right;">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminAlbumsList">
+                                        <tr><td colspan="3" class="table-loading">Loading albums...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                     TASKS PANEL
+                ══════════════════════════════════════════ -->
+                <div class="admin-panel" id="panel-tasks">
+                    <div class="admin-panel-header">
+                        <div class="admin-panel-title">Tasks</div>
+                        <div class="admin-panel-subtitle">Track to-dos and deadlines</div>
+                    </div>
+
+                    <div class="admin-task-create-card">
+                        <div class="admin-form-section-label">New Task</div>
+                        <form id="taskCreateForm">
+                            <div class="admin-task-form-row">
+                                <div class="feed-field" style="margin-bottom:0;">
+                                    <label class="feed-label">Task Name</label>
+                                    <input type="text" id="taskNameInput" class="feed-input" placeholder="What needs to be done?" required />
+                                </div>
+                                <div class="feed-field" style="margin-bottom:0;">
+                                    <label class="feed-label">Deadline</label>
+                                    <input type="date" id="taskDeadlineInput" class="feed-input" required />
+                                </div>
+                                <div class="feed-field" style="margin-bottom:0;">
+                                    <label class="feed-label">Priority</label>
+                                    <select id="taskPriorityInput" class="feed-select">
+                                        <option value="low">Low</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="height:48px; white-space:nowrap;">Add Task</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="taskListContainer" class="admin-task-list"></div>
+                </div>
+
+                <!-- ══════════════════════════════════════════
+                     MAINTENANCE PANEL
+                ══════════════════════════════════════════ -->
+                <div class="admin-panel" id="panel-sync">
+                    <div class="admin-panel-header">
+                        <div class="admin-panel-title">Maintenance</div>
+                        <div class="admin-panel-subtitle">Data export and sync tools</div>
+                    </div>
+
+                    <div class="admin-maintenance-card">
+                        <div class="admin-form-section-label">Category Mappings Export</div>
+                        <p style="color:var(--text-muted); font-size:0.88rem; margin-bottom:1.25rem; line-height:1.6;">
+                            Export browser-local category mappings created on this device. Copy the output into
+                            <code style="background:rgba(255,255,255,0.07); padding:0.1rem 0.4rem; border-radius:4px; font-size:0.82rem;">js/data.js</code>
+                            for mobile users.
+                        </p>
+                        <button id="btnExportTags" class="btn btn-primary">Export Category Mappings</button>
+
+                        <div id="exportContainer" style="display:none; margin-top:1.5rem;">
+                            <label class="feed-label" style="margin-bottom:0.5rem;">Copy this into <code>js/data.js</code>:</label>
+                            <textarea id="txtExportArea" class="feed-input"
+                                style="height:260px; font-family:monospace; font-size:0.82rem; margin-top:0.4rem;" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
         </div>
-    </footer>
+
+        <!-- ── MOBILE BOTTOM NAV ──────────────────────────────── -->
+        <nav class="admin-mobile-nav" aria-label="Mobile Admin Navigation">
+            <div class="admin-mobile-nav-inner">
+                <button class="admin-mobile-nav-btn active" data-panel="panel-dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+                        <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+                    </svg>
+                    <span class="admin-mobile-nav-label">Dashboard</span>
+                </button>
+                <button class="admin-mobile-nav-btn" data-panel="panel-add">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+                    </svg>
+                    <span class="admin-mobile-nav-label">Add</span>
+                </button>
+                <button class="admin-mobile-nav-btn" data-panel="panel-manage">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14 2 14 8 20 8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                    </svg>
+                    <span class="admin-mobile-nav-label">Manage</span>
+                </button>
+                <button class="admin-mobile-nav-btn" data-panel="panel-tasks">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="9 11 12 14 22 4"/>
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+                    </svg>
+                    <span class="admin-mobile-nav-label">Tasks</span>
+                </button>
+                <button class="admin-mobile-nav-btn" data-panel="panel-sync">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 4 23 10 17 10"/>
+                        <polyline points="1 20 1 14 7 14"/>
+                        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+                    </svg>
+                    <span class="admin-mobile-nav-label">More</span>
+                </button>
+            </div>
+        </nav>
+
+    </div><!-- /admin-app -->
 
     <script src="js/data.js"></script>
     <script src="js/utils.js"></script>
-    <!-- Quill Rich Text Editor JS -->
     <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/feed.js"></script>
     <script src="js/admin-ui.js"></script>

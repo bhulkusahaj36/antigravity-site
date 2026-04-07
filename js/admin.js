@@ -3,81 +3,30 @@
 document.addEventListener('DOMContentLoaded', () => {
     // We only execute this script on the admin.html page
     const adminOverlay = document.getElementById('admin-login-overlay');
-    const adminDashboard = document.getElementById('admin-dashboard');
+    const adminApp = document.getElementById('admin-app');
     const loginForm = document.getElementById('adminLoginForm');
     const loginError = document.getElementById('loginError');
 
-    if (!adminOverlay || !adminDashboard) return;
+    if (!adminOverlay || !adminApp) return;
 
     // Check if user is already authenticated
     if (localStorage.getItem('hk_isAdmin') === 'true') {
         adminOverlay.style.display = 'none';
-        adminDashboard.style.display = 'block';
-        if (document.getElementById('navAdminTitle')) {
-            document.getElementById('navAdminTitle').style.display = 'inline-block';
-        }
-
-        // Add a Logout button dynamically to the navbar
-        const navLinks = document.getElementById('navLinks');
-        if (navLinks && !document.getElementById('logoutBtn')) {
-            navLinks.innerHTML = '';
-            const li = document.createElement('li');
-            li.innerHTML = '<a href="#" id="logoutBtn" class="nav-link" style="color: #ef4444;">Logout</a>';
-            navLinks.appendChild(li);
-
-            document.getElementById('logoutBtn').addEventListener('click', (e) => {
-                e.preventDefault();
+        adminApp.classList.add('is-visible');
+        // Show logout button
+        const logoutBtn = document.getElementById('adminLogoutBtn');
+        if (logoutBtn) {
+            logoutBtn.style.display = 'inline-block';
+            logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('hk_isAdmin');
                 window.location.reload();
             });
         }
 
-        // ==========================================
-        // TAB SWITCHING LOGIC
-        // ==========================================
-        const tabs = document.querySelectorAll('.feed-tab');
-        const panels = document.querySelectorAll('.feed-panel');
-
-        tabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                tabs.forEach(t => {
-                    t.classList.remove('active');
-                    t.style.borderBottomColor = 'transparent';
-                    t.style.color = 'var(--text-muted)';
-                });
-                panels.forEach(p => {
-                    p.classList.remove('active', 'fade-in');
-                    p.style.display = 'none';
-                });
-
-                tab.classList.add('active');
-                tab.style.borderBottomColor = 'var(--gold-400)';
-                tab.style.color = 'var(--gold-400)';
-
-                const targetId = tab.getAttribute('data-target');
-                const targetPanel = document.getElementById(targetId);
-                if (targetPanel) {
-                    targetPanel.style.display = 'block';
-                    setTimeout(() => targetPanel.classList.add('active', 'fade-in'), 10);
-                }
-
-                if (targetId === 'panel-manage') {
-                    initManageTabs();
-                    // Load the first sub-tab
-                    document.querySelector('.manage-subtab[data-target="manage-prasangs"]')?.click();
-                } else if (targetId === 'panel-dashboard') {
-                    loadDashboardAnalytics();
-                } else if (targetId === 'panel-tasks') {
-                    renderTasks();
-                } else if (targetId === 'panel-sync') {
-                    initSyncTool();
-                }
-            });
-        });
-
+        // Expose functions for admin-ui.js sidebar to call
         let dashboardCharts = { activity: null, category: null, featured: null };
 
-        async function loadDashboardAnalytics() {
+        window.loadDashboardAnalytics = async function loadDashboardAnalytics() {
             try {
                 const response = await fetch('/api/articles?t=' + Date.now());
                 if (!response.ok) throw new Error('API fetch failed');
@@ -87,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     articles = [...ARTICLES, ...articles];
                 }
 
-                // Deduplicate by ID (ensure type matching)
+                // Deduplicate by ID
                 const seen = new Set();
                 articles = articles.filter(art => {
                     const idStr = String(art.id);
@@ -101,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }
 
+                renderDashboardStats(articles);
                 renderDashboardCharts(articles);
 
                 const timeBtns = document.querySelectorAll('.time-filter-btn');
@@ -115,6 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch (e) {
                 console.error("Error loading analytics:", e);
             }
+        };
+
+        // Populate the 4 stat cards
+        function renderDashboardStats(articles) {
+            const prasangs = articles.filter(a => a.type === 'prasang' || !a.type);
+            const paravanis = articles.filter(a => a.type === 'paravani');
+            const drafts = articles.filter(a => a.status === 'draft');
+            const albums = new Set(paravanis.map(a => a.album).filter(Boolean));
+
+            const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+            set('stat-prasangs', prasangs.length);
+            set('stat-paravanis', paravanis.length);
+            set('stat-albums', albums.size);
+            set('stat-drafts', drafts.length);
         }
 
         function renderDashboardCharts(articles) {
@@ -132,27 +96,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function filterArticlesByTimeline(articles, filter) {
+            // 'All' — return everything with a valid timestamp
+            if (filter === 'All') {
+                return articles.filter(art => {
+                    const ts = art.createdAt ? new Date(art.createdAt).getTime() : Number(art.id);
+                    return !isNaN(ts) && ts > 1000000;
+                });
+            }
+
             const now = new Date();
             const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
 
             if (filter === '1D') {
-                return articles.filter(art => Number(art.id) >= startOfToday);
+                return articles.filter(art => getArticleTimestamp(art) >= startOfToday);
             }
 
             let daysToSubtract = 0;
-            if (filter === '1W') daysToSubtract = 6; // Past 7 days including today
-            else if (filter === '1M') daysToSubtract = 29; // Past 30 days
+            if (filter === '1W') daysToSubtract = 6;
+            else if (filter === '1M') daysToSubtract = 29;
             else if (filter === '3M') daysToSubtract = 89;
             else if (filter === '1Y') daysToSubtract = 364;
-            else if (filter === '5Y') daysToSubtract = (5 * 365) - 1;
-            else if (filter === '10Y') daysToSubtract = (10 * 365) - 1;
 
             if (daysToSubtract > 0) {
                 const startTime = startOfToday - (daysToSubtract * 24 * 60 * 60 * 1000);
-                return articles.filter(art => Number(art.id) >= startTime);
+                return articles.filter(art => getArticleTimestamp(art) >= startTime);
             }
 
             return articles;
+        }
+
+        // Robust timestamp extraction — prefers createdAt over art.id
+        function getArticleTimestamp(art) {
+            if (art.createdAt) {
+                const t = new Date(art.createdAt).getTime();
+                if (!isNaN(t)) return t;
+            }
+            const idNum = Number(art.id);
+            // art.id as timestamp is only valid if it looks like a ms epoch (> year 2000)
+            if (!isNaN(idNum) && idNum > 946684800000) return idNum;
+            return 0;
         }
 
         function renderActivityChart(articles, filter) {
@@ -162,46 +144,98 @@ document.addEventListener('DOMContentLoaded', () => {
             const now = new Date();
             let labels = [];
             let formatKey = (d) => '';
+            let chartType = 'bar';
 
             if (filter === '1D') {
                 labels = Array.from({ length: 24 }, (_, i) => `${i.toString().padStart(2, '0')}:00`);
                 formatKey = (d) => `${d.getHours().toString().padStart(2, '0')}:00`;
+                chartType = 'bar';
             } else if (filter === '1W') {
                 labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
                 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 formatKey = (d) => days[d.getDay()];
-            } else {
-                const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-                labels = Array.from({ length: daysInMonth }, (_, i) => (i + 1).toString());
-                formatKey = (d) => d.getDate().toString();
+                chartType = 'bar';
+            } else if (filter === '1M' || filter === '3M') {
+                // Build day-by-day labels for the range
+                const days = filter === '1M' ? 30 : 90;
+                for (let i = days - 1; i >= 0; i--) {
+                    const d = new Date(now);
+                    d.setDate(d.getDate() - i);
+                    labels.push(`${d.getMonth()+1}/${d.getDate()}`);
+                }
+                formatKey = (d) => `${d.getMonth()+1}/${d.getDate()}`;
+                chartType = 'line';
+            } else if (filter === '1Y') {
+                // Monthly labels for past 12 months
+                const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                for (let i = 11; i >= 0; i--) {
+                    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                    labels.push(monthNames[d.getMonth()] + ' ' + d.getFullYear());
+                }
+                formatKey = (d) => monthNames[d.getMonth()] + ' ' + d.getFullYear();
+                chartType = 'bar';
+            } else if (filter === 'All') {
+                // Group by year
+                const years = [...new Set(articles.map(a => new Date(getArticleTimestamp(a)).getFullYear()))].sort();
+                labels = years.map(y => String(y));
+                formatKey = (d) => String(d.getFullYear());
+                chartType = 'bar';
             }
 
             labels.forEach(l => counts[l] = 0);
             articles.forEach(art => {
-                const dt = new Date(Number(art.id));
+                const ts = getArticleTimestamp(art);
+                if (!ts) return;
+                const dt = new Date(ts);
                 if (isNaN(dt.getTime())) return;
                 const key = formatKey(dt);
                 if (counts[key] !== undefined) counts[key]++;
             });
 
             const dataPoints = labels.map(l => counts[l]);
+            const hasData = dataPoints.some(v => v > 0);
             
             if (dashboardCharts.activity) dashboardCharts.activity.destroy();
             dashboardCharts.activity = new Chart(ctx, {
-                type: (filter === '1D') ? 'bar' : 'line',
+                type: chartType,
                 data: {
                     labels: labels,
                     datasets: [{
                         label: 'Articles Added',
                         data: dataPoints,
                         borderColor: '#fbbf24',
-                        backgroundColor: (filter === '1D') ? '#fbbf24' : 'rgba(251, 191, 36, 0.1)',
-                        borderWidth: (filter === '1D') ? 0 : 2,
+                        backgroundColor: chartType === 'bar'
+                            ? 'rgba(251, 191, 36, 0.5)'
+                            : 'rgba(251, 191, 36, 0.1)',
+                        borderWidth: chartType === 'bar' ? 0 : 2,
+                        borderRadius: chartType === 'bar' ? 4 : 0,
                         tension: 0.3,
-                        fill: true
+                        fill: true,
+                        pointRadius: chartType === 'line' ? (hasData ? 3 : 0) : 0,
                     }]
                 },
-                options: { responsive: true, maintainAspectRatio: false }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { mode: 'index', intersect: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 },
+                            grid: { color: 'rgba(255,255,255,0.05)' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                maxTicksLimit: filter === '1M' ? 10 : filter === '3M' ? 12 : 24,
+                                maxRotation: 45
+                            }
+                        }
+                    }
+                }
             });
         }
 
@@ -297,6 +331,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // Expose key functions globally for admin-ui.js sidebar
+        window.renderTasks = function() { renderTasksInternal(); };
+        window.initManageTabs = function() { initManageTabsInternal(); };
+
         // ==========================================
         // TASKS MANAGEMENT SYSTEM
         // ==========================================
@@ -304,7 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function saveTasks() {
             localStorage.setItem('hk_admin_tasks', JSON.stringify(adminTasks));
-            renderTasks();
+            renderTasksInternal();
         }
 
         window.deleteTask = (index) => {
@@ -335,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
             saveTasks();
         };
 
-        function renderTasks() {
+        function renderTasksInternal() {
             const container = document.getElementById('taskListContainer');
             if (!container) return;
             container.innerHTML = '';
@@ -365,42 +403,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 const progress = totalSubtasks > 0 ? Math.round((completedSubtasks / totalSubtasks) * 100) : 0;
 
                 const taskEl = document.createElement('div');
-                taskEl.style.cssText = `background: rgba(17, 24, 39, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem;`;
+                taskEl.className = 'admin-task-card';
                 
+                const statusClass = diffHours < 0 ? 'status-overdue' : diffHours < 24 ? 'status-due-soon' : 'status-on-track';
+                const priorityClass = `priority-${task.priority}`;
                 taskEl.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                    <div class="admin-task-header">
                         <div>
-                            <h4 style="color: var(--text-light); margin: 0; font-size: 1.2rem;">${task.name}</h4>
-                            <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0;">Deadline: ${deadline.toLocaleDateString()}</p>
-                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem;">
-                                <span style="padding: 0.1rem 0.6rem; background: ${statusColor}22; color: ${statusColor}; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">${statusText}</span>
-                                <span style="padding: 0.1rem 0.6rem; background: rgba(251, 191, 36, 0.1); color: var(--gold-400); border-radius: 4px; font-size: 0.75rem; font-weight: 600;">${task.priority}</span>
+                            <h4 class="admin-task-name">${task.name}</h4>
+                            <div class="admin-task-meta">Deadline: ${deadline.toLocaleDateString()}</div>
+                            <div class="admin-task-badges">
+                                <span class="priority-badge ${statusClass}">${statusText}</span>
+                                <span class="priority-badge ${priorityClass}">${task.priority}</span>
                             </div>
                         </div>
-                        <button class="btn btn-outline" onclick="deleteTask(${index})" style="color: #ef4444; border-color: #ef4444; padding: 0.25rem 0.75rem; font-size: 0.8rem;">Delete</button>
+                        <button class="table-action-btn delete" onclick="deleteTask(${index})">Delete</button>
                     </div>
-
-                    <div style="margin: 1.25rem 0;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.8rem; color: var(--text-muted);">
-                            <span>Progress</span>
-                            <span>${progress}%</span>
-                        </div>
-                        <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden;">
-                            <div style="height: 100%; width: ${progress}%; background: linear-gradient(90deg, #fbbf24, #f59e0b); transition: width 0.4s ease;"></div>
-                        </div>
+                    <div class="admin-task-progress-bar">
+                        <div class="admin-task-progress-fill" style="width:${progress}%"></div>
                     </div>
-
-                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03);">
-                        <div style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem;">
-                            <input type="text" id="subtask-input-${index}" placeholder="New subtask..." style="flex: 1; height: 28px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: white; padding: 0 0.5rem; font-size: 0.85rem;" />
-                            <button onclick="addSubtask(${index})" class="btn btn-primary" style="height: 28px; padding: 0 0.75rem; font-size: 0.75rem;">Add</button>
+                    <div style="font-size:0.75rem; color:var(--text-muted); text-align:right; margin-top:-0.4rem; margin-bottom:0.6rem;">${progress}%</div>
+                    <div class="admin-subtask-area">
+                        <div class="admin-subtask-input-row">
+                            <input type="text" id="subtask-input-${index}" placeholder="Add subtask..." class="feed-input" style="height:36px; font-size:0.85rem;" />
+                            <button onclick="addSubtask(${index})" class="btn btn-primary" style="height:36px; padding:0 0.75rem; font-size:0.78rem; white-space:nowrap;">Add</button>
                         </div>
                         <div id="subtask-list-${index}">
                             ${(task.subtasks || []).map((st, si) => `
-                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem;">
+                                <div class="admin-subtask-item">
                                     <input type="checkbox" ${st.completed ? 'checked' : ''} onchange="toggleSubtask(${index}, ${si})" />
-                                    <span style="flex: 1; font-size: 0.85rem; color: ${st.completed ? 'var(--text-muted)' : 'var(--text-light)'}; text-decoration: ${st.completed ? 'line-through' : 'none'};">${st.name}</span>
-                                    <button onclick="removeSubtask(${index}, ${si})" style="background:none; border:none; color: #ef4444; cursor:pointer; font-size: 1.1rem; line-height: 1;">&times;</button>
+                                    <span style="flex:1; font-size:0.85rem; color:${st.completed ? 'var(--text-muted)' : 'var(--text-primary)'}; text-decoration:${st.completed ? 'line-through' : 'none'}">${st.name}</span>
+                                    <button onclick="removeSubtask(${index}, ${si})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:1rem; line-height:1; padding:0;">&times;</button>
                                 </div>
                             `).join('')}
                         </div>
@@ -480,7 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (type === 'prasang') loadAdminPrasangs(true); else loadAdminParavanis(true);
         }
 
-        function initManageTabs() {
+        function initManageTabsInternal() {
             if (manageState.tabsInitialized) return;
             
             const tabs = document.querySelectorAll('.manage-subtab');
@@ -681,15 +714,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const isChecked = selSet.has(String(art.id)) ? 'checked' : '';
 
+                const detailLabel = type === 'prasang' ? 'Author' : 'Album';
                 tr.innerHTML = `
                     <td><input type="checkbox" class="row-checkbox" data-id="${art.id}" ${isChecked} /></td>
-                    <td style="font-weight: 500;">${art.title || 'Untitled'}</td>
-                    <td>${statusBadge}</td>
-                    <td>${detailStr}</td>
-                    <td style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">${dateHtml}</td>
-                    <td style="text-align: right; white-space: nowrap;">
-                        <a href="admin.html?editId=${art.id}" class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: var(--gold-400); color: var(--gold-400); margin-right: 0.5rem;">Edit</a>
-                        <button class="btn btn-outline delete-btn" data-id="${art.id}" style="padding: 0.25rem 0.6rem; font-size: 0.8rem; border-color: #ef4444; color: #ef4444;">Delete</button>
+                    <td data-label="Title" style="font-weight:500;">${art.title || 'Untitled'}</td>
+                    <td data-label="Status">${statusBadge}</td>
+                    <td data-label="${detailLabel}">${detailStr}</td>
+                    <td data-label="Date" style="color:var(--text-muted); font-size:0.85rem; line-height:1.4;">${dateHtml}</td>
+                    <td style="text-align:right; white-space:nowrap;">
+                        <a href="admin.html?editId=${art.id}" class="table-action-btn edit">Edit</a>
+                        <button class="table-action-btn delete delete-btn" data-id="${art.id}" style="margin-left:0.4rem;">Delete</button>
                     </td>
                 `;
                 listObj.appendChild(tr);
@@ -813,7 +847,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
 
     } else {
-        adminDashboard.style.display = 'none';
+        adminApp.style.display = 'none';
         if (loginForm) {
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -823,7 +857,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     localStorage.setItem('hk_isAdmin', 'true');
                     window.location.reload();
                 } else {
-                    loginError.style.display = 'block';
+                    if (loginError) loginError.style.display = 'block';
                 }
             });
         }
