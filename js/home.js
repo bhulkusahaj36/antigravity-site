@@ -182,7 +182,7 @@ async function initRotatingQuote() {
         if (res.ok) {
             const apiQuotes = await res.json();
             if (apiQuotes && apiQuotes.length > 0) {
-                quotes = apiQuotes; // Each item has { text, author }
+                quotes = apiQuotes.filter(q => q && ((typeof q === 'string' && q.trim().length > 0) || (q.text && q.text.trim().length > 0)));
             }
         }
     } catch (err) {
@@ -253,8 +253,10 @@ async function loadHomeArticles() {
         if (response.ok) {
             const data = await response.json();
             // Handle both raw array (no limit) and { items, nextToken } (with limit)
-            ALL_ARTICLES = Array.isArray(data) ? data : (data.items || []);
-            console.log("Articles fetched from API:", ALL_ARTICLES.length);
+            let fetchedData = Array.isArray(data) ? data : (data.items || []);
+            // Filter out garbage objects that have no title, avoiding "undefined" text errors
+            ALL_ARTICLES = fetchedData.filter(a => a && a.title && String(a.title).trim().length > 0);
+            console.log("Articles fetched and filtered from API:", ALL_ARTICLES.length);
         } else {
             console.error("API returned error:", response.status);
             if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
@@ -264,8 +266,8 @@ async function loadHomeArticles() {
         if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
     }
     
-    // Fix for 2d rotating cards not being visible locally:
-    // If local data logic returns an empty array, provide some mock articles.
+    // Fix for 2d rotating cards not being visible locally, or if live API returned only garbage data:
+    // If local data logic or filtering returns an empty array, provide some robust mock articles.
     if (!ALL_ARTICLES || ALL_ARTICLES.length === 0) {
         ALL_ARTICLES = [
             { id: '1000', title: 'ભગવાને રચી અનોખી લીલા: ભક્તોના હૃદયમાં વાસ', excerpt: 'મહારાજે સોમલા ખાચરના દરબારમાં જે લીલા કરી તેની સ્મૃતિ ભક્તો સદાય સંઘરી રાખે છે.', prasang: 'bhagwan', featured: true },
