@@ -142,18 +142,20 @@ function renderArticles() {
         item.className = 'carousel-3d-card';
         item.style.setProperty('--index', i);
 
-        // Determine label
-        const displayLabel = getCategoryName(a.prasang) || getCategoryName(a.category || a.topic || 'bhakti');
+        // prasang label
+        const rawPrasang = a.prasang || a.category || a.topic || 'bhakti';
+        const prasangName = getCategoryName(rawPrasang);
+        const displayLabel = prasangName ? `પ્રસંગ: ${prasangName}` : 'ભક્તિ';
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
-        const excerptText = plainText.substring(0, 90).trim() + (plainText.length > 90 ? '...' : '');
+        const excerptText = plainText.substring(0, 110).trim() + (plainText.length > 110 ? '...' : '');
 
         item.innerHTML = `
             <div class="carousel-3d-content">
-                ${a.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
-                <h3 class="carousel-3d-title">${a.title}</h3>
                 <p class="carousel-3d-label">${displayLabel}</p>
+                <h3 class="carousel-3d-title">${a.title}</h3>
+                <div class="carousel-3d-divider"></div>
                 <p class="carousel-3d-excerpt">${excerptText}</p>
             </div>
         `;
