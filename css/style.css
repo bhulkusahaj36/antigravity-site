@@ -187,21 +187,21 @@ html {
 
 /* 3D Carousel within Hero - constrained height */
 .hero-latest-area .carousel-3d-wrapper {
-  height: 420px !important;
-  margin-top: -1.5rem;
+  height: 460px !important;
+  margin-top: -2rem;
   overflow: visible !important;
 }
 
 .hero-latest-area .carousel-3d-inner {
-  --w: 200px !important;
-  --h: 290px !important;
-  --translateZ: 380px !important;
+  --w: 240px !important;
+  --h: 330px !important;
+  --translateZ: 420px !important;
   --rotateX: 0deg !important; /* Stop the cylinder from tilting down into the next section */
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 200px !important;
-  height: 290px !important;
+  width: 240px !important;
+  height: 330px !important;
 }
 
 body {
@@ -3839,39 +3839,50 @@ body.light-mode #particles-js {
 /* Text content area */
 .carousel-3d-content {
   flex: 1;
-  padding: 1.5rem 1.6rem;
+  padding: 1.8rem 1.6rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 0.8rem;
+  gap: 0.5rem;
   overflow: hidden;
   text-align: center;
 }
 
 .carousel-3d-title {
   font-family: var(--font-gu);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.4;
-  margin: 0.25rem 0;
+  line-height: 1.45;
+  margin: 0.1rem 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.carousel-3d-divider {
+  width: 30px;
+  height: 2px;
+  background: var(--saffron-500);
+  margin: 0.4rem auto;
+  opacity: 0.8;
+  border-radius: 2px;
 }
 
 .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: var(--saffron-400);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  margin-bottom: 0.2rem;
-  opacity: 0.7;
+  margin-bottom: 0.1rem;
+  opacity: 0.6;
 }
 
 
