@@ -145,7 +145,7 @@ function renderArticles() {
         // prasang label
         const rawPrasang = a.prasang || a.category || a.topic || 'bhakti';
         const prasangName = getCategoryName(rawPrasang);
-        const displayLabel = prasangName ? `પ્રસંગ: ${prasangName}` : 'ભક્તિ';
+        const displayLabel = prasangName ? `(પ્રસંગ) ${prasangName}` : '(પ્રસંગ) ભક્તિ';
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');

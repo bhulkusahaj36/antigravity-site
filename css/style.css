@@ -3868,8 +3868,8 @@ body.light-mode #particles-js {
 
 .carousel-3d-title {
   font-family: var(--font-gu);
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-size: 1.4rem; /* Increased from 1.25 */
+  font-weight: 900; /* Extra bold */
   color: var(--text-title);
   line-height: 1.2;
   display: -webkit-box;
@@ -3877,7 +3877,7 @@ body.light-mode #particles-js {
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  margin: 0.2rem 0;
+  margin: 0.25rem 0;
 }
 
 .carousel-3d-label {
@@ -3890,23 +3890,23 @@ body.light-mode #particles-js {
 }
 
 .carousel-3d-divider {
-  width: 30%;
-  height: 2px;
-  background: rgba(255, 143, 89, 0.3);
-  margin: 0.6rem 0;
-  border-radius: 2px;
+  width: 40px;
+  height: 3px;
+  background: #ff8f59; /* Bolder solid orange */
+  margin: 0.75rem 0;
+  border-radius: 4px;
 }
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.9rem;
-  font-weight: 400; /* Body text without bold */
-  color: var(--text-secondary);
-  line-height: 1.5;
-  opacity: 0.85;
+  font-size: 0.85rem; /* Slightly smaller */
+  font-weight: 300; /* Light weight to distinguish from title */
+  color: #e5e7eb;
+  line-height: 1.6;
+  opacity: 0.9;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
-  line-clamp: 4;
+  -webkit-line-clamp: 5;
+  line-clamp: 5; 
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
