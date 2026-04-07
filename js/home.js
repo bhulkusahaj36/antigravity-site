@@ -249,10 +249,12 @@ async function loadHomeArticles() {
     showSkeletonLoader('articlesGrid', false);
 
     try {
-        const response = await fetch('/api/articles?compact=true');
+        const response = await fetch('/api/articles?compact=true&limit=20');
         if (response.ok) {
-            ALL_ARTICLES = await response.json();
-            console.log("Articles fetched from API");
+            const data = await response.json();
+            // Handle both raw array (no limit) and { items, nextToken } (with limit)
+            ALL_ARTICLES = Array.isArray(data) ? data : (data.items || []);
+            console.log("Articles fetched from API:", ALL_ARTICLES.length);
         } else {
             console.error("API returned error:", response.status);
             if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
@@ -277,8 +279,18 @@ async function loadHomeArticles() {
         }
     } else {
         const grid = document.getElementById('articlesGrid');
-        if (grid) grid.innerHTML = '<p style="color:var(--text-muted); padding-left:1rem;">કોઈ લેખ મળી શક્યા નથી.</p>';
-        document.getElementById('categoryChips').innerHTML = ''; // Clear category chips if no articles
+        if (grid) {
+            grid.innerHTML = '';
+            grid.style.display = 'flex';
+            grid.style.justifyContent = 'center';
+            grid.style.alignItems = 'center';
+            grid.style.color = 'rgba(245,158,11,0.5)';
+            grid.style.fontFamily = 'var(--font-gu-sans)';
+            grid.style.fontSize = '0.9rem';
+            grid.style.letterSpacing = '0.05em';
+            grid.textContent = 'Visit the live site to see the latest articles.';
+        }
+        document.getElementById('categoryChips').innerHTML = '';
     }
 }
 

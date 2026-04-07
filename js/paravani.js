@@ -153,6 +153,10 @@ async function pv_fetchPage() {
     } catch (err) {
         console.error('Paravani fetch error:', err);
         pv_hasMore = false;
+        const grid = document.getElementById('paravaniGrid');
+        if (grid && pv_loadedIds.size === 0) {
+            grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:3rem 1rem;">Content is loading from the live server. Please visit the live site or check back shortly.</p>';
+        }
     } finally {
         pv_isLoading = false;
         pv_updateLoadMoreBtn();
