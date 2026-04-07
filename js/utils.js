@@ -708,12 +708,20 @@ function initPageTransitions() {
 
         // Show the global loader animation again for page transition
         const loader = document.getElementById('global-loader');
-        if (loader) loader.classList.remove('fade-out');
+        if (loader) {
+            loader.style.display = 'flex';
+            // Force reflow
+            loader.offsetHeight;
+            loader.classList.remove('fade-out');
+        }
 
         // FAIL-SAFE: If navigation is cancelled/delayed, restore visibility
         setTimeout(() => {
             document.body.classList.remove('page-exiting');
-            if (loader) loader.classList.add('fade-out');
+            if (loader) {
+                loader.classList.add('fade-out');
+                setTimeout(() => { loader.style.display = 'none'; }, 600);
+            }
         }, 1000);
 
         // Navigate after transition finishes (500ms allows loader to fade completely in)
@@ -847,6 +855,9 @@ window.addEventListener('load', () => {
     const loader = document.getElementById('global-loader');
     if (loader) {
         loader.classList.add('fade-out');
-        // Do not remove it from DOM, as we want to reuse it for page transitions!
+        // Completely remove from render tree after fade finish (600ms buffer)
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 650);
     }
 });
