@@ -593,8 +593,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // CONTENT MANAGEMENT LOGIC (REFACTORED)
         // ==========================================
         let manageState = {
-            prasangPage: 0,
-            paravaniPage: 0,
+            prasangToken: null,
+            paravaniToken: null,
             prasangEnd: false,
             paravaniEnd: false,
             limit: 10,
@@ -720,7 +720,7 @@ document.addEventListener('DOMContentLoaded', () => {
         async function loadAdminPrasangs(reset = true) {
             const listObj = document.getElementById('adminPrasangsList');
             if (reset) {
-                manageState.prasangPage = 0;
+                manageState.prasangToken = null;
                 manageState.prasangEnd = false;
                 selectedPrasangs.clear();
                 updateBulkBar('prasang');
@@ -733,23 +733,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 const term = document.getElementById('prasangSearchInput')?.value.trim() || '';
                 const sortBy = document.getElementById('prasangSortBy')?.value || '';
                 const statusFilter = document.getElementById('prasangStatusFilter')?.value || '';
-                let url = `/api/articles?type=prasang&page=${manageState.prasangPage}&limit=${manageState.limit}&t=${Date.now()}`;
+                let url = `/api/articles?type=prasang&limit=${manageState.limit}&t=${Date.now()}`;
+                if (manageState.prasangToken) url += `&continuationToken=${manageState.prasangToken}`;
                 if (term) url += `&search=${encodeURIComponent(term)}`;
                 if (sortBy && sortBy !== 'latest') url += `&sortBy=${encodeURIComponent(sortBy)}`;
                 if (statusFilter) url += `&status=${encodeURIComponent(statusFilter)}`;
 
                 const res = await fetch(url);
-                const articles = await res.json();
+                const data = await res.json();
+                
+                const articles = Array.isArray(data) ? data : (data.items || []);
+                manageState.prasangToken = Array.isArray(data) ? null : (data.nextToken || null);
                 
                 renderArticleList('adminPrasangsList', articles, 'prasang', reset);
                 
                 const btn = document.getElementById('loadMorePrasangs');
-                if (articles.length < manageState.limit) {
+                if (!manageState.prasangToken) {
                     manageState.prasangEnd = true;
                     if (btn) btn.style.display = 'none';
                 } else {
                     if (btn) btn.style.display = 'block';
-                    manageState.prasangPage++;
                 }
             } catch (error) {
                 console.error("Failed to load prasangs", error);
@@ -759,7 +762,7 @@ document.addEventListener('DOMContentLoaded', () => {
         async function loadAdminParavanis(reset = true) {
             const listObj = document.getElementById('adminParavanisList');
             if (reset) {
-                manageState.paravaniPage = 0;
+                manageState.paravaniToken = null;
                 manageState.paravaniEnd = false;
                 selectedParavanis.clear();
                 updateBulkBar('paravani');
@@ -774,24 +777,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const sortBy = document.getElementById('paravaniSortBy')?.value || '';
                 const statusFilter = document.getElementById('paravaniStatusFilter')?.value || '';
                 
-                let url = `/api/articles?type=paravani&page=${manageState.paravaniPage}&limit=${manageState.limit}&t=${Date.now()}`;
+                let url = `/api/articles?type=paravani&limit=${manageState.limit}&t=${Date.now()}`;
+                if (manageState.paravaniToken) url += `&continuationToken=${manageState.paravaniToken}`;
                 if (album) url += `&album=${encodeURIComponent(album)}`;
                 if (term) url += `&search=${encodeURIComponent(term)}`;
                 if (sortBy && sortBy !== 'latest') url += `&sortBy=${encodeURIComponent(sortBy)}`;
                 if (statusFilter) url += `&status=${encodeURIComponent(statusFilter)}`;
                 
                 const res = await fetch(url);
-                const articles = await res.json();
+                const data = await res.json();
+                
+                const articles = Array.isArray(data) ? data : (data.items || []);
+                manageState.paravaniToken = Array.isArray(data) ? null : (data.nextToken || null);
                 
                 renderArticleList('adminParavanisList', articles, 'paravani', reset);
                 
                 const btn = document.getElementById('loadMoreParavanis');
-                if (articles.length < manageState.limit) {
+                if (!manageState.paravaniToken) {
                     manageState.paravaniEnd = true;
                     if (btn) btn.style.display = 'none';
                 } else {
                     if (btn) btn.style.display = 'block';
-                    manageState.paravaniPage++;
                 }
                 
                 if (reset) updateAlbumFilter();
