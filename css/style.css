@@ -3786,7 +3786,7 @@ body.light-mode #particles-js {
 .carousel-3d-card {
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1.5px solid var(--saffron-500);
   border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
@@ -3795,7 +3795,7 @@ body.light-mode #particles-js {
     translateZ(var(--translateZ));
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(18, 12, 10, 0.45);
   backdrop-filter: blur(28px);
   -webkit-backdrop-filter: blur(28px);
   box-shadow: 
@@ -3839,10 +3839,10 @@ body.light-mode #particles-js {
 /* Text content area */
 .carousel-3d-content {
   flex: 1;
-  padding: 2.2rem 2rem;
+  padding: 1.5rem 1.6rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.8rem;
   overflow: hidden;
   text-align: center;
@@ -3865,13 +3865,13 @@ body.light-mode #particles-js {
 
 .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
+  font-size: 0.6rem;
+  font-weight: 700;
   color: var(--saffron-400);
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 0.5rem;
-  opacity: 0.8;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.2rem;
+  opacity: 0.7;
 }
 
 
