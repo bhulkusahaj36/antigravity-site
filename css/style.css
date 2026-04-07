@@ -187,13 +187,20 @@ html {
 
 /* 3D Carousel within Hero - constrained height */
 .hero-latest-area .carousel-3d-wrapper {
-  height: 220px !important;
+  height: 280px !important;
   margin-top: 0;
+  overflow: visible !important;
+}
+
+.hero-latest-area .carousel-3d-inner {
+  --w: 160px !important;
+  --h: 210px !important;
+  --translateZ: 360px !important;
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 140px !important;
-  height: 200px !important;
+  width: 160px !important;
+  height: 210px !important;
 }
 
 .hero-latest-area .card-content {
@@ -546,7 +553,10 @@ body.page-exiting {
   display: flex;
   flex-direction: column;
   background: transparent;
-  overflow: hidden;
+  /* overflow:hidden clips the 3D carousel cards that translateZ into the viewer's space.
+     Use overflow-x:clip to still prevent horizontal scrollbar without blocking 3D transforms. */
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 .hero-split-container {
@@ -581,7 +591,8 @@ body.page-exiting {
   flex-direction: column;
   align-items: center;
   padding: 1.5rem 0;
-  overflow: hidden;
+  /* DO NOT overflow:hidden — 3D cards translateZ out of plane and get clipped */
+  overflow: visible;
 }
 
 .hero-latest-area::before {
@@ -3780,8 +3791,8 @@ body.light-mode #particles-js {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* overflow:visible required — 3D cards translateZ out of the initial containing plane */
   overflow: visible;
-  overflow-x: clip;
   margin: 1rem 0 3.5rem;
 }
 
