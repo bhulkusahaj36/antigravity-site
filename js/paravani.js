@@ -1,25 +1,21 @@
 // ============================================================
-// PRODUCTION LOGIC: bhulku.com (paravani.js)
+// PRODUCTION LOGIC: paravani.js
+// Phase 6: Uses CosmosDB continuation tokens for Load More pagination.
 // ============================================================
 
-const ITEMS_PER_PAGE = 10;
-let currentPage = 1;
-let ALL_PARAVANI = [];
-let currentAlbum = null;
+const PARAVANI_PAGE_SIZE = 12;
+let pv_nextToken      = null;   // CosmosDB continuation token for next page
+let pv_isLoading      = false;  // Debounce flag
+let pv_hasMore        = true;   // Whether more pages exist
+let pv_currentAlbum   = null;   // Active album filter (from URL ?album=)
+let pv_loadedIds      = new Set(); // De-duplication guard
 
-function parseQueryString() {
+function pv_parseQueryString() {
     const params = new URLSearchParams(window.location.search);
-    currentAlbum = params.get('album');
+    pv_currentAlbum = params.get('album');
 }
 
-function getSorted(articles) {
-    return [...articles].sort((a, b) => {
-        let dA = parseInt(a.id) || 0;
-        let dB = parseInt(b.id) || 0;
-        return dB - dA;
-    });
-}
-
+// ── Album card builder ────────────────────────────────────────
 function buildAlbumCard(id, label, imgFolder, href) {
     const card = document.createElement('a');
     card.className = 'album-card';
@@ -36,8 +32,7 @@ function buildAlbumCard(id, label, imgFolder, href) {
     };
     img.src = `images/${imgFolder}/${id}.webp`;
     img.alt = label;
-    const cleanLabel = label.replace(/\n/g, ' ');
-    wrap.innerHTML = `<span class="album-fallback">${cleanLabel}</span>`;
+    wrap.innerHTML = `<span class="album-fallback">${label.replace(/\n/g, ' ')}</span>`;
 
     const labelEl = document.createElement('span');
     labelEl.className = 'album-label';
@@ -48,168 +43,144 @@ function buildAlbumCard(id, label, imgFolder, href) {
     return card;
 }
 
-function renderAlbums() {
+// ── Load albums from /api/albums ─────────────────────────────
+async function pv_renderAlbums() {
     const container = document.getElementById('albumGrid');
-    if (!container) return;
-    container.innerHTML = '';
-    
-    if (currentAlbum) {
-        // If we are viewing a specific album, hide the albums section
-        document.getElementById('albumsSection').style.display = 'none';
-        return;
-    }
+    const section   = document.getElementById('albumsSection');
+    if (!container || !section) return;
 
-    const albumsSet = new Set();
-    ALL_PARAVANI.forEach(a => {
-        if (a.album) albumsSet.add(a.album.trim());
-    });
-    
-    const albumsList = Array.from(albumsSet).sort();
-
-    if (albumsList.length === 0) {
-        document.getElementById('albumsSection').style.display = 'none';
-        return;
-    }
-
-    albumsList.forEach(album => {
-        // Use the album name as both ID and Label.
-        const slug = album.toLowerCase().replace(/\s+/g, '-');
-        const card = buildAlbumCard(slug, album, 'albums', `paravani.html?album=${encodeURIComponent(album)}`);
-        container.appendChild(card);
-    });
-}
-
-function renderFeatured() {
-    const grid = document.getElementById('featuredParavaniGrid');
-    const section = document.getElementById('featuredSection');
-    if (!grid || !section) return;
-
-    if (currentAlbum) {
+    if (pv_currentAlbum) {
         section.style.display = 'none';
         return;
     }
 
-    const featured = ALL_PARAVANI.filter(a => a.featured);
-    if (featured.length === 0) {
-        section.style.display = 'none';
-        return;
-    }
+    try {
+        const albums = await (window.API
+            ? API.get('/api/albums', {}, 300000)
+            : fetch('/api/albums').then(r => r.json()));
 
-    section.style.display = 'block';
-    grid.innerHTML = '';
-    featured.slice(0, 3).forEach(a => {
-        grid.appendChild(buildCard(a, true));
-    });
+        if (!Array.isArray(albums) || albums.length === 0) {
+            section.style.display = 'none';
+            return;
+        }
+
+        container.innerHTML = '';
+        albums.forEach(album => {
+            const slug = String(album.id || album.title).toLowerCase().replace(/\s+/g, '-');
+            const card = buildAlbumCard(slug, album.title, 'albums',
+                `paravani.html?album=${encodeURIComponent(album.title)}`);
+            container.appendChild(card);
+        });
+    } catch (e) {
+        console.warn('Could not load albums from /api/albums:', e.message);
+        section.style.display = 'none';
+    }
 }
 
-function renderLatest() {
+// ── Append cards to the grid ──────────────────────────────────
+function pv_appendCards(articles) {
     const grid = document.getElementById('paravaniGrid');
-    const paginationEl = document.getElementById('pagination');
-    if (!grid || !paginationEl) return;
+    if (!grid) return;
 
-    let targetArticles = getSorted(ALL_PARAVANI);
+    articles.forEach((a, i) => {
+        if (pv_loadedIds.has(String(a.id))) return; // skip dupes
+        pv_loadedIds.add(String(a.id));
 
-    if (currentAlbum) {
-        targetArticles = targetArticles.filter(a => a.album && a.album.trim() === currentAlbum);
-        document.querySelector('#latestSection .section-title').textContent = `Album: ${currentAlbum}`;
-    }
-
-    grid.innerHTML = '';
-    paginationEl.innerHTML = '';
-
-    if (targetArticles.length === 0) {
-        grid.innerHTML = '<p style="color:var(--text-light);text-align:center;grid-column:1/-1;">No content found in this section.</p>';
-        return;
-    }
-
-    const totalPages = Math.ceil(targetArticles.length / ITEMS_PER_PAGE);
-    const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
-    const endIdx = startIdx + ITEMS_PER_PAGE;
-    const currentSlice = targetArticles.slice(startIdx, endIdx);
-
-    currentSlice.forEach((a, index) => {
         const card = buildCard(a, true);
         grid.appendChild(card);
-        // stagger animation
-        gsap.fromTo(card,
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, delay: index * 0.05, ease: 'power2.out' }
-        );
+
+        if (typeof gsap !== 'undefined') {
+            gsap.fromTo(card,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 0.45, delay: i * 0.04, ease: 'power2.out' }
+            );
+        }
     });
-
-    if (totalPages > 1) {
-        const prevBtn = document.createElement('button');
-        prevBtn.className = 'btn btn-outline';
-        prevBtn.textContent = 'Back';
-        prevBtn.disabled = currentPage === 1;
-        prevBtn.onclick = () => {
-            if (currentPage > 1) {
-                currentPage--;
-                renderLatest();
-                window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
-            }
-        };
-
-        const pageIndicator = document.createElement('span');
-        pageIndicator.style.color = 'var(--text-light)';
-        pageIndicator.textContent = `Page ${currentPage} / ${totalPages}`;
-
-        const nextBtn = document.createElement('button');
-        nextBtn.className = 'btn btn-outline';
-        nextBtn.textContent = 'Next';
-        nextBtn.disabled = currentPage === totalPages;
-        nextBtn.onclick = () => {
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderLatest();
-                window.scrollTo({ top: grid.offsetTop - 100, behavior: 'smooth' });
-            }
-        };
-
-        paginationEl.appendChild(prevBtn);
-        paginationEl.appendChild(pageIndicator);
-        paginationEl.appendChild(nextBtn);
-    }
 }
 
-async function loadParavaniArticles() {
+// ── Load More button rendering ────────────────────────────────
+function pv_updateLoadMoreBtn() {
+    const btn = document.getElementById('pvLoadMoreBtn');
+    if (!btn) return;
+    btn.style.display = pv_hasMore ? 'flex' : 'none';
+    btn.disabled = pv_isLoading;
+    btn.textContent = pv_isLoading ? 'Loading...' : 'Load More';
+}
+
+// ── Fetch a single page ───────────────────────────────────────
+async function pv_fetchPage() {
+    if (pv_isLoading || !pv_hasMore) return;
+    pv_isLoading = true;
+    pv_updateLoadMoreBtn();
+
+    const params = {
+        compact: 'true',
+        type: 'paravani',
+        limit: PARAVANI_PAGE_SIZE,
+        sortBy: 'createdAt_desc'
+    };
+    if (pv_currentAlbum)    params.album = pv_currentAlbum;
+    if (pv_nextToken)       params.continuationToken = pv_nextToken;
+
     try {
-        const res = await fetch('/api/articles?compact=true');
-        if (res.ok) {
-            const dynamicArticles = await res.json();
-            const dynamicIds = new Set(dynamicArticles.map(a => String(a.id)));
-            const staticFiltered = typeof ARTICLES !== 'undefined' ? ARTICLES.filter(a => !dynamicIds.has(String(a.id))) : [];
-            let combined = [...staticFiltered, ...dynamicArticles];
-
-            // Filter for public AND type === 'paravani'
-            ALL_PARAVANI = combined.filter(a => a.public !== false && a.public !== 'no' && a.type === 'paravani');
+        let result;
+        if (window.API) {
+            // API.get with no cache for paginated loads (each page is unique)
+            result = await API.get('/api/articles', params, 0);
         } else {
-            console.warn("API returned error. Falling back to static ARTICLES if available.");
-            if (typeof ARTICLES !== 'undefined') {
-                ALL_PARAVANI = ARTICLES.filter(a => a.public !== false && a.public !== 'no' && a.type === 'paravani');
-            }
+            const qs = new URLSearchParams(params).toString();
+            result = await fetch(`/api/articles?${qs}`).then(r => r.json());
         }
-    } catch (err) {
-        console.warn("Failed fetching from /api/articles. Using local static data.");
-        if (typeof ARTICLES !== 'undefined') {
-            ALL_PARAVANI = ARTICLES.filter(a => a.public !== false && a.public !== 'no' && a.type === 'paravani');
-        }
-    }
 
-    renderAlbums();
-    renderFeatured();
-    renderLatest();
+        // API returns { items, nextToken } when limit is set
+        const items = Array.isArray(result) ? result : (result.items || []);
+        const token = result.nextToken || null;
+
+        // Filter: public only
+        const publicItems = items.filter(a => a.public !== false && a.public !== 'no');
+
+        pv_appendCards(publicItems);
+
+        pv_nextToken = token;
+        pv_hasMore   = !!token && publicItems.length > 0;
+
+        // Show empty state if nothing was rendered
+        const grid = document.getElementById('paravaniGrid');
+        if (grid && pv_loadedIds.size === 0) {
+            grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;">No content found in this section.</p>';
+        }
+
+    } catch (err) {
+        console.error('Paravani fetch error:', err);
+        pv_hasMore = false;
+    } finally {
+        pv_isLoading = false;
+        pv_updateLoadMoreBtn();
+    }
 }
 
+// ── Init ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    pv_parseQueryString();
     initNav();
-    parseQueryString();
 
-    // Replay horizontal scroll setup if available
-    if (typeof setupHorizontalScroll === 'function') {
-        const wrappers = document.querySelectorAll('.avatar-row-wrapper');
-        wrappers.forEach(w => setupHorizontalScroll(w));
+    // Update title if filtering by album
+    if (pv_currentAlbum) {
+        const titleEl = document.querySelector('#latestSection .section-title');
+        if (titleEl) titleEl.textContent = `Album: ${pv_currentAlbum}`;
     }
 
-    loadParavaniArticles();
+    // Load More button click
+    const loadMoreBtn = document.getElementById('pvLoadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', pv_fetchPage);
+    }
+
+    // Horizontal scroll on albums if albums section exists
+    if (typeof setupHorizontalScroll === 'function') {
+        document.querySelectorAll('.avatar-row-wrapper').forEach(w => setupHorizontalScroll(w));
+    }
+
+    pv_renderAlbums();
+    pv_fetchPage(); // Initial load
 });

@@ -57,15 +57,18 @@ app.http('articles', {
             if (request.method === 'GET') {
                 const c = await getContainer();
 
-                const type = request.query.get('type');
-                const album = request.query.get('album');
-                const search = request.query.get('search');
-                const sortBy = request.query.get('sortBy');
-                const compact = request.query.get('compact') === 'true';
-                const specificId = request.query.get('id');
-                const status = request.query.get('status');
+                const type              = request.query.get('type');
+                const album             = request.query.get('album');
+                const search            = request.query.get('search');
+                const sortBy            = request.query.get('sortBy');
+                const compact           = request.query.get('compact') === 'true';
+                const specificId        = request.query.get('id');
+                const status            = request.query.get('status');
+                const limit             = parseInt(request.query.get('limit') || '0');
+                const continuationToken = request.query.get('continuationToken') || null;
+
+                // Legacy OFFSET support for backward compat (ignored when continuationToken is used)
                 const page = parseInt(request.query.get('page') || '0');
-                const limit = parseInt(request.query.get('limit') || '0');
 
                 let query = compact
                     ? "SELECT c.id, c.title, c.author, c.source, c.topic, c.prasang, c.category, c.date, c.location, c.featured, c.public, c.type, c.album, c.status, c.createdAt, c.updatedAt, LEFT(c.content, 300) as excerpt FROM c"
@@ -111,20 +114,40 @@ app.http('articles', {
                     query += " ORDER BY c.id DESC";
                 }
 
-                if (limit > 0) {
-                    query += ` OFFSET ${page * limit} LIMIT ${limit}`;
-                }
-
-                const { resources } = await c.items.query({ query, parameters: params }).fetchAll();
-
                 const cacheSeconds = compact ? 300 : 60;
-                return {
-                    jsonBody: resources,
-                    headers: {
-                        'Cache-Control': `public, max-age=${cacheSeconds}, stale-while-revalidate=${cacheSeconds * 3}`,
-                        'Content-Type': 'application/json'
-                    }
-                };
+                let resources;
+                let nextToken = null;
+
+                if (limit > 0) {
+                    // ── Continuation-token pagination ─────────────────────────
+                    const querySpec = { query, parameters: params };
+                    const iteratorOptions = {
+                        maxItemCount: limit,
+                        continuationToken: continuationToken || undefined
+                    };
+                    const iterator = c.items.query(querySpec, iteratorOptions);
+                    const page_result = await iterator.fetchNext();
+                    resources = page_result.resources;
+                    nextToken = page_result.continuationToken || null;
+
+                    return {
+                        jsonBody: { items: resources, nextToken },
+                        headers: {
+                            'Cache-Control': `public, max-age=${cacheSeconds}, stale-while-revalidate=${cacheSeconds * 3}`,
+                            'Content-Type': 'application/json'
+                        }
+                    };
+                } else {
+                    // ── No limit: fetch all (used by admin, search, etc.) ─────
+                    const { resources: all } = await c.items.query({ query, parameters: params }).fetchAll();
+                    return {
+                        jsonBody: all,
+                        headers: {
+                            'Cache-Control': `public, max-age=${cacheSeconds}, stale-while-revalidate=${cacheSeconds * 3}`,
+                            'Content-Type': 'application/json'
+                        }
+                    };
+                }
             }
 
             // ── WRITE OPERATIONS — require auth ──────────────────────────────

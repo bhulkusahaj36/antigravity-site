@@ -419,7 +419,72 @@ function ps_checkUrlParams() {
     }
 }
 
-// ── Data Load ────────────────────────────────────────────────
+// ── Data Load (Continuation Token aware) ─────────────────────
+
+let ps_nextToken  = null;
+let ps_loadingMore = false;
+
+async function ps_fetchBatch(isLoadMore = false) {
+    if (ps_loadingMore) return;
+    ps_loadingMore = true;
+
+    const params = {
+        compact: 'true',
+        limit: isLoadMore ? 20 : 40,   // First load: 40 articles; subsequent: 20
+        sortBy: 'createdAt_desc'
+    };
+    if (ps_nextToken) params.continuationToken = ps_nextToken;
+
+    try {
+        let result;
+        if (window.API) {
+            result = await API.get('/api/articles', params, 0);
+        } else {
+            const qs = new URLSearchParams(params).toString();
+            result = await fetch(`/api/articles?${qs}`).then(r => r.json());
+        }
+
+        const items  = Array.isArray(result) ? result : (result.items || []);
+        const token  = Array.isArray(result) ? null   : (result.nextToken || null);
+
+        const newItems = items.filter(a =>
+            a.public !== false && a.public !== 'no' && a.type !== 'paravani'
+        );
+
+        if (isLoadMore) {
+            const existingIds = new Set(PS_ALL.map(a => String(a.id)));
+            PS_ALL = [...PS_ALL, ...newItems.filter(a => !existingIds.has(String(a.id)))];
+        } else {
+            // Merge with static fallback on initial load
+            const staticData = typeof ARTICLES !== 'undefined'
+                ? ARTICLES.filter(a => a.public !== false && a.public !== 'no' && a.type !== 'paravani')
+                : [];
+            const dynIds = new Set(newItems.map(a => String(a.id)));
+            const merged = [...staticData.filter(a => !dynIds.has(String(a.id))), ...newItems];
+            PS_ALL = merged;
+        }
+
+        ps_nextToken = token;
+
+        // Update Load More button
+        const loadMoreBtn = document.getElementById('psLoadMoreBtn');
+        if (loadMoreBtn) {
+            loadMoreBtn.style.display = token ? 'flex' : 'none';
+            loadMoreBtn.disabled = false;
+            loadMoreBtn.textContent = 'Load More';
+        }
+
+    } catch (err) {
+        console.warn('prasangs.js API error:', err.message);
+        if (!isLoadMore && typeof ARTICLES !== 'undefined') {
+            PS_ALL = ARTICLES.filter(a =>
+                a.public !== false && a.public !== 'no' && a.type !== 'paravani'
+            );
+        }
+    } finally {
+        ps_loadingMore = false;
+    }
+}
 
 async function ps_load() {
     // Show skeleton
@@ -435,28 +500,7 @@ async function ps_load() {
         `).join('');
     }
 
-    try {
-        const res = await fetch('/api/articles?compact=true');
-        if (res.ok) {
-            const dynamic = await res.json();
-            const dynIds = new Set(dynamic.map(a => String(a.id)));
-            const staticData = typeof ARTICLES !== 'undefined'
-                ? ARTICLES.filter(a => !dynIds.has(String(a.id)))
-                : [];
-            PS_ALL = [...staticData, ...dynamic].filter(a =>
-                a.public !== false && a.public !== 'no' && a.type !== 'paravani'
-            );
-        } else {
-            throw new Error('API error');
-        }
-    } catch (_) {
-        if (typeof ARTICLES !== 'undefined') {
-            PS_ALL = ARTICLES.filter(a =>
-                a.public !== false && a.public !== 'no' && a.type !== 'paravani'
-            );
-        }
-    }
-
+    await ps_fetchBatch(false);
     ps_renderChips();
     ps_render();
 }
@@ -467,5 +511,18 @@ document.addEventListener('DOMContentLoaded', () => {
     ps_renderAvatarRow();
     ps_checkUrlParams();
     ps_wireEvents();
+
+    // Wire Load More button
+    const loadMoreBtn = document.getElementById('psLoadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.style.display = 'none'; // hidden until first API response tells us there's more
+        loadMoreBtn.addEventListener('click', async () => {
+            loadMoreBtn.disabled = true;
+            loadMoreBtn.textContent = 'Loading...';
+            await ps_fetchBatch(true);
+            ps_render();
+        });
+    }
+
     ps_load();
 });
