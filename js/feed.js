@@ -145,11 +145,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         const submitBtn = document.querySelector('#addForm button[type="submit"]');
         if (submitBtn) submitBtn.textContent = 'Save Changes';
 
-        // Fetch article and populate form
-        fetch('/api/articles?t=' + Date.now())
+        // Fetch the specific article by ID for editing
+        fetch(`/api/articles?id=${encodeURIComponent(editId)}&t=` + Date.now())
             .then(res => res.json())
-            .then(articles => {
-                const article = articles.find(a => String(a.id) === String(editId));
+            .then(data => {
+                // API may return a single object, an array, or { items }
+                let article = null;
+                if (Array.isArray(data)) {
+                    article = data.find(a => String(a.id) === String(editId));
+                } else if (data && data.items) {
+                    article = data.items.find(a => String(a.id) === String(editId));
+                } else if (data && data.id) {
+                    article = data;
+                }
                 if (article) {
                     document.getElementById('add-title').value = article.title || '';
                     if (document.getElementById('add-author')) {

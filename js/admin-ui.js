@@ -84,11 +84,17 @@ function initSidebarNav() {
         btn.addEventListener('click', () => switchPanel(btn.getAttribute('data-panel')));
     });
 
-    // Auto-load dashboard on page load
-    // (the dashboard panel is already .active, so just call once DOM is settled)
-    setTimeout(() => {
-        if (typeof loadDashboardAnalytics === 'function') loadDashboardAnalytics();
-    }, 100);
+    // If ?editId= is in the URL, go straight to the Add/Edit panel
+    const _urlParams = new URLSearchParams(window.location.search);
+    if (_urlParams.get('editId')) {
+        // Switch to add/edit panel without triggering dashboard load
+        switchPanel('panel-add');
+    } else {
+        // Auto-load dashboard on page load
+        setTimeout(() => {
+            if (typeof loadDashboardAnalytics === 'function') loadDashboardAnalytics();
+        }, 100);
+    }
 }
 
 /**
