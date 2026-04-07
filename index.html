@@ -101,45 +101,41 @@
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO - Split Layout -->
     <section class="hero" id="hero">
-        <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <h1 class="hero-title">
-                <img src="images/right-main.webp" alt="" class="hero-top-img" />
-                <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy" />
-                <span class="sr-only">હરિપ્રબોધમ કથામૃત</span>
-            </h1>
-            <div class="hero-quote">
-                <span class="quote-mark">&ldquo;</span>
-                <span id="quoteText">હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
-                <span class="quote-mark">&rdquo;</span>
-                <span class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</span>
-                <div class="quote-dots">
-                    <div class="quote-dot"></div>
-                    <div class="quote-dot"></div>
-                    <div class="quote-dot"></div>
-                    <div class="quote-dot"></div>
-                    <div class="quote-dot"></div>
-                    <div class="quote-dot active"></div>
+        <div class="hero-split-container">
+            <!-- Top Half: Branding & Spiritual Quote -->
+            <div class="hero-branding-area">
+                <div class="hero-title">
+                    <picture>
+                        <!-- Mobile-specific optimized crop if available, fallback to main -->
+                        <source srcset="images/right-main.webp" media="(max-width: 768px)">
+                        <img src="images/right-main.webp" alt="" class="hero-top-img" />
+                    </picture>
+                    <img src="images/kathamrut.webp" alt="હરિપ્રબોધમ કથામૃત" class="hero-calligraphy" />
+                    <span class="sr-only">હરિપ્રબોધમ કથામૃત</span>
+                </div>
+                <div class="hero-quote">
+                    <span class="quote-mark">&ldquo;</span>
+                    <span id="quoteText">હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.</span>
+                    <span class="quote-mark">&rdquo;</span>
+                    <span class="quote-author">- ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ</span>
+                </div>
+                <div class="hero-actions">
+                    <a href="prasangs.html" class="btn btn-primary">પ્રસંગો</a>
+                    <a href="paravani.html" class="btn btn-primary">પરાવાણી</a>
+                    <a href="search.html" class="btn btn-outline">Search</a>
                 </div>
             </div>
-            <div class="hero-actions">
-                <a href="prasangs.html" class="btn btn-primary">પ્રસંગો</a>
-                <a href="paravani.html" class="btn btn-primary">પરાવાણી</a>
-                <a href="search.html" class="btn btn-outline">Search</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- LATEST ARTICLES — 3D Rotating Carousel -->
-    <section class="section articles-section" id="articles">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Latest</h2>
-            </div>
-            <div class="carousel-3d-wrapper">
-                <div class="carousel-3d-inner" id="articlesGrid"></div>
+            <!-- Bottom Half: Dynamic Content (Latest Carousel) -->
+            <div class="hero-latest-area">
+                <div class="latest-header">
+                    <h2 class="latest-title">Latest Updates</h2>
+                </div>
+                <div class="carousel-3d-wrapper">
+                    <div class="carousel-3d-inner" id="articlesGrid"></div>
+                </div>
             </div>
         </div>
     </section>
