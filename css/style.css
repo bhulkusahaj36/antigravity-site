@@ -567,6 +567,8 @@ body.page-exiting {
 /* 1. Branding Area - Top 62% */
 .hero-branding-area {
   flex: 0 0 62%;
+  min-height: 0;
+  max-height: 62vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -579,6 +581,8 @@ body.page-exiting {
 /* 2. Latest Area - Bottom 38% */
 .hero-latest-area {
   flex: 1;
+  min-height: 0;
+  max-height: 38vh;
   background: rgba(18, 12, 6, 0.4);
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
