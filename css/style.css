@@ -193,15 +193,15 @@ html {
 }
 
 .hero-latest-area .carousel-3d-inner {
-  --w: 240px !important;
-  --h: 330px !important;
-  --translateZ: 420px !important;
+  --w: 210px !important;
+  --h: 290px !important;
+  --translateZ: 380px !important;
   --rotateX: 0deg !important; /* Stop the cylinder from tilting down into the next section */
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 240px !important;
-  height: 330px !important;
+  width: 210px !important;
+  height: 290px !important;
 }
 
 body {
@@ -1366,10 +1366,10 @@ body.page-exiting {
   #articlesGrid.cards-grid .article-card {
     /* Show exactly 5 cards in desktop view.
        Calculation: (100% container width - 4 gaps of 1.5rem) / 5 cards */
-    min-width: calc((100% - 6rem) / 5);
-    width: calc((100% - 6rem) / 5);
+    min-width: calc((100% - 6rem) / 5.5);
+    width: calc((100% - 6rem) / 5.5);
     flex-shrink: 0;
-    padding: 1.25rem 1rem;
+    padding: 1.1rem 0.9rem;
   }
 
   #articlesGrid.cards-grid .card-title {
@@ -1396,8 +1396,8 @@ body.page-exiting {
 }
 
 .cards-grid .article-card {
-  min-width: 320px;
-  width: 320px;
+  min-width: 280px;
+  width: 280px;
   flex-shrink: 0;
   scroll-snap-align: start;
 }
