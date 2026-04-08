@@ -157,16 +157,18 @@ function renderArticles() {
         const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
         let cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
         
-        // Redundancy Check: If the title is literally just the personality name, 
-        // we hide it to prevent "Gunatitanand Swami" appearing twice on the same card.
-        if (cleanTitle.trim() === displayLabel.trim()) {
-            cleanTitle = '';
+        // SMART FALLBACK: If the title is empty (or a placeholder), 
+        // use a snippet of the content as the title so the card isn't empty.
+        if (!cleanTitle || cleanTitle.trim() === displayLabel.trim()) {
+            // Take first ~45 chars of plain content as a topic fallback
+            const snippet = plainText.substring(0, 45).trim();
+            cleanTitle = snippet + (plainText.length > 45 ? '...' : '');
         }
 
         item.innerHTML = `
             <div class="carousel-3d-content">
                 <p class="carousel-3d-label" title="Prasang">${displayLabel}</p>
-                ${cleanTitle ? `<h3 class="carousel-3d-title">${cleanTitle}</h3>` : ''}
+                <h3 class="carousel-3d-title">${cleanTitle}</h3>
                 <div class="carousel-3d-divider"></div>
                 <p class="carousel-3d-excerpt">${excerptText}</p>
             </div>
