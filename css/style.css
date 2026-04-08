@@ -215,9 +215,8 @@ html {
 }
 
 .hero-latest-area .carousel-3d-card:hover {
-  transform: translateY(-10px);
+  /* Stabilize cylinder: removed translateY and glow that caused distraction */
   border-color: var(--gold-400);
-  box-shadow: var(--shadow-glow);
 }
 
 .carousel-3d-content {
@@ -232,13 +231,13 @@ html {
 
 .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--saffron-400);
+  font-size: 0.85rem; /* BOOSTED size */
+  font-weight: 800;    /* HEAVIER weight */
+  color: var(--gold-400); /* HIGHER contrast */
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.25rem;
-  opacity: 0.9;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.4rem;
+  opacity: 1; /* Full opacity for visibility */
 }
 
 .carousel-3d-title {
