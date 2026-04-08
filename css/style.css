@@ -231,13 +231,13 @@ html {
 
 .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size: 0.85rem; /* BOOSTED size */
-  font-weight: 800;    /* HEAVIER weight */
-  color: var(--gold-400); /* HIGHER contrast */
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--saffron-500); /* VIBRANT SAFFRON ORANGE per user request */
   text-transform: uppercase;
   letter-spacing: 0.12em;
   margin-bottom: 0.4rem;
-  opacity: 1; /* Full opacity for visibility */
+  opacity: 1;
 }
 
 .carousel-3d-title {

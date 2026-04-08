@@ -153,13 +153,19 @@ function renderArticles() {
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
         const excerptText = plainText.substring(0, 110).trim() + (plainText.length > 110 ? '...' : '');
 
-        // Clean title: If it's just dots or empty, fallback to a subset of the excerpt or hide it
+        // Clean title: Topic of the article
         const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
-        const cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
+        let cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
+        
+        // Redundancy Check: If the title is literally just the personality name, 
+        // we hide it to prevent "Gunatitanand Swami" appearing twice on the same card.
+        if (cleanTitle.trim() === displayLabel.trim()) {
+            cleanTitle = '';
+        }
 
         item.innerHTML = `
             <div class="carousel-3d-content">
-                <p class="carousel-3d-label">${displayLabel}</p>
+                <p class="carousel-3d-label" title="Prasang">${displayLabel}</p>
                 ${cleanTitle ? `<h3 class="carousel-3d-title">${cleanTitle}</h3>` : ''}
                 <div class="carousel-3d-divider"></div>
                 <p class="carousel-3d-excerpt">${excerptText}</p>
