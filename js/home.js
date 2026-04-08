@@ -298,8 +298,12 @@ async function loadHomeArticles() {
         renderCategoryChips(); 
         renderArticles();
         renderFeatured();
+        
+        // Re-initialize scroll buttons multiple times to ensure we catch the final layout paint
         if (window.initAvatarScrollButtons) {
-            setTimeout(window.initAvatarScrollButtons, 150);
+            setTimeout(window.initAvatarScrollButtons, 50);
+            setTimeout(window.initAvatarScrollButtons, 300);
+            setTimeout(window.initAvatarScrollButtons, 800);
         }
     } else {
         const grid = document.getElementById('articlesGrid');
@@ -341,44 +345,58 @@ document.addEventListener('DOMContentLoaded', () => {
             // Specifically target the scrollable rows within this section
             const row = section.querySelector('.avatar-row') || 
                         section.querySelector('.cards-grid') || 
-                        section.querySelector('.category-chips');
+                        section.querySelector('.category-chips') ||
+                        section.querySelector('.avatar-row-wrapper .featured-grid');
 
             if (prevBtn && nextBtn && row) {
                 const updateButtons = () => {
+                    const scrollLeft = Math.ceil(row.scrollLeft);
+                    const maxScroll = row.scrollWidth - row.clientWidth;
+                    
                     // Start of scroll
-                    if (row.scrollLeft <= 5) {
-                        prevBtn.style.opacity = '0.2';
+                    if (scrollLeft <= 10) {
+                        prevBtn.style.opacity = '0.15';
                         prevBtn.style.pointerEvents = 'none';
+                        prevBtn.style.filter = 'grayscale(1)';
                     } else {
                         prevBtn.style.opacity = '1';
                         prevBtn.style.pointerEvents = 'auto';
+                        prevBtn.style.filter = 'none';
                     }
 
                     // End of scroll
-                    const maxScroll = row.scrollWidth - row.clientWidth;
-                    if (row.scrollLeft >= maxScroll - 5) {
-                        nextBtn.style.opacity = '0.2';
+                    if (scrollLeft >= maxScroll - 15 || maxScroll <= 0) {
+                        nextBtn.style.opacity = '0.15';
                         nextBtn.style.pointerEvents = 'none';
+                        nextBtn.style.filter = 'grayscale(1)';
                     } else {
                         nextBtn.style.opacity = '1';
                         nextBtn.style.pointerEvents = 'auto';
+                        nextBtn.style.filter = 'none';
                     }
                 };
 
+                // Clear listeners to avoid duplicates
                 row.removeEventListener('scroll', updateButtons);
-                row.addEventListener('scroll', updateButtons);
+                row.addEventListener('scroll', updateButtons, { passive: true });
+                window.removeEventListener('resize', updateButtons);
                 window.addEventListener('resize', updateButtons);
                 
-                // Initial check
-                setTimeout(updateButtons, 150);
+                // Initial check after a short wait for CSS layouts
+                updateButtons();
+                setTimeout(updateButtons, 100);
 
                 if (!section.dataset.scrollInit) {
                     section.dataset.scrollInit = 'true';
-                    prevBtn.addEventListener('click', () => {
-                        row.scrollBy({ left: -400, behavior: 'smooth' });
+                    prevBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const amount = Math.min(row.clientWidth * 0.8, 500);
+                        row.scrollBy({ left: -amount, behavior: 'smooth' });
                     });
-                    nextBtn.addEventListener('click', () => {
-                        row.scrollBy({ left: 400, behavior: 'smooth' });
+                    nextBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const amount = Math.min(row.clientWidth * 0.8, 500);
+                        row.scrollBy({ left: amount, behavior: 'smooth' });
                     });
                 }
             }
