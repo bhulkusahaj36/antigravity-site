@@ -1,23 +1,8 @@
 const { app } = require('@azure/functions');
-const { CosmosClient } = require('@azure/cosmos');
+const { getCollection } = require('../db');
 
-// CosmosDB document shape for quotes:
+// MongoDB document shape for quotes:
 // { id, type: 'quote', text, author, active: true, createdAt }
-
-let quotesContainer;
-
-async function getContainer() {
-    if (quotesContainer) return quotesContainer;
-    const connectionString = process.env.AzureCosmosDBConnectionString;
-    if (!connectionString) {
-        throw new Error("Missing AzureCosmosDBConnectionString in Environment Variables");
-    }
-    const client = new CosmosClient(connectionString);
-    const database = client.database("antigravity");
-    // Quotes are stored in the same 'articles' container with type='quote'
-    quotesContainer = database.container("articles");
-    return quotesContainer;
-}
 
 function isAuthorized(request) {
     const token = request.headers.get('X-Admin-Token');
@@ -32,22 +17,20 @@ app.http('quotes', {
     route: 'quotes',
     handler: async (request, context) => {
         try {
-            const c = await getContainer();
+            const col = await getCollection('articles');
 
             // ── GET /api/quotes — returns all active quotes (public) ─────────
             if (request.method === 'GET') {
                 const includeAll = request.query.get('all') === 'true';
+                const filter = { type: 'quote' };
 
-                let query;
-                if (includeAll && isAuthorized(request)) {
-                    // Admin view: return all quotes regardless of active status
-                    query = "SELECT * FROM c WHERE c.type = 'quote' ORDER BY c.createdAt DESC";
-                } else {
+                if (!(includeAll && isAuthorized(request))) {
                     // Public view: active quotes only
-                    query = "SELECT * FROM c WHERE c.type = 'quote' AND c.active = true ORDER BY c.createdAt DESC";
+                    filter.active = true;
                 }
 
-                const { resources } = await c.items.query({ query }).fetchAll();
+                const resources = await col.find(filter).sort({ createdAt: -1 }).toArray();
+                
                 return {
                     jsonBody: resources,
                     headers: {
@@ -87,8 +70,8 @@ app.http('quotes', {
                     updatedAt: now
                 };
 
-                const { resource } = await c.items.upsert(quote);
-                return { status: 201, jsonBody: resource };
+                await col.replaceOne({ id: quote.id }, quote, { upsert: true });
+                return { status: 201, jsonBody: quote };
             }
 
             // ── PATCH /api/quotes?id=xxx — toggle active or update ───────────
@@ -97,8 +80,9 @@ app.http('quotes', {
                 if (!id) return { status: 400, body: 'id query param required' };
 
                 const body = await request.json();
-                const { resource: existing } = await c.item(id, id).read();
-                if (!existing || existing.type !== 'quote') {
+                const existing = await col.findOne({ id, type: 'quote' });
+                
+                if (!existing) {
                     return { status: 404, body: 'Quote not found' };
                 }
 
@@ -107,15 +91,16 @@ app.http('quotes', {
                 if (body.active !== undefined) existing.active = body.active;
                 existing.updatedAt = new Date().toISOString();
 
-                const { resource } = await c.items.upsert(existing);
-                return { jsonBody: resource };
+                await col.replaceOne({ id }, existing, { upsert: true });
+                return { jsonBody: existing };
             }
 
             // ── DELETE /api/quotes?id=xxx ────────────────────────────────────
             if (request.method === 'DELETE') {
                 const id = request.query.get('id');
                 if (!id) return { status: 400, body: 'id query param required' };
-                await c.item(id, id).delete();
+                
+                await col.deleteOne({ id, type: 'quote' });
                 return { status: 204 };
             }
 

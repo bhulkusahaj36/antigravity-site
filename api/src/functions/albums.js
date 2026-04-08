@@ -1,30 +1,9 @@
 // ============================================================
 // albums.js — Dedicated Azure Function for Album CRUD
-//
-// GET    /api/albums               — List all albums (public)
-// POST   /api/albums               — Create album (admin)
-// DELETE /api/albums?id=<id>       — Delete album (admin)
-//
-// Albums are stored in the articles container with type='album'.
-// This keeps infrastructure simple (no new CosmosDB container needed).
 // ============================================================
 
 const { app } = require('@azure/functions');
-const { CosmosClient } = require('@azure/cosmos');
-
-let container;
-
-async function getContainer() {
-    if (container) return container;
-    const connectionString = process.env.AzureCosmosDBConnectionString;
-    if (!connectionString) {
-        throw new Error("Missing AzureCosmosDBConnectionString in Environment Variables");
-    }
-    const client = new CosmosClient(connectionString);
-    const database = client.database("antigravity");
-    container = database.container("articles");
-    return container;
-}
+const { getCollection } = require('../db');
 
 // ── Auth ────────────────────────────────────────────────────────────────────
 function isAuthorized(request) {
@@ -39,23 +18,15 @@ app.http('albums', {
     authLevel: 'anonymous',
     handler: async (request, context) => {
         try {
+            const col = await getCollection('articles');
+
             // ── GET — list all albums (public) ───────────────────────────
             if (request.method === 'GET') {
-                const c = await getContainer();
-
                 const specificId = request.query.get('id');
+                const filter = { type: 'album' };
+                if (specificId) filter.id = specificId;
 
-                let query;
-                let params = [];
-
-                if (specificId) {
-                    query = "SELECT * FROM c WHERE c.type = 'album' AND c.id = @id";
-                    params.push({ name: '@id', value: specificId });
-                } else {
-                    query = "SELECT c.id, c.title, c.description, c.type, c.createdAt, c.updatedAt FROM c WHERE c.type = 'album' ORDER BY c.title ASC";
-                }
-
-                const { resources } = await c.items.query({ query, parameters: params }).fetchAll();
+                const resources = await col.find(filter).sort({ title: 1 }).toArray();
 
                 return {
                     jsonBody: specificId ? (resources[0] || null) : resources,
@@ -86,9 +57,7 @@ app.http('albums', {
                     return { status: 400, body: 'Album title exceeds 300 characters' };
                 }
 
-                const c = await getContainer();
                 const now = new Date().toISOString();
-
                 const album = {
                     id: rawData.id || Date.now().toString(),
                     title: rawData.title.trim(),
@@ -98,8 +67,8 @@ app.http('albums', {
                     updatedAt: now
                 };
 
-                const { resource } = await c.items.upsert(album);
-                return { status: 201, jsonBody: resource };
+                await col.replaceOne({ id: album.id }, album, { upsert: true });
+                return { status: 201, jsonBody: album };
             }
 
             // ── DELETE — remove album ────────────────────────────────────
@@ -109,9 +78,7 @@ app.http('albums', {
                     return { status: 400, body: 'Please pass ?id=<album-id>' };
                 }
 
-                const c = await getContainer();
-                await c.item(albumId, albumId).delete();
-
+                await col.deleteOne({ id: albumId, type: 'album' });
                 return { status: 204 };
             }
 
