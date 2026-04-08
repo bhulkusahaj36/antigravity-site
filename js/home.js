@@ -153,10 +153,14 @@ function renderArticles() {
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
         const excerptText = plainText.substring(0, 110).trim() + (plainText.length > 110 ? '...' : '');
 
+        // Clean title: If it's just dots or empty, fallback to a subset of the excerpt or hide it
+        const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
+        const cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
+
         item.innerHTML = `
             <div class="carousel-3d-content">
                 <p class="carousel-3d-label">${displayLabel}</p>
-                <h3 class="carousel-3d-title">${a.title}</h3>
+                ${cleanTitle ? `<h3 class="carousel-3d-title">${cleanTitle}</h3>` : ''}
                 <div class="carousel-3d-divider"></div>
                 <p class="carousel-3d-excerpt">${excerptText}</p>
             </div>

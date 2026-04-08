@@ -202,6 +202,75 @@ html {
 .hero-latest-area .carousel-3d-card {
   width: 210px !important;
   height: 290px !important;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-bottom: 4px solid var(--gold-500);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+
+.hero-latest-area .carousel-3d-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--gold-400);
+  box-shadow: var(--shadow-glow);
+}
+
+.carousel-3d-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.carousel-3d-label {
+  font-family: var(--font-gu-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--saffron-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.25rem;
+  opacity: 0.9;
+}
+
+.carousel-3d-title {
+  font-family: var(--font-gu);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-title);
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.carousel-3d-divider {
+  width: 40px;
+  height: 2px;
+  background: var(--gold-500);
+  margin: 0.5rem auto;
+  opacity: 0.6;
+}
+
+.carousel-3d-excerpt {
+  font-family: var(--font-gu-sans);
+  font-size: 1.05rem !important; /* BOOSTED per user request */
+  color: var(--text-primary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 body {
