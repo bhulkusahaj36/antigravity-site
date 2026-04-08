@@ -729,23 +729,7 @@ body.page-exiting {
   }
 }
 
-/* ============================================================
-   RESPONSIVE BACKGROUND IMAGE ADJUSTMENTS
-   Background.webp is portrait (~1:1.73 ratio).
-   At 100% width, the image is ~173vh tall — perfectly split:
-   top 100vh = hero zone, next ~73vh = content cosmic space.
-   
-   Mobile: on narrow portrait phones, use cover so the image
-   fills the screen without too much empty space on sides.
-   ============================================================ */
-
-@media (max-width: 768px) {
-  body::before {
-    /* On mobile/portrait, switch to cover to fill height properly */
-    background-size: cover;
-    background-position: top center;
-  }
-}
+/* Background circuit pattern persists via body::before defined earlier. */
 
 .sr-only {
   position: absolute;
