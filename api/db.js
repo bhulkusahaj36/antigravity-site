@@ -1,37 +1,52 @@
 const { MongoClient } = require('mongodb');
 
-let client;
-let db;
+// Use a global variable to persist the connection across serverless function invocations
+let cachedClient = null;
+let cachedDb = null;
 
 /**
  * Ensures a connection to the MongoDB cluster and returns the database instance.
- * Reuses the existing connection if already established (serverless cold start optimization).
  */
 async function connectToDatabase() {
-    if (db) return db;
+    // If we have a cached connection, check if it's still alive
+    if (cachedClient && cachedDb) {
+        return cachedDb;
+    }
 
-    // Use MONGODB_URI or fallback to AzureCosmosDBConnectionString for compatibility
     const uri = process.env.MONGODB_URI || process.env.AzureCosmosDBConnectionString;
     
     if (!uri) {
-        throw new Error("Missing MongoDB Connection String in Environment Variables (MONGODB_URI or AzureCosmosDBConnectionString)");
+        throw new Error("Missing MongoDB Connection String");
     }
 
-    if (!client) {
-        client = new MongoClient(uri);
+    // Options for high performance and stability in serverless
+    const options = {
+        maxPoolSize: 1, // Minimize connections in serverless
+        connectTimeoutMS: 5000,
+        socketTimeoutMS: 30000,
+    };
+
+    try {
+        const client = new MongoClient(uri, options);
         await client.connect();
+        
+        const db = client.db("antigravity");
+        
+        // Cache the client and db
+        cachedClient = client;
+        cachedDb = db;
+        
         console.log("Connected successfully to MongoDB Atlas");
+        return db;
+    } catch (error) {
+        console.error("MongoDB Connection Error:", error);
+        // Reset cache on error
+        cachedClient = null;
+        cachedDb = null;
+        throw error;
     }
-
-    // Default database name is 'antigravity'
-    db = client.db("antigravity");
-    return db;
 }
 
-/**
- * Returns a MongoDB collection instance for the specified name.
- * @param {string} name - The name of the collection.
- */
 async function getCollection(name) {
     const database = await connectToDatabase();
     return database.collection(name);
