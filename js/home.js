@@ -126,57 +126,46 @@ function renderCategoryChips() {
 function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
-    // Keep top 10 latest
-    const sorted = getSorted(ALL_ARTICLES).slice(0, 10);
+    // Keep top 5 latest for the hero
+    const sorted = getSorted(ALL_ARTICLES).slice(0, 5);
 
     grid.innerHTML = '';
-    // Remove old class if any
-    grid.className = 'carousel-3d-inner';
-
-    const count = sorted.length;
-    // Set the quantity CSS variable on the inner element so card transforms work correctly
-    grid.style.setProperty('--quantity', count);
+    grid.className = 'katha-cards-grid';
+    grid.removeAttribute('style');
 
     sorted.forEach((a, i) => {
-        if (!a || !a.title) return; // Skip invalid entries
-        
-        const item = document.createElement('div');
-        item.className = 'carousel-3d-card';
-        item.style.setProperty('--index', i);
+        if (!a || !a.title) return;
 
-        // prasang label
+        const item = document.createElement('a');
+        item.className = 'katha-card';
+        item.href = `article.html?id=${a.id}`;
+        item.setAttribute('role', 'article');
+        item.setAttribute('tabindex', '0');
+        item.setAttribute('aria-label', a.title);
+
+        // Prasang label
         const rawPrasang = a.prasang || a.category || a.topic || 'bhakti';
         const prasangName = getCategoryName(rawPrasang);
         const displayLabel = prasangName ? `${prasangName}` : 'ભક્તિ';
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
-        const excerptText = plainText.substring(0, 110).trim() + (plainText.length > 110 ? '...' : '');
+        const excerptText = plainText.substring(0, 100).trim() + (plainText.length > 100 ? '...' : '');
 
-        // Clean title: Topic of the article
+        // Clean title
         const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
         let cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
-        
-        // SMART FALLBACK: If the title is empty (or a placeholder), 
-        // use a snippet of the content as the title so the card isn't empty.
         if (!cleanTitle || cleanTitle.trim() === displayLabel.trim()) {
-            // Take first ~45 chars of plain content as a topic fallback
             const snippet = plainText.substring(0, 45).trim();
             cleanTitle = snippet + (plainText.length > 45 ? '...' : '');
         }
 
         item.innerHTML = `
-            <div class="carousel-3d-content">
-                <p class="carousel-3d-label" title="Prasang">${displayLabel}</p>
-                <h3 class="carousel-3d-title">${cleanTitle}</h3>
-                <div class="carousel-3d-divider"></div>
-                <p class="carousel-3d-excerpt">${excerptText}</p>
-            </div>
+            <p class="card-label">${displayLabel}</p>
+            <h3 class="card-title">${cleanTitle}</h3>
+            <p class="card-excerpt">${excerptText}</p>
+            <span class="card-cta">Read full katha &rarr;</span>
         `;
-
-        item.addEventListener('click', () => {
-            window.location.href = `article.html?id=${a.id}`;
-        });
 
         grid.appendChild(item);
     });
@@ -307,6 +296,11 @@ async function loadHomeArticles() {
         renderArticles();
         renderFeatured();
         
+        // Fire upgrade animations after cards render
+        if (window.animateNewCards) {
+            setTimeout(window.animateNewCards, 80);
+        }
+
         // Re-initialize scroll buttons multiple times to ensure we catch the final layout paint
         if (window.initAvatarScrollButtons) {
             setTimeout(window.initAvatarScrollButtons, 50);
