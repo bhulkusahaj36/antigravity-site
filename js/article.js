@@ -121,9 +121,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     <header class="article-header">
       <div class="article-toolbar">
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="article-back-btn" onclick="history.back()">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            Back
+          <button class="modern-back-btn" style="background:transparent;border:none;padding:0;cursor:pointer;" onclick="history.back()">
+            <div class="icon-container">
+              <svg width="25px" height="25px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path>
+                <path fill="currentColor" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path>
+              </svg>
+            </div>
+            <p class="btn-text">Back</p>
           </button>
           <span class="category-badge">${cat}</span>
         </div>

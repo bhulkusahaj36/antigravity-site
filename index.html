@@ -11,7 +11,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>હરિપ્રબોધમ કથામૃત</title>
-    <meta name="description" content="ગુજરાતી ભક્તિ સાહિત્ય, ધાર્મિક કથાઓ અને સ્વામીજીના પ્રેરણાદાયી પ્રસંગો" />
+    <meta name="description" content="હરિપ્રબોધમ કથામૃત" />
     <meta property="og:title" content="હરિપ્રબોધમ કથામૃત" />
     <meta property="og:description" content="ગુજરાતી ભક્તિ સાહિત્ય અને ધાર્મિક લેખ" />
     <meta property="og:type" content="website" />
@@ -25,7 +25,9 @@
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
 
     <!-- Google Fonts: Cinzel + Noto Sans Gujarati + DM Sans -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet" />
 
     <!-- PRELOAD CRITICAL ASSETS -->
     <link rel="preload" href="images/kathamrut.webp" as="image" />
@@ -69,9 +71,17 @@
             --radius-card: 12px;
         }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             background: var(--bg-base);
@@ -94,122 +104,53 @@
            GLOBAL PAGE LOADER
            ============================================= */
         #global-loader {
-            position: fixed; inset: 0;
+            position: fixed;
+            inset: 0;
             background: var(--bg-base);
             z-index: 9999;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
-        #global-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .book-wrapper { position: relative; }
-        .book { width: 80px; height: 50px; }
+
+        #global-loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .book-wrapper {
+            position: relative;
+        }
+
+        .book {
+            width: 80px;
+            height: 50px;
+        }
+
         .book-page {
-            width: 40px; height: 50px;
-            position: absolute; left: 2px; top: 0;
+            width: 40px;
+            height: 50px;
+            position: absolute;
+            left: 2px;
+            top: 0;
             transform-origin: left center;
             animation: pageFlip 1.2s ease-in-out infinite;
         }
+
         @keyframes pageFlip {
-            0%   { transform: rotateY(0deg); }
-            50%  { transform: rotateY(-160deg); }
-            100% { transform: rotateY(0deg); }
-        }
+            0% {
+                transform: rotateY(0deg);
+            }
 
-        /* =============================================
-           UPGRADE 7: GLASSMORPHISM NAVIGATION
-           ============================================= */
-        .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            height: var(--nav-height);
-            background: rgba(10, 8, 5, 0.72);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-bottom: 0.5px solid rgba(245, 200, 66, 0.12);
-            transition: background 0.3s ease, border-color 0.3s ease;
-        }
-        .navbar.scrolled {
-            background: rgba(10, 8, 5, 0.92);
-            border-bottom-color: rgba(245, 200, 66, 0.25);
-        }
-        .nav-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-        }
-        .nav-logo {
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-        .logo-gu {
-            font-family: var(--font-gu);
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--gold-500);
-            letter-spacing: 0.04em;
-        }
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 1.2rem;
-            list-style: none;
-        }
-        .nav-link {
-            font-family: var(--font-gu);
-            color: rgba(245, 200, 66, 0.6);
-            font-size: 13px;
-            letter-spacing: 0.06em;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        .nav-link:hover { color: var(--gold-500); }
+            50% {
+                transform: rotateY(-160deg);
+            }
 
-        .nav-search-btn {
-            border: 0.5px solid rgba(245, 200, 66, 0.3);
-            border-radius: 20px;
-            padding: 6px 16px;
-            font-size: 11px;
-            letter-spacing: 0.1em;
-            font-family: var(--font-display);
-            color: rgba(245, 200, 66, 0.65);
-            background: transparent;
-            cursor: pointer;
-            transition: all 0.25s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .nav-search-btn:hover {
-            border-color: rgba(245, 200, 66, 0.7);
-            color: var(--gold-500);
-            background: rgba(245, 200, 66, 0.06);
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: rgba(245, 200, 66, 0.6);
-            display: flex; align-items: center;
-            padding: 4px;
-            transition: color 0.2s;
-        }
-        .theme-toggle:hover { color: var(--gold-500); }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--gold-500);
-            font-size: 1.4rem;
-            cursor: pointer;
+            100% {
+                transform: rotateY(0deg);
+            }
         }
 
         /* =============================================
@@ -226,15 +167,22 @@
         }
 
         /* Canvas layers */
-        #starfield, #dustCanvas {
+        #starfield,
+        #dustCanvas {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             pointer-events: none;
         }
-        #starfield { z-index: 0; }
-        #dustCanvas { z-index: 1; }
+
+        #starfield {
+            z-index: 0;
+        }
+
+        #dustCanvas {
+            z-index: 1;
+        }
 
         .hero-body {
             display: grid;
@@ -256,6 +204,7 @@
             align-items: flex-end;
             overflow: hidden;
         }
+
         .portrait-zone::after {
             content: '';
             position: absolute;
@@ -264,6 +213,7 @@
             z-index: 2;
             pointer-events: none;
         }
+
         /* Side vignette */
         .portrait-zone::before {
             content: '';
@@ -292,12 +242,15 @@
             width: 100%;
             height: 100%;
             min-height: 400px;
-            background: linear-gradient(135deg, rgba(245,200,66,0.04) 0%, rgba(192,132,252,0.04) 100%);
+            background: linear-gradient(135deg, rgba(245, 200, 66, 0.04) 0%, rgba(192, 132, 252, 0.04) 100%);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .portrait-fallback svg { opacity: 0.18; }
+
+        .portrait-fallback svg {
+            opacity: 0.18;
+        }
 
         /* =============================================
            CONTENT ZONE
@@ -318,11 +271,13 @@
             align-items: center;
             gap: 10px;
         }
+
         .eyebrow-line {
             height: 1px;
             width: 36px;
             background: linear-gradient(to right, transparent, var(--gold-500));
         }
+
         .eyebrow-text {
             font-family: var(--font-display);
             font-size: 9px;
@@ -343,10 +298,14 @@
             animation: goldPulse 3.5s ease-in-out infinite;
             will-change: text-shadow;
         }
+
         @keyframes goldPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 text-shadow: 0 0 20px rgba(245, 200, 66, 0.2), 0 0 60px rgba(245, 200, 66, 0.05);
             }
+
             50% {
                 text-shadow: 0 0 30px rgba(245, 200, 66, 0.45), 0 0 80px rgba(245, 200, 66, 0.15), 0 0 120px rgba(245, 200, 66, 0.06);
             }
@@ -392,6 +351,7 @@
             display: block;
             overflow: hidden;
         }
+
         .katha-card:focus-visible {
             outline: 2px solid rgba(245, 200, 66, 0.7);
             outline-offset: 3px;
@@ -403,23 +363,29 @@
             position: absolute;
             inset: 0;
             border-radius: inherit;
-            background: radial-gradient(
-                circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
-                rgba(245, 200, 66, 0.08),
-                transparent 60%
-            );
+            background: radial-gradient(circle at calc(var(--mx, 0.5) * 100%) calc(var(--my, 0.5) * 100%),
+                    rgba(245, 200, 66, 0.08),
+                    transparent 60%);
             pointer-events: none;
             z-index: 0;
             opacity: 0;
             transition: opacity 0.3s;
         }
-        .katha-card:hover::before { opacity: 1; }
 
-        .katha-card:hover, .katha-card.active {
+        .katha-card:hover::before {
+            opacity: 1;
+        }
+
+        .katha-card:hover,
+        .katha-card.active {
             box-shadow: 0 0 0 1.5px rgba(245, 200, 66, 0.6), 0 20px 40px rgba(0, 0, 0, 0.5);
             border-color: rgba(245, 200, 66, 0.35);
         }
-        .katha-card > * { position: relative; z-index: 1; }
+
+        .katha-card>* {
+            position: relative;
+            z-index: 1;
+        }
 
         .card-label {
             font-family: var(--font-display);
@@ -429,6 +395,7 @@
             text-transform: uppercase;
             margin-bottom: 6px;
         }
+
         .card-title {
             font-family: var(--font-gu);
             font-size: 0.82rem;
@@ -441,6 +408,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
+
         .card-excerpt {
             font-family: var(--font-gu);
             font-size: 0.72rem;
@@ -452,6 +420,7 @@
             overflow: hidden;
             margin-bottom: 8px;
         }
+
         .card-cta {
             font-family: var(--font-display);
             font-size: 9px;
@@ -462,7 +431,11 @@
             transform: translateY(8px);
             transition: opacity 0.25s, transform 0.25s;
         }
-        .katha-card:hover .card-cta { opacity: 1; transform: translateY(0); }
+
+        .katha-card:hover .card-cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Card skeleton while loading */
         .card-skeleton {
@@ -472,18 +445,36 @@
             padding: 1.1rem;
             animation: skeletonPulse 1.8s ease-in-out infinite;
         }
+
         .skel-line {
             height: 10px;
             border-radius: 4px;
             background: rgba(245, 200, 66, 0.07);
             margin-bottom: 8px;
         }
-        .skel-line.wide { width: 80%; }
-        .skel-line.medium { width: 60%; }
-        .skel-line.short { width: 40%; }
+
+        .skel-line.wide {
+            width: 80%;
+        }
+
+        .skel-line.medium {
+            width: 60%;
+        }
+
+        .skel-line.short {
+            width: 40%;
+        }
+
         @keyframes skeletonPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* =============================================
@@ -495,6 +486,7 @@
             gap: 6px;
             margin-top: 12px;
         }
+
         .carousel-dot {
             width: 4px;
             height: 4px;
@@ -503,6 +495,7 @@
             transition: width 0.3s ease, background 0.3s ease;
             cursor: pointer;
         }
+
         .carousel-dot.active {
             width: 14px;
             background: var(--gold-500);
@@ -522,6 +515,7 @@
             margin: 0 1.5rem 1.5rem;
             will-change: opacity, transform;
         }
+
         .quote-bar::before {
             content: '';
             position: absolute;
@@ -533,9 +527,15 @@
             animation: shimmerSweep 4s ease-in-out infinite;
             pointer-events: none;
         }
+
         @keyframes shimmerSweep {
-            from { left: -60%; }
-            to { left: 120%; }
+            from {
+                left: -60%;
+            }
+
+            to {
+                left: 120%;
+            }
         }
 
         .quote-bar-inner {
@@ -554,6 +554,7 @@
             line-height: 1.65;
             transition: opacity 0.4s ease;
         }
+
         .quote-attribution {
             font-family: var(--font-display);
             font-size: 11px;
@@ -568,17 +569,20 @@
         .section {
             padding: 3rem 0;
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 1.5rem;
         }
+
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 1.5rem;
         }
+
         .section-title {
             font-family: var(--font-display);
             font-size: 1.2rem;
@@ -586,10 +590,12 @@
             color: var(--gold-500);
             letter-spacing: 0.06em;
         }
+
         .scroll-controls {
             display: flex;
             gap: 8px;
         }
+
         .scroll-btn {
             width: 34px;
             height: 34px;
@@ -599,15 +605,21 @@
             color: var(--gold-500);
             font-size: 1.2rem;
             cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.2s;
         }
+
         .scroll-btn:hover {
             border-color: var(--gold-400);
             background: rgba(245, 200, 66, 0.06);
         }
 
-        .avatar-row-wrapper { overflow: hidden; }
+        .avatar-row-wrapper {
+            overflow: hidden;
+        }
+
         .avatar-row {
             display: flex;
             gap: 16px;
@@ -617,7 +629,10 @@
             scrollbar-width: none;
             padding-bottom: 8px;
         }
-        .avatar-row::-webkit-scrollbar { display: none; }
+
+        .avatar-row::-webkit-scrollbar {
+            display: none;
+        }
 
         .avatar-card {
             flex-shrink: 0;
@@ -630,7 +645,11 @@
             color: var(--text-primary);
             transition: transform 0.2s;
         }
-        .avatar-card:hover { transform: translateY(-3px); }
+
+        .avatar-card:hover {
+            transform: translateY(-3px);
+        }
+
         .avatar-img-wrap {
             width: 68px;
             height: 68px;
@@ -638,11 +657,22 @@
             border: 1.5px solid var(--gold-200);
             overflow: hidden;
             background: rgba(245, 200, 66, 0.04);
-            display: flex; align-items: center; justify-content: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: border-color 0.2s;
         }
-        .avatar-card:hover .avatar-img-wrap { border-color: var(--gold-400); }
-        .avatar-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+        .avatar-card:hover .avatar-img-wrap {
+            border-color: var(--gold-400);
+        }
+
+        .avatar-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .avatar-fallback {
             font-family: var(--font-gu);
             font-size: 0.6rem;
@@ -651,6 +681,7 @@
             padding: 6px;
             line-height: 1.3;
         }
+
         .avatar-label {
             font-family: var(--font-gu);
             font-size: 0.7rem;
@@ -661,8 +692,16 @@
         }
 
         /* Category chips (reusing same avatar-row structure) */
-        .category-chips { display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none; }
-        .category-chips::-webkit-scrollbar { display: none; }
+        .category-chips {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-chips::-webkit-scrollbar {
+            display: none;
+        }
 
         /* =============================================
            FOOTER
@@ -672,21 +711,25 @@
             padding: 2rem 0;
             margin-top: 2rem;
         }
+
         .footer-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
         }
+
         .footer-brand p {
             font-size: 0.75rem;
             color: var(--text-secondary);
             margin-top: 4px;
         }
+
         .footer-links {
             display: flex;
             gap: 1.2rem;
         }
+
         .footer-links a {
             font-family: var(--font-gu);
             font-size: 0.8rem;
@@ -694,10 +737,23 @@
             text-decoration: none;
             transition: color 0.2s;
         }
-        .footer-links a:hover { color: var(--gold-500); }
+
+        .footer-links a:hover {
+            color: var(--gold-500);
+        }
 
         /* @keyframes for scroll utility */
-        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
 
         /* =============================================
            RESPONSIVE: MOBILE
@@ -707,20 +763,25 @@
                 grid-template-columns: 1fr;
                 grid-template-rows: auto 1fr;
             }
+
             .portrait-zone {
                 height: 280px;
                 align-self: auto;
             }
+
             .portrait-zone::after {
                 background: radial-gradient(ellipse at 50% 100%, transparent 20%, #0a0805 75%);
             }
+
             #portraitImg {
                 object-position: center 15%;
             }
+
             .content-zone {
                 padding: 1rem 1rem 1.5rem;
                 gap: 1rem;
             }
+
             .katha-cards-grid {
                 grid-template-columns: 1fr;
                 display: flex;
@@ -731,35 +792,60 @@
                 padding: 0 16px;
                 scrollbar-width: none;
             }
-            .katha-cards-grid::-webkit-scrollbar { display: none; }
+
+            .katha-cards-grid::-webkit-scrollbar {
+                display: none;
+            }
+
             .katha-card {
                 flex: 0 0 78vw;
                 scroll-snap-align: center;
                 max-width: 320px;
             }
-            .carousel-dots { display: flex; }
 
-            .nav-toggle { display: flex; }
+            .carousel-dots {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
             .nav-links {
                 display: none;
                 position: absolute;
                 top: var(--nav-height);
-                left: 0; right: 0;
+                left: 0;
+                right: 0;
                 background: rgba(10, 8, 5, 0.97);
                 flex-direction: column;
                 padding: 1rem 1.5rem;
                 border-bottom: 0.5px solid var(--gold-200);
                 gap: 0.8rem;
             }
-            .nav-links.open { display: flex; }
 
-            .footer-inner { flex-direction: column; text-align: center; }
-            .quote-bar { margin: 0 1rem 1rem; }
+            .nav-links.open {
+                display: flex;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .quote-bar {
+                margin: 0 1rem 1rem;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero-title { font-size: clamp(22px, 7vw, 32px); }
-            .portrait-zone { height: 220px; }
+            .hero-title {
+                font-size: clamp(22px, 7vw, 32px);
+            }
+
+            .portrait-zone {
+                height: 220px;
+            }
         }
     </style>
 </head>
@@ -771,7 +857,8 @@
         <div class="loader">
             <div class="book-wrapper">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 126 75" class="book">
-                    <rect stroke-width="3" stroke="var(--gold-500)" rx="7.5" height="70" width="121" y="2.5" x="2.5"></rect>
+                    <rect stroke-width="3" stroke="var(--gold-500)" rx="7.5" height="70" width="121" y="2.5" x="2.5">
+                    </rect>
                     <line stroke-width="3" stroke="var(--gold-500)" y2="75" x2="63.5" x1="63.5"></line>
                     <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M25 20H50"></path>
                     <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-300)" d="M101 20H76"></path>
@@ -782,7 +869,9 @@
                     <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M40 20H15"></path>
                     <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M49 35H15"></path>
                     <path stroke-linecap="round" stroke-width="4" stroke="var(--gold-200)" d="M49 50H15"></path>
-                    <path stroke-width="3" stroke="var(--gold-500)" d="M2.5 2.5H55C59.1421 2.5 62.5 5.85786 62.5 10V65C62.5 69.1421 59.1421 72.5 55 72.5H2.5V2.5Z"></path>
+                    <path stroke-width="3" stroke="var(--gold-500)"
+                        d="M2.5 2.5H55C59.1421 2.5 62.5 5.85786 62.5 10V65C62.5 69.1421 59.1421 72.5 55 72.5H2.5V2.5Z">
+                    </path>
                 </svg>
             </div>
         </div>
@@ -800,14 +889,34 @@
                 <li><a href="paravani.html" class="nav-link">પરાવાણી</a></li>
                 <li>
                     <a href="search.html" class="nav-search-btn" id="navSearchBtn" aria-label="Search">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
                         SEARCH
                     </a>
                 </li>
                 <li>
                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
                     </button>
                 </li>
             </ul>
@@ -828,15 +937,9 @@
             <!-- UPGRADE 3: PORTRAIT ZONE -->
             <div class="portrait-zone" id="portraitZone">
                 <!-- Swami portrait. Replace src with actual image. -->
-                <img
-                    id="portraitImg"
-                    src="images/right-main.webp"
-                    alt="ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ"
-                    loading="eager"
-                    fetchpriority="high"
-                    class="portrait-fallback"
-                    onerror="this.style.display='none'"
-                />
+                <img id="portraitImg" src="images/right-main.webp" alt="ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ"
+                    loading="eager" fetchpriority="high" class="portrait-fallback"
+                    onerror="this.style.display='none'" />
             </div>
 
             <!-- CONTENT ZONE -->
@@ -859,9 +962,21 @@
                 <!-- UPGRADE 5: KATHA CARDS -->
                 <div class="katha-cards-grid" id="articlesGrid" aria-label="Latest Kathas">
                     <!-- Cards rendered by JS -->
-                    <div class="card-skeleton"><div class="skel-line short"></div><div class="skel-line wide"></div><div class="skel-line medium"></div></div>
-                    <div class="card-skeleton"><div class="skel-line short"></div><div class="skel-line wide"></div><div class="skel-line medium"></div></div>
-                    <div class="card-skeleton"><div class="skel-line short"></div><div class="skel-line wide"></div><div class="skel-line medium"></div></div>
+                    <div class="card-skeleton">
+                        <div class="skel-line short"></div>
+                        <div class="skel-line wide"></div>
+                        <div class="skel-line medium"></div>
+                    </div>
+                    <div class="card-skeleton">
+                        <div class="skel-line short"></div>
+                        <div class="skel-line wide"></div>
+                        <div class="skel-line medium"></div>
+                    </div>
+                    <div class="card-skeleton">
+                        <div class="skel-line short"></div>
+                        <div class="skel-line wide"></div>
+                        <div class="skel-line medium"></div>
+                    </div>
                 </div>
 
                 <!-- UPGRADE 8: CAROUSEL DOTS (mobile) -->
@@ -941,597 +1056,597 @@
     <script src="js/home.js?v=3.6" defer></script>
 
     <script>
-    /* ============================================================
-       MAIN HERO UPGRADE SCRIPT – ALL 10 UPGRADES
-       ============================================================ */
+        /* ============================================================
+           MAIN HERO UPGRADE SCRIPT – ALL 10 UPGRADES
+           ============================================================ */
 
-    // ── Shared state ──────────────────────────────────────────────
-    let rafPending = false;
-    let mouseX = 0, mouseY = 0;
+        // ── Shared state ──────────────────────────────────────────────
+        let rafPending = false;
+        let mouseX = 0, mouseY = 0;
 
-    // ── Page Loader ───────────────────────────────────────────────
-    window.addEventListener('load', () => {
-        const loader = document.getElementById('global-loader');
-        if (loader) {
-            loader.classList.add('hidden');
-            setTimeout(() => loader.remove(), 600);
-        }
-    });
-
-    // ────────────────────────────────────────────────────────────
-    // UPGRADE 1 · ANIMATED PARTICLE STARFIELD
-    // ────────────────────────────────────────────────────────────
-    (function initStarfield() {
-        const canvas = document.getElementById('starfield');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const COLORS = ['#f5c842', '#c084fc', '#ffffff'];
-        const COLOR_WEIGHTS = [0.4, 0.3, 0.3]; // probabilities
-        let stars = [];
-        let W, H;
-
-        function pickColor() {
-            const r = Math.random();
-            if (r < COLOR_WEIGHTS[0]) return COLORS[0];
-            if (r < COLOR_WEIGHTS[0] + COLOR_WEIGHTS[1]) return COLORS[1];
-            return COLORS[2];
-        }
-
-        function createStar() {
-            return {
-                x: Math.random() * W,
-                y: Math.random() * H,
-                radius: 0.3 + Math.random() * 1.7,
-                color: pickColor(),
-                alpha: 0.1 + Math.random() * 0.8,
-                deltaAlpha: (Math.random() < 0.5 ? -1 : 1) * (0.003 + Math.random() * 0.005),
-                vx: (Math.random() - 0.5) * 0.12,
-                vy: (Math.random() - 0.5) * 0.08,
-            };
-        }
-
-        function resize() {
-            const hero = document.getElementById('hero');
-            W = canvas.width = hero ? hero.offsetWidth : window.innerWidth;
-            H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
-        }
-
-        function init() {
-            resize();
-            stars = Array.from({ length: 120 }, createStar);
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, W, H);
-            for (const s of stars) {
-                // Update alpha (twinkling)
-                s.alpha += s.deltaAlpha;
-                if (s.alpha <= 0.05) { s.alpha = 0.05; s.deltaAlpha *= -1; }
-                if (s.alpha >= 0.9)  { s.alpha = 0.9;  s.deltaAlpha *= -1; }
-
-                // Update position with wrapping
-                s.x += s.vx;
-                s.y += s.vy;
-                if (s.x < 0) s.x = W;
-                if (s.x > W) s.x = 0;
-                if (s.y < 0) s.y = H;
-                if (s.y > H) s.y = 0;
-
-                ctx.globalAlpha = s.alpha;
-                ctx.fillStyle = s.color;
-                ctx.beginPath();
-                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-                ctx.fill();
+        // ── Page Loader ───────────────────────────────────────────────
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('global-loader');
+            if (loader) {
+                loader.classList.add('hidden');
+                setTimeout(() => loader.remove(), 600);
             }
-            ctx.globalAlpha = 1;
-            requestAnimationFrame(animate);
-        }
+        });
 
-        init();
-        animate();
-        window.addEventListener('resize', () => { resize(); }, { passive: true });
+        // ────────────────────────────────────────────────────────────
+        // UPGRADE 1 · ANIMATED PARTICLE STARFIELD
+        // ────────────────────────────────────────────────────────────
+        (function initStarfield() {
+            const canvas = document.getElementById('starfield');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const COLORS = ['#f5c842', '#c084fc', '#ffffff'];
+            const COLOR_WEIGHTS = [0.4, 0.3, 0.3]; // probabilities
+            let stars = [];
+            let W, H;
 
-        // Parallax on mousemove (canvas element)
-        canvas.style.transition = 'transform 1.2s ease-out';
-        function applyStarParallax() {
-            const nx = (mouseX / window.innerWidth) - 0.5;
-            const ny = (mouseY / window.innerHeight) - 0.5;
-            canvas.style.transform = `translate(${nx * 18}px, ${ny * 12}px)`;
-        }
-        window._applyStarParallax = applyStarParallax;
-    })();
-
-
-    // ────────────────────────────────────────────────────────────
-    // UPGRADE 2 · GOLDEN DUST CANVAS
-    // ────────────────────────────────────────────────────────────
-    (function initDust() {
-        const canvas = document.getElementById('dustCanvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        let dust = [];
-        let W, H;
-
-        function resize() {
-            const hero = document.getElementById('hero');
-            W = canvas.width = hero ? hero.offsetWidth : window.innerWidth;
-            H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
-        }
-
-        function createDust(forceRespawn) {
-            const maxLife = 120 + Math.random() * 180;
-            return {
-                x: Math.random() * W,
-                y: forceRespawn ? H * 0.7 + Math.random() * H * 0.3 : Math.random() * H,
-                size: 0.5 + Math.random() * 1,
-                vy: -(0.15 + Math.random() * 0.25),
-                alpha: 0,
-                life: 0,
-                maxLife,
-            };
-        }
-
-        function init() {
-            resize();
-            dust = Array.from({ length: 40 }, () => createDust(false));
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, W, H);
-            for (let i = 0; i < dust.length; i++) {
-                const d = dust[i];
-                d.life++;
-                d.y += d.vy;
-                d.alpha = Math.sin((d.life / d.maxLife) * Math.PI) * 0.75;
-
-                if (d.life >= d.maxLife || d.y < 0) {
-                    dust[i] = createDust(true);
-                    continue;
-                }
-
-                ctx.globalAlpha = d.alpha;
-                ctx.fillStyle = `rgba(245, 200, 66, ${d.alpha})`;
-                ctx.beginPath();
-                ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
-                ctx.fill();
+            function pickColor() {
+                const r = Math.random();
+                if (r < COLOR_WEIGHTS[0]) return COLORS[0];
+                if (r < COLOR_WEIGHTS[0] + COLOR_WEIGHTS[1]) return COLORS[1];
+                return COLORS[2];
             }
-            ctx.globalAlpha = 1;
-            requestAnimationFrame(animate);
-        }
 
-        init();
-        animate();
-        window.addEventListener('resize', () => { resize(); }, { passive: true });
-    })();
+            function createStar() {
+                return {
+                    x: Math.random() * W,
+                    y: Math.random() * H,
+                    radius: 0.3 + Math.random() * 1.7,
+                    color: pickColor(),
+                    alpha: 0.1 + Math.random() * 0.8,
+                    deltaAlpha: (Math.random() < 0.5 ? -1 : 1) * (0.003 + Math.random() * 0.005),
+                    vx: (Math.random() - 0.5) * 0.12,
+                    vy: (Math.random() - 0.5) * 0.08,
+                };
+            }
 
+            function resize() {
+                const hero = document.getElementById('hero');
+                W = canvas.width = hero ? hero.offsetWidth : window.innerWidth;
+                H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+            }
 
-    // ────────────────────────────────────────────────────────────
-    // MOUSE MOVE (shared, debounced via RAF)
-    // ────────────────────────────────────────────────────────────
-    window.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
+            function init() {
+                resize();
+                stars = Array.from({ length: 120 }, createStar);
+            }
 
-        if (!rafPending) {
-            rafPending = true;
-            requestAnimationFrame(() => {
-                rafPending = false;
+            function animate() {
+                ctx.clearRect(0, 0, W, H);
+                for (const s of stars) {
+                    // Update alpha (twinkling)
+                    s.alpha += s.deltaAlpha;
+                    if (s.alpha <= 0.05) { s.alpha = 0.05; s.deltaAlpha *= -1; }
+                    if (s.alpha >= 0.9) { s.alpha = 0.9; s.deltaAlpha *= -1; }
 
-                // UPGRADE 1: Star parallax
-                if (window._applyStarParallax) window._applyStarParallax();
+                    // Update position with wrapping
+                    s.x += s.vx;
+                    s.y += s.vy;
+                    if (s.x < 0) s.x = W;
+                    if (s.x > W) s.x = 0;
+                    if (s.y < 0) s.y = H;
+                    if (s.y > H) s.y = 0;
 
-                // UPGRADE 3: Portrait parallax
-                const portrait = document.getElementById('portraitImg');
-                if (portrait) {
-                    const nx = (mouseX / window.innerWidth) - 0.5;
-                    const ny = (mouseY / window.innerHeight) - 0.5;
-                    portrait.style.transform = `translate(${nx * -18}px, ${ny * -12}px)`;
+                    ctx.globalAlpha = s.alpha;
+                    ctx.fillStyle = s.color;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                    ctx.fill();
                 }
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(animate);
+            }
+
+            init();
+            animate();
+            window.addEventListener('resize', () => { resize(); }, { passive: true });
+
+            // Parallax on mousemove (canvas element)
+            canvas.style.transition = 'transform 1.2s ease-out';
+            function applyStarParallax() {
+                const nx = (mouseX / window.innerWidth) - 0.5;
+                const ny = (mouseY / window.innerHeight) - 0.5;
+                canvas.style.transform = `translate(${nx * 18}px, ${ny * 12}px)`;
+            }
+            window._applyStarParallax = applyStarParallax;
+        })();
+
+
+        // ────────────────────────────────────────────────────────────
+        // UPGRADE 2 · GOLDEN DUST CANVAS
+        // ────────────────────────────────────────────────────────────
+        (function initDust() {
+            const canvas = document.getElementById('dustCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            let dust = [];
+            let W, H;
+
+            function resize() {
+                const hero = document.getElementById('hero');
+                W = canvas.width = hero ? hero.offsetWidth : window.innerWidth;
+                H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+            }
+
+            function createDust(forceRespawn) {
+                const maxLife = 120 + Math.random() * 180;
+                return {
+                    x: Math.random() * W,
+                    y: forceRespawn ? H * 0.7 + Math.random() * H * 0.3 : Math.random() * H,
+                    size: 0.5 + Math.random() * 1,
+                    vy: -(0.15 + Math.random() * 0.25),
+                    alpha: 0,
+                    life: 0,
+                    maxLife,
+                };
+            }
+
+            function init() {
+                resize();
+                dust = Array.from({ length: 40 }, () => createDust(false));
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, W, H);
+                for (let i = 0; i < dust.length; i++) {
+                    const d = dust[i];
+                    d.life++;
+                    d.y += d.vy;
+                    d.alpha = Math.sin((d.life / d.maxLife) * Math.PI) * 0.75;
+
+                    if (d.life >= d.maxLife || d.y < 0) {
+                        dust[i] = createDust(true);
+                        continue;
+                    }
+
+                    ctx.globalAlpha = d.alpha;
+                    ctx.fillStyle = `rgba(245, 200, 66, ${d.alpha})`;
+                    ctx.beginPath();
+                    ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(animate);
+            }
+
+            init();
+            animate();
+            window.addEventListener('resize', () => { resize(); }, { passive: true });
+        })();
+
+
+        // ────────────────────────────────────────────────────────────
+        // MOUSE MOVE (shared, debounced via RAF)
+        // ────────────────────────────────────────────────────────────
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            if (!rafPending) {
+                rafPending = true;
+                requestAnimationFrame(() => {
+                    rafPending = false;
+
+                    // UPGRADE 1: Star parallax
+                    if (window._applyStarParallax) window._applyStarParallax();
+
+                    // UPGRADE 3: Portrait parallax
+                    const portrait = document.getElementById('portraitImg');
+                    if (portrait) {
+                        const nx = (mouseX / window.innerWidth) - 0.5;
+                        const ny = (mouseY / window.innerHeight) - 0.5;
+                        portrait.style.transform = `translate(${nx * -18}px, ${ny * -12}px)`;
+                    }
+                });
+            }
+        }, { passive: true });
+
+
+        // ────────────────────────────────────────────────────────────
+        // UPGRADE 7: NAV SCROLL BEHAVIOR
+        // ────────────────────────────────────────────────────────────
+        (function initNav() {
+            const navbar = document.getElementById('navbar');
+            const navToggle = document.getElementById('navToggle');
+            const navLinks = document.getElementById('navLinks');
+
+            if (navbar) {
+                let scrolled = false;
+                window.addEventListener('scroll', () => {
+                    const shouldScroll = window.scrollY > 20;
+                    if (shouldScroll !== scrolled) {
+                        scrolled = shouldScroll;
+                        navbar.classList.toggle('scrolled', scrolled);
+                    }
+                }, { passive: true });
+            }
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', () => {
+                    const open = navLinks.classList.toggle('open');
+                    navToggle.setAttribute('aria-expanded', String(open));
+                });
+            }
+
+            // Theme toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const sunIcon = themeToggle?.querySelector('.sun-icon');
+            const moonIcon = themeToggle?.querySelector('.moon-icon');
+
+            function applyTheme(isDark) {
+                document.body.classList.toggle('light-mode', !isDark);
+                if (sunIcon) sunIcon.style.display = isDark ? 'none' : 'block';
+                if (moonIcon) moonIcon.style.display = isDark ? 'block' : 'none';
+            }
+
+            const savedTheme = localStorage.getItem('theme');
+            applyTheme(savedTheme !== 'light');
+
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const isLight = document.body.classList.contains('light-mode');
+                    localStorage.setItem('theme', isLight ? 'dark' : 'light');
+                    applyTheme(isLight); // toggle
+                });
+            }
+        })();
+
+
+        // ────────────────────────────────────────────────────────────
+        // UPGRADE 4: GSAP PAGE-LOAD ENTRANCE ANIMATION
+        // ────────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            // Register GSAP plugin
+            if (window.gsap && window.ScrollTrigger) {
+                gsap.registerPlugin(ScrollTrigger);
+            }
+
+            // Run Splitting on title
+            if (window.Splitting) {
+                Splitting({ target: '#heroTitle', by: 'chars' });
+            }
+
+            const tl = gsap && gsap.timeline ? gsap.timeline() : null;
+            if (!tl) return;
+
+            // 1. Starfield canvas fade in
+            tl.fromTo('#starfield',
+                { opacity: 0 },
+                { opacity: 1, duration: 2, ease: 'power2.out' }
+            );
+
+            // 2. Portrait slide in
+            tl.fromTo('#portraitImg',
+                { x: -60, opacity: 0 },
+                { x: 0, opacity: 1, duration: 1.2, ease: 'expo.out' },
+                0.3
+            );
+
+            // 3. Hero title chars stagger
+            tl.fromTo('#heroTitle .char',
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1, stagger: 0.03, duration: 0.7, ease: 'back.out(1.7)' },
+                0.5
+            );
+
+            // 4. Katha cards stagger (will re-run when cards are rendered via JS)
+            tl.fromTo('#articlesGrid .katha-card, #articlesGrid .card-skeleton',
+                { y: 50, opacity: 0 },
+                { y: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: 'power3.out' },
+                0.9
+            );
+
+            // 5. Quote bar
+            tl.fromTo('#quoteBar',
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' },
+                1.3
+            );
+
+            // Eyebrow + sub-label subtle fade
+            tl.fromTo('.content-eyebrow, .hero-title-sub',
+                { opacity: 0 },
+                { opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' },
+                0.4
+            );
+        });
+
+
+        // ────────────────────────────────────────────────────────────
+        // UPGRADE 5: 3D TILT CARDS — attach after article render
+        // ────────────────────────────────────────────────────────────
+        function initTiltCards() {
+            const cards = document.querySelectorAll('.katha-card');
+            cards.forEach(card => {
+                card.setAttribute('role', 'article');
+                card.setAttribute('tabindex', '0');
+
+                card.addEventListener('mouseenter', () => {
+                    card.classList.add('active');
+                    card.style.transition = 'transform 0.1s linear, box-shadow 0.3s ease, border-color 0.3s ease';
+                });
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    card.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 8}deg) translateY(-6px) scale(1.03)`;
+                    card.style.setProperty('--mx', x + 0.5);
+                    card.style.setProperty('--my', y + 0.5);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.classList.remove('active');
+                    card.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease';
+                    card.style.transform = '';
+                    card.style.setProperty('--mx', '0.5');
+                    card.style.setProperty('--my', '0.5');
+                });
+
+                // Keyboard accessibility
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.click();
+                    }
+                });
             });
         }
-    }, { passive: true });
+
+        // Animate cards in after JS renders them
+        window.animateNewCards = function () {
+            if (window.gsap) {
+                gsap.fromTo('.katha-card',
+                    { y: 50, opacity: 0 },
+                    { y: 0, opacity: 1, stagger: 0.08, duration: 0.8, ease: 'power3.out', delay: 0.2 }
+                );
+            }
+            initTiltCards();
+            initCarouselDots();
+        };
 
 
-    // ────────────────────────────────────────────────────────────
-    // UPGRADE 7: NAV SCROLL BEHAVIOR
-    // ────────────────────────────────────────────────────────────
-    (function initNav() {
-        const navbar = document.getElementById('navbar');
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
+        // ────────────────────────────────────────────────────────────
+        // UPGRADE 8: CAROUSEL DOTS + SWIPE (mobile)
+        // ────────────────────────────────────────────────────────────
+        function initCarouselDots() {
+            const grid = document.getElementById('articlesGrid');
+            const dotsContainer = document.getElementById('carouselDots');
+            if (!grid || !dotsContainer) return;
 
-        if (navbar) {
-            let scrolled = false;
-            window.addEventListener('scroll', () => {
-                const shouldScroll = window.scrollY > 20;
-                if (shouldScroll !== scrolled) {
-                    scrolled = shouldScroll;
-                    navbar.classList.toggle('scrolled', scrolled);
+            const cards = grid.querySelectorAll('.katha-card');
+            if (cards.length === 0) return;
+
+            // Only show dots on mobile
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            if (!isMobile) { dotsContainer.style.display = 'none'; return; }
+
+            dotsContainer.innerHTML = '';
+            dotsContainer.style.display = 'flex';
+
+            const dots = [];
+            cards.forEach((card, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to card ${i + 1}`);
+                dot.setAttribute('role', 'tab');
+                dot.addEventListener('click', () => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                });
+                dotsContainer.appendChild(dot);
+                dots.push(dot);
+            });
+
+            // IntersectionObserver per card
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const idx = Array.from(cards).indexOf(entry.target);
+                        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+                    }
+                });
+            }, { root: grid, threshold: 0.6 });
+
+            cards.forEach(c => observer.observe(c));
+
+            // Touch swipe support
+            let touchStartX = 0;
+            grid.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+            grid.addEventListener('touchend', (e) => {
+                const delta = touchStartX - e.changedTouches[0].clientX;
+                const cardW = cards[0] ? cards[0].offsetWidth + 12 : 200;
+                if (Math.abs(delta) > 40) {
+                    grid.scrollBy({ left: delta > 0 ? cardW : -cardW, behavior: 'smooth' });
                 }
             }, { passive: true });
         }
 
-        if (navToggle && navLinks) {
-            navToggle.addEventListener('click', () => {
-                const open = navLinks.classList.toggle('open');
-                navToggle.setAttribute('aria-expanded', String(open));
-            });
-        }
 
-        // Theme toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const sunIcon = themeToggle?.querySelector('.sun-icon');
-        const moonIcon = themeToggle?.querySelector('.moon-icon');
+        // ────────────────────────────────────────────────────────────
+        // QUOTE ROTATION (extracted for reuse)
+        // ────────────────────────────────────────────────────────────
+        async function initRotatingQuote() {
+            const el = document.getElementById('quoteText');
+            const authorEl = document.getElementById('quoteAuthor');
+            if (!el) return;
 
-        function applyTheme(isDark) {
-            document.body.classList.toggle('light-mode', !isDark);
-            if (sunIcon) sunIcon.style.display = isDark ? 'none' : 'block';
-            if (moonIcon) moonIcon.style.display = isDark ? 'block' : 'none';
-        }
+            let quotes = [];
 
-        const savedTheme = localStorage.getItem('theme');
-        applyTheme(savedTheme !== 'light');
-
-        if (themeToggle) {
-            themeToggle.addEventListener('click', () => {
-                const isLight = document.body.classList.contains('light-mode');
-                localStorage.setItem('theme', isLight ? 'dark' : 'light');
-                applyTheme(isLight); // toggle
-            });
-        }
-    })();
-
-
-    // ────────────────────────────────────────────────────────────
-    // UPGRADE 4: GSAP PAGE-LOAD ENTRANCE ANIMATION
-    // ────────────────────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', () => {
-        // Register GSAP plugin
-        if (window.gsap && window.ScrollTrigger) {
-            gsap.registerPlugin(ScrollTrigger);
-        }
-
-        // Run Splitting on title
-        if (window.Splitting) {
-            Splitting({ target: '#heroTitle', by: 'chars' });
-        }
-
-        const tl = gsap && gsap.timeline ? gsap.timeline() : null;
-        if (!tl) return;
-
-        // 1. Starfield canvas fade in
-        tl.fromTo('#starfield',
-            { opacity: 0 },
-            { opacity: 1, duration: 2, ease: 'power2.out' }
-        );
-
-        // 2. Portrait slide in
-        tl.fromTo('#portraitImg',
-            { x: -60, opacity: 0 },
-            { x: 0, opacity: 1, duration: 1.2, ease: 'expo.out' },
-            0.3
-        );
-
-        // 3. Hero title chars stagger
-        tl.fromTo('#heroTitle .char',
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.03, duration: 0.7, ease: 'back.out(1.7)' },
-            0.5
-        );
-
-        // 4. Katha cards stagger (will re-run when cards are rendered via JS)
-        tl.fromTo('#articlesGrid .katha-card, #articlesGrid .card-skeleton',
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, stagger: 0.1, duration: 0.8, ease: 'power3.out' },
-            0.9
-        );
-
-        // 5. Quote bar
-        tl.fromTo('#quoteBar',
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' },
-            1.3
-        );
-
-        // Eyebrow + sub-label subtle fade
-        tl.fromTo('.content-eyebrow, .hero-title-sub',
-            { opacity: 0 },
-            { opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power2.out' },
-            0.4
-        );
-    });
-
-
-    // ────────────────────────────────────────────────────────────
-    // UPGRADE 5: 3D TILT CARDS — attach after article render
-    // ────────────────────────────────────────────────────────────
-    function initTiltCards() {
-        const cards = document.querySelectorAll('.katha-card');
-        cards.forEach(card => {
-            card.setAttribute('role', 'article');
-            card.setAttribute('tabindex', '0');
-
-            card.addEventListener('mouseenter', () => {
-                card.classList.add('active');
-                card.style.transition = 'transform 0.1s linear, box-shadow 0.3s ease, border-color 0.3s ease';
-            });
-
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                card.style.transform = `rotateY(${x * 12}deg) rotateX(${-y * 8}deg) translateY(-6px) scale(1.03)`;
-                card.style.setProperty('--mx', x + 0.5);
-                card.style.setProperty('--my', y + 0.5);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.classList.remove('active');
-                card.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s ease';
-                card.style.transform = '';
-                card.style.setProperty('--mx', '0.5');
-                card.style.setProperty('--my', '0.5');
-            });
-
-            // Keyboard accessibility
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    card.click();
-                }
-            });
-        });
-    }
-
-    // Animate cards in after JS renders them
-    window.animateNewCards = function() {
-        if (window.gsap) {
-            gsap.fromTo('.katha-card',
-                { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, stagger: 0.08, duration: 0.8, ease: 'power3.out', delay: 0.2 }
-            );
-        }
-        initTiltCards();
-        initCarouselDots();
-    };
-
-
-    // ────────────────────────────────────────────────────────────
-    // UPGRADE 8: CAROUSEL DOTS + SWIPE (mobile)
-    // ────────────────────────────────────────────────────────────
-    function initCarouselDots() {
-        const grid = document.getElementById('articlesGrid');
-        const dotsContainer = document.getElementById('carouselDots');
-        if (!grid || !dotsContainer) return;
-
-        const cards = grid.querySelectorAll('.katha-card');
-        if (cards.length === 0) return;
-
-        // Only show dots on mobile
-        const isMobile = window.matchMedia('(max-width: 768px)').matches;
-        if (!isMobile) { dotsContainer.style.display = 'none'; return; }
-
-        dotsContainer.innerHTML = '';
-        dotsContainer.style.display = 'flex';
-
-        const dots = [];
-        cards.forEach((card, i) => {
-            const dot = document.createElement('button');
-            dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', `Go to card ${i + 1}`);
-            dot.setAttribute('role', 'tab');
-            dot.addEventListener('click', () => {
-                card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-            });
-            dotsContainer.appendChild(dot);
-            dots.push(dot);
-        });
-
-        // IntersectionObserver per card
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const idx = Array.from(cards).indexOf(entry.target);
-                    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-                }
-            });
-        }, { root: grid, threshold: 0.6 });
-
-        cards.forEach(c => observer.observe(c));
-
-        // Touch swipe support
-        let touchStartX = 0;
-        grid.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-        grid.addEventListener('touchend', (e) => {
-            const delta = touchStartX - e.changedTouches[0].clientX;
-            const cardW = cards[0] ? cards[0].offsetWidth + 12 : 200;
-            if (Math.abs(delta) > 40) {
-                grid.scrollBy({ left: delta > 0 ? cardW : -cardW, behavior: 'smooth' });
-            }
-        }, { passive: true });
-    }
-
-
-    // ────────────────────────────────────────────────────────────
-    // QUOTE ROTATION (extracted for reuse)
-    // ────────────────────────────────────────────────────────────
-    async function initRotatingQuote() {
-        const el = document.getElementById('quoteText');
-        const authorEl = document.getElementById('quoteAuthor');
-        if (!el) return;
-
-        let quotes = [];
-
-        try {
-            const res = await fetch('/api/quotes', { signal: AbortSignal.timeout(5000) });
-            if (res.ok) {
-                const apiQuotes = await res.json();
-                if (apiQuotes && apiQuotes.length > 0) {
-                    quotes = apiQuotes.filter(q => q && ((typeof q === 'string' && q.trim()) || (q.text && q.text.trim())));
-                }
-            }
-        } catch (err) {
-            console.warn('Quote API unavailable:', err.message);
-        }
-
-        if (quotes.length === 0 && typeof QUOTES !== 'undefined' && QUOTES.length > 0) {
-            quotes = QUOTES;
-        }
-
-        if (quotes.length === 0) {
-            quotes = [
-                { text: 'હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.', author: 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ' },
-                { text: 'ભગવાન ભજ્યા વિના ક્ષણ ન ગુમાવવી — એ જ સાચી ભક્તિ.', author: 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ' },
-            ];
-        }
-
-        const showQuote = (q) => {
-            const txt = typeof q === 'string' ? q : q.text;
-            const auth = (typeof q === 'object' && q.author) ? q.author : 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ';
-            el.textContent = txt;
-            if (authorEl) authorEl.textContent = `— ${auth}`;
-        };
-
-        showQuote(quotes[0]);
-
-        let idx = 0;
-        setInterval(() => {
-            el.style.opacity = '0';
-            setTimeout(() => {
-                idx = (idx + 1) % quotes.length;
-                showQuote(quotes[idx]);
-                el.style.opacity = '1';
-            }, 400);
-        }, 5000);
-    }
-
-    // Run quote rotation as soon as possible
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initRotatingQuote);
-    } else {
-        initRotatingQuote();
-    }
-
-
-    // ────────────────────────────────────────────────────────────
-    // HOME.JS RENDER OVERRIDE — inject after home.js renders cards
-    // ────────────────────────────────────────────────────────────
-    // We monkey-patch renderArticles to call our upgrade hooks
-    document.addEventListener('DOMContentLoaded', () => {
-        // Wait for home.js to define renderArticles
-        const origDescriptor = Object.getOwnPropertyDescriptor(window, 'renderArticles');
-        let patchAttempts = 0;
-
-        function tryPatch() {
-            if (typeof window.renderArticles === 'function' && !window._renderPatched) {
-                window._renderPatched = true;
-                const orig = window.renderArticles;
-                window.renderArticles = function(...args) {
-                    // Call original render
-                    const result = orig.apply(this, args);
-                    // Upgrade katha cards in artikles grid
-                    setTimeout(() => {
-                        // Convert carousel-3d-cards to katha-cards
-                        upgradeCarouselCards();
-                    }, 50);
-                    return result;
-                };
-            } else if (patchAttempts < 20) {
-                patchAttempts++;
-                setTimeout(tryPatch, 100);
-            }
-        }
-        tryPatch();
-    });
-
-    function upgradeCarouselCards() {
-        const grid = document.getElementById('articlesGrid');
-        if (!grid) return;
-
-        const existing = grid.querySelectorAll('.carousel-3d-card');
-        if (existing.length === 0) return;
-
-        // Convert carousel-3d-card elements into katha-cards
-        existing.forEach(card => {
-            card.classList.remove('carousel-3d-card');
-            card.classList.add('katha-card');
-
-            // Re-map inner content classes
-            const label = card.querySelector('.carousel-3d-label');
-            const title = card.querySelector('.carousel-3d-title');
-            const excerpt = card.querySelector('.carousel-3d-excerpt');
-            const divider = card.querySelector('.carousel-3d-divider');
-
-            if (label) label.className = 'card-label';
-            if (title) title.className = 'card-title';
-            if (excerpt) excerpt.className = 'card-excerpt';
-            if (divider) divider.remove();
-
-            // Add CTA
-            if (!card.querySelector('.card-cta')) {
-                const cta = document.createElement('span');
-                cta.className = 'card-cta';
-                cta.textContent = 'Read full katha →';
-                card.querySelector('.carousel-3d-content, div')?.appendChild(cta);
-            }
-
-            // Remove old content wrapper class
-            const inner = card.querySelector('.carousel-3d-content');
-            if (inner) inner.className = '';
-        });
-
-        // Also update grid container class
-        grid.className = 'katha-cards-grid';
-
-        if (window.animateNewCards) window.animateNewCards();
-    }
-
-    // Avatar scroll buttons (preserved from original home.js)
-    document.addEventListener('DOMContentLoaded', () => {
-        window.initAvatarScrollButtons = function() {
-            document.querySelectorAll('.section').forEach(section => {
-                const prevBtn = section.querySelector('.prev-btn');
-                const nextBtn = section.querySelector('.next-btn');
-                const row = section.querySelector('.avatar-row') ||
-                            section.querySelector('.cards-grid') ||
-                            section.querySelector('.category-chips');
-
-                if (prevBtn && nextBtn && row) {
-                    const update = () => {
-                        const sl = Math.ceil(row.scrollLeft);
-                        const max = row.scrollWidth - row.clientWidth;
-                        prevBtn.style.opacity = sl <= 10 ? '0.15' : '1';
-                        prevBtn.style.pointerEvents = sl <= 10 ? 'none' : 'auto';
-                        nextBtn.style.opacity = (sl >= max - 15 || max <= 0) ? '0.15' : '1';
-                        nextBtn.style.pointerEvents = (sl >= max - 15 || max <= 0) ? 'none' : 'auto';
-                    };
-                    row.addEventListener('scroll', update, { passive: true });
-                    window.addEventListener('resize', update);
-                    update();
-                    setTimeout(update, 100);
-
-                    if (!section.dataset.scrollInit) {
-                        section.dataset.scrollInit = 'true';
-                        prevBtn.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            row.scrollBy({ left: -Math.min(row.clientWidth * 0.8, 500), behavior: 'smooth' });
-                        });
-                        nextBtn.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            row.scrollBy({ left: Math.min(row.clientWidth * 0.8, 500), behavior: 'smooth' });
-                        });
+            try {
+                const res = await fetch('/api/quotes', { signal: AbortSignal.timeout(5000) });
+                if (res.ok) {
+                    const apiQuotes = await res.json();
+                    if (apiQuotes && apiQuotes.length > 0) {
+                        quotes = apiQuotes.filter(q => q && ((typeof q === 'string' && q.trim()) || (q.text && q.text.trim())));
                     }
                 }
-            });
-        };
-        setTimeout(window.initAvatarScrollButtons, 200);
-        setTimeout(window.initAvatarScrollButtons, 800);
-    });
+            } catch (err) {
+                console.warn('Quote API unavailable:', err.message);
+            }
 
-    // Handle resize for carousel dots
-    window.addEventListener('resize', () => {
-        initCarouselDots();
-    }, { passive: true });
+            if (quotes.length === 0 && typeof QUOTES !== 'undefined' && QUOTES.length > 0) {
+                quotes = QUOTES;
+            }
+
+            if (quotes.length === 0) {
+                quotes = [
+                    { text: 'હૈયામાં ટોપ સુરુચિ રાખનારને કથાવર્તા સમજાવવામાં જરાય તકલીફ ન પડે.', author: 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ' },
+                    { text: 'ભગવાન ભજ્યા વિના ક્ષણ ન ગુમાવવી — એ જ સાચી ભક્તિ.', author: 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ' },
+                ];
+            }
+
+            const showQuote = (q) => {
+                const txt = typeof q === 'string' ? q : q.text;
+                const auth = (typeof q === 'object' && q.author) ? q.author : 'ગુરુહરી હરિપ્રસાદ સ્વામીજી મહારાજ';
+                el.textContent = txt;
+                if (authorEl) authorEl.textContent = `— ${auth}`;
+            };
+
+            showQuote(quotes[0]);
+
+            let idx = 0;
+            setInterval(() => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    idx = (idx + 1) % quotes.length;
+                    showQuote(quotes[idx]);
+                    el.style.opacity = '1';
+                }, 400);
+            }, 5000);
+        }
+
+        // Run quote rotation as soon as possible
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initRotatingQuote);
+        } else {
+            initRotatingQuote();
+        }
+
+
+        // ────────────────────────────────────────────────────────────
+        // HOME.JS RENDER OVERRIDE — inject after home.js renders cards
+        // ────────────────────────────────────────────────────────────
+        // We monkey-patch renderArticles to call our upgrade hooks
+        document.addEventListener('DOMContentLoaded', () => {
+            // Wait for home.js to define renderArticles
+            const origDescriptor = Object.getOwnPropertyDescriptor(window, 'renderArticles');
+            let patchAttempts = 0;
+
+            function tryPatch() {
+                if (typeof window.renderArticles === 'function' && !window._renderPatched) {
+                    window._renderPatched = true;
+                    const orig = window.renderArticles;
+                    window.renderArticles = function (...args) {
+                        // Call original render
+                        const result = orig.apply(this, args);
+                        // Upgrade katha cards in artikles grid
+                        setTimeout(() => {
+                            // Convert carousel-3d-cards to katha-cards
+                            upgradeCarouselCards();
+                        }, 50);
+                        return result;
+                    };
+                } else if (patchAttempts < 20) {
+                    patchAttempts++;
+                    setTimeout(tryPatch, 100);
+                }
+            }
+            tryPatch();
+        });
+
+        function upgradeCarouselCards() {
+            const grid = document.getElementById('articlesGrid');
+            if (!grid) return;
+
+            const existing = grid.querySelectorAll('.carousel-3d-card');
+            if (existing.length === 0) return;
+
+            // Convert carousel-3d-card elements into katha-cards
+            existing.forEach(card => {
+                card.classList.remove('carousel-3d-card');
+                card.classList.add('katha-card');
+
+                // Re-map inner content classes
+                const label = card.querySelector('.carousel-3d-label');
+                const title = card.querySelector('.carousel-3d-title');
+                const excerpt = card.querySelector('.carousel-3d-excerpt');
+                const divider = card.querySelector('.carousel-3d-divider');
+
+                if (label) label.className = 'card-label';
+                if (title) title.className = 'card-title';
+                if (excerpt) excerpt.className = 'card-excerpt';
+                if (divider) divider.remove();
+
+                // Add CTA
+                if (!card.querySelector('.card-cta')) {
+                    const cta = document.createElement('span');
+                    cta.className = 'card-cta';
+                    cta.textContent = 'Read full katha →';
+                    card.querySelector('.carousel-3d-content, div')?.appendChild(cta);
+                }
+
+                // Remove old content wrapper class
+                const inner = card.querySelector('.carousel-3d-content');
+                if (inner) inner.className = '';
+            });
+
+            // Also update grid container class
+            grid.className = 'katha-cards-grid';
+
+            if (window.animateNewCards) window.animateNewCards();
+        }
+
+        // Avatar scroll buttons (preserved from original home.js)
+        document.addEventListener('DOMContentLoaded', () => {
+            window.initAvatarScrollButtons = function () {
+                document.querySelectorAll('.section').forEach(section => {
+                    const prevBtn = section.querySelector('.prev-btn');
+                    const nextBtn = section.querySelector('.next-btn');
+                    const row = section.querySelector('.avatar-row') ||
+                        section.querySelector('.cards-grid') ||
+                        section.querySelector('.category-chips');
+
+                    if (prevBtn && nextBtn && row) {
+                        const update = () => {
+                            const sl = Math.ceil(row.scrollLeft);
+                            const max = row.scrollWidth - row.clientWidth;
+                            prevBtn.style.opacity = sl <= 10 ? '0.15' : '1';
+                            prevBtn.style.pointerEvents = sl <= 10 ? 'none' : 'auto';
+                            nextBtn.style.opacity = (sl >= max - 15 || max <= 0) ? '0.15' : '1';
+                            nextBtn.style.pointerEvents = (sl >= max - 15 || max <= 0) ? 'none' : 'auto';
+                        };
+                        row.addEventListener('scroll', update, { passive: true });
+                        window.addEventListener('resize', update);
+                        update();
+                        setTimeout(update, 100);
+
+                        if (!section.dataset.scrollInit) {
+                            section.dataset.scrollInit = 'true';
+                            prevBtn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                row.scrollBy({ left: -Math.min(row.clientWidth * 0.8, 500), behavior: 'smooth' });
+                            });
+                            nextBtn.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                row.scrollBy({ left: Math.min(row.clientWidth * 0.8, 500), behavior: 'smooth' });
+                            });
+                        }
+                    }
+                });
+            };
+            setTimeout(window.initAvatarScrollButtons, 200);
+            setTimeout(window.initAvatarScrollButtons, 800);
+        });
+
+        // Handle resize for carousel dots
+        window.addEventListener('resize', () => {
+            initCarouselDots();
+        }, { passive: true });
 
     </script>
 </body>
