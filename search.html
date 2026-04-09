@@ -85,7 +85,7 @@
     <section class="section">
         <div class="container">
             <div class="search-box" id="searchBox">
-                <input type="search" id="searchInput" class="search-input" placeholder=" " aria-label="Search" />
+                <input type="search" id="searchInput" class="form-input" placeholder="શોધો..." aria-label="Search" />
                 <button class="btn btn-primary" id="searchBtn">Search</button>
             </div>
 
@@ -95,7 +95,7 @@
                     <!-- TYPE -->
                     <div class="feed-field">
                         <label class="feed-label" for="br-type">Type</label>
-                        <select id="br-type" class="feed-select" data-conditional="br-type">
+                        <select id="br-type" class="feed-select form-select" data-conditional="br-type">
                             <option value="">બધા</option>
                             <option value="prasang">પ્રસંગ</option>
                             <option value="paravani">પરાવાણી</option>
@@ -105,7 +105,7 @@
                     <!-- SOURCE -->
                     <div class="feed-field">
                         <label class="feed-label" for="br-source">Source</label>
-                        <select id="br-source" class="feed-select" data-conditional="br-source" multiple>
+                        <select id="br-source" class="feed-select form-select" data-conditional="br-source" multiple>
                             <option value="">બધા</option>
                             <option value="swamiji">સ્વામીજી પરાવાણી</option>
                             <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
@@ -115,11 +115,11 @@
                             <option value="vicharan">વિચરણ રિપોર્ટ</option>
                             <option value="patrika">પત્રિકા</option>
                         </select>
-                        <input type="text" id="br-source-santo-text" class="feed-input feed-conditional"
+                        <input type="text" id="br-source-santo-text" class="feed-input form-input feed-conditional"
                             data-show-for="br-source=santo" placeholder="સંત નું નામ..." style="display:none" />
-                        <input type="text" id="br-source-bhakto-text" class="feed-input feed-conditional"
+                        <input type="text" id="br-source-bhakto-text" class="feed-input form-input feed-conditional"
                             data-show-for="br-source=bhakto" placeholder="ભક્ત નું નામ..." style="display:none" />
-                        <select id="br-source-granth-select" class="feed-select feed-conditional"
+                        <select id="br-source-granth-select" class="feed-select form-select feed-conditional"
                             data-show-for="br-source=granth" style="display:none" multiple>
                             <option value="">ગ્રંથ પસંદ કરો...</option>
                             <option value="jivan">જીવનચરિત્ર</option>
@@ -143,7 +143,7 @@
                     <!-- TOPICS -->
                     <div class="feed-field">
                         <label class="feed-label" for="br-topic">Topic</label>
-                        <select id="br-topic" class="feed-select" data-conditional="br-topic" multiple>
+                        <select id="br-topic" class="feed-select form-select" data-conditional="br-topic" multiple>
                             <option value="">બધા</option>
                             <option value="mahima">મહિમા</option>
                             <option value="atmiyata">આત્મીયતા</option>
@@ -163,14 +163,14 @@
                             <option value="katha-varta">કથા-વાર્તા</option>
                             <option value="other">Other</option>
                         </select>
-                        <input type="text" id="br-topic-other-text" class="feed-input feed-conditional"
+                        <input type="text" id="br-topic-other-text" class="feed-input form-input feed-conditional"
                             data-show-for="br-topic=other" placeholder="વિષય દાખલ કરો..." style="display:none" />
                     </div>
 
                     <!-- PRASANG OF -->
                     <div class="feed-field">
                         <label class="feed-label" for="br-prasang">પ્રસંગ of</label>
-                        <select id="br-prasang" class="feed-select" data-conditional="br-prasang" multiple>
+                        <select id="br-prasang" class="feed-select form-select" data-conditional="br-prasang" multiple>
                             <option value="">બધા</option>
                             <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
                             <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
@@ -182,7 +182,7 @@
                             <option value="bhakto">ભક્તો</option>
                             <option value="prabhudasbhai">પ્રભુદાસભાઈ</option>
                         </select>
-                        <input type="text" id="br-prasang-bhakto-text" class="feed-input feed-conditional"
+                        <input type="text" id="br-prasang-bhakto-text" class="feed-input form-input feed-conditional"
                             data-show-for="br-prasang=bhakto" placeholder="ભક્ત નું નામ..." style="display:none" />
                     </div>
                 </div>
@@ -202,12 +202,12 @@
                         </label>
                     </div>
                     <div id="br-date-single" class="date-inputs" style="display:none">
-                        <input type="date" class="feed-input" id="br-date-val" />
+                        <input type="date" class="feed-input form-input" id="br-date-val" />
                     </div>
                     <div id="br-date-range" class="date-inputs date-range-row" style="display:none">
-                        <input type="date" class="feed-input" id="br-date-from" />
+                        <input type="date" class="feed-input form-input" id="br-date-from" />
                         <span class="date-to-label">To</span>
-                        <input type="date" class="feed-input" id="br-date-to" />
+                        <input type="date" class="feed-input form-input" id="br-date-to" />
                     </div>
                 </div>
 
@@ -243,7 +243,7 @@
     <script src="js/api.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/search.js"></script>
-    <script src="js/particles.js"></script>
+
 </body>
 
 </html>

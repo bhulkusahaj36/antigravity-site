@@ -97,7 +97,7 @@
                 <h2 class="section-title" id="catArticlesHeading" style="font-family: var(--font-gu-serif)">Articles</h2>
                 <div class="sort-controls">
                     <label for="catSortSelect" style="font-family: var(--font-sans); color: var(--text-muted); font-size: 0.9rem;">Sort by:</label>
-                    <select id="catSortSelect" class="feed-select sort-select" style="min-width: 140px; font-family: var(--font-sans);">
+                    <select id="catSortSelect" class="feed-select form-select" style="min-width: 140px;">
                         <option value="latest" selected>Latest</option>
                         <option value="popular">Popular</option>
                     </select>
@@ -105,7 +105,7 @@
             </div>
             <div class="cards-grid stacked-grid" id="catArticlesGrid"></div>
             <div style="display:flex;justify-content:center;margin-top:2rem;">
-                <button id="catLoadMoreBtn" class="btn btn-outline" style="display:none;padding:0.75rem 2.5rem;font-size:1rem;">Load More</button>
+                <button id="catLoadMoreBtn" class="btn btn-outline" style="display:none;">Load More</button>
             </div>
         </div>
     </section>
@@ -129,7 +129,7 @@
     <script src="js/api.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/category-detail.js"></script>
-    <script src="js/particles.js"></script>
+
 </body>
 
 </html>

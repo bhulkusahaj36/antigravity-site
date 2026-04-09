@@ -6,3 +6,5 @@ Thumbs.db
 api/local.settings.json
 api/host.json
 staticwebapp.config.json
+
+scripts/data/

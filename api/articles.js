@@ -175,6 +175,6 @@ module.exports = async (req, res) => {
 
     } catch (error) {
         console.error("Vercel API Error:", error);
-        return res.status(500).send(error.message);
+        return res.status(500).send("Internal server error. Please try again later.");
     }
 };

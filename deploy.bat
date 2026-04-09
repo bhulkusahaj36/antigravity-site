@@ -8,7 +8,13 @@ echo Adding changes...
 git add .
 
 echo Committing changes...
-git commit -m "Migrate to Vercel and restore local backend"
+if "%~1"=="" (
+    for /f "tokens=1-4 delims=/ " %%a in ('date /t') do set TODAY=%%c-%%b-%%a
+    for /f "tokens=1-2 delims=: " %%a in ('time /t') do set NOW=%%a%%b
+    git commit -m "Deploy update %TODAY% %NOW%"
+) else (
+    git commit -m "%~1"
+)
 
 echo Pushing to GitHub (Vercel deployment will trigger)...
 git push origin main

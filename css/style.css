@@ -105,6 +105,22 @@
   --font-gu-sans: 'Noto Sans Gujarati', sans-serif;
   --font-en:      'DM Sans', 'Inter', sans-serif;
   --font-heading: 'Playfair Display', 'DM Sans', serif;
+  --font-display: 'DM Sans', 'Inter', sans-serif; /* alias used in nav */
+
+  /* ── Layout ──────────────────────────────────────────────── */
+  --nav-height:   64px;
+
+  /* ── Legacy compatibility (replaces removed --navy-700) ───── */
+  --navy-700:     var(--bg-800); /* maps old navy token to current bg scale */
+
+  /* ── Form Controls ───────────────────────────────────────── */
+  --form-bg:            rgba(43, 28, 20, 0.55);
+  --form-border:        rgba(245, 158, 11, 0.2);
+  --form-border-focus:  var(--gold-500);
+  --form-text:          var(--text-primary);
+  --form-placeholder:   var(--text-muted);
+  --form-radius:        var(--radius-sm);
+  --form-focus-ring:    0 0 0 3px rgba(251, 191, 36, 0.15);
 }
 /* Admin Theme Variables */
 [data-theme="dark"] {
@@ -993,6 +1009,160 @@ body.page-exiting {
   transform: translateY(0);
   border-bottom-width: 2px;
 }
+
+/* .btn-danger — destructive actions (delete, remove) */
+.btn-danger {
+  background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 4px solid #7f1d1d;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.25);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #f87171 0%, #ef4444 100%);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
+}
+
+.btn-danger:active {
+  transform: translateY(0);
+  border-bottom-width: 2px;
+}
+
+/* ============================================================
+   DESIGN SYSTEM — Form Controls
+   Single canonical source for ALL inputs, selects, textareas
+   across every page. Use these classes everywhere.
+   ============================================================ */
+
+/* Wrapper that groups a label + input with correct spacing */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+/* Label above inputs */
+.form-label {
+  font-family: var(--font-en);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── Universal text input / search box ── */
+.form-input {
+  width: 100%;
+  background: var(--form-bg);
+  border: 1px solid var(--form-border);
+  border-radius: var(--form-radius);
+  color: var(--form-text);
+  font-family: var(--font-gu-sans);
+  font-size: 1rem;
+  padding: 0.7rem 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.form-input::placeholder {
+  color: var(--form-placeholder);
+  font-family: var(--font-gu-sans);
+}
+
+.form-input:focus {
+  border-color: var(--form-border-focus);
+  box-shadow: var(--form-focus-ring);
+}
+
+.form-input:hover:not(:focus) {
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+/* Light mode override */
+body.light-mode .form-input {
+  background: rgba(255, 248, 235, 0.7);
+  border-color: rgba(180, 120, 30, 0.25);
+  color: var(--bg-700);
+}
+
+body.light-mode .form-input::placeholder {
+  color: rgba(100, 70, 30, 0.5);
+}
+
+/* ── Universal select / dropdown ── */
+.form-select {
+  width: 100%;
+  background: var(--form-bg);
+  border: 1px solid var(--form-border);
+  border-radius: var(--form-radius);
+  color: var(--form-text);
+  font-family: var(--font-gu-sans);
+  font-size: 0.95rem;
+  padding: 0.7rem 2.2rem 0.7rem 1rem;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  /* Custom gold chevron arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23fbbf24' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.form-select:focus {
+  border-color: var(--form-border-focus);
+  box-shadow: var(--form-focus-ring);
+}
+
+.form-select:hover:not(:focus) {
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+/* Light mode override */
+body.light-mode .form-select {
+  background-color: rgba(255, 248, 235, 0.7);
+  border-color: rgba(180, 120, 30, 0.25);
+  color: var(--bg-700);
+}
+
+/* ── Textarea ── */
+.form-textarea {
+  width: 100%;
+  background: var(--form-bg);
+  border: 1px solid var(--form-border);
+  border-radius: var(--form-radius);
+  color: var(--form-text);
+  font-family: var(--font-gu-sans);
+  font-size: 1rem;
+  padding: 0.7rem 1rem;
+  outline: none;
+  resize: vertical;
+  min-height: 120px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.form-textarea::placeholder {
+  color: var(--form-placeholder);
+}
+
+.form-textarea:focus {
+  border-color: var(--form-border-focus);
+  box-shadow: var(--form-focus-ring);
+}
+
 
 /* ============================================================
    PAGE HERO (inner pages)

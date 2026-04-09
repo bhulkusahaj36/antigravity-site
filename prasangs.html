@@ -380,7 +380,7 @@
                 <input
                     type="search"
                     id="psSearchInput"
-                    class="ps-search-input"
+                    class="form-input ps-search-input"
                     placeholder="શીર્ષક, વિષય, પ્રસંગ શોધો..."
                     aria-label="Search prasangs"
                     autocomplete="off"
@@ -396,7 +396,7 @@
 
                 <div class="ps-filter-group">
                     <label class="ps-filter-label" for="psFilterPrasang">પ્રસંગ of</label>
-                    <select id="psFilterPrasang" class="ps-filter-select">
+                    <select id="psFilterPrasang" class="ps-filter-select form-select">
                         <option value="">બધા</option>
                         <option value="bhagwan">ભગવાન સ્વામિનારાયણ</option>
                         <option value="gunatit">ગુણાતીતાનંદ સ્વામી</option>
@@ -412,7 +412,7 @@
 
                 <div class="ps-filter-group">
                     <label class="ps-filter-label" for="psFilterTopic">વિષય</label>
-                    <select id="psFilterTopic" class="ps-filter-select">
+                    <select id="psFilterTopic" class="ps-filter-select form-select">
                         <option value="">બધા</option>
                         <option value="mahima">મહિમા</option>
                         <option value="atmiyata">આત્મીયતા</option>
@@ -434,7 +434,7 @@
 
                 <div class="ps-filter-group">
                     <label class="ps-filter-label" for="psFilterSource">સ્ત્રોત</label>
-                    <select id="psFilterSource" class="ps-filter-select">
+                    <select id="psFilterSource" class="ps-filter-select form-select">
                         <option value="">બધા</option>
                         <option value="swamiji">સ્વામીજી પરાવાણી</option>
                         <option value="prabodh">પ્રબોધ સ્વામી પ.</option>
@@ -455,7 +455,7 @@
             <!-- Results summary + sort -->
             <div class="ps-results-header">
                 <div class="ps-summary" id="psSummary"></div>
-                <select class="ps-sort-select" id="psSortSelect" aria-label="Sort">
+                <select class="ps-sort-select form-select" id="psSortSelect" aria-label="Sort">
                     <option value="latest">Latest First</option>
                     <option value="oldest">Oldest First</option>
                 </select>
@@ -472,7 +472,7 @@
 
             <!-- Pagination -->
             <div style="display:flex;justify-content:center;margin-top:2rem;">
-                <button id="psLoadMoreBtn" class="btn btn-outline" style="display:none;padding:0.75rem 2.5rem;font-size:1rem;">Load More</button>
+                <button id="psLoadMoreBtn" class="btn btn-outline" style="display:none;">Load More</button>
             </div>
 
         </div>
@@ -503,7 +503,7 @@
     <script src="js/api.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/prasangs.js"></script>
-    <script src="js/particles.js"></script>
+
 
 </body>
 </html>
