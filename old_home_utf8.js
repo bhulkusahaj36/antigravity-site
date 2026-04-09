@@ -1,4 +1,4 @@
-// ============================================================
+﻿// ============================================================
 // PRODUCTION LOGIC: bhulku.com (home.js)
 // ============================================================
 
@@ -7,7 +7,7 @@ let currentPage = 1;
 let sortMode = 'latest';
 let ALL_ARTICLES = [];
 
-// Prasang display labels (value → Gujarati name) - DEPRECATED (Moved to data.js)
+// Prasang display labels (value ΓåÆ Gujarati name) - DEPRECATED (Moved to data.js)
 // Topic display labels - DEPRECATED (Moved to data.js)
 
 
@@ -68,14 +68,14 @@ function renderFeatured() {
 
     // Hardcoded fixed sequence as requested by user
     const FIXED_SEQUENCE = [
-        'bhagwan',      // ભગવાન સ્વામિનારાયણ
-        'gunatit',      // ગુણાતીતાનંદ સ્વામી
-        'bhagatji',     // ભગતજી મહારાજ
-        'shastriji',    // શાસ્ત્રીજી મહારાજ
-        'yogiji',       // યોગીજી મહારાજ
-        'hariprasad',   // હ. સ્વામીજી મહારાજ
-        'prabodh',      // પ્રબોધ સ્વમીજી મહારાજ
-        'bhakto'        // ભક્તો
+        'bhagwan',      // α¬¡α¬ùα¬╡α¬╛α¬¿ α¬╕α½ìα¬╡α¬╛α¬«α¬┐α¬¿α¬╛α¬░α¬╛α¬»α¬ú
+        'gunatit',      // α¬ùα½üα¬úα¬╛α¬ñα½Çα¬ñα¬╛α¬¿α¬éα¬ª α¬╕α½ìα¬╡α¬╛α¬«α½Ç
+        'bhagatji',     // α¬¡α¬ùα¬ñα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£
+        'shastriji',    // α¬╢α¬╛α¬╕α½ìα¬ñα½ìα¬░α½Çα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£
+        'yogiji',       // α¬»α½ïα¬ùα½Çα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£
+        'hariprasad',   // α¬╣. α¬╕α½ìα¬╡α¬╛α¬«α½Çα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£
+        'prabodh',      // α¬¬α½ìα¬░α¬¼α½ïα¬º α¬╕α½ìα¬╡α¬«α½Çα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£
+        'bhakto'        // α¬¡α¬òα½ìα¬ñα½ï
     ];
 
     grid.innerHTML = '';
@@ -147,7 +147,7 @@ function renderArticles() {
         // prasang label
         const rawPrasang = a.prasang || a.category || a.topic || 'bhakti';
         const prasangName = getCategoryName(rawPrasang);
-        const displayLabel = prasangName ? `${prasangName}` : 'ભક્તિ';
+        const displayLabel = prasangName ? `${prasangName}` : 'α¬¡α¬òα½ìα¬ñα¬┐';
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
@@ -286,12 +286,12 @@ async function loadHomeArticles() {
     // If local data logic or filtering returns an empty array, provide some robust mock articles.
     if (!ALL_ARTICLES || ALL_ARTICLES.length === 0) {
         ALL_ARTICLES = [
-            { id: '1000', title: 'ભગવાને રચી અનોખી લીલા: ભક્તોના હૃદયમાં વાસ', excerpt: 'મહારાજે સોમલા ખાચરના દરબારમાં જે લીલા કરી તેની સ્મૃતિ ભક્તો સદાય સંઘરી રાખે છે.', prasang: 'bhagwan', featured: true },
-            { id: '1001', title: 'સત્સંગની મધુરતા: સ્વામીની વાતોનું અમૃત', excerpt: 'ગુણાતીતાનંદ સ્વામીએ જે વાતો કરી તે જીવના કલ્યાણ માટે છે.', prasang: 'gunatit', featured: true },
-            { id: '1002', title: 'નિષ્ઠાનો પાયો: શાસ્ત્રીજી મહારાજની ગુરુભક્તિ', excerpt: 'શાસ્ત્રીજી મહારાજે જે અટલ નિષ્ઠા રાખી — એ ભક્તિ માર્ગ આજે પણ પ્રેરણા આપે છે.', prasang: 'shastriji', featured: true },
-            { id: '1003', title: 'આત્મીયતાનો મંત્ર: હરિપ્રસાદ સ્વામીજીની શીખ', excerpt: 'સહુના દિલ જીતવાનો એક જ રસ્તો છે — આત્મીયતા.', prasang: 'hariprasad', featured: true },
-            { id: '1004', title: 'સેવા જ સંસ્કાર: ભક્તોની લાઇફલાઇન', excerpt: 'સેવા દ્વારા જ અહંકાર ઓગળે છે અને હરિ રાજી થાય છે.', prasang: 'bhakto', featured: true },
-            { id: '1005', title: 'સરળતાની મૂર્તિ: યોગીબાપાના ચરિત્ર', excerpt: 'યોગીબાપાની સાદગી અને નિખાલસ સ્વભાવ — ભક્ત જીવનનો ઉત્તમ નમૂનો.', prasang: 'yogiji', featured: true },
+            { id: '1000', title: 'α¬¡α¬ùα¬╡α¬╛α¬¿α½ç α¬░α¬Üα½Ç α¬àα¬¿α½ïα¬ûα½Ç α¬▓α½Çα¬▓α¬╛: α¬¡α¬òα½ìα¬ñα½ïα¬¿α¬╛ α¬╣α½âα¬ªα¬»α¬«α¬╛α¬é α¬╡α¬╛α¬╕', excerpt: 'α¬«α¬╣α¬╛α¬░α¬╛α¬£α½ç α¬╕α½ïα¬«α¬▓α¬╛ α¬ûα¬╛α¬Üα¬░α¬¿α¬╛ α¬ªα¬░α¬¼α¬╛α¬░α¬«α¬╛α¬é α¬£α½ç α¬▓α½Çα¬▓α¬╛ α¬òα¬░α½Ç α¬ñα½çα¬¿α½Ç α¬╕α½ìα¬«α½âα¬ñα¬┐ α¬¡α¬òα½ìα¬ñα½ï α¬╕α¬ªα¬╛α¬» α¬╕α¬éα¬ÿα¬░α½Ç α¬░α¬╛α¬ûα½ç α¬¢α½ç.', prasang: 'bhagwan', featured: true },
+            { id: '1001', title: 'α¬╕α¬ñα½ìα¬╕α¬éα¬ùα¬¿α½Ç α¬«α¬ºα½üα¬░α¬ñα¬╛: α¬╕α½ìα¬╡α¬╛α¬«α½Çα¬¿α½Ç α¬╡α¬╛α¬ñα½ïα¬¿α½üα¬é α¬àα¬«α½âα¬ñ', excerpt: 'α¬ùα½üα¬úα¬╛α¬ñα½Çα¬ñα¬╛α¬¿α¬éα¬ª α¬╕α½ìα¬╡α¬╛α¬«α½Çα¬Å α¬£α½ç α¬╡α¬╛α¬ñα½ï α¬òα¬░α½Ç α¬ñα½ç α¬£α½Çα¬╡α¬¿α¬╛ α¬òα¬▓α½ìα¬»α¬╛α¬ú α¬«α¬╛α¬ƒα½ç α¬¢α½ç.', prasang: 'gunatit', featured: true },
+            { id: '1002', title: 'α¬¿α¬┐α¬╖α½ìα¬áα¬╛α¬¿α½ï α¬¬α¬╛α¬»α½ï: α¬╢α¬╛α¬╕α½ìα¬ñα½ìα¬░α½Çα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£α¬¿α½Ç α¬ùα½üα¬░α½üα¬¡α¬òα½ìα¬ñα¬┐', excerpt: 'α¬╢α¬╛α¬╕α½ìα¬ñα½ìα¬░α½Çα¬£α½Ç α¬«α¬╣α¬╛α¬░α¬╛α¬£α½ç α¬£α½ç α¬àα¬ƒα¬▓ α¬¿α¬┐α¬╖α½ìα¬áα¬╛ α¬░α¬╛α¬ûα½Ç ΓÇö α¬Å α¬¡α¬òα½ìα¬ñα¬┐ α¬«α¬╛α¬░α½ìα¬ù α¬åα¬£α½ç α¬¬α¬ú α¬¬α½ìα¬░α½çα¬░α¬úα¬╛ α¬åα¬¬α½ç α¬¢α½ç.', prasang: 'shastriji', featured: true },
+            { id: '1003', title: 'α¬åα¬ñα½ìα¬«α½Çα¬»α¬ñα¬╛α¬¿α½ï α¬«α¬éα¬ñα½ìα¬░: α¬╣α¬░α¬┐α¬¬α½ìα¬░α¬╕α¬╛α¬ª α¬╕α½ìα¬╡α¬╛α¬«α½Çα¬£α½Çα¬¿α½Ç α¬╢α½Çα¬û', excerpt: 'α¬╕α¬╣α½üα¬¿α¬╛ α¬ªα¬┐α¬▓ α¬£α½Çα¬ñα¬╡α¬╛α¬¿α½ï α¬Åα¬ò α¬£ α¬░α¬╕α½ìα¬ñα½ï α¬¢α½ç ΓÇö α¬åα¬ñα½ìα¬«α½Çα¬»α¬ñα¬╛.', prasang: 'hariprasad', featured: true },
+            { id: '1004', title: 'α¬╕α½çα¬╡α¬╛ α¬£ α¬╕α¬éα¬╕α½ìα¬òα¬╛α¬░: α¬¡α¬òα½ìα¬ñα½ïα¬¿α½Ç α¬▓α¬╛α¬çα¬½α¬▓α¬╛α¬çα¬¿', excerpt: 'α¬╕α½çα¬╡α¬╛ α¬ªα½ìα¬╡α¬╛α¬░α¬╛ α¬£ α¬àα¬╣α¬éα¬òα¬╛α¬░ α¬ôα¬ùα¬│α½ç α¬¢α½ç α¬àα¬¿α½ç α¬╣α¬░α¬┐ α¬░α¬╛α¬£α½Ç α¬Ñα¬╛α¬» α¬¢α½ç.', prasang: 'bhakto', featured: true },
+            { id: '1005', title: 'α¬╕α¬░α¬│α¬ñα¬╛α¬¿α½Ç α¬«α½éα¬░α½ìα¬ñα¬┐: α¬»α½ïα¬ùα½Çα¬¼α¬╛α¬¬α¬╛α¬¿α¬╛ α¬Üα¬░α¬┐α¬ñα½ìα¬░', excerpt: 'α¬»α½ïα¬ùα½Çα¬¼α¬╛α¬¬α¬╛α¬¿α½Ç α¬╕α¬╛α¬ªα¬ùα½Ç α¬àα¬¿α½ç α¬¿α¬┐α¬ûα¬╛α¬▓α¬╕ α¬╕α½ìα¬╡α¬¡α¬╛α¬╡ ΓÇö α¬¡α¬òα½ìα¬ñ α¬£α½Çα¬╡α¬¿α¬¿α½ï α¬ëα¬ñα½ìα¬ñα¬« α¬¿α¬«α½éα¬¿α½ï.', prasang: 'yogiji', featured: true },
         ];
         console.log("Injected mock articles to prevent empty carousel locally.");
     }
@@ -333,7 +333,7 @@ async function loadHomeArticles() {
 document.addEventListener('DOMContentLoaded', () => {
     initRotatingQuote();
 
-    // Fetch live articles — chips, featured, and latest all rendered after
+    // Fetch live articles ΓÇö chips, featured, and latest all rendered after
     loadHomeArticles();
 
     const sortSel = document.getElementById('sortSelect');
