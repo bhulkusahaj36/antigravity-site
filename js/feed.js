@@ -425,6 +425,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }, 1000);
                 } else {
                     const errorText = await response.text();
+
+                    if (response.status === 401 || errorText.toLowerCase().includes('unauthorized') || errorText.toLowerCase().includes('token')) {
+                        const newToken = prompt("⚠️ Admin Session Expired or Invalid!\n\nPlease enter your X-Admin-Token to continue without losing your work:");
+                        if (newToken && newToken.trim() !== '') {
+                            sessionStorage.setItem('hk_admin_token', newToken.trim());
+                            showFeedback(addFeedback, 'success', 'Token updated! Please click Save again to submit your article.');
+                            if (submitBtn) {
+                                submitBtn.disabled = false;
+                                submitBtn.innerHTML = originalBtnHtml;
+                                submitBtn.style.backgroundColor = '';
+                                submitBtn.style.color = '';
+                            }
+                            forceSave = false;
+                            return;
+                        }
+                    }
+
                     showFeedback(addFeedback, 'error', 'Error saving article to the database: ' + errorText);
                     if (submitBtn) {
                         submitBtn.disabled = false;
