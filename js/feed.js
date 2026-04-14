@@ -309,7 +309,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (!title || !content) {
                 showFeedback(addFeedback, 'error', 'શીર્ષક અને સંદેશ ભરવા જરૂરી છે.');
+                if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalBtnHtml; }
                 return;
+            }
+
+            // Validate: Prasang Of is required for non-paravani articles
+            const currentType = document.getElementById('add-type') ? document.getElementById('add-type').value : 'prasang';
+            if (currentType !== 'paravani') {
+                const selectedPrasang = Array.from(document.getElementById('add-prasang').selectedOptions).map(o => o.value).filter(v => v);
+                if (selectedPrasang.length === 0) {
+                    showFeedback(addFeedback, 'error', '"પ્રસંગ કોના છે?" (Prasang Of) ભરવું ફરજિયાત છે.');
+                    document.getElementById('prasang-of-container')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalBtnHtml; }
+                    return;
+                }
             }
 
             // Handle custom dynamic tags if "other" is selected
