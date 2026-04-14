@@ -298,7 +298,7 @@ html {
 
 .hero-latest-area .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.70rem; /* Strictly force smaller size */
+  font-size: 0.62rem !important; /* Smaller body text on carousel cards */
   font-weight: 300;
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 0;
@@ -4064,7 +4064,7 @@ body.light-mode #particles-js {
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.8rem;
+  font-size: 0.62rem;
   font-weight: 400;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
