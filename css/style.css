@@ -258,7 +258,7 @@ html {
   box-sizing: border-box;
 }
 
-.carousel-3d-label {
+.hero-latest-area .carousel-3d-label {
   font-family: var(--font-gu-sans);
   font-size: 0.75rem;
   font-weight: 600;
@@ -270,7 +270,7 @@ html {
   flex-shrink: 0; /* Prevent vertical crushing in flexbox */
 }
 
-.carousel-3d-title {
+.hero-latest-area .carousel-3d-title {
   font-family: var(--font-gu-sans);
   font-size: 1.15rem;
   font-weight: 700;
@@ -286,7 +286,7 @@ html {
   flex-shrink: 0; /* Protect against flex-shrink height crushing */
 }
 
-.carousel-3d-divider {
+.hero-latest-area .carousel-3d-divider {
   width: 24px;
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--saffron-500), transparent);
@@ -296,13 +296,14 @@ html {
   flex-shrink: 0;
 }
 
-.carousel-3d-excerpt {
+.hero-latest-area .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.75rem; /* Reduced per user request */
+  font-size: 0.70rem; /* Strictly force smaller size */
   font-weight: 300;
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 0;
-  line-height: 1.5;
+  line-height: 1.6;
+  padding-bottom: 0.5rem;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
