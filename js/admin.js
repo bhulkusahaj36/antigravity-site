@@ -1,12 +1,16 @@
 // admin.js - Secure Admin Panel Intercept and Login Logic
 
-// ── Token helper — reads from sessionStorage ─────────────────────────────────
-function getAdminToken() {
-    return sessionStorage.getItem('hk_admin_token') || '';
-}
-
-function adminHeaders(extra = {}) {
-    return { 'Content-Type': 'application/json', 'X-Admin-Token': getAdminToken(), ...extra };
+// ── Auth Header helper ────────────────────────────────────────────────────────
+async function adminHeaders(extra = {}) {
+    const user = firebase.auth().currentUser;
+    const token = user ? await user.getIdToken() : '';
+    // We send BOTH headers during the transition to ensure backend compatibility
+    return { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${token}`,
+        'X-Admin-Token': sessionStorage.getItem('hk_admin_token') || '', // Legacy support
+        ...extra 
+    };
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,22 +22,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!adminOverlay || !adminApp) return;
 
-    // Check if user is already authenticated
-    if (sessionStorage.getItem('hk_isAdmin') === 'true') {
-        adminOverlay.style.display = 'none';
-        adminApp.classList.add('is-visible');
-        // Show logout button
-        const logoutBtn = document.getElementById('adminLogoutBtn');
-        if (logoutBtn) {
-            logoutBtn.style.display = 'inline-block';
-            logoutBtn.addEventListener('click', () => {
-                sessionStorage.removeItem('hk_isAdmin');
-                window.location.reload();
-            });
-        }
+    if (!adminOverlay || !adminApp) return;
 
-        // Expose functions for admin-ui.js sidebar to call
-        let dashboardCharts = { activity: null, category: null, featured: null };
+    // ── Firebase Auth Observer ──
+    firebase.auth().onAuthStateChanged(async (user) => {
+        if (user) {
+            // User is signed in
+            adminOverlay.style.display = 'none';
+            adminApp.classList.add('is-visible');
+            adminApp.style.display = 'block';
+            
+            // Show logout button
+            const logoutBtn = document.getElementById('adminLogoutBtn');
+            if (logoutBtn) {
+                logoutBtn.style.display = 'inline-block';
+                // Remove existing listeners if any
+                const newBtn = logoutBtn.cloneNode(true);
+                logoutBtn.parentNode.replaceChild(newBtn, logoutBtn);
+                newBtn.addEventListener('click', () => {
+                    firebase.auth().signOut().then(() => window.location.reload());
+                });
+            }
+            
+            // Auto-load analytics
+            loadDashboardAnalytics();
+        } else {
+            // User is signed out
+            adminOverlay.style.display = 'flex';
+            adminApp.style.display = 'none';
+            adminApp.classList.remove('is-visible');
+        }
+    });
+
+    // ── Login Form Handler ──
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('adminEmail').value.trim();
+            const pass = document.getElementById('adminPassword').value;
+            const submitBtn = loginForm.querySelector('button[type="submit"]');
+
+            try {
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Signing in...';
+                }
+                
+                await firebase.auth().signInWithEmailAndPassword(email, pass);
+                // AuthStateChanged will handle the UI switch
+            } catch (error) {
+                console.error("Login failed:", error);
+                if (loginError) {
+                    loginError.textContent = "⚠ " + (error.message || "Invalid credentials.");
+                    loginError.style.display = 'block';
+                }
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Sign In';
+                }
+            }
+        });
+    }
+
+    // Expose functions for admin-ui.js sidebar to call
+    let dashboardCharts = { activity: null, category: null, featured: null };
 
         window.loadDashboardAnalytics = async function loadDashboardAnalytics() {
             try {
@@ -369,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         try {
                             const res = await fetch('/api/quotes', {
                                 method: 'POST',
-                                headers: adminHeaders(),
+                                headers: await adminHeaders(),
                                 body: JSON.stringify({ text, author, active: true })
                             });
                             if (res.ok) {
@@ -440,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await fetch(`/api/quotes?id=${encodeURIComponent(id)}`, {
                     method: 'PATCH',
-                    headers: adminHeaders(),
+                    headers: await adminHeaders(),
                     body: JSON.stringify({ active })
                 });
             } catch (err) { console.error('Toggle quoe failed:', err); }
@@ -621,14 +674,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (action === 'delete') {
                 if (!confirm(`Permanently delete ${ids.length} article(s)?`)) return;
                 try {
-                    await fetch('/api/articles', { method: 'DELETE', headers: adminHeaders(), body: JSON.stringify({ ids }) });
+                    await fetch('/api/articles', { method: 'DELETE', headers: await adminHeaders(), body: JSON.stringify({ ids }) });
                 } catch (e) { console.error('Bulk delete error', e); }
             } else {
                 const updates = action === 'publish' ? { public: true, status: 'published' } : { public: false, status: 'draft' };
                 const label = action === 'publish' ? 'Publish' : 'Unpublish';
                 if (!confirm(`${label} ${ids.length} article(s)?`)) return;
                 try {
-                    await fetch('/api/articles', { method: 'PATCH', headers: adminHeaders(), body: JSON.stringify({ ids, updates }) });
+                    await fetch('/api/articles', { method: 'PATCH', headers: await adminHeaders(), body: JSON.stringify({ ids, updates }) });
                 } catch (e) { console.error('Bulk patch error', e); }
             }
 
@@ -960,7 +1013,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     art.album = newName;
                     const saveRes = await fetch('/api/articles', {
                         method: 'POST',
-                        headers: adminHeaders(),
+                        headers: await adminHeaders(),
                         body: JSON.stringify(art)
                     });
                     if (saveRes.ok) successCount++;
@@ -976,23 +1029,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         
 
-    } else {
-        adminApp.style.display = 'none';
-        if (loginForm) {
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const id = document.getElementById('adminId').value;
-                const pass = document.getElementById('adminPassword').value;
-                const apiToken = document.getElementById('adminApiToken')?.value.trim() || '';
-                if (id === 'admin' && pass === 'hariamrut') {
-                    sessionStorage.setItem('hk_isAdmin', 'true');
-                    // Store the API token in sessionStorage (cleared on tab close)
-                    if (apiToken) sessionStorage.setItem('hk_admin_token', apiToken);
-                    window.location.reload();
-                } else {
-                    if (loginError) loginError.style.display = 'block';
-                }
-            });
-        }
-    }
 });

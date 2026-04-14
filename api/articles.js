@@ -1,12 +1,5 @@
 const { getCollection } = require('./db');
-
-// ── Auth ────────────────────────────────────────────────────────────────────
-function isAuthorized(req) {
-    const token = req.headers['x-admin-token'];
-    const expected = process.env.ADMIN_SECRET_TOKEN;
-    if (!expected) return false;
-    return token && token === expected;
-}
+const { isAuthorized } = require('./admin-auth');
 
 // ── Input Validation & Sanitization ─────────────────────────────────────────
 function validateAndSanitize(data) {
@@ -111,8 +104,8 @@ module.exports = async (req, res) => {
 
         // ── WRITE OPERATIONS — require auth ──────────────────────────────
         if (['POST', 'DELETE', 'PATCH'].includes(method)) {
-            if (!isAuthorized(req)) {
-                return res.status(401).send('Unauthorized: missing or invalid X-Admin-Token');
+            if (!(await isAuthorized(req))) {
+                return res.status(401).send('Unauthorized: missing or invalid authentication');
             }
         }
 

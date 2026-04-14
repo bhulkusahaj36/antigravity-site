@@ -19,6 +19,25 @@
         href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&family=Noto+Serif+Gujarati:wght@400;700&family=Playfair+Display:wght@400;600;700&display=swap"
         rel="stylesheet" />
     <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    
+    <!-- ── Firebase SDK ── -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth-compat.js"></script>
+    
+    <script>
+        // ── Firebase Configuration ──
+        const firebaseConfig = {
+            apiKey: "AIzaSyBOmQP1IS82dNWLUSKMJ5Aa_22gvjWugIM",
+            authDomain: "antigravity-auth-eb9ba.firebaseapp.com",
+            projectId: "antigravity-auth-eb9ba",
+            storageBucket: "antigravity-auth-eb9ba.firebasestorage.app",
+            messagingSenderId: "888629296093",
+            appId: "1:888629296093:web:38cfb4e89a2df3e3111434",
+            measurementId: "G-TFRNNGBSM3"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
 </head>
 
 <body class="admin-page">
@@ -56,21 +75,14 @@
             <div class="admin-login-subtitle">Admin Access Only</div>
             <form id="adminLoginForm">
                 <div class="feed-field" style="margin-bottom:1rem;">
-                    <label class="feed-label" for="adminId">Admin ID</label>
-                    <input type="text" id="adminId" class="feed-input" placeholder="Enter admin ID"
-                        autocomplete="username" />
-                </div>
-                <div class="feed-field" style="margin-bottom:1rem;">
-                    <label class="feed-label" for="adminPassword">Password</label>
-                    <input type="password" id="adminPassword" class="feed-input" placeholder="Enter password"
-                        autocomplete="current-password" />
+                    <label class="feed-label" for="adminEmail">Admin Email</label>
+                    <input type="email" id="adminEmail" class="feed-input" placeholder="admin@example.com"
+                        autocomplete="email" required />
                 </div>
                 <div class="feed-field" style="margin-bottom:1.5rem;">
-                    <label class="feed-label" for="adminApiToken">API Token
-                        <span style="font-size:0.74rem; font-weight:400; opacity:0.65; margin-left:0.4rem;">(optional — required for write access)</span>
-                    </label>
-                    <input type="password" id="adminApiToken" class="feed-input" placeholder="Paste ADMIN_SECRET_TOKEN..."
-                        autocomplete="off" />
+                    <label class="feed-label" for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" class="feed-input" placeholder="Enter password"
+                        autocomplete="current-password" required />
                 </div>
                 <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
             </form>
@@ -806,9 +818,8 @@
     <script src="js/utils.js"></script>
     <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/feed.js"></script>
-    <script src="js/admin-ui.js"></script>
     <script src="js/admin.js"></script>
+    <script src="js/feed.js"></script>
     <script src="js/admin-extra.js"></script>
     <script src="js/particles.js"></script>
 

@@ -407,12 +407,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             // -------------------------------------
 
-            // Save to Azure API
+            // Save to database API
             try {
-                const adminToken = sessionStorage.getItem('hk_admin_token') || '';
                 const response = await fetch('/api/articles', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-Admin-Token': adminToken },
+                    headers: await adminHeaders(),
                     body: JSON.stringify(article)
                 });
 
@@ -425,25 +424,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     }, 1000);
                 } else {
                     const errorText = await response.text();
-
-                    if (response.status === 401 || errorText.toLowerCase().includes('unauthorized') || errorText.toLowerCase().includes('token')) {
-                        const newToken = prompt("⚠️ Admin Session Expired or Invalid!\n\nPlease enter your X-Admin-Token to continue without losing your work:");
-                        if (newToken && newToken.trim() !== '') {
-                            sessionStorage.setItem('hk_admin_token', newToken.trim());
-                            showFeedback(addFeedback, 'success', 'Token updated! Please click Save again to submit your article.');
-                            if (submitBtn) {
-                                submitBtn.disabled = false;
-                                submitBtn.innerHTML = originalBtnHtml;
-                                submitBtn.style.backgroundColor = '';
-                                submitBtn.style.color = '';
-                            }
-                            forceSave = false;
-                            return;
-                        }
-                    }
-
-                    showFeedback(addFeedback, 'error', 'Error saving article to the database: ' + errorText);
-                    if (submitBtn) {
+                    
+                    if (response.status === 401) {
+                        showFeedback(addFeedback, 'error', 'Unauthorized: Please sign in again.');
+                    } else {
+                        showFeedback(addFeedback, 'error', 'Error saving article: ' + errorText);
+                    }                    if (submitBtn) {
                         submitBtn.disabled = false;
                         submitBtn.innerHTML = originalBtnHtml;
                         submitBtn.style.backgroundColor = '';

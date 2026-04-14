@@ -70,7 +70,13 @@
     }
 
     // ── Auth headers ────────────────────────────────────────────────────
-    function _authHeaders() {
+    async function _authHeaders() {
+        // 1. Try modern Firebase helper first (defined in admin.js)
+        if (typeof window.adminHeaders === 'function') {
+            return await window.adminHeaders();
+        }
+        
+        // 2. Fallback to legacy sessionStorage token
         const token = sessionStorage.getItem('hk_admin_token');
         return token ? { 'X-Admin-Token': token } : {};
     }
@@ -127,10 +133,9 @@
         async post(endpoint, body) {
             const response = await _fetchWithTimeout(endpoint, {
                 method: 'POST',
-                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    ..._authHeaders()
+                    ...(await _authHeaders())
                 },
                 body: JSON.stringify(body)
             });
@@ -161,7 +166,7 @@
                 method: 'DELETE',
                 headers: {
                     'Accept': 'application/json',
-                    ..._authHeaders()
+                    ...(await _authHeaders())
                 }
             });
 
@@ -184,10 +189,9 @@
         async patch(endpoint, body) {
             const response = await _fetchWithTimeout(endpoint, {
                 method: 'PATCH',
-                headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    ..._authHeaders()
+                    ...(await _authHeaders())
                 },
                 body: JSON.stringify(body)
             });
