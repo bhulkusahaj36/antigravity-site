@@ -457,7 +457,7 @@ document.addEventListener('DOMContentLoaded', () => {
             tbody.innerHTML = '<tr><td colspan="4" class="table-loading">Loading quotes...</td></tr>';
 
             try {
-                const res = await fetch('/api/quotes?all=true', { headers: { 'X-Admin-Token': getAdminToken() } });
+                const res = await fetch('/api/quotes?all=true', { headers: await adminHeaders() });
                 const quotes = await res.json();
 
                 if (!quotes.length) {
@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 await fetch(`/api/quotes?id=${encodeURIComponent(id)}`, {
                     method: 'DELETE',
-                    headers: { 'X-Admin-Token': getAdminToken() }
+                    headers: await adminHeaders()
                 });
                 await loadQuotes();
             } catch (err) { console.error('Delete quote failed:', err); }
