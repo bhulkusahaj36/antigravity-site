@@ -298,11 +298,11 @@ html {
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.85rem;
+  font-size: 0.75rem; /* Reduced per user request */
   font-weight: 300;
   color: rgba(255, 255, 255, 0.85);
   margin-bottom: 0;
-  line-height: 1.6;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
