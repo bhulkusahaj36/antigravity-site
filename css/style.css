@@ -270,12 +270,13 @@ html {
 }
 
 .carousel-3d-title {
-  font-family: var(--font-gu);
+  font-family: var(--font-gu-sans);
   font-size: 1.15rem;
   font-weight: 700;
   color: #ffffff;
   margin-bottom: 0;
-  line-height: 1.4;
+  line-height: 1.5;
+  padding-top: 4px; /* Prevent ascender clipping in -webkit-box */
   text-shadow: 0 2px 8px rgba(0,0,0,0.9);
   display: -webkit-box;
   -webkit-line-clamp: 3;
