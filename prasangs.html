@@ -10,7 +10,7 @@
     
     
     
-    <link rel="stylesheet" href="css/style.css?v=2.1" />
+    <link rel="stylesheet" href="css/style.css?v=3.5" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -320,7 +320,7 @@
     <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
     <!-- NAV -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
         <div class="container nav-inner">
             <a href="index.html" class="nav-logo">
                 <span class="logo-gu">હરિપ્રબોધમ કથામૃત</span>
@@ -470,8 +470,11 @@
                 <p id="psEmptyMsg">કોઈ પ્રસંગ મળ્યા નથી.</p>
             </div>
 
-            <!-- Pagination -->
-            <div style="display:flex;justify-content:center;margin-top:2rem;">
+            <!-- Pagination container -->
+            <div id="psPagination" style="display:flex;justify-content:center;gap:0.5rem;margin-top:2rem;"></div>
+
+            <!-- Pagination footer actions -->
+            <div style="display:flex;justify-content:center;margin-top:1rem;">
                 <button id="psLoadMoreBtn" class="btn btn-outline" style="display:none;">Load More</button>
             </div>
 
@@ -495,14 +498,14 @@
     </footer>
 
     <!-- SCRIPTS -->
-    <script src="js/data.js"></script>
+    <script src="js/data.js?v=3.5"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/bus.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/utils.js"></script>
-    <script src="js/prasangs.js"></script>
+    <script src="js/animations.js?v=3.5"></script>
+    <script src="js/bus.js?v=3.5"></script>
+    <script src="js/api.js?v=3.5"></script>
+    <script src="js/utils.js?v=3.5"></script>
+    <script src="js/prasangs.js?v=3.5"></script>
 
 
 </body>
