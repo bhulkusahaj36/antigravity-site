@@ -53,7 +53,7 @@ body.admin-page .navbar {
 }
 
 .admin-login-logo {
-  font-family: var(--font-gu);
+  font-family: var(--font-gu-sans);
   font-size: 1.3rem;
   color: var(--gold-400);
   margin-bottom: 0.5rem;
@@ -108,7 +108,7 @@ body.admin-page .navbar {
 }
 
 .admin-topbar-logo {
-  font-family: var(--font-gu);
+  font-family: var(--font-gu-sans);
   font-size: 1.1rem;
   color: var(--gold-400);
   white-space: nowrap;
