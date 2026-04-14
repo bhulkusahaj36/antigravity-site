@@ -3495,6 +3495,15 @@ body.light-mode {
   --saffron-glow: rgba(240, 186, 154, 0.4);
   --shadow-glow: 0 0 30px rgba(240, 186, 154, 0.2);
   --shadow-inner: inset 0 1px 1px rgba(0, 0, 0, 0.03);
+
+  /* Form overrides */
+  --form-bg:           rgba(255, 252, 248, 0.9);
+  --form-border:       rgba(180, 83, 9, 0.25);
+  --form-text:         #3b281b;
+  --form-placeholder:  #a07860;
+
+  /* Navbar */
+  --nav-bg:            rgba(255, 252, 248, 0.92);
 }
 
 body.light-mode::before {
@@ -4090,3 +4099,278 @@ body.light-mode #particles-js {
   }
 }
 
+
+/* ============================================================
+   ADMIN LIGHT MODE — Full coverage for all admin components
+   ============================================================ */
+
+/* Page background */
+body.light-mode.admin-page {
+  background: #f6ebe3 !important;
+}
+
+/* Topbar */
+body.light-mode .admin-topbar {
+  background: rgba(255, 252, 248, 0.97) !important;
+  border-bottom: 1px solid rgba(180, 83, 9, 0.15) !important;
+  box-shadow: 0 2px 12px rgba(180, 83, 9, 0.06) !important;
+}
+
+body.light-mode .admin-topbar-logo {
+  color: #b45309 !important;
+}
+
+body.light-mode .admin-breadcrumb,
+body.light-mode .admin-topbar-sep {
+  color: #755b48 !important;
+}
+
+body.light-mode #adminBreadcrumbCurrent {
+  color: #3b281b !important;
+  font-weight: 600;
+}
+
+body.light-mode .admin-topbar-actions a {
+  color: #755b48 !important;
+}
+
+body.light-mode #adminLogoutBtn {
+  background: #fff !important;
+  color: #b45309 !important;
+  border: 1px solid rgba(180, 83, 9, 0.3) !important;
+}
+
+/* Sidebar */
+body.light-mode .admin-sidebar {
+  background: rgba(255, 250, 246, 0.98) !important;
+  border-right: 1px solid rgba(180, 83, 9, 0.12) !important;
+}
+
+body.light-mode .admin-sidebar-section {
+  color: #a07860 !important;
+}
+
+body.light-mode .admin-nav-item {
+  color: #5a4030 !important;
+}
+
+body.light-mode .admin-nav-item:hover {
+  background: rgba(245, 158, 11, 0.08) !important;
+  color: #b45309 !important;
+}
+
+body.light-mode .admin-nav-item.active {
+  background: rgba(245, 158, 11, 0.15) !important;
+  color: #b45309 !important;
+  border-left-color: #d97706 !important;
+}
+
+body.light-mode .admin-nav-icon {
+  stroke: currentColor !important;
+}
+
+/* Main content area */
+body.light-mode .admin-content {
+  background: #f6ebe3 !important;
+}
+
+/* Panels */
+body.light-mode .admin-panel {
+  background: transparent !important;
+}
+
+/* Stat cards / metric cards */
+body.light-mode .stat-card,
+body.light-mode .admin-stat-card {
+  background: #fff !important;
+  border: 1px solid rgba(180, 83, 9, 0.15) !important;
+  box-shadow: 0 2px 12px rgba(180, 83, 9, 0.06) !important;
+}
+
+body.light-mode .stat-card h3,
+body.light-mode .stat-value {
+  color: #2b1c14 !important;
+}
+
+body.light-mode .stat-label,
+body.light-mode .stat-card p {
+  color: #755b48 !important;
+}
+
+/* Section headings inside admin */
+body.light-mode .admin-panel h2,
+body.light-mode .admin-panel h3,
+body.light-mode .admin-section-title {
+  color: #2b1c14 !important;
+}
+
+body.light-mode .admin-panel p,
+body.light-mode .admin-panel span {
+  color: #5a4030;
+}
+
+/* Form inputs and selects */
+body.light-mode .feed-input,
+body.light-mode .feed-select,
+body.light-mode .feed-textarea,
+body.light-mode input[type="text"],
+body.light-mode input[type="email"],
+body.light-mode input[type="password"],
+body.light-mode input[type="url"],
+body.light-mode input[type="date"],
+body.light-mode textarea,
+body.light-mode select {
+  background: #fff !important;
+  color: #3b281b !important;
+  border-color: rgba(180, 83, 9, 0.25) !important;
+}
+
+body.light-mode .feed-input::placeholder,
+body.light-mode .feed-textarea::placeholder,
+body.light-mode textarea::placeholder,
+body.light-mode input::placeholder {
+  color: #a07860 !important;
+}
+
+body.light-mode .feed-input:focus,
+body.light-mode .feed-select:focus,
+body.light-mode textarea:focus {
+  border-color: #d97706 !important;
+  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.12) !important;
+}
+
+body.light-mode .feed-label {
+  color: #755b48 !important;
+}
+
+/* Feed panel / form containers */
+body.light-mode .feed-panel,
+body.light-mode .admin-form-card,
+body.light-mode .add-quote-form {
+  background: #fff !important;
+  border: 1px solid rgba(180, 83, 9, 0.12) !important;
+  box-shadow: 0 2px 16px rgba(180, 83, 9, 0.05) !important;
+}
+
+/* Tables */
+body.light-mode .admin-table,
+body.light-mode table {
+  background: #fff !important;
+  border: 1px solid rgba(180, 83, 9, 0.1) !important;
+}
+
+body.light-mode .admin-table th,
+body.light-mode table th {
+  background: rgba(245, 158, 11, 0.08) !important;
+  color: #755b48 !important;
+  border-bottom: 1px solid rgba(180, 83, 9, 0.12) !important;
+}
+
+body.light-mode .admin-table td,
+body.light-mode table td {
+  color: #3b281b !important;
+  border-bottom: 1px solid rgba(180, 83, 9, 0.07) !important;
+}
+
+body.light-mode .admin-table tr:hover,
+body.light-mode table tr:hover {
+  background: rgba(245, 158, 11, 0.04) !important;
+}
+
+/* Table action buttons */
+body.light-mode .table-action-btn {
+  background: #fff !important;
+  color: #b45309 !important;
+  border: 1px solid rgba(180, 83, 9, 0.3) !important;
+}
+
+body.light-mode .table-action-btn:hover {
+  background: #fef3c7 !important;
+  border-color: #d97706 !important;
+}
+
+body.light-mode .table-action-btn.delete {
+  color: #dc2626 !important;
+  border-color: rgba(220, 38, 38, 0.3) !important;
+}
+
+body.light-mode .table-action-btn.delete:hover {
+  background: #fee2e2 !important;
+  border-color: #dc2626 !important;
+}
+
+/* Badges and pills inside manage panel */
+body.light-mode .status-badge,
+body.light-mode .type-badge {
+  background: rgba(245, 158, 11, 0.1) !important;
+  color: #92400e !important;
+  border: 1px solid rgba(180, 83, 9, 0.2) !important;
+}
+
+/* Manage sub-tabs */
+body.light-mode .manage-subtab {
+  background: transparent !important;
+  color: #755b48 !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+body.light-mode .manage-subtab.active,
+body.light-mode .manage-subtab:hover {
+  color: #b45309 !important;
+  border-bottom-color: #d97706 !important;
+}
+
+/* Charts */
+body.light-mode .chart-container canvas {
+  filter: none !important;
+}
+
+/* Mobile bottom nav */
+body.light-mode .admin-mobile-nav {
+  background: rgba(255, 252, 248, 0.97) !important;
+  border-top: 1px solid rgba(180, 83, 9, 0.12) !important;
+}
+
+body.light-mode .admin-mobile-nav-btn {
+  color: #755b48 !important;
+}
+
+body.light-mode .admin-mobile-nav-btn.active {
+  color: #b45309 !important;
+}
+
+/* Login overlay in light mode */
+body.light-mode .admin-login-card {
+  background: rgba(255, 252, 248, 0.97) !important;
+  border: 1px solid rgba(180, 83, 9, 0.15) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.light-mode .admin-login-logo {
+  color: #b45309 !important;
+}
+
+body.light-mode .admin-login-subtitle {
+  color: #755b48 !important;
+}
+
+/* Carousel cards in light mode */
+body.light-mode .carousel-3d-card {
+  background: rgba(255, 252, 248, 0.75) !important;
+  border-color: rgba(180, 83, 9, 0.3) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+body.light-mode .carousel-3d-title {
+  color: #2b1c14 !important;
+  text-shadow: none !important;
+}
+
+body.light-mode .carousel-3d-excerpt {
+  color: rgba(59, 40, 27, 0.8) !important;
+}
+
+body.light-mode .carousel-3d-label {
+  color: #d97706 !important;
+  opacity: 1 !important;
+}
