@@ -144,12 +144,11 @@ function renderArticles() {
         item.className = 'carousel-3d-card';
         item.style.setProperty('--index', i);
 
-        // Card label — look up Gujarati name from PRASANG_LABELS, fall back to topic/category
+        // Card label — only show "Prasang Of" person name; neutral default if not set
         const prasangSlug = (a.prasang || '').trim();
-        const prasangGu = (typeof PRASANG_LABELS !== 'undefined' && prasangSlug && PRASANG_LABELS[prasangSlug])
+        const displayLabel = (typeof PRASANG_LABELS !== 'undefined' && prasangSlug && PRASANG_LABELS[prasangSlug])
             ? PRASANG_LABELS[prasangSlug]
-            : (getCategoryName(a.topic || a.category || '') || 'ભક્તિ');
-        const displayLabel = prasangGu;
+            : 'ભક્તિ';
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
