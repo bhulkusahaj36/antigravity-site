@@ -144,10 +144,9 @@ function renderArticles() {
         item.className = 'carousel-3d-card';
         item.style.setProperty('--index', i);
 
-        // prasang label
-        const rawPrasang = a.prasang || a.category || a.topic || 'bhakti';
-        const prasangName = getCategoryName(rawPrasang);
-        const displayLabel = prasangName ? `${prasangName}` : 'ભક્તિ';
+        // Card label — prefer "Prasang Of" person name, fall back to topic/category
+        const prasangOf = (a.prasang || '').trim();
+        const displayLabel = prasangOf ? prasangOf : (getCategoryName(a.topic || a.category || '') || 'ભક્તિ');
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
