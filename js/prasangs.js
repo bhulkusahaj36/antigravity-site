@@ -22,7 +22,21 @@ const PS_PRASANG_SEQUENCE = [
 function ps_buildAvatarCard(id, label) {
     const card = document.createElement('a');
     card.className = 'avatar-card';
-    card.href = `prasang.html?prasang=${encodeURIComponent(id)}`;
+    card.href = '#psResultsGrid';
+    card.addEventListener('click', (e) => {
+        // Sync Dropdown
+        const fp = document.getElementById('psFilterPrasang');
+        if (fp) fp.value = id;
+        
+        // Update State
+        if (typeof ps_filterPrasang !== 'undefined') {
+            ps_filterPrasang = id;
+            if (typeof ps_updateSearchState === 'function') ps_updateSearchState();
+            if (typeof ps_page !== 'undefined') ps_page = 1;
+            if (typeof ps_renderChips === 'function') ps_renderChips();
+            if (typeof ps_render === 'function') ps_render();
+        }
+    });
 
     const wrap = document.createElement('div');
     wrap.className = 'avatar-img-wrap';
@@ -148,11 +162,12 @@ function ps_getFiltered() {
     });
 
     // Sort
-    results = results.sort((a, b) => {
-        const dA = parseInt(a.id) || 0;
-        const dB = parseInt(b.id) || 0;
-        return ps_sort === 'oldest' ? dA - dB : dB - dA;
-    });
+    const sortVal = ps_sort;
+    if (sortVal === 'newest') {
+        results.sort((a, b) => String(b.id).localeCompare(String(a.id)));
+    } else if (sortVal === 'oldest') {
+        results.sort((a, b) => String(a.id).localeCompare(String(b.id)));
+    }
 
     return results;
 }

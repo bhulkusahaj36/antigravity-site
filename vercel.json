@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "headers": [
     {
       "source": "/css/(.*)",
@@ -26,5 +27,12 @@
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/prasangs", "destination": "/prasangs.html" },
+    { "source": "/paravani", "destination": "/paravani.html" },
+    { "source": "/search", "destination": "/search.html" },
+    { "source": "/contact", "destination": "/contact.html" }
   ]
 }

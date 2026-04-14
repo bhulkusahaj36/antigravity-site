@@ -162,8 +162,8 @@ body.admin-page {
 }
 
 /* Ensure overlay does not obscure admin UI */
-body.admin-page::after {
-  background: transparent !important;
+body.admin-page::after, body.admin-page::before {
+  display: none !important;
 }
 
 /* Theme toggle button for admin */
@@ -505,7 +505,7 @@ body.page-exiting {
 }
 
 .nav-link {
-  font-family: var(--font-gu);
+  font-family: var(--font-gu-sans);
   color: rgba(245, 200, 66, 0.6);
   font-size: 13px;
   letter-spacing: 0.06em;
@@ -691,7 +691,7 @@ body.page-exiting {
   object-fit: contain;
   filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.25));
   z-index: 1;
-  transform: scale(1.92) translateY(7rem); /* Dragged even lower per user request */
+  transform: scale(1.15) translateY(2rem); /* Capped scale to prevent clipping */
   transform-origin: center center;
   margin-bottom: 3.5rem;
   pointer-events: none;
@@ -705,7 +705,7 @@ body.page-exiting {
   max-height: 450px; /* Increased from 250px */
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(255, 179, 15, 0.7)) drop-shadow(0 0 45px rgba(255, 179, 15, 0.4));
-  transform: scale(2.25) translateY(-1.5rem); /* Adjusted slightly lower */
+  transform: scale(1.35) translateY(-0.5rem); /* Capped scale */
   z-index: 2;
   position: relative;
   pointer-events: none;

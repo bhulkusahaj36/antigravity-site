@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!adminOverlay || !adminApp) return;
 
     // Check if user is already authenticated
-    if (localStorage.getItem('hk_isAdmin') === 'true') {
+    if (sessionStorage.getItem('hk_isAdmin') === 'true') {
         adminOverlay.style.display = 'none';
         adminApp.classList.add('is-visible');
         // Show logout button
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (logoutBtn) {
             logoutBtn.style.display = 'inline-block';
             logoutBtn.addEventListener('click', () => {
-                localStorage.removeItem('hk_isAdmin');
+                sessionStorage.removeItem('hk_isAdmin');
                 window.location.reload();
             });
         }
@@ -985,7 +985,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pass = document.getElementById('adminPassword').value;
                 const apiToken = document.getElementById('adminApiToken')?.value.trim() || '';
                 if (id === 'admin' && pass === 'hariamrut') {
-                    localStorage.setItem('hk_isAdmin', 'true');
+                    sessionStorage.setItem('hk_isAdmin', 'true');
                     // Store the API token in sessionStorage (cleared on tab close)
                     if (apiToken) sessionStorage.setItem('hk_admin_token', apiToken);
                     window.location.reload();

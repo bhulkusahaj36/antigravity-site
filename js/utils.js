@@ -783,28 +783,8 @@ function initSecurity() {
     // 7. Block Drag and Drop
     document.addEventListener('dragstart', e => e.preventDefault());
 
-    // 8. DevTools Deterrent (Debugger Loop)
-    // This pauses the browser if DevTools are opened, making inspection frustrated/impossible for non-developers.
-    if (!isUrlAdmin) {
-        setInterval(() => {
-            (function () {
-                (function a() {
-                    try {
-                        (function b(i) {
-                            if (('' + (i / i)).length !== 1 || i % 20 === 0) {
-                                (function () { }).constructor('debugger')();
-                            } else {
-                                debugger;
-                            }
-                            b(++i);
-                        })(0);
-                    } catch (e) {
-                        setTimeout(a, 5000);
-                    }
-                })();
-            })();
-        }, 5000);
-    }
+    // 8. Security Monitoring
+    // (Aggressive deterrent loop removed for standard cross-browser compatibility)
 }
 
 document.addEventListener('DOMContentLoaded', () => {
