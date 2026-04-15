@@ -4465,7 +4465,7 @@ body.light-mode .carousel-3d-title {
 body.light-mode .carousel-3d-excerpt {
   color: rgba(0, 0, 0, 0.55) !important;
   font-weight: 300 !important;
-  font-size: 0.9em !important;
+  /* font-size override removed */
 }
 
 body.light-mode .carousel-3d-label {
