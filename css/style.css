@@ -632,6 +632,7 @@ body.page-exiting {
   position: relative;
   z-index: 1;
   padding: 2rem 0;
+  margin-top: -3rem; /* Pull up slightly */
   overflow: visible; /* CRITICAL for 3D cards */
 }
 
@@ -674,7 +675,7 @@ body.page-exiting {
 .hero::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: 1.5rem;
   left: 0;
   right: 0;
   height: 1px;
@@ -713,9 +714,9 @@ body.page-exiting {
   object-fit: contain;
   filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.35)) drop-shadow(0 0 60px rgba(245, 158, 11, 0.15));
   z-index: 1;
-  transform: scale(1.22) translateY(3rem);
+  transform: scale(1.35) translateY(5rem);
   transform-origin: center center;
-  margin-bottom: 4rem;
+  margin-bottom: 0.5rem;
   pointer-events: none;
   opacity: 1 !important;
 }
@@ -727,9 +728,10 @@ body.page-exiting {
   max-height: 550px;
   object-fit: contain;
   filter: drop-shadow(0 0 25px rgba(255, 179, 15, 0.9)) drop-shadow(0 0 55px rgba(255, 179, 15, 0.5));
-  transform: scale(1.5) translateY(-0.5rem);
+  transform: scale(1.7) translateY(0);
   z-index: 2;
-  position: relative;
+  position: absolute;
+  bottom: 6%;
   pointer-events: none;
 }
 
@@ -771,13 +773,19 @@ body.page-exiting {
   }
 
   .hero-calligraphy {
+    position: relative !important;
+    bottom: auto !important;
     max-width: 92% !important;
     transform: scale(1.3) translateY(0) !important;
   }
 
   .hero-quote {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
     padding: 1.25rem 1.2rem !important;
-    margin: 1.5rem auto !important;
+    margin: 1.5rem auto 3rem auto !important;
     font-size: 0.95rem !important;
   }
 }
@@ -821,7 +829,7 @@ body.page-exiting {
   
   /* CENTERED HORIZONTALLY ON WHOLE PAGE */
   position: absolute;
-  bottom: 8%;
+  bottom: 15%;
   left: 50%;
   transform: translateX(-50%) translateY(0);
   z-index: 100;
