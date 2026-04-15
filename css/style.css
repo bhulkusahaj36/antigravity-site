@@ -908,17 +908,17 @@ body.page-exiting {
   box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95), 0 0 40px rgba(245, 158, 11, 0.1);
   padding: 1.25rem 2.8rem;
   
-  /* POSITIONED BOTTOM RIGHT ON DESKTOP */
+  /* CENTERED HORIZONTALLY ON WHOLE PAGE */
   position: absolute;
   bottom: 4rem;
-  right: 5%;
-  left: auto;
-  transform: none;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
   z-index: 100;
   
-  width: auto;
-  max-width: 450px; /* More compact capsule look */
-  text-align: right; /* Aligned to right like the screenshot box cluster */
+  width: 90%;
+  max-width: 800px;
+  text-align: center;
   letter-spacing: 0.02em;
   transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: opacity, transform;
@@ -926,7 +926,7 @@ body.page-exiting {
 
 /* Enhanced transition state */
 .hero-quote[style*="opacity: 0"] {
-  transform: translateY(15px);
+  transform: translateX(-50%) translateY(15px);
 }
 
 
