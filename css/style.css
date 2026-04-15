@@ -3626,19 +3626,6 @@ body::after {
   text-shadow: 0 0 10px rgba(255, 184, 0, 0.3) !important;
 }
 
-/* 3. Hero Image Visibility - Much Stronger for Mobile */
-.hero-top-img {
-  mask-image: radial-gradient(circle at center, black 30%, rgba(0, 0, 0, 0.5) 60%, transparent 95%) !important;
-  -webkit-mask-image: radial-gradient(circle at center, black 30%, rgba(0, 0, 0, 0.5) 60%, transparent 95%) !important;
-  opacity: 0.4 !important;
-  filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.2)) brightness(0.8) !important;
-}
-
-.hero-calligraphy {
-  filter: drop-shadow(0 0 25px rgba(255, 184, 0, 0.6)) drop-shadow(0 0 50px rgba(255, 184, 0, 0.3)) !important;
-  /* Respecting the global translateY positioning but keeping theme filters */
-}
-
 /* 4. Organic Shapes & Intensity Shadow Glows */
 :root {
   --radius-organic: 30px 70px 40px 80px / 50px 40px 90px 60px;
@@ -3675,18 +3662,6 @@ body.zen-mode .article-title-h1 {
   body {
     background-image:
       radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.15) 0%, transparent 50%) !important;
-  }
-
-  /* Extreme hero visibility boost */
-  .hero-top-img {
-    opacity: 0.95 !important;
-    filter: drop-shadow(0 0 40px rgba(255, 184, 0, 0.6)) brightness(1.2) contrast(1.1) !important;
-    transform: scale(2.4) translateY(-2.5rem) !important;
-  }
-
-  .hero-calligraphy {
-    filter: drop-shadow(0 0 30px rgba(255, 184, 0, 0.8)) !important;
-    transform: scale(3.8) translateY(-0.5rem) !important;
   }
 
   /* Fix Outerglow UI for article cards */
