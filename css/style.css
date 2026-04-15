@@ -749,8 +749,7 @@ body.page-exiting {
 /* Decorative horizontal rule */
 .hero::after {
   content: '';
-  position: absolute;
-  bottom: 1.5rem;
+  bottom: 0;
   left: 0;
   right: 0;
   height: 1px;
