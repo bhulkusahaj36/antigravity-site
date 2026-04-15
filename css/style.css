@@ -871,12 +871,12 @@ body.page-exiting {
     width: 100% !important;
     left: 0 !important;
     position: relative !important;
-    transform: scale(2.1) translateY(0) !important; /* Main image brought UP precisely */
+    transform: scale(2.1) translateY(-2.5rem) !important; /* Aggressively pulled UP */
     transform-origin: top center !important; 
     object-position: top center !important; 
     margin-bottom: 0 !important;
     animation: none !important;
-    filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) !important;
+    filter: none !important; /* COMPLETELY kills the muddy rectangular outer glow */
     -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
     mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
   }
@@ -885,8 +885,8 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(0) !important;
-    margin-top: 0.5rem !important; /* Calligraphy pushed DOWN physically in layout */
+    transform: scale(2.8) translateY(1.5rem) !important; /* Visual shift downwards */
+    margin-top: 1rem !important; /* Structural shift downwards */
     z-index: 10 !important;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)) !important;
   }
