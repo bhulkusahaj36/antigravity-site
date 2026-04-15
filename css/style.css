@@ -304,30 +304,24 @@ html {
   justify-content: center !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow: hidden !important;
-  flex: 1;
-  min-height: 0;
-  position: relative !important;
+  overflow: visible !important;
 }
 
 .hero-latest-area .carousel-3d-excerpt-inner {
   font-family: var(--font-gu-sans) !important;
-  font-size: 10.4px !important;
+  font-size: 10.4px !important; /* safe baseline above browser floor */
   font-weight: 300 !important;
   color: rgba(255,255,255,0.72) !important;
   line-height: 1.35 !important;
   text-align: center !important;
   margin: 0 !important;
   padding: 0 !important;
-  width: 200% !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: -50% !important;
-  transform: scale(0.5) !important;
+  width: 200% !important; /* 1/0.5 scale = 200% gives text room */
+  transform: scale(0.5) !important; /* exact half size */
   transform-origin: top center !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 6 !important;
-  line-clamp: 6 !important;
+  -webkit-line-clamp: 4 !important;
+  line-clamp: 4 !important;
   -webkit-box-orient: vertical !important;
   white-space: normal !important;
   overflow: hidden !important;
@@ -838,6 +832,11 @@ body.page-exiting {
   pointer-events: none;
 }
 
+/* ── MOBILE HERO OVERRIDES ────────────────────────────────────
+   IMPORTANT: This block must stay AFTER .hero-top-img and
+   .hero-calligraphy desktop rules above. Moving it earlier
+   causes the desktop scale() values to win the CSS cascade.
+   ─────────────────────────────────────────────────────────── */
 /* Hide mobile strip by default on desktop */
 .mobile-article-strip {
   display: none;
@@ -850,14 +849,14 @@ body.page-exiting {
   }
   .hero-branding-area { 
       flex: none;
-      padding-top: 5rem; /* Tighter against navbar */
+      padding-top: 5rem;
       padding-bottom: 0; 
       width: 100%;
   }
 
   .hero-top-img {
     max-height: 48vh !important;
-    max-width: 130% !important; /* Allow edge-to-edge presence */
+    max-width: 130% !important;
     width: 130% !important;
     left: -15% !important;
     position: relative !important;
@@ -997,6 +996,7 @@ body.page-exiting {
     border: 1px solid rgba(245,158,11,0.2) !important;
   }
 }
+
 /* Background circuit pattern persists via body::before defined earlier. */
 
 .sr-only {
@@ -3274,159 +3274,19 @@ body.light-mode .form-select {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 900px) {
-  .hero-split-container { 
-      flex-direction: column; 
-      justify-content: flex-start;
-  }
-  .hero-branding-area { 
-      flex: none;
-      padding-top: 5rem; /* Tighter against navbar */
-      padding-bottom: 0; 
-      width: 100%;
+  .article-layout {
+    grid-template-columns: 1fr;
   }
 
-  .hero-top-img {
-    max-height: 48vh !important;
-    max-width: 130% !important; /* Allow edge-to-edge presence */
-    width: 130% !important;
-    left: -15% !important;
-    position: relative !important;
-    transform: none !important;
-    object-position: center bottom !important;
-    margin-bottom: 0 !important;
-    animation: none !important;
-    filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) !important;
+  .article-sidebar {
+    position: static;
   }
 
-  .hero-calligraphy {
-    position: absolute !important;
-    bottom: -5% !important;
-    max-width: 90% !important;
-    transform: none !important;
-    z-index: 10 !important;
-  }
-
-  .hero-latest-area { 
-      flex: none;
-      padding: 3rem 0 2rem 0; 
-      background: rgba(18, 12, 6, 0.7); 
-      width: 100%;
-      margin-top: 0;
-  }
-  .hero-latest-area::before { display: none !important; }
-
-  /* HIDE BROKEN 3D ON MOBILE */
-  .carousel-3d-wrapper {
-      display: none !important;
-  }
-
-  /* SHOW NEW MOBILE STRIP */
-  .mobile-article-strip {
-      display: flex !important;
-      flex-direction: row;
-      gap: 1.2rem;
-      width: 100%;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-      padding: 0 1.5rem 1rem 1.5rem;
-      -webkit-mask-image: linear-gradient(to right, transparent 0px, black 15px, black calc(100% - 15px), transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0px, black 15px, black calc(100% - 15px), transparent 100%);
-  }
-  .mobile-article-strip::-webkit-scrollbar { display: none; }
-
-  .mobile-strip-card {
-      min-width: 280px;
-      width: 280px;
-      height: 155px;
-      scroll-snap-align: center;
-      background: rgba(22, 16, 12, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(245, 158, 11, 0.15);
-      border-radius: 14px;
-      display: flex;
-      flex-direction: row;
-      overflow: hidden;
-      flex-shrink: 0;
-      cursor: pointer;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.05);
-      position: relative;
-      transition: transform 0.2s, border-color 0.2s;
-  }
-  
-  .mobile-strip-card:active {
-      transform: scale(0.97);
-  }
-
-  .m-card-accent {
-      width: 6px;
-      height: 100%;
-      background: linear-gradient(to bottom, var(--saffron-400), var(--gold-600));
-      flex-shrink: 0;
-  }
-
-  .m-card-content {
-      padding: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      gap: 0.35rem;
-      flex: 1;
-      min-width: 0;
-  }
-
-  .m-card-label {
-      font-family: var(--font-gu-sans);
-      font-size: 0.65rem;
-      font-weight: 700;
-      color: var(--saffron-400);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-  }
-
-  .m-card-title {
-      font-family: var(--font-gu);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.35;
-      margin: 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-  }
-
-  .m-card-excerpt {
-      font-family: var(--font-gu-sans);
-      font-size: 0.75rem;
-      font-weight: 300;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.4;
-      margin: 0;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-  }
-
-  .hero-quote {
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    transform: none !important;
-    padding: 1.25rem 1.5rem !important;
-    margin: 1.5rem 1.5rem 3rem 1.5rem !important;
-    font-size: 0.90rem !important;
-    width: auto !important;
-    border-radius: 20px !important;
-    background: rgba(22, 16, 12, 0.8) !important;
-    border: 1px solid rgba(245,158,11,0.2) !important;
+  .contact-layout {
+    grid-template-columns: 1fr;
   }
 }
+
 @media (max-width: 700px) {
 
   /* Mobile Menu Styles with Staggered Animation */
