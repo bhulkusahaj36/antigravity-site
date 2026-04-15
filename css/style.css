@@ -4167,9 +4167,9 @@ body.light-mode #particles-js {
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.62rem;
-  font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.58rem; /* Smaller for cleaner look */
+  font-weight: 300;   /* Thinner font weight */
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.6;
   display: -webkit-box;
   -webkit-line-clamp: 5;
@@ -4461,7 +4461,9 @@ body.light-mode .carousel-3d-title {
 }
 
 body.light-mode .carousel-3d-excerpt {
-  color: rgba(59, 40, 27, 0.8) !important;
+  color: rgba(0, 0, 0, 0.55) !important;
+  font-weight: 300 !important;
+  font-size: 0.9em !important;
 }
 
 body.light-mode .carousel-3d-label {
