@@ -825,7 +825,7 @@ body.page-exiting {
   max-height: 480px;
   object-fit: contain;
   filter: none; /* Removed calligraphy glow for web view */
-  transform: scale(1.55) translateY(9rem); /* Force it lower than its container */
+  transform: scale(1.75) translateY(9rem); /* Increased size bit for web view */
   z-index: 5;
   position: absolute;
   bottom: 0%;
