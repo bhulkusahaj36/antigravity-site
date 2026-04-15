@@ -298,19 +298,32 @@ html {
   flex-shrink: 0;
 }
 
-.hero-latest-area .carousel-3d-excerpt {
+.hero-latest-area .carousel-3d-excerpt-container {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.hero-latest-area .carousel-3d-excerpt-inner {
   font-family: var(--font-gu-sans) !important;
-  font-size: 0.65rem;
+  font-size: 10.4px !important; /* safe baseline above browser floor */
   font-weight: 300 !important;
   color: rgba(255,255,255,0.72) !important;
   line-height: 1.35 !important;
+  text-align: center !important;
   margin: 0 !important;
   padding: 0 !important;
-
+  width: 200% !important; /* 1/0.5 scale = 200% gives text room */
+  transform: scale(0.5) !important; /* exact half size */
+  transform-origin: top center !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important;
-  line-clamp: 3 !important;
+  -webkit-line-clamp: 4 !important;
+  line-clamp: 4 !important;
   -webkit-box-orient: vertical !important;
+  white-space: normal !important;
   overflow: hidden !important;
 }
 
@@ -4169,16 +4182,30 @@ body.light-mode #particles-js {
 }
 
 
-.carousel-3d-excerpt {
+.carousel-3d-excerpt-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.carousel-3d-excerpt-inner {
   font-family: var(--font-gu-sans);
-  font-size: 0.65rem; /* Smaller for cleaner look */
-  font-weight: 300;   /* Thinner font weight */
+  font-size: 10.4px;
+  font-weight: 300;
   color: rgba(255, 255, 255, 0.65);
-  line-height: 1.4;
+  line-height: 1.35;
+  text-align: center;
+  width: 200%;
+  transform: scale(0.5);
+  transform-origin: top center;
   display: -webkit-box;
   -webkit-line-clamp: 5;
   line-clamp: 5; 
   -webkit-box-orient: vertical;
+  white-space: normal;
   overflow: hidden;
   margin-top: 0.35rem;
   letter-spacing: 0.01em;
@@ -4464,10 +4491,33 @@ body.light-mode .carousel-3d-title {
   text-shadow: none !important;
 }
 
-body.light-mode .carousel-3d-excerpt {
-  color: rgba(0, 0, 0, 0.55) !important;
-  font-weight: 300 !important;
-  /* font-size override removed */
+body.light-mode .carousel-3d-excerpt-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.carousel-3d-excerpt-inner {
+  font-family: var(--font-gu-sans);
+  font-size: 10.4px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.35;
+  text-align: center;
+  width: 200%;
+  transform: scale(0.5);
+  transform-origin: top center;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  line-clamp: 5; 
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
+  margin-top: 0.35rem;
+  letter-spacing: 0.01em;
 }
 
 body.light-mode .carousel-3d-label {

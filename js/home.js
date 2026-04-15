@@ -171,7 +171,7 @@ function renderArticles() {
                 <p class="carousel-3d-label" title="Prasang">${displayLabel}</p>
                 <h3 class="carousel-3d-title">${cleanTitle}</h3>
                 <div class="carousel-3d-divider"></div>
-                <p class="carousel-3d-excerpt">${excerptText}</p>
+                <div class="carousel-3d-excerpt-container"><p class="carousel-3d-excerpt-inner">${excerptText}</p></div>
             </div>
         `;
 
