@@ -300,11 +300,11 @@ html {
 
 .hero-latest-area .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.62rem !important; /* Corrected to match global refinement and removed !important block */
+  font-size: 0.52rem !important; /* Corrected to match global refinement and removed !important block */
   font-weight: 300 !important;
   color: rgba(255,255,255,0.75) !important;
   margin-bottom: 0;
-  line-height: 1.45 !important;
+  line-height: 1.4 !important;
   padding-bottom: 0.2rem;
   display: -webkit-box;
   -webkit-line-clamp: 4;
@@ -4169,7 +4169,7 @@ body.light-mode #particles-js {
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.62rem; /* Smaller for cleaner look */
+  font-size: 0.52rem; /* Smaller for cleaner look */
   font-weight: 300;   /* Thinner font weight */
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.4;
