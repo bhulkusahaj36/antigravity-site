@@ -871,12 +871,12 @@ body.page-exiting {
     width: 100% !important;
     left: 0 !important;
     position: relative !important;
-    transform: scale(2.1) translateY(-2.5rem) !important; /* Aggressively pulled UP */
+    transform: scale(2.1) translateY(-3.5rem) !important; /* Pushed UP further */
     transform-origin: top center !important; 
     object-position: top center !important; 
     margin-bottom: 0 !important;
     animation: none !important;
-    filter: none !important; /* COMPLETELY kills the muddy rectangular outer glow */
+    filter: none !important; /* No glow artifact */
     -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
     mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
   }
@@ -885,10 +885,10 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(1.5rem) !important; /* Visual shift downwards */
-    margin-top: 1rem !important; /* Structural shift downwards */
+    transform: scale(2.8) translateY(2.8rem) !important; /* Pushed DOWN further */
+    margin-top: 1.5rem !important; /* Structural separation */
     z-index: 10 !important;
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)) !important;
+    filter: none !important; /* Kill any surviving glow artifacts on calligraphy too */
   }
 
   /* Force Quote Box IN BETWEEN Branding and Cards purely via Flex Order */
@@ -3660,8 +3660,7 @@ body.zen-mode .article-title-h1 {
 /* Mobile Tweak */
 @media (max-width: 767px) {
   body {
-    background-image:
-      radial-gradient(circle at 50% 0%, rgba(255, 184, 0, 0.15) 0%, transparent 50%) !important;
+    background-image: none !important; /* Disabled top glow to fix outerglow UI issue */
   }
 
   /* Fix Outerglow UI for article cards */
