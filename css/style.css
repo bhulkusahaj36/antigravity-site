@@ -990,7 +990,7 @@ body.page-exiting {
     left: auto !important;
     transform: none !important;
     padding: 1.25rem 1.5rem !important;
-    margin: 1.5rem 1.5rem 3rem 1.5rem !important;
+    margin: 0.5rem 1.5rem 1.2rem 1.5rem !important;
     font-size: 0.90rem !important;
     width: auto !important;
     border-radius: 20px !important;
@@ -3364,12 +3364,7 @@ body.light-mode .form-select {
     display: block;
   }
 
-
-  .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-  }
+  /* .section-header horizontal layout persists neatly for arrows */
 }
 
 @media (max-width: 480px) {
