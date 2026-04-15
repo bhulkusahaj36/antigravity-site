@@ -203,21 +203,21 @@ html {
 
 /* 3D Carousel within Hero - constrained height */
 .hero-latest-area .carousel-3d-wrapper {
-  height: 460px !important;
+  height: 380px !important;
   margin-top: -2rem;
   overflow: visible !important;
 }
 
 .hero-latest-area .carousel-3d-inner {
-  --w: 220px !important;    /* Increased for wider cards */
-  --h: 300px !important;    /* Increased height to prevent text crush */
-  --translateZ: 380px !important; /* Adjusted for wider cards */
+  --w: 180px !important;    
+  --h: 250px !important;    
+  --translateZ: 320px !important; 
   --rotateX: 0deg !important;
 }
 
 .hero-latest-area .carousel-3d-card {
-  width: 220px !important;
-  height: 300px !important;
+  width: 180px !important;
+  height: 250px !important;
   background: rgba(18, 18, 18, 0.65) !important;
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
