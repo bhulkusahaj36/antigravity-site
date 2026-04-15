@@ -246,7 +246,7 @@ html {
   box-shadow: 0 15px 40px -10px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
 }
 
-.carousel-3d-content {
+.hero-latest-area .carousel-3d-content {
   padding: 1.5rem 1.2rem;
   display: flex;
   flex-direction: column;
@@ -270,22 +270,22 @@ html {
   flex-shrink: 0; /* Prevent vertical crushing in flexbox */
 }
 
-.carousel-3d-title {
+.hero-latest-area .carousel-3d-title {
   font-family: var(--font-gu);
   font-size: 1.05rem;
-  font-weight: 700 !important; /* Ensuring titles stay bold as requested */
+  font-weight: 700;
   color: #ffffff;
   line-height: 1.45;
   margin: 0.1rem 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
   word-break: break-word;
   overflow-wrap: break-word;
-  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .hero-latest-area .carousel-3d-divider {
