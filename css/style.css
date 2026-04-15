@@ -304,24 +304,30 @@ html {
   justify-content: center !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow: visible !important;
+  overflow: hidden !important;
+  flex: 1;
+  min-height: 0;
+  position: relative !important;
 }
 
 .hero-latest-area .carousel-3d-excerpt-inner {
   font-family: var(--font-gu-sans) !important;
-  font-size: 10.4px !important; /* safe baseline above browser floor */
+  font-size: 10.4px !important;
   font-weight: 300 !important;
   color: rgba(255,255,255,0.72) !important;
   line-height: 1.35 !important;
   text-align: center !important;
   margin: 0 !important;
   padding: 0 !important;
-  width: 200% !important; /* 1/0.5 scale = 200% gives text room */
-  transform: scale(0.5) !important; /* exact half size */
+  width: 200% !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -50% !important;
+  transform: scale(0.5) !important;
   transform-origin: top center !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 4 !important;
-  line-clamp: 4 !important;
+  -webkit-line-clamp: 6 !important;
+  line-clamp: 6 !important;
   -webkit-box-orient: vertical !important;
   white-space: normal !important;
   overflow: hidden !important;
@@ -832,11 +838,11 @@ body.page-exiting {
   pointer-events: none;
 }
 
-/* ── MOBILE HERO OVERRIDES ────────────────────────────────────
-   IMPORTANT: This block must stay AFTER .hero-top-img and
-   .hero-calligraphy desktop rules above. Moving it earlier
-   causes the desktop scale() values to win the CSS cascade.
-   ─────────────────────────────────────────────────────────── */
+/* Hide mobile strip by default on desktop */
+.mobile-article-strip {
+  display: none;
+}
+
 @media (max-width: 900px) {
   .hero-split-container { 
       flex-direction: column; 

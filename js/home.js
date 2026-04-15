@@ -182,6 +182,45 @@ function renderArticles() {
         grid.appendChild(item);
     });
 
+    // -- MOBILE STRIP RENDERING --
+    const mobileStrip = document.getElementById('mobileArticleStrip');
+    if (mobileStrip) {
+        mobileStrip.innerHTML = '';
+        sorted.forEach((a) => {
+            if (!a || !a.title) return;
+            
+            const item = document.createElement('div');
+            item.className = 'mobile-strip-card';
+            
+            const prasangSlug = (a.prasang || '').trim();
+            const displayLabel = (typeof PRASANG_LABELS !== 'undefined' && prasangSlug && PRASANG_LABELS[prasangSlug]) ? PRASANG_LABELS[prasangSlug] : 'ભક્તિ';
+            
+            const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
+            const excerptText = plainText.substring(0, 60).trim() + (plainText.length > 60 ? '...' : '');
+            
+            const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
+            let cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
+            if (!cleanTitle || cleanTitle.trim() === displayLabel.trim()) {
+                const snippet = plainText.substring(0, 45).trim();
+                cleanTitle = snippet + (plainText.length > 45 ? '...' : '');
+            }
+
+            item.innerHTML = `
+                <div class="m-card-accent"></div>
+                <div class="m-card-content">
+                    <span class="m-card-label">${displayLabel}</span>
+                    <h3 class="m-card-title">${cleanTitle}</h3>
+                    <p class="m-card-excerpt">${excerptText}</p>
+                </div>
+            `;
+            
+            item.addEventListener('click', () => {
+                window.location.href = `article.html?id=${a.id}`;
+            });
+            mobileStrip.appendChild(item);
+        });
+    }
+
     // Clear old pagination
     const paginationEl = document.getElementById('pagination');
     if (paginationEl) paginationEl.innerHTML = '';
