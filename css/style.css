@@ -856,8 +856,8 @@ body.page-exiting {
   }
   .hero-branding-area { 
       flex: none;
-      padding-top: 4.5rem;
-      padding-bottom: 1rem; 
+      padding-top: 7.5rem; /* Drags both Swamiji and Calligraphy downwards */
+      padding-bottom: 2.5rem; /* Creates a hard gap below the calligraphy border */
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -898,7 +898,7 @@ body.page-exiting {
       padding: 0 0 0.5rem 0 !important;
       background: transparent !important; 
       width: 100%;
-      margin-top: 0 !important;
+      margin-top: 2rem !important; /* Enforces spacing well below horizontal line */
   }
   .hero-latest-area::before { display: none !important; }
 
