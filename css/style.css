@@ -885,8 +885,8 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(2.8rem) !important; /* Pushed DOWN further */
-    margin-top: 1.5rem !important; /* Structural separation */
+    transform: scale(2.8) translateY(1.2rem) !important; /* Brought bit UP */
+    margin-top: 0.8rem !important; /* Tighter separation */
     z-index: 10 !important;
     filter: none !important; /* Kill any surviving glow artifacts on calligraphy too */
   }
