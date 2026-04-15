@@ -871,7 +871,7 @@ body.page-exiting {
     width: 100% !important;
     left: 0 !important;
     position: relative !important;
-    transform: scale(2.1) translateY(1.5rem) !important;
+    transform: scale(2.1) translateY(0) !important; /* Main image brought UP precisely */
     transform-origin: top center !important; 
     object-position: top center !important; 
     margin-bottom: 0 !important;
@@ -885,8 +885,8 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(0.5rem) !important;
-    margin-top: -1.5rem !important;
+    transform: scale(2.8) translateY(0) !important;
+    margin-top: 0.5rem !important; /* Calligraphy pushed DOWN physically in layout */
     z-index: 10 !important;
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)) !important;
   }
