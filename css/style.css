@@ -843,10 +843,16 @@ body.page-exiting {
 }
 
 @media (max-width: 900px) {
+  /* Kill 100vh locks on both hero wrappers so mobile collapses to content height */
+  .hero {
+      min-height: 0 !important;
+      height: auto !important;
+  }
   .hero-split-container { 
       flex-direction: column; 
       justify-content: flex-start;
-      min-height: auto;
+      min-height: 0 !important;
+      height: auto !important;
   }
   .hero-branding-area { 
       flex: none;
@@ -861,8 +867,7 @@ body.page-exiting {
     width: 100% !important;
     left: 0 !important;
     position: relative !important;
-    /* Scale by 1.45 to enlarge, shift down by 3.5rem to pull head below navbar */
-    transform: translateY(3.5rem) scale(1.45) !important; 
+    transform: translateY(2rem) scale(1.35) !important;
     transform-origin: top center !important; 
     object-position: top center !important; 
     margin-bottom: 0 !important;
@@ -872,15 +877,18 @@ body.page-exiting {
 
   .hero-calligraphy {
     position: absolute !important;
-    bottom: -10% !important; /* Overlap the gap */
+    bottom: -10% !important;
     max-width: 85% !important;
     transform: none !important;
     z-index: 10 !important;
   }
 
+  /* Collapse article strip area — no extra bottom padding */
   .hero-latest-area { 
       flex: none;
-      padding: 0 0 2rem 0; /* Remove 3rem gap so cards are closer */
+      height: auto !important;
+      min-height: 0 !important;
+      padding: 0 0 0.5rem 0 !important;
       background: rgba(18, 12, 6, 0.7); 
       width: 100%;
       margin-top: 0;
