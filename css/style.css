@@ -260,7 +260,7 @@ html {
 
 .hero-latest-area .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size:  0.55rem !important;
+  font-size:  0.60rem;
   font-weight:  700 !important;
   color: var(--gold-500);
   margin-bottom: 0;
@@ -272,7 +272,7 @@ html {
 
 .hero-latest-area .carousel-3d-title {
   font-family: var(--font-gu);
-  font-size: 0.78rem !important;
+  font-size: 0.95rem;
   font-weight: 700 !important;
   color: #ffffff;
   line-height: 1.3 !important;
@@ -300,13 +300,13 @@ html {
 
 .hero-latest-area .carousel-3d-excerpt {
   font-family: var(--font-gu-sans) !important;
-  font-size: 0.72rem !important;
+  font-size: 0.65rem;
   font-weight: 300 !important;
   color: rgba(255,255,255,0.72) !important;
   line-height: 1.35 !important;
   margin: 0 !important;
   padding: 0 !important;
-  zoom: 0.65;
+
   display: -webkit-box !important;
   -webkit-line-clamp: 3 !important;
   line-clamp: 3 !important;
@@ -4133,7 +4133,7 @@ body.light-mode #particles-js {
 
 .carousel-3d-title {
   font-family: var(--font-gu);
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.45;
@@ -4159,7 +4159,7 @@ body.light-mode #particles-js {
 
 .carousel-3d-label {
   font-family: var(--font-gu-sans);
-  font-size: 0.65rem;
+  font-size: 0.60rem;
   font-weight: 700;
   color: var(--saffron-400);
   text-transform: uppercase;
@@ -4171,7 +4171,7 @@ body.light-mode #particles-js {
 
 .carousel-3d-excerpt {
   font-family: var(--font-gu-sans);
-  font-size: 0.52rem; /* Smaller for cleaner look */
+  font-size: 0.65rem; /* Smaller for cleaner look */
   font-weight: 300;   /* Thinner font weight */
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.4;
