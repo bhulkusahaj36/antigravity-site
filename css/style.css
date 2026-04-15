@@ -873,6 +873,8 @@ body.page-exiting {
     margin-bottom: 0 !important;
     animation: none !important;
     filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) !important;
+    -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
   }
 
   .hero-calligraphy {
@@ -889,9 +891,9 @@ body.page-exiting {
       height: auto !important;
       min-height: 0 !important;
       padding: 0 0 0.5rem 0 !important;
-      background: rgba(18, 12, 6, 0.7); 
+      background: transparent !important; 
       width: 100%;
-      margin-top: 0;
+      margin-top: 1.5rem !important;
   }
   .hero-latest-area::before { display: none !important; }
 
