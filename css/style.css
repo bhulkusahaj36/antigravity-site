@@ -855,14 +855,15 @@ body.page-exiting {
   }
 
   .hero-top-img {
-    max-height: 46vh !important;
+    max-height: none !important;
     max-width: 100% !important;
     width: 100% !important;
     left: 0 !important;
     position: relative !important;
-    transform: translateY(2rem) scale(1.05) !important; /* Minimal scale, shift down to clear navbar */
-    transform-origin: center top !important; /* Essential to prevent top cropping */
-    object-position: center top !important; 
+    /* Scale by 1.45 to enlarge, shift down by 3.5rem to pull head below navbar */
+    transform: translateY(3.5rem) scale(1.45) !important; 
+    transform-origin: top center !important; 
+    object-position: top center !important; 
     margin-bottom: 0 !important;
     animation: none !important;
     filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.4)) !important;
