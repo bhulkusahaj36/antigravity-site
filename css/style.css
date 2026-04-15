@@ -846,6 +846,7 @@ body.page-exiting {
   .hero-split-container { 
       flex-direction: column; 
       justify-content: flex-start;
+      min-height: auto;
   }
   .hero-branding-area { 
       flex: none;
