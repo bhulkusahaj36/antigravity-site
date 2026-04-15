@@ -809,10 +809,10 @@ body.page-exiting {
   max-height: 480px;
   object-fit: contain;
   filter: drop-shadow(0 0 25px rgba(255, 179, 15, 0.9)) drop-shadow(0 0 55px rgba(255, 179, 15, 0.5));
-  transform: scale(1.4) translateY(0);
-  z-index: 2;
+  transform: scale(1.4) translateY(5rem); /* Force it lower than its container */
+  z-index: 5;
   position: absolute;
-  bottom: 4%;
+  bottom: 2%;
   pointer-events: none;
 }
 
@@ -857,7 +857,7 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 92% !important;
-    transform: scale(1.3) translateY(0) !important;
+    transform: scale(1.3) translateY(2rem) !important;
   }
 
   .hero-quote {
@@ -3484,6 +3484,7 @@ body::after {
 
 .hero-calligraphy {
   filter: drop-shadow(0 0 25px rgba(255, 184, 0, 0.6)) drop-shadow(0 0 50px rgba(255, 184, 0, 0.3)) !important;
+  /* Respecting the global translateY positioning but keeping theme filters */
 }
 
 /* 4. Organic Shapes & Intensity Shadow Glows */
