@@ -845,19 +845,20 @@ body.page-exiting {
 @media (max-width: 900px) {
   /* Kill 100vh locks on both hero wrappers so mobile collapses to content height */
   .hero {
+      display: flex;
+      flex-direction: column;
       min-height: 0 !important;
       height: auto !important;
   }
   .hero-split-container { 
-      flex-direction: column; 
-      justify-content: flex-start;
-      min-height: 0 !important;
-      height: auto !important;
+      display: contents !important; /* Unwrap structural container on mobile */
   }
+  
   .hero-branding-area { 
+      order: 1 !important;
       flex: none;
-      padding-top: 7.5rem; /* Drags both Swamiji and Calligraphy downwards */
-      padding-bottom: 2.5rem; /* Creates a hard gap below the calligraphy border */
+      padding-top: 8rem; /* Drags both Swamiji and Calligraphy downwards further */
+      padding-bottom: 2rem; 
       width: 100%;
       display: flex;
       flex-direction: column;
@@ -890,15 +891,27 @@ body.page-exiting {
     filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4)) !important;
   }
 
-  /* Collapse article strip area — no extra bottom padding */
+  /* Force Quote Box IN BETWEEN Branding and Cards purely via Flex Order */
+  .hero-quote {
+      order: 2 !important;
+      position: relative !important;
+      bottom: auto !important;
+      left: auto !important;
+      transform: none !important;
+      margin: 1rem 1.5rem 1.5rem 1.5rem !important; 
+  }
+
+  /* Collapse article strip area and force it to the absolute bottom via Order 3 */
   .hero-latest-area { 
+      order: 3 !important;
       flex: none;
       height: auto !important;
       min-height: 0 !important;
       padding: 0 0 0.5rem 0 !important;
       background: transparent !important; 
       width: 100%;
-      margin-top: 2rem !important; /* Enforces spacing well below horizontal line */
+      margin-top: 1rem !important; 
+      margin-bottom: 2rem !important; /* Proper gap before the Featured Section horizontal line */
   }
   .hero-latest-area::before { display: none !important; }
 
