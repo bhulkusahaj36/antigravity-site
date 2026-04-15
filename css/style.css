@@ -803,7 +803,7 @@ body.page-exiting {
   object-fit: contain;
   filter: none; /* Removed outerglow for web view */
   z-index: 1;
-  transform: scale(1.50) translateY(1.5rem);
+  transform: scale(1.50) translateY(-0.5rem);
   transform-origin: center center;
   margin-bottom: 0.5rem;
   pointer-events: none;
@@ -812,8 +812,8 @@ body.page-exiting {
 }
 
 @keyframes heroFloat {
-  0%, 100% { transform: scale(1.50) translateY(1.5rem); }
-  50% { transform: scale(1.50) translateY(0.5rem); }
+  0%, 100% { transform: scale(1.50) translateY(-0.5rem); }
+  50% { transform: scale(1.50) translateY(-1.5rem); }
 }
 
 .hero-calligraphy {
@@ -823,7 +823,7 @@ body.page-exiting {
   max-height: 480px;
   object-fit: contain;
   filter: none; /* Removed calligraphy glow for web view */
-  transform: scale(1.75) translateY(9rem); /* Increased size bit for web view */
+  transform: scale(1.75) translateY(7rem); /* Raised bit for web view */
   z-index: 5;
   position: absolute;
   bottom: 0%;
