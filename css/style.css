@@ -300,21 +300,18 @@ html {
 
 .hero-latest-area .carousel-3d-excerpt {
   font-family: var(--font-gu-sans) !important;
-  font-size: 11px !important;
+  font-size: 0.72rem !important;
   font-weight: 300 !important;
   color: rgba(255,255,255,0.72) !important;
   line-height: 1.35 !important;
   margin: 0 !important;
   padding: 0 !important;
+  zoom: 0.65;
   display: -webkit-box !important;
-  -webkit-line-clamp: 4 !important;
-  line-clamp: 4 !important;
+  -webkit-line-clamp: 3 !important;
+  line-clamp: 3 !important;
   -webkit-box-orient: vertical !important;
   overflow: hidden !important;
-  transform: scale(0.72) !important;
-  transform-origin: top center !important;
-  width: 139% !important;
-  margin-left: -19.5% !important;
 }
 
 body {
