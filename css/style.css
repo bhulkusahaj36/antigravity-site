@@ -299,17 +299,22 @@ html {
 }
 
 .hero-latest-area .carousel-3d-excerpt {
-  font-family: var(--font-gu-sans);
-  font-size: 0.52rem !important; /* Corrected to match global refinement and removed !important block */
+  font-family: var(--font-gu-sans) !important;
+  font-size: 11px !important;
   font-weight: 300 !important;
-  color: rgba(255,255,255,0.75) !important;
-  margin-bottom: 0;
-  line-height: 1.4 !important;
-  padding-bottom: 0.2rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  color: rgba(255,255,255,0.72) !important;
+  line-height: 1.35 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 4 !important;
+  line-clamp: 4 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  transform: scale(0.72) !important;
+  transform-origin: top center !important;
+  width: 139% !important;
+  margin-left: -19.5% !important;
 }
 
 body {
