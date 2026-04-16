@@ -225,7 +225,8 @@ html {
   border-bottom: 3px solid var(--saffron-500) !important;
   border-radius: 16px !important;
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
-  overflow: hidden !important; /* Strict clip — nothing bleeds outside the card */
+  overflow: hidden !important; /* Strict clip */
+  clip-path: inset(0 round 16px) !important; /* Apple GPU/Chrome 3D bleeding bypass */
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -4279,6 +4280,7 @@ body.light-mode #particles-js {
   border: 1.5px solid var(--saffron-500);
   border-radius: 24px;
   overflow: hidden;
+  clip-path: inset(0 round 24px); /* Forces hard GPU clipping, bypassing 3D rendering bugs */
   cursor: pointer;
   transform:
     rotateY(calc((360deg / var(--quantity)) * var(--index)))
@@ -4397,13 +4399,14 @@ body.light-mode #particles-js {
   margin: 0;
   padding: 0 6px;
   width: 100%;
+  max-height: 40px !important; /* Hard height limit, guaranteeing no overflow */
   box-sizing: border-box;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
   white-space: normal;
-  overflow: hidden;
+  overflow: hidden !important;
 }
 
 /* NOTE: .carousel-3d-excerpt-inner is intentionally omitted here.
