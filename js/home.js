@@ -152,7 +152,7 @@ function renderArticles() {
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
-        const excerptText = plainText.substring(0, 55).trim() + (plainText.length > 55 ? '...' : '');
+        const excerptText = plainText.substring(0, 45).trim() + (plainText.length > 45 ? '...' : '');
 
         // Clean title: Topic of the article
         const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');

@@ -210,7 +210,7 @@ html {
 
 .hero-latest-area .carousel-3d-inner {
   --w: 180px !important;    
-  --h: 250px !important;    
+  --h: 275px !important; /* Increased from 250px to comfortably fit Gujarati text */
   --translateZ: 320px !important; 
   --rotateX: 0deg !important;
 }
@@ -4281,12 +4281,13 @@ body.light-mode #particles-js {
   font-family: var(--font-gu-sans);
   font-size: 11px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.60);
-  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.45;
   text-align: center;
   margin: 0;
   padding: 0;
   width: 100%;
+  max-height: 48px; /* Room for exactly 3 readable lines */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
