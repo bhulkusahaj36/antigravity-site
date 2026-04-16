@@ -215,121 +215,7 @@ html {
   --rotateX: 0deg !important;
 }
 
-.hero-latest-area .carousel-3d-card {
-  width: 180px !important;
-  height: 250px !important;
-  background: rgba(18, 18, 18, 0.65) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--card-border) !important;
-  border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 16px !important;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
-  overflow: hidden !important; /* Strict clip */
-  clip-path: inset(0 round 16px) !important; /* Apple GPU/Chrome 3D bleeding bypass */
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease !important;
-}
 
-.hero-latest-area .carousel-3d-card::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0; height: 50%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 100%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero-latest-area .carousel-3d-card:hover {
-  border-color: var(--gold-400) !important;
-  box-shadow: 0 15px 40px -10px rgba(245, 158, 11, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
-}
-
-.hero-latest-area .carousel-3d-content {
-  padding: 0.8rem 0.6rem;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  text-align: center;
-  justify-content: center;
-  gap: 0.35rem;
-  z-index: 1; /* Above glossy highlight */
-  box-sizing: border-box;
-}
-
-.hero-latest-area .carousel-3d-label {
-  font-family: var(--font-gu-sans);
-  font-size:  0.60rem;
-  font-weight:  700 !important;
-  color: var(--gold-500);
-  margin-bottom: 0;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-  flex-shrink: 0; /* Prevent vertical crushing in flexbox */
-}
-
-.hero-latest-area .carousel-3d-title {
-  font-family: var(--font-gu);
-  font-size: 0.95rem;
-  font-weight: 700 !important;
-  color: #ffffff;
-  line-height: 1.3 !important;
-  margin: 0.1rem 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  word-break: break-word;
-  overflow-wrap: break-word;
-  flex-shrink: 0;
-}
-
-.hero-latest-area .carousel-3d-divider {
-  width: 20px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--saffron-500), transparent);
-  margin: 0.1rem auto;
-  border-radius: 2px;
-  box-shadow: 0 0 8px var(--saffron-500);
-  flex-shrink: 0;
-}
-
-.hero-latest-area .carousel-3d-excerpt-container {
-  width: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  overflow: hidden !important; /* Critical: must not overflow card boundary */
-  flex-shrink: 1; /* Allow it to compress if siblings need space */
-}
-
-/* THE authoritative rule — wins due to specificity + !important.
-   Lines 4301 and 4609 are dead code (lower specificity, never apply). */
-.hero-latest-area .carousel-3d-excerpt-inner {
-  font-family: var(--font-gu-sans) !important;
-  font-size: 11px !important;
-  font-weight: 400 !important;
-  color: rgba(255,255,255,0.72) !important;
-  line-height: 1.4 !important;
-  text-align: center !important;
-  margin: 0.4rem auto 0 auto !important;
-  padding: 0 6px !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  transform: none !important;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3 !important; /* Reduced from 5 to prevent overflow */
-  line-clamp: 3 !important;
-  -webkit-box-orient: vertical !important;
-  white-space: normal !important;
-  overflow: hidden !important;
-}
 
 body {
   background-color: var(--bg-900);
@@ -4276,40 +4162,44 @@ body.light-mode #particles-js {
 /* Individual card face positioned around the cylinder */
 .carousel-3d-card {
   position: absolute;
+/* ==========================================================
+   FRESH 3D CAROUSEL CARDS IMPLEMENTATION
+   ========================================================== */
+
+/* Individual card face positioned around the cylinder */
+.carousel-3d-card {
+  position: absolute;
   inset: 0;
-  border: 1.5px solid var(--saffron-500);
-  border-radius: 24px;
-  overflow: hidden;
-  clip-path: inset(0 round 24px); /* Forces hard GPU clipping, bypassing 3D rendering bugs */
+  width: var(--w);
+  height: var(--h);
+  background: rgba(18, 12, 10, 0.75);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 3px solid var(--saffron-500);
+  border-radius: 16px;
+  overflow: hidden !important;
+  clip-path: inset(0 round 16px) !important;
   cursor: pointer;
   transform:
     rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(var(--translateZ));
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  background: rgba(18, 12, 10, 0.45);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.25),
-    0 15px 45px rgba(0, 0, 0, 0.45);
+    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+    0 15px 35px -5px rgba(0, 0, 0, 0.8);
   transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), background 0.4s ease, border-color 0.4s ease;
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Glass Refined Surface Glint */
 .carousel-3d-card::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, 
-      rgba(255, 255, 255, 0.12) 0%, 
-      transparent 35%, 
-      transparent 100%);
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
   pointer-events: none;
   z-index: 10;
 }
@@ -4319,25 +4209,40 @@ body.light-mode #particles-js {
     rotateY(calc((360deg / var(--quantity)) * var(--index))) 
     translateZ(calc(var(--translateZ) + 25px))
     translateY(-10px);
-  background: rgba(255, 179, 15, 0.07);
+  background: rgba(255, 179, 15, 0.12);
   border-color: rgba(255, 179, 15, 0.35);
   box-shadow: 
     inset 0 1px 1px rgba(255, 255, 255, 0.3),
-    0 25px 50px rgba(0, 0, 0, 0.6),
-    0 0 20px rgba(245, 158, 11, 0.15);
+    0 25px 50px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(245, 158, 11, 0.2);
 }
 
-
-/* Text content area */
+/* Hard-constrained content box */
 .carousel-3d-content {
   flex: 1;
-  padding: 1.8rem 1.6rem;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1.2rem 0.8rem;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
   justify-content: flex-start;
-  gap: 0.35rem;
-  overflow: hidden;
-  text-align: center;
+  gap: 0.4rem;
+  overflow: hidden !important;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.carousel-3d-label {
+  font-family: var(--font-gu-sans);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--saffron-400);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+  opacity: 0.9;
+  flex-shrink: 0;
 }
 
 .carousel-3d-title {
@@ -4345,73 +4250,56 @@ body.light-mode #particles-js {
   font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.45;
-  margin: 0.1rem 0;
+  line-height: 1.35;
+  margin: 0;
+  text-align: center;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-  word-break: break-word;
-  overflow-wrap: break-word;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  flex-shrink: 0;
+  width: 100%;
 }
 
 .carousel-3d-divider {
-  width: 30px;
+  width: 25px;
   height: 2px;
   background: var(--saffron-500);
-  margin: 0.4rem auto;
-  opacity: 0.8;
+  margin: 0.2rem 0;
   border-radius: 2px;
+  flex-shrink: 0;
 }
-
-.carousel-3d-label {
-  font-family: var(--font-gu-sans);
-  font-size: 0.60rem;
-  font-weight: 700;
-  color: var(--saffron-400);
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  margin-bottom: 0.1rem;
-  opacity: 0.6;
-}
-
 
 .carousel-3d-excerpt-container {
   width: 100%;
+  flex: 1; /* Take up remaining height */
   display: flex;
   justify-content: center;
+  align-items: flex-start;
   margin: 0;
   padding: 0;
-  overflow: hidden !important; /* FIXED: was visible, causing text bleed */
-  flex-shrink: 1;
+  overflow: hidden !important;
 }
 
-/* Excerpt text — hard clamp to 3 lines */
+/* Perfect 3-line excerpt */
 .carousel-3d-excerpt-inner {
   font-family: var(--font-gu-sans);
   font-size: 11px;
   font-weight: 400;
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.65);
   line-height: 1.4;
   text-align: center;
   margin: 0;
-  padding: 0 6px;
+  padding: 0;
   width: 100%;
-  max-height: 40px !important; /* Hard height limit, guaranteeing no overflow */
-  box-sizing: border-box;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
-  white-space: normal;
   overflow: hidden !important;
 }
-
-/* NOTE: .carousel-3d-excerpt-inner is intentionally omitted here.
-   The .hero-latest-area .carousel-3d-excerpt-inner rule above (line ~310)
-   is the only one that applies due to specificity. */
 
 /* Mobile: shrink the cylinder so it fits narrow screens */
 @media (max-width: 768px) {
