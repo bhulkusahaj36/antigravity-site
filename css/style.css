@@ -4382,7 +4382,28 @@ body.light-mode #particles-js {
   justify-content: center;
   margin: 0;
   padding: 0;
-  overflow: visible;
+  overflow: hidden !important; /* FIXED: was visible, causing text bleed */
+  flex-shrink: 1;
+}
+
+/* Excerpt text — hard clamp to 3 lines */
+.carousel-3d-excerpt-inner {
+  font-family: var(--font-gu-sans);
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.4;
+  text-align: center;
+  margin: 0;
+  padding: 0 6px;
+  width: 100%;
+  box-sizing: border-box;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
 }
 
 /* NOTE: .carousel-3d-excerpt-inner is intentionally omitted here.
