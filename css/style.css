@@ -3518,7 +3518,7 @@ body.zen-mode .article-layout {
 }
 
 body.zen-mode .article-body {
-  max-width: 960px !important;
+  max-width: 1150px !important;
   width: 100% !important;
   margin: 0 auto !important;
   padding: 0 1.5rem !important;
