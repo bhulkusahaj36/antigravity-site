@@ -301,10 +301,23 @@ function initZenMode() {
   const zenBtn = document.getElementById('zenModeBtn');
   if (!zenBtn) return;
 
-  zenBtn.addEventListener('click', () => {
-    document.body.classList.toggle('zen-mode');
+  // Create floating exit button if it doesn't exist
+  let exitBtn = document.querySelector('.zen-exit-btn');
+  if (!exitBtn) {
+    exitBtn = document.createElement('button');
+    exitBtn.className = 'zen-exit-btn';
+    exitBtn.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      <span>Exit Zen Mode</span>
+    `;
+    document.body.appendChild(exitBtn);
+    exitBtn.addEventListener('click', () => {
+      document.body.classList.remove('zen-mode');
+      updateZenIcon();
+    });
+  }
 
-    // Toggle the icon from expand (enter zen) to shrink (exit zen)
+  function updateZenIcon() {
     if (document.body.classList.contains('zen-mode')) {
       zenBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-exit"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path></svg>`;
       zenBtn.setAttribute('title', 'Exit Zen Mode');
@@ -312,6 +325,11 @@ function initZenMode() {
       zenBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="zen-icon-enter"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>`;
       zenBtn.setAttribute('title', 'Zen Reading Mode');
     }
+  }
+
+  zenBtn.addEventListener('click', () => {
+    document.body.classList.toggle('zen-mode');
+    updateZenIcon();
   });
 }
 

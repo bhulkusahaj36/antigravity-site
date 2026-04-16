@@ -101,11 +101,11 @@
   --shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.03);
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-gu:      'Noto Sans Gujarati', sans-serif;
+  --font-gu:      'Noto Serif Gujarati', serif;
   --font-gu-sans: 'Noto Sans Gujarati', sans-serif;
   --font-en:      'DM Sans', 'Inter', sans-serif;
-  --font-heading: 'Noto Sans Gujarati', 'DM Sans', sans-serif;
-  --font-display: 'Noto Sans Gujarati', 'DM Sans', sans-serif; /* unified display font */
+  --font-heading: 'Playfair Display', 'DM Sans', serif;
+  --font-display: 'DM Sans', 'Inter', sans-serif; /* restored original english display font */
 
   /* ── Layout ──────────────────────────────────────────────── */
   --nav-height:   64px;
@@ -1789,7 +1789,6 @@ body.light-mode .form-select {
   overflow-x: auto;
   padding: 2.5rem 60px 1.5rem 60px;
   /* Increased top padding to prevent glow clipping */
-  /* Provide generous room for shadows */
   margin: 0 -60px;
   /* Pull back to align with headers while allowing shadows to bleed */
   scroll-padding: 0 60px;
@@ -3486,8 +3485,12 @@ body.light-mode .form-select {
 }
 
 /* Zen Reading Mode */
+/* ============================================================
+   CINEMATIC ZEN READING MODE 2.0
+   ============================================================ */
 body.zen-mode {
-  background-color: #0b0f19;
+  background: #0d1117 !important; /* Premium Obsidian Charcoal */
+  transition: background 0.8s ease;
 }
 
 body.zen-mode .navbar,
@@ -3497,8 +3500,82 @@ body.zen-mode .article-sidebar,
 body.zen-mode .article-nav,
 body.zen-mode .article-meta-row,
 body.zen-mode .category-badge,
-body.zen-mode .article-tags {
+body.zen-mode .article-tags,
+body.zen-mode .reading-progress-container,
+body.zen-mode #bgCanvas {
   display: none !important;
+  opacity: 0;
+  pointer-events: none;
+}
+
+body.zen-mode .article-layout {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  max-width: 100% !important;
+  padding: 4rem 1rem !important;
+  margin: 0 !important;
+}
+
+body.zen-mode .article-body {
+  max-width: 740px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 1.5rem !important;
+  animation: zenFadeIn 1.2s ease-out forwards;
+}
+
+@keyframes zenFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+body.zen-mode .article-title-h1 {
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  text-align: center !important;
+  margin-bottom: 3.5rem !important;
+  line-height: 1.2 !important;
+  background: linear-gradient(135deg, #fff8ec 0%, #f4c842 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
+
+body.zen-mode .article-content {
+  font-size: 1.25rem !important;
+  line-height: 2 !important;
+  color: #e2e8f0 !important; /* Soft Slate */
+  text-align: justify !important;
+  letter-spacing: 0.01em !important;
+}
+
+/* Floating Exit Button for Zen Mode */
+.zen-exit-btn {
+  display: none;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 99px;
+  cursor: pointer;
+  font-family: var(--font-gu-sans);
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+body.zen-mode .zen-exit-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.zen-exit-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
 }
 
 /* Admin Specific */
@@ -3646,17 +3723,7 @@ body::after {
   box-shadow: none !important;
 }
 
-/* 5. Minimalist Zen Mode (3.0 Obsidian) */
-body.zen-mode {
-  background: #000000 !important;
-}
-
-body.zen-mode .article-title-h1 {
-  background: linear-gradient(135deg, #ffffff 0%, #ffb800 100%) !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-}
+/* Removed Duplicate Zen Mode Section — See authoritative block at line 3488 */
 
 /* Mobile Tweak */
 @media (max-width: 767px) {
