@@ -227,8 +227,9 @@ function renderArticles() {
 }
 
 async function initRotatingQuote() {
+    const quoteContainer = document.querySelector('.hero-quote');
     const el = document.getElementById('quoteText');
-    if (!el) return;
+    if (!el || !quoteContainer) return;
 
     let quotes = [];
 
@@ -255,17 +256,23 @@ async function initRotatingQuote() {
     // Show first quote immediately
     const firstQ = quotes[0];
     el.textContent = typeof firstQ === 'string' ? firstQ : firstQ.text;
+    quoteContainer.style.opacity = '1';
 
     let idx = 0;
     setInterval(() => {
-        el.style.opacity = '0';
+        // Fade out the entire quote box gracefully
+        quoteContainer.style.opacity = '0';
+        
+        // Wait for CSS transition (0.8s) to complete before swapping text
         setTimeout(() => {
             idx = (idx + 1) % quotes.length;
             const q = quotes[idx];
             el.textContent = typeof q === 'string' ? q : q.text;
-            el.style.opacity = '1';
-        }, 400);
-    }, 4000);
+            
+            // Fade the box back in
+            quoteContainer.style.opacity = '1';
+        }, 800); 
+    }, 6000); // 6 seconds for better reading time
 }
 
 
