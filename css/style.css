@@ -3544,8 +3544,23 @@ body.zen-mode .article-content {
   font-size: 1.25rem !important;
   line-height: 2 !important;
   color: #e2e8f0 !important; /* Soft Slate */
-  text-align: justify !important;
+  text-align: left !important; /* Changed from justify to left for better reading rhythm */
   letter-spacing: 0.01em !important;
+}
+
+body.zen-mode .article-content p {
+  margin-bottom: 2rem !important;
+}
+
+body.zen-mode .article-content ul,
+body.zen-mode .article-content ol {
+  margin-left: 2rem !important;
+  margin-bottom: 2rem !important;
+  padding-left: 1rem !important;
+}
+
+body.zen-mode .article-content li {
+  margin-bottom: 1rem !important;
 }
 
 /* Floating Exit Button for Zen Mode */
