@@ -225,7 +225,7 @@ html {
   border-bottom: 3px solid var(--saffron-500) !important;
   border-radius: 16px !important;
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
-  overflow: hidden;
+  overflow: hidden !important; /* Strict clip — nothing bleeds outside the card */
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -304,7 +304,8 @@ html {
   justify-content: center !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow: visible !important;
+  overflow: hidden !important; /* Critical: must not overflow card boundary */
+  flex-shrink: 1; /* Allow it to compress if siblings need space */
 }
 
 /* THE authoritative rule — wins due to specificity + !important.
@@ -322,8 +323,8 @@ html {
   box-sizing: border-box !important;
   transform: none !important;
   display: -webkit-box !important;
-  -webkit-line-clamp: 5 !important;
-  line-clamp: 5 !important;
+  -webkit-line-clamp: 3 !important; /* Reduced from 5 to prevent overflow */
+  line-clamp: 3 !important;
   -webkit-box-orient: vertical !important;
   white-space: normal !important;
   overflow: hidden !important;
