@@ -101,11 +101,11 @@
   --shadow-inner: inset 0 1px 1px rgba(255, 255, 255, 0.03);
 
   /* ── Typography ──────────────────────────────────────────── */
-  --font-gu:      'Noto Serif Gujarati', serif;
+  --font-gu:      'Noto Sans Gujarati', sans-serif;
   --font-gu-sans: 'Noto Sans Gujarati', sans-serif;
   --font-en:      'DM Sans', 'Inter', sans-serif;
-  --font-heading: 'Playfair Display', 'DM Sans', serif;
-  --font-display: 'DM Sans', 'Inter', sans-serif; /* alias used in nav */
+  --font-heading: 'Noto Sans Gujarati', 'DM Sans', sans-serif;
+  --font-display: 'Noto Sans Gujarati', 'DM Sans', sans-serif; /* unified display font */
 
   /* ── Layout ──────────────────────────────────────────────── */
   --nav-height:   64px;
@@ -312,7 +312,7 @@ html {
 .hero-latest-area .carousel-3d-excerpt-inner {
   font-family: var(--font-gu-sans) !important;
   font-size: 11px !important;
-  font-weight: 300 !important;
+  font-weight: 400 !important;
   color: rgba(255,255,255,0.72) !important;
   line-height: 1.4 !important;
   text-align: center !important;
@@ -805,7 +805,7 @@ body.page-exiting {
   height: auto;
   max-height: 90vh;
   object-fit: contain;
-  filter: none; /* Removed outerglow for web view */
+  filter: drop-shadow(0 0 30px rgba(255, 180, 0, 0.15)); /* Added bit outer glow */
   z-index: 1;
   transform: scale(1.50) translateY(-0.5rem);
   transform-origin: center center;
@@ -878,7 +878,7 @@ body.page-exiting {
     object-position: top center !important; 
     margin-bottom: 0 !important;
     animation: none !important;
-    filter: none !important; /* No glow artifact */
+    filter: drop-shadow(0 0 20px rgba(255, 180, 0, 0.2)) !important; /* Added bit outer glow */
     -webkit-mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
     mask-image: linear-gradient(to bottom, black 75%, transparent 100%) !important;
   }
