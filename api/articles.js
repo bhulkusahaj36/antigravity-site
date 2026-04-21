@@ -76,11 +76,15 @@ module.exports = async (req, res) => {
 
                 if (compact) {
                     resources = resources.map(r => {
-                        const { content, ...rest } = r;
-                        return {
-                            ...rest,
-                            excerpt: content ? (content.substring(0, 300) + (content.length > 300 ? '...' : '')) : ""
-                        };
+                        if (content) {
+                            const plain = content.replace(/<[^>]*>?/gm, '');
+                            const trimmed = plain.substring(0, 300);
+                            const lastSpace = trimmed.lastIndexOf(' ');
+                            r.excerpt = (lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed) + (plain.length > 300 ? '...' : '');
+                        } else {
+                            r.excerpt = "";
+                        }
+                        return r;
                     });
                 }
 
@@ -90,11 +94,15 @@ module.exports = async (req, res) => {
                 
                 if (compact) {
                     resources = resources.map(r => {
-                        const { content, ...rest } = r;
-                        return {
-                            ...rest,
-                            excerpt: content ? (content.substring(0, 300) + (content.length > 300 ? '...' : '')) : ""
-                        };
+                        if (content) {
+                            const plain = content.replace(/<[^>]*>?/gm, '');
+                            const trimmed = plain.substring(0, 300);
+                            const lastSpace = trimmed.lastIndexOf(' ');
+                            r.excerpt = (lastSpace > 0 ? trimmed.substring(0, lastSpace) : trimmed) + (plain.length > 300 ? '...' : '');
+                        } else {
+                            r.excerpt = "";
+                        }
+                        return r;
                     });
                 }
 

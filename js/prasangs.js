@@ -105,41 +105,8 @@ function ps_highlight(text, keyword) {
 }
 
 /** Build a card, optionally highlighting a keyword in title/excerpt */
-function ps_buildCard(article, keyword) {
-    const el = document.createElement('div');
-    el.className = 'article-card neon-latest-card card-animate';
+// Note: ps_buildCard was retired in favor of the global buildCard for visual consistency v14.2
 
-    let excerptText = '';
-    if (article.excerpt) {
-        const plain = article.excerpt.replace(/<[^>]*>?/gm, '');
-        excerptText = plain.substring(0, 120).trim() + (plain.length > 120 ? '…' : '');
-    } else if (article.content) {
-        const plain = article.content.replace(/<[^>]*>?/gm, '');
-        excerptText = plain.substring(0, 120).trim() + (plain.length > 120 ? '…' : '');
-    }
-
-    const displayLabel = (typeof getCategoryName === 'function')
-        ? (getCategoryName(article.prasang) || getCategoryName(article.category || article.topic || ''))
-        : '';
-
-    const titleHtml = ps_highlight(article.title || '', keyword);
-    const excerptHtml = ps_highlight(excerptText, keyword);
-
-    el.innerHTML = `
-        <span class="neon-bg-span"></span>
-        <div class="content">
-          ${article.featured ? '<span class="card-featured-tag">FEATURED</span>' : ''}
-          <h3 class="card-title">${titleHtml}</h3>
-          <p class="card-prasang-label">${displayLabel}</p>
-          <p class="card-excerpt">${excerptHtml}</p>
-        </div>
-    `;
-
-    el.addEventListener('click', () => {
-        window.location.href = `article.html?id=${article.id}`;
-    });
-    return el;
-}
 
 /** Get filtered & sorted article list */
 function ps_getFiltered() {
@@ -223,9 +190,10 @@ function ps_render() {
     emptyEl.style.display = 'none';
 
     slice.forEach((a, i) => {
-        const card = ps_buildCard(a, q);
-        grid.appendChild(card);
-        if (typeof gsap !== 'undefined') {
+        const card = buildCard(a);
+        if (card) {
+            grid.appendChild(card);
+            if (typeof gsap !== 'undefined') {
             gsap.fromTo(card,
                 { opacity: 0, y: 18 },
                 { opacity: 1, y: 0, duration: 0.45, delay: i * 0.045, ease: 'power2.out' }
