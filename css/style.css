@@ -1882,7 +1882,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content::after {
-  content: "α¬╡α¬╛α¬éα¬Üα½ï";
+  content: "વાંચો";
   color: var(--bg-900);
 }
 
@@ -11068,7 +11068,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content::after {
-  content: "a¼ªa¼+a¼Θa¼▄a╜∩";
+  content: "વાંચો";
   color: var(--bg-900);
 }
 
