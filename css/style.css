@@ -700,7 +700,6 @@ body.page-exiting {
   margin-bottom: 0.5rem;
   pointer-events: none;
   opacity: 1 !important;
-  animation: heroFloat 6s ease-in-out infinite;
 }
 
 @keyframes heroFloat {
@@ -14347,4 +14346,54 @@ body.light-mode .nav-search-btn:hover {
 .neon-latest-card:hover .card-prasang-label::after {
   width: 72px;
   opacity: 1;
+}
+
+/* ============================================================
+   HERO IMAGES ENHANCEMENT — Majestic & Premium
+   ============================================================ */
+
+/* Swamiji Portrait — Aura & Stability */
+.hero-top-img {
+  animation: none !important; /* Stop the floating effect */
+  filter: 
+    drop-shadow(0 0 25px rgba(245, 158, 11, 0.25))
+    drop-shadow(0 0 60px rgba(245, 158, 11, 0.1)) !important;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease !important;
+}
+
+/* Sublte interaction on hover (even if pointer-events are none, parent can trigger) */
+.hero-branding-area:hover .hero-top-img {
+  filter: 
+    drop-shadow(0 0 35px rgba(245, 158, 11, 0.4))
+    drop-shadow(0 0 80px rgba(245, 158, 11, 0.15))
+    brightness(1.04) !important;
+}
+
+/* Calligraphy — Golden Radiance */
+.hero-calligraphy {
+  filter: 
+    drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 15px rgba(251, 191, 36, 0.3)) !important;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease !important;
+}
+
+.hero-branding-area:hover .hero-calligraphy {
+  filter: 
+    drop-shadow(0 4px 15px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 25px rgba(251, 191, 36, 0.5))
+    brightness(1.08) !important;
+  transform: scale(1.98) translateY(4.8rem) !important; /* Slight lift/scale boost */
+}
+
+/* Mobile specific overrides for enhanced images */
+@media (max-width: 900px) {
+  .hero-top-img {
+    filter: 
+        drop-shadow(0 0 20px rgba(245, 158, 11, 0.3))
+        drop-shadow(0 0 40px rgba(0, 0, 0, 0.4)) !important;
+  }
+  
+  .hero-calligraphy {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)) !important;
+  }
 }
