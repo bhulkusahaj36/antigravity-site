@@ -1,183 +1,208 @@
 // ============================================================
-// SEARCH PAGE
+// SEARCH PAGE — Premium v2
 // ============================================================
 
-async function doSearch() {
-    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+const SEARCH_PAGE_SIZE = 12;
+let allResults = [];
+let displayedCount = 0;
+let searchDebounceTimer = null;
+let cachedArticles = null;
 
-    const searchBtn = document.getElementById('searchBtn');
-    const originalBtnHtml = searchBtn ? (searchBtn.dataset.originalHtml || searchBtn.innerHTML) : 'Search';
-    if (searchBtn) {
-        if (!searchBtn.dataset.originalHtml) searchBtn.dataset.originalHtml = originalBtnHtml;
-        if (!document.getElementById('spinKeyframes')) {
-            const style = document.createElement('style');
-            style.id = 'spinKeyframes';
-            style.innerHTML = '@keyframes spin { to { transform: rotate(360deg); } }';
-            document.head.appendChild(style);
-        }
-        searchBtn.disabled = true;
-        searchBtn.innerHTML = 'Searching... <span style="display:inline-block; margin-left:8px; width:14px; height:14px; border:2px solid currentColor; border-right-color:transparent; border-radius:50%; animation:spin 0.75s linear infinite;"></span>';
-    }
-
-    const grid = document.getElementById('searchResults');
-    const empty = document.getElementById('emptyState');
-    if (grid) {
-        grid.innerHTML = '';
-        empty.style.display = 'none';
-        for (let i = 0; i < 4; i++) {
-            grid.innerHTML += `
-               <div class="skeleton-card" style="animation: pulse 1.5s infinite; background: var(--card-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--card-border);">
-                 <div class="skeleton-line" style="background: var(--card-border); height: 24px; border-radius: 4px; width: 70%;"></div>
-                 <div class="skeleton-line" style="background: var(--card-border); margin-top: 1rem; height: 16px; border-radius: 4px; width: 100%;"></div>
-                 <div class="skeleton-line" style="background: var(--card-border); margin-top: 0.5rem; height: 16px; border-radius: 4px; width: 90%;"></div>
-               </div>
-             `;
-        }
-    }
-
-    // Advanced filters
-    const typeVal = document.getElementById('br-type') ? document.getElementById('br-type').value : '';
-    const sources = Array.from(document.getElementById('br-source').selectedOptions).map(o => o.value).filter(v => v);
-    const topics = Array.from(document.getElementById('br-topic').selectedOptions).map(o => o.value).filter(v => v);
-    const prasangs = Array.from(document.getElementById('br-prasang').selectedOptions).map(o => o.value).filter(v => v);
-    const dateVal = getDateValue('br');
-
-    // Combine static ARTICLES and dynamically added hk_articles
-    let dynamicArticles = [];
+// ── Fetch all articles once and cache ──────────────────────────
+async function fetchAllArticles() {
+    if (cachedArticles) return cachedArticles;
     try {
         const res = await fetch('/api/articles');
         if (res.ok) {
             const data = await res.json();
-            // Handle both raw array and { items, nextToken } response shapes
-            dynamicArticles = Array.isArray(data) ? data : (data.items || []);
+            const dynamic = Array.isArray(data) ? data : (data.items || []);
+            const staticArt = typeof ARTICLES !== 'undefined' ? ARTICLES : [];
+            const dynamicIds = new Set(dynamic.map(a => String(a.id)));
+            cachedArticles = [...staticArt.filter(a => !dynamicIds.has(String(a.id))), ...dynamic];
+            cachedArticles = cachedArticles.filter(a => a.public !== false && a.public !== 'no');
         }
     } catch (err) {
-        console.error("Failed to load articles from API:", err);
+        console.error('Failed to load articles:', err);
+        cachedArticles = typeof ARTICLES !== 'undefined' ? [...ARTICLES].filter(a => a.public !== false && a.public !== 'no') : [];
     }
-    
-    if (searchBtn) {
-        searchBtn.disabled = false;
-        searchBtn.innerHTML = originalBtnHtml;
+    return cachedArticles || [];
+}
+
+// ── Build premium search result card ──────────────────────────
+function buildSearchCard(a, q) {
+    let snippetHtml = '';
+    if (q && a.content) {
+        const clean = a.content.replace(/<[^>]*>?/gm, '');
+        const idx = clean.toLowerCase().indexOf(q.toLowerCase());
+        if (idx !== -1) {
+            const start = Math.max(0, idx - 80);
+            const end = Math.min(clean.length, idx + q.length + 120);
+            let snip = (start > 0 ? '…' : '') + clean.substring(start, end) + (end < clean.length ? '…' : '');
+            snip = snip.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'),
+                '<mark class="search-highlight">$1</mark>');
+            snippetHtml = snip;
+        }
+    }
+    if (!snippetHtml) {
+        const plain = (a.excerpt || a.content || '').replace(/<[^>]*>?/gm, '');
+        snippetHtml = plain.substring(0, 220).trim() + (plain.length > 220 ? '…' : '');
     }
 
-    const staticArticles = typeof ARTICLES !== 'undefined' ? ARTICLES : [];
-    // Merge: prefer dynamic (live) over static, deduplicate by id
-    const dynamicIds = new Set(dynamicArticles.map(a => String(a.id)));
-    let results = [...staticArticles.filter(a => !dynamicIds.has(String(a.id))), ...dynamicArticles];
-    results = results.filter(a => a.public !== false && a.public !== 'no');
+    const card = buildCard({ ...a, excerpt: snippetHtml });
+    return card;
+}
 
-    // Filter purely by type first
+// ── Render next batch of results ──────────────────────────────
+function renderBatch() {
+    const grid = document.getElementById('searchResults');
+    const loadMoreWrap = document.getElementById('loadMoreWrap');
+    const batch = allResults.slice(displayedCount, displayedCount + SEARCH_PAGE_SIZE);
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+
+    batch.forEach((a, i) => {
+        const card = buildSearchCard(a, q);
+        if (!card) return;
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = `opacity 0.4s ease ${i * 0.05}s, transform 0.4s ease ${i * 0.05}s`;
+        grid.appendChild(card);
+        requestAnimationFrame(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        });
+    });
+
+    displayedCount += batch.length;
+
+    // Update Load More button
+    const remaining = allResults.length - displayedCount;
+    if (loadMoreWrap) {
+        if (remaining > 0) {
+            loadMoreWrap.style.display = 'flex';
+            const btn = document.getElementById('loadMoreBtn');
+            if (btn) btn.innerHTML = `
+                <span>વધુ લોડ કરો</span>
+                <span class="lm-count">${remaining} બાકી</span>
+            `;
+        } else {
+            loadMoreWrap.style.display = 'none';
+        }
+    }
+}
+
+// ── Main search function ──────────────────────────────────────
+async function doSearch() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const grid = document.getElementById('searchResults');
+    const empty = document.getElementById('emptyState');
+    const summary = document.getElementById('searchSummary');
+    const loadMoreWrap = document.getElementById('loadMoreWrap');
+
+    // Show skeleton loader
+    grid.innerHTML = '';
+    if (loadMoreWrap) loadMoreWrap.style.display = 'none';
+    empty.style.display = 'none';
+    summary.innerHTML = '';
+
+    for (let i = 0; i < 6; i++) {
+        const sk = document.createElement('div');
+        sk.className = 'search-skeleton';
+        sk.innerHTML = `
+            <div class="sk-line sk-title"></div>
+            <div class="sk-line sk-tag"></div>
+            <div class="sk-line sk-body"></div>
+            <div class="sk-line sk-body short"></div>
+        `;
+        grid.appendChild(sk);
+    }
+
+    // Collect filters
+    const typeVal = document.getElementById('br-type')?.value || '';
+    const sources = Array.from(document.getElementById('br-source').selectedOptions).map(o => o.value).filter(v => v);
+    const topics = Array.from(document.getElementById('br-topic').selectedOptions).map(o => o.value).filter(v => v);
+    const prasangs = Array.from(document.getElementById('br-prasang').selectedOptions).map(o => o.value).filter(v => v);
+    const dateVal = typeof getDateValue === 'function' ? getDateValue('br') : null;
+
+    let results = await fetchAllArticles();
+
+    // Type filter
     if (typeVal === 'paravani') results = results.filter(a => a.type === 'paravani');
     if (typeVal === 'prasang') results = results.filter(a => a.type !== 'paravani');
 
-    // Helper to check overlap between array of selections and a single string OR array property from article
-    function matches(articleProp, selections) {
-        if (selections.length === 0) return true;
-        if (!articleProp) return false;
-        const props = typeof articleProp === 'string' ? articleProp.split(',') : articleProp;
-        return selections.some(sel => props.includes(sel));
+    function fieldMatches(prop, selections) {
+        if (!selections.length) return true;
+        if (!prop) return false;
+        const parts = typeof prop === 'string' ? prop.split(',').map(s => s.trim()) : prop;
+        return selections.some(s => parts.includes(s));
     }
 
-    // Apply exact match dropdown filters via overlap
-    if (sources.length > 0) results = results.filter(a => matches(a.source, sources));
-    if (topics.length > 0) results = results.filter(a => matches(a.category, topics) || matches(a.topic, topics));
-    if (prasangs.length > 0) results = results.filter(a => matches(a.prasang, prasangs));
+    if (sources.length) results = results.filter(a => fieldMatches(a.source, sources));
+    if (topics.length) results = results.filter(a => fieldMatches(a.category, topics) || fieldMatches(a.topic, topics));
+    if (prasangs.length) results = results.filter(a => fieldMatches(a.prasang, prasangs));
 
-    // Date filters
-    if (dateVal && typeof dateVal === 'string' && dateVal) {
+    if (dateVal && typeof dateVal === 'string') {
         results = results.filter(a => a.date === dateVal || a.publishDate === dateVal);
-    } else if (dateVal && typeof dateVal === 'object' && dateVal.from) {
+    } else if (dateVal?.from) {
         results = results.filter(a => {
-            const d = typeof a.date === 'string' ? a.date : (a.publishDate || (a.date ? a.date.from : ''));
-            if (!d) return true;
-            return d >= dateVal.from && d <= dateVal.to;
+            const d = a.date || a.publishDate || '';
+            return !d || (d >= dateVal.from && d <= dateVal.to);
         });
     }
 
-    // Text query search
     if (q) {
         results = results.filter(a =>
-            a.title.toLowerCase().includes(q) ||
-            (a.content && a.content.toLowerCase().includes(q)) ||
-            (a.excerpt && a.excerpt.toLowerCase().includes(q)) ||
-            (a.tags && a.tags.some(t => t.toLowerCase().includes(q)))
+            a.title?.toLowerCase().includes(q) ||
+            a.content?.toLowerCase().includes(q) ||
+            a.excerpt?.toLowerCase().includes(q) ||
+            a.tags?.some(t => t.toLowerCase().includes(q))
         );
     }
 
-    const hasSearch = q || sources.length > 0 || topics.length > 0 || prasangs.length > 0 || dateVal;
-
-    const summary = document.getElementById('searchSummary');
+    // Sort newest first
+    results.sort((a, b) => (parseInt(b.id) || 0) - (parseInt(a.id) || 0));
 
     grid.innerHTML = '';
 
+    const hasSearch = q || sources.length || topics.length || prasangs.length || dateVal;
+
     if (!hasSearch) {
-        summary.innerHTML = '';
-        empty.style.display = 'none';
+        // Show all on empty query
+        allResults = results;
+    } else {
+        allResults = results;
+    }
+
+    displayedCount = 0;
+
+    if (allResults.length === 0) {
+        if (hasSearch) {
+            empty.style.display = 'block';
+        }
         return;
     }
 
-    if (results.length === 0) {
-        summary.innerHTML = '';
-        empty.style.display = 'block';
-        return;
-    }
+    // Result count bar
+    const activeFilters = [
+        q ? `"${q}"` : '',
+        typeVal ? typeVal : '',
+        ...sources, ...topics, ...prasangs,
+    ].filter(Boolean);
 
-    empty.style.display = 'none';
-    const label = q ? `"<strong>${q}</strong>"` : 'filters';
-    summary.innerHTML = `${results.length} results for ${label}`;
+    summary.innerHTML = `
+        <span class="sr-count">${allResults.length}</span>
+        <span class="sr-label">results found${activeFilters.length ? ' for ' : ''}</span>
+        ${activeFilters.map(f => `<span class="sr-chip">${f}</span>`).join('')}
+    `;
 
-    // Sort by actual upload time (ID timestamp)
-    results.sort((a, b) => {
-        let dA = parseInt(a.id) || 0;
-        let dB = parseInt(b.id) || 0;
-        return dB - dA;
-    });
-
-    results.forEach((a, i) => {
-        let snippetToUse = '';
-
-        // Smart Context Snippet Logic
-        if (q && a.content) {
-            const cleanContent = a.content.replace(/<[^>]*>?/gm, ''); // strip HTML
-            const matchIndex = cleanContent.toLowerCase().indexOf(q.toLowerCase());
-
-            if (matchIndex !== -1) {
-                const prefixLength = 60; // character context before match
-                const start = Math.max(0, matchIndex - prefixLength);
-                const end = Math.min(cleanContent.length, matchIndex + q.length + 80); // chars after match
-
-                let snippet = cleanContent.substring(start, end);
-
-                // Add ellipses gracefully
-                if (start > 0) snippet = '...' + snippet;
-                if (end < cleanContent.length) snippet += '...';
-
-                // Case-insensitive wrap with our glowing highlight tag
-                const regex = new RegExp(`(${q})`, "gi");
-                snippet = snippet.replace(regex, '<mark class="search-highlight">$1</mark>');
-
-                snippetToUse = snippet;
-            }
-        }
-
-        // Pass snippet to buildCard via modified article object
-        const articleWithSnippet = { ...a };
-        if (snippetToUse) {
-            articleWithSnippet.excerpt = snippetToUse;
-        }
-
-        const card = buildCard(articleWithSnippet);
-        card.style.animationDelay = `${i * 0.07}s`;
-        grid.appendChild(card);
-    });
+    renderBatch();
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+// ── Init ──────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+    if (typeof wireDateRadio === 'function') wireDateRadio('br');
 
-    // Wire the date radio logic (from utils.js)
-    if (typeof wireDateRadio === 'function') {
-        wireDateRadio('br');
-    }
+    // Pre-warm article cache in background
+    fetchAllArticles();
 
     // Pre-fill from URL ?q=
     const urlQ = getParam('q');
@@ -185,56 +210,55 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('searchInput').value = urlQ;
         doSearch();
     } else {
-        // Initial blank search to load all
         doSearch();
     }
 
-    // Search button
+    // Live debounced search
+    document.getElementById('searchInput').addEventListener('input', () => {
+        clearTimeout(searchDebounceTimer);
+        searchDebounceTimer = setTimeout(doSearch, 350);
+    });
+
+    document.getElementById('searchInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') { clearTimeout(searchDebounceTimer); doSearch(); }
+    });
+
     document.getElementById('searchBtn').addEventListener('click', doSearch);
 
-    // Enter key
-    document.getElementById('searchInput').addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            doSearch();
-        }
-    });
+    // Auto-search on filter change
+    document.querySelectorAll('.search-advanced-filters select').forEach(sel =>
+        sel.addEventListener('change', doSearch)
+    );
+    document.querySelectorAll('.date-inputs input[type="date"]').forEach(inp =>
+        inp.addEventListener('change', doSearch)
+    );
+    document.querySelectorAll('input[name="br-date-type"]').forEach(r =>
+        r.addEventListener('change', doSearch)
+    );
 
-    // Auto-search when dropdowns change
-    document.querySelectorAll('.search-advanced-filters select').forEach(sel => {
-        sel.addEventListener('change', doSearch);
-    });
-
-    // Auto-search for date inputs
-    document.querySelectorAll('.date-inputs input[type="date"]').forEach(inp => {
-        inp.addEventListener('change', doSearch);
-    });
-    document.querySelectorAll('input[name="br-date-type"]').forEach(radio => {
-        radio.addEventListener('change', doSearch);
-    });
-
-    // Reset filters
-    const resetBtn = document.getElementById('browseResetBtn');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-            // Reset native dropdowns
-            if (document.getElementById('br-type')) document.getElementById('br-type').selectedIndex = 0;
-            document.getElementById('br-source').selectedIndex = 0;
-            document.getElementById('br-topic').selectedIndex = 0;
-            document.getElementById('br-prasang').selectedIndex = 0;
-
-            // Trigger change so custom select UI updates
-            document.querySelectorAll('.search-advanced-filters select.feed-select').forEach(s => {
-                s.dispatchEvent(new Event('change'));
-            });
-
-            // Reset text query
-            document.getElementById('searchInput').value = '';
-
-            // Reset dates
-            document.querySelector('[name="br-date-type"][value="none"]').checked = true;
-            document.querySelector('[name="br-date-type"][value="none"]').dispatchEvent(new Event('change'));
-
-            doSearch();
+    // Load More
+    const loadMoreBtn = document.getElementById('loadMoreBtn');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', () => {
+            loadMoreBtn.classList.add('loading');
+            loadMoreBtn.innerHTML = '<span class="lm-spinner"></span>';
+            setTimeout(() => {
+                renderBatch();
+                loadMoreBtn.classList.remove('loading');
+            }, 400);
         });
     }
+
+    // Reset
+    document.getElementById('browseResetBtn')?.addEventListener('click', () => {
+        document.getElementById('br-type').selectedIndex = 0;
+        document.getElementById('br-source').selectedIndex = 0;
+        document.getElementById('br-topic').selectedIndex = 0;
+        document.getElementById('br-prasang').selectedIndex = 0;
+        document.querySelectorAll('.search-advanced-filters select').forEach(s => s.dispatchEvent(new Event('change')));
+        document.getElementById('searchInput').value = '';
+        document.querySelector('[name="br-date-type"][value="none"]').checked = true;
+        document.querySelector('[name="br-date-type"][value="none"]').dispatchEvent(new Event('change'));
+        doSearch();
+    });
 });

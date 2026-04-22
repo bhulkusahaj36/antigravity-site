@@ -14321,3 +14321,102 @@ body.light-mode .nav-search-btn:hover {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)) !important;
   }
 }
+
+/* ============================================================
+   PREMIUM SEARCH & LOAD MORE UI
+   ============================================================ */
+.search-summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-gu-sans);
+  color: var(--text-muted);
+}
+.search-summary .sr-count {
+  color: var(--gold-500);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.search-summary .sr-chip {
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: var(--gold-400);
+  padding: 0.25rem 0.75rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+}
+
+#loadMoreWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+.load-more-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+}
+.load-more-btn {
+  background: rgba(24, 18, 8, 0.8);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--gold-400);
+  font-family: var(--font-gu);
+  font-size: 1.1rem;
+  padding: 0.75rem 2rem;
+  border-radius: 100px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
+}
+.load-more-btn:hover {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--gold-500);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.15);
+}
+.load-more-btn .lm-count {
+  font-size: 0.8rem;
+  font-family: var(--font-gu-sans);
+  opacity: 0.7;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+}
+.load-more-btn.loading {
+  pointer-events: none;
+  opacity: 0.8;
+}
+.lm-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--gold-500);
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+.search-skeleton {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--card-border);
+  animation: pulse 1.5s infinite;
+}
+.sk-line {
+  background: var(--card-border);
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+.sk-title { height: 24px; width: 70%; }
+.sk-tag { height: 16px; width: 30%; margin-bottom: 1.5rem; }
+.sk-body { height: 16px; width: 100%; }
+.sk-body.short { width: 85%; }

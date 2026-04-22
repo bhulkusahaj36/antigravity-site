@@ -219,7 +219,18 @@
             <div class="search-summary" id="searchSummary"></div>
             <div class="cards-grid stacked-grid" id="searchResults"></div>
             <div class="empty-state" id="emptyState" style="display:none">
-                <p>No results found. Try a different keyword or filter.</p>
+                <div class="empty-icon">🔍</div>
+                <p>No results found. Try a different keyword.</p>
+            </div>
+
+            <!-- Premium Load More -->
+            <div id="loadMoreWrap" style="display:none">
+                <div class="load-more-line"></div>
+                <button id="loadMoreBtn" class="load-more-btn">
+                    <span>વધુ લોડ કરો</span>
+                    <span class="lm-count"></span>
+                </button>
+                <div class="load-more-line"></div>
             </div>
         </div>
     </section>
