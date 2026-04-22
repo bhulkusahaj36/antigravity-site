@@ -45,9 +45,11 @@ async function doSearch() {
     // Combine static ARTICLES and dynamically added hk_articles
     let dynamicArticles = [];
     try {
-        const res = await fetch('/api/articles');
+        const res = await fetch('/api/articles?compact=true');
         if (res.ok) {
-            dynamicArticles = await res.json();
+            const data = await res.json();
+            // Handle both raw array and { items, nextToken } response shapes
+            dynamicArticles = Array.isArray(data) ? data : (data.items || []);
         }
     } catch (err) {
         console.error("Failed to load articles from API:", err);
@@ -58,7 +60,10 @@ async function doSearch() {
         searchBtn.innerHTML = originalBtnHtml;
     }
 
-    let results = [...ARTICLES, ...dynamicArticles];
+    const staticArticles = typeof ARTICLES !== 'undefined' ? ARTICLES : [];
+    // Merge: prefer dynamic (live) over static, deduplicate by id
+    const dynamicIds = new Set(dynamicArticles.map(a => String(a.id)));
+    let results = [...staticArticles.filter(a => !dynamicIds.has(String(a.id))), ...dynamicArticles];
     results = results.filter(a => a.public !== false && a.public !== 'no');
 
     // Filter purely by type first

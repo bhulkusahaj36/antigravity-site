@@ -153,9 +153,21 @@ async function pv_fetchPage() {
     } catch (err) {
         console.error('Paravani fetch error:', err);
         pv_hasMore = false;
+
+        // Fallback: use static data.js ARTICLES filtered for paravani type
+        if (!isLoadMore && pv_loadedIds.size === 0 && typeof ARTICLES !== 'undefined') {
+            const staticParavani = ARTICLES.filter(a =>
+                a.type === 'paravani' && a.public !== false && a.public !== 'no'
+            );
+            if (staticParavani.length > 0) {
+                pv_appendCards(staticParavani);
+                return; // exit; don't show error
+            }
+        }
+
         const grid = document.getElementById('paravaniGrid');
         if (grid && pv_loadedIds.size === 0) {
-            grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:3rem 1rem;">Content is loading from the live server. Please visit the live site or check back shortly.</p>';
+            grid.innerHTML = '<p style="color:var(--text-muted);text-align:center;grid-column:1/-1;padding:3rem 1rem;">No paravani articles found.</p>';
         }
     } finally {
         pv_isLoading = false;

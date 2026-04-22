@@ -194,10 +194,11 @@ function ps_render() {
         if (card) {
             grid.appendChild(card);
             if (typeof gsap !== 'undefined') {
-            gsap.fromTo(card,
-                { opacity: 0, y: 18 },
-                { opacity: 1, y: 0, duration: 0.45, delay: i * 0.045, ease: 'power2.out' }
-            );
+                gsap.fromTo(card,
+                    { opacity: 0, y: 18 },
+                    { opacity: 1, y: 0, duration: 0.45, delay: i * 0.045, ease: 'power2.out' }
+                );
+            }
         }
     });
 
