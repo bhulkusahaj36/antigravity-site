@@ -84,18 +84,23 @@
 
     <section class="section">
         <div class="container">
-            <div class="search-box" id="searchBox">
-                <input type="search" id="searchInput" class="form-input" placeholder="શોધો..." aria-label="Search" />
-                <button class="btn btn-primary" id="searchBtn">Search</button>
+            <div class="search-box premium-search-box" id="searchBox">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="search" id="searchInput" class="form-input premium-input" placeholder="કોઈપણ શબ્દ શોધો..." aria-label="Search" />
+                </div>
+                <button class="btn btn-primary premium-search-btn" id="searchBtn">
+                    <span>શોધખોળ</span>
+                </button>
             </div>
 
-            <div class="feed-form search-advanced-filters" style="margin-top: 1.5rem;">
-                <div class="feed-section-label">Filters</div>
-                <div class="feed-row">
+            <div class="feed-form search-advanced-filters glass-panel" style="margin-top: 1.5rem;">
+                <div class="feed-section-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg> Advanced Filters</div>
+                <div class="feed-row premium-filters-grid">
                     <!-- TYPE -->
                     <div class="feed-field">
-                        <label class="feed-label" for="br-type">Type</label>
-                        <select id="br-type" class="feed-select form-select" data-conditional="br-type">
+                        <label class="feed-label" for="br-type">પ્રકાર (Type)</label>
+                        <select id="br-type" class="feed-select form-select premium-select" data-conditional="br-type">
                             <option value="">બધા</option>
                             <option value="prasang">પ્રસંગ</option>
                             <option value="paravani">પરાવાણી</option>
@@ -104,8 +109,8 @@
 
                     <!-- SOURCE -->
                     <div class="feed-field">
-                        <label class="feed-label" for="br-source">Source</label>
-                        <select id="br-source" class="feed-select form-select" data-conditional="br-source" multiple>
+                        <label class="feed-label" for="br-source">સ્ત્રોત (Source)</label>
+                        <select id="br-source" class="feed-select form-select premium-select" data-conditional="br-source" multiple>
                             <option value="">બધા</option>
                             <option value="swamiji">સ્વામીજી પરાવાણી</option>
                             <option value="prabodh">પ્રબોધ સ્વામી પરાવાણી</option>
@@ -115,12 +120,12 @@
                             <option value="vicharan">વિચરણ રિપોર્ટ</option>
                             <option value="patrika">પત્રિકા</option>
                         </select>
-                        <input type="text" id="br-source-santo-text" class="feed-input form-input feed-conditional"
-                            data-show-for="br-source=santo" placeholder="સંત નું નામ..." style="display:none" />
-                        <input type="text" id="br-source-bhakto-text" class="feed-input form-input feed-conditional"
-                            data-show-for="br-source=bhakto" placeholder="ભક્ત નું નામ..." style="display:none" />
-                        <select id="br-source-granth-select" class="feed-select form-select feed-conditional"
-                            data-show-for="br-source=granth" style="display:none" multiple>
+                        <input type="text" id="br-source-santo-text" class="feed-input form-input premium-input feed-conditional"
+                            data-show-for="br-source=santo" placeholder="સંત નું નામ..." style="display:none; margin-top: 0.5rem;" />
+                        <input type="text" id="br-source-bhakto-text" class="feed-input form-input premium-input feed-conditional"
+                            data-show-for="br-source=bhakto" placeholder="ભક્ત નું નામ..." style="display:none; margin-top: 0.5rem;" />
+                        <select id="br-source-granth-select" class="feed-select form-select premium-select feed-conditional"
+                            data-show-for="br-source=granth" style="display:none; margin-top: 0.5rem;" multiple>
                             <option value="">ગ્રંથ પસંદ કરો...</option>
                             <option value="jivan">જીવનચરિત્ર</option>
                             <option value="saras">સરસ એક સહજાનંદ</option>
@@ -142,8 +147,8 @@
 
                     <!-- TOPICS -->
                     <div class="feed-field">
-                        <label class="feed-label" for="br-topic">Topic</label>
-                        <select id="br-topic" class="feed-select form-select" data-conditional="br-topic" multiple>
+                        <label class="feed-label" for="br-topic">વિષય (Topic)</label>
+                        <select id="br-topic" class="feed-select form-select premium-select" data-conditional="br-topic" multiple>
                             <option value="">બધા</option>
                             <option value="mahima">મહિમા</option>
                             <option value="atmiyata">આત્મીયતા</option>
@@ -163,8 +168,8 @@
                             <option value="katha-varta">કથા-વાર્તા</option>
                             <option value="other">Other</option>
                         </select>
-                        <input type="text" id="br-topic-other-text" class="feed-input form-input feed-conditional"
-                            data-show-for="br-topic=other" placeholder="વિષય દાખલ કરો..." style="display:none" />
+                        <input type="text" id="br-topic-other-text" class="feed-input form-input premium-input feed-conditional"
+                            data-show-for="br-topic=other" placeholder="વિષય દાખલ કરો..." style="display:none; margin-top: 0.5rem;" />
                     </div>
 
                     <!-- PRASANG OF -->
