@@ -117,10 +117,22 @@ async function doSearch() {
     }
 
     // Collect filters
-    const typeVal = document.getElementById('br-type')?.value || '';
-    const sources = Array.from(document.getElementById('br-source').selectedOptions).map(o => o.value).filter(v => v);
-    const topics = Array.from(document.getElementById('br-topic').selectedOptions).map(o => o.value).filter(v => v);
-    const prasangs = Array.from(document.getElementById('br-prasang').selectedOptions).map(o => o.value).filter(v => v);
+    const typeSel = document.getElementById('br-type');
+    const typeVal = typeSel?.value || '';
+    const typeText = typeSel && typeSel.value ? typeSel.options[typeSel.selectedIndex].text : '';
+
+    const sourceOpts = Array.from(document.getElementById('br-source').selectedOptions).filter(o => o.value);
+    const sources = sourceOpts.map(o => o.value);
+    const sourcesText = sourceOpts.map(o => o.text);
+
+    const topicOpts = Array.from(document.getElementById('br-topic').selectedOptions).filter(o => o.value);
+    const topics = topicOpts.map(o => o.value);
+    const topicsText = topicOpts.map(o => o.text);
+
+    const prasangOpts = Array.from(document.getElementById('br-prasang').selectedOptions).filter(o => o.value);
+    const prasangs = prasangOpts.map(o => o.value);
+    const prasangsText = prasangOpts.map(o => o.text);
+
     const dateVal = typeof getDateValue === 'function' ? getDateValue('br') : null;
 
     let results = await fetchAllArticles();
@@ -184,8 +196,8 @@ async function doSearch() {
     // Result count bar
     const activeFilters = [
         q ? `"${q}"` : '',
-        typeVal ? typeVal : '',
-        ...sources, ...topics, ...prasangs,
+        typeText,
+        ...sourcesText, ...topicsText, ...prasangsText,
     ].filter(Boolean);
 
     summary.innerHTML = `
