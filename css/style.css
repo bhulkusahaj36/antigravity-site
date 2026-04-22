@@ -14575,6 +14575,15 @@ body.light-mode .nav-search-btn:hover {
    RIGHT-MAIN IMAGE EFFECTS (Hero)
    ============================================================ */
 .hero-top-img {
-  opacity: 0.8 !important;
+  opacity: 0.6 !important;
   filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3)) !important;
+}
+
+/* ============================================================
+   EXCERPT EXPANSION OVERRIDE (Hero Carousel)
+   ============================================================ */
+.carousel-3d-excerpt-inner {
+  max-height: none !important;
+  -webkit-line-clamp: 8 !important;
+  line-clamp: 8 !important;
 }

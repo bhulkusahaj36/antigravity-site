@@ -152,7 +152,7 @@ function renderArticles() {
 
         // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
-        const excerptText = plainText.substring(0, 45).trim() + (plainText.length > 45 ? '...' : '');
+        const excerptText = plainText.substring(0, 300).trim() + (plainText.length > 300 ? '...' : '');
 
         // Clean title: Topic of the article
         const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
@@ -196,7 +196,7 @@ function renderArticles() {
             const displayLabel = (typeof PRASANG_LABELS !== 'undefined' && prasangSlug && PRASANG_LABELS[prasangSlug]) ? PRASANG_LABELS[prasangSlug] : 'ભક્તિ';
             
             const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
-            const excerptText = plainText.substring(0, 60).trim() + (plainText.length > 60 ? '...' : '');
+            const excerptText = plainText.substring(0, 300).trim() + (plainText.length > 300 ? '...' : '');
             
             const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
             let cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
