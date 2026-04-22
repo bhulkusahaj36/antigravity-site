@@ -1069,6 +1069,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (saveRes.ok) successCount++;
                 }
                 
+                logActivity('edit', `Renamed album "${oldName}" to "${newName}" (${successCount} articles)`);
                 alert(`Successfully renamed ${successCount} articles to album "${newName}"`);
                 loadAdminAlbums();
             } catch (err) {
@@ -1077,6 +1078,235 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        // ==========================================
+        // ACTIVITY LOG SYSTEM
+        // ==========================================
+        const ACTIVITY_LOG_KEY = 'hk_admin_activity_log';
         
+        function getActivityLog() {
+            try { return JSON.parse(localStorage.getItem(ACTIVITY_LOG_KEY) || '[]'); } 
+            catch(e) { return []; }
+        }
+        
+        function saveActivityLog(log) {
+            localStorage.setItem(ACTIVITY_LOG_KEY, JSON.stringify(log.slice(0, 100)));
+        }
+        
+        window.logActivity = function(action, description) {
+            const log = getActivityLog();
+            log.unshift({
+                action: action,
+                description: description,
+                timestamp: new Date().toISOString()
+            });
+            saveActivityLog(log);
+        };
+        
+        window.renderActivityLog = function() {
+            const container = document.getElementById('activityLogContainer');
+            if (!container) return;
+            const log = getActivityLog();
+            if (log.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:2rem;">No activity recorded yet.</p>';
+                return;
+            }
+            const icons = {
+                'create': '✏️', 'edit': '📝', 'delete': '🗑️', 
+                'publish': '✅', 'unpublish': '⏸️', 'tag': '🏷️', 'album': '📁'
+            };
+            container.innerHTML = log.map(entry => {
+                const time = new Date(entry.timestamp);
+                const ago = getTimeAgo(time);
+                const actionClass = 'action-' + entry.action;
+                return '<div class="activity-item ' + actionClass + '">' +
+                    '<span class="activity-icon">' + (icons[entry.action] || '📋') + '</span>' +
+                    '<div class="activity-body">' +
+                        '<div class="activity-text">' + entry.description + '</div>' +
+                        '<div class="activity-time">' + ago + ' — ' + time.toLocaleDateString() + ' ' + time.toLocaleTimeString() + '</div>' +
+                    '</div></div>';
+            }).join('');
+        };
+        
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return Math.floor(seconds / 60) + ' min ago';
+            if (seconds < 86400) return Math.floor(seconds / 3600) + ' hours ago';
+            if (seconds < 604800) return Math.floor(seconds / 86400) + ' days ago';
+            return Math.floor(seconds / 604800) + ' weeks ago';
+        }
+        
+        document.getElementById('clearActivityLog')?.addEventListener('click', function() {
+            if (confirm('Clear all activity log entries?')) {
+                localStorage.removeItem(ACTIVITY_LOG_KEY);
+                renderActivityLog();
+            }
+        });
 
-});
+        // ==========================================
+        // KEYBOARD SHORTCUTS
+        // ==========================================
+        var shortcutsOverlay = document.getElementById('shortcutsOverlay');
+        
+        function toggleShortcuts() {
+            if (shortcutsOverlay) shortcutsOverlay.classList.toggle('visible');
+        }
+        
+        document.getElementById('adminShortcutsHint')?.addEventListener('click', toggleShortcuts);
+        
+        if (shortcutsOverlay) {
+            shortcutsOverlay.addEventListener('click', function(e) {
+                if (e.target === shortcutsOverlay) toggleShortcuts();
+            });
+        }
+        
+        function navigateToPanel(panelId) {
+            var navItem = document.querySelector('.admin-nav-item[data-panel="' + panelId + '"]');
+            if (navItem) navItem.click();
+        }
+        
+        document.addEventListener('keydown', function(e) {
+            var tag = document.activeElement ? document.activeElement.tagName : '';
+            var isTyping = tag === 'INPUT' || tag === 'TEXTAREA' || (document.activeElement && document.activeElement.isContentEditable);
+            
+            if (e.key === 'Escape') {
+                if (shortcutsOverlay && shortcutsOverlay.classList.contains('visible')) {
+                    toggleShortcuts();
+                    e.preventDefault();
+                }
+                return;
+            }
+            
+            if (!e.ctrlKey && !e.metaKey) return;
+            
+            if (e.key === '/') {
+                e.preventDefault();
+                toggleShortcuts();
+                return;
+            }
+            
+            if (isTyping && e.key !== 's' && e.key !== 'S') return;
+            
+            if (e.key === 's' || e.key === 'S') {
+                e.preventDefault();
+                if (e.shiftKey) {
+                    var draftBtn = document.getElementById('btnSaveDraft');
+                    if (draftBtn) draftBtn.click();
+                } else {
+                    var pubBtn = document.getElementById('btnSavePublish');
+                    if (pubBtn) pubBtn.click();
+                }
+            } else if (e.key === '1') {
+                e.preventDefault();
+                navigateToPanel('panel-dashboard');
+            } else if (e.key === '2') {
+                e.preventDefault();
+                navigateToPanel('panel-add');
+            } else if (e.key === '3') {
+                e.preventDefault();
+                navigateToPanel('panel-manage');
+            }
+        });
+
+        // ==========================================
+        // INLINE QUICK-EDIT (double-click title)
+        // ==========================================
+        function patchInlineEdit(containerId) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+            
+            container.querySelectorAll('td[data-label="Title"]').forEach(function(td) {
+                td.title = 'Double-click to quick-edit title';
+                td.classList.add('title-cell');
+                
+                td.addEventListener('dblclick', function() {
+                    var currentTitle = this.textContent.trim();
+                    var row = this.closest('tr');
+                    var checkbox = row ? row.querySelector('.row-checkbox') : null;
+                    var articleId = checkbox ? checkbox.dataset.id : null;
+                    if (!articleId) return;
+                    
+                    var input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = currentTitle;
+                    input.className = 'inline-edit-input';
+                    
+                    var cell = this;
+                    cell.textContent = '';
+                    cell.appendChild(input);
+                    input.focus();
+                    input.select();
+                    
+                    var committed = false;
+                    var commitEdit = async function() {
+                        if (committed) return;
+                        committed = true;
+                        var newTitle = input.value.trim();
+                        if (!newTitle || newTitle === currentTitle) {
+                            cell.textContent = currentTitle;
+                            cell.style.fontWeight = '500';
+                            return;
+                        }
+                        
+                        cell.textContent = 'Saving...';
+                        cell.style.color = 'var(--saffron-400)';
+                        
+                        try {
+                            var res = await fetch('/api/articles?id=' + articleId + '&t=' + Date.now());
+                            var data = await res.json();
+                            var art = Array.isArray(data) ? data[0] : data;
+                            if (art) {
+                                art.title = newTitle;
+                                await fetch('/api/articles', {
+                                    method: 'POST',
+                                    headers: await adminHeaders(),
+                                    body: JSON.stringify(art)
+                                });
+                                if (typeof logActivity === 'function') {
+                                    logActivity('edit', 'Renamed "<strong>' + currentTitle + '</strong>" to "<strong>' + newTitle + '</strong>"');
+                                }
+                            }
+                        } catch (err) {
+                            console.error('Inline edit failed:', err);
+                        }
+                        
+                        cell.textContent = newTitle || currentTitle;
+                        cell.style.fontWeight = '500';
+                        cell.style.color = '';
+                    };
+                    
+                    input.addEventListener('blur', commitEdit);
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+                        if (e.key === 'Escape') { committed = true; cell.textContent = currentTitle; cell.style.fontWeight = '500'; }
+                    });
+                });
+            });
+        }
+
+        // Hook into the existing load functions
+        var _origLoadPrasangs = loadAdminPrasangs;
+        loadAdminPrasangs = async function(reset) {
+            await _origLoadPrasangs(reset);
+            patchInlineEdit('adminPrasangsList');
+        };
+
+        var _origLoadParavanis = loadAdminParavanis;
+        loadAdminParavanis = async function(reset) {
+            await _origLoadParavanis(reset);
+            patchInlineEdit('adminParavanisList');
+        };
+
+        // Hook activity log into bulk actions
+        var _origBulkAction = bulkAction;
+        bulkAction = async function(type, action) {
+            var set = type === 'prasang' ? selectedPrasangs : selectedParavanis;
+            var count = set.size;
+            await _origBulkAction(type, action);
+            if (count > 0 && typeof logActivity === 'function') {
+                var labels = { 'publish': 'Published', 'unpublish': 'Unpublished', 'delete': 'Deleted', 'tag': 'Tagged', 'album': 'Assigned album to' };
+                logActivity(action, (labels[action] || action) + ' <strong>' + count + '</strong> ' + type + '(s)');
+            }
+        };
+
+});

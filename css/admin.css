@@ -964,3 +964,216 @@ body.admin-page .navbar {
     font-size: 1.15rem;
   }
 }
+
+/* ============================================================
+   ACTIVITY LOG FEED
+   ============================================================ */
+.admin-activity-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1rem;
+  border-left: 2px solid var(--admin-border);
+  position: relative;
+  transition: background 0.15s ease;
+}
+
+.activity-item:hover {
+  background: rgba(245, 158, 11, 0.04);
+}
+
+.activity-item::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 1.1rem;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--saffron-500);
+  border: 2px solid var(--bg-primary, #0c0803);
+}
+
+.activity-item.action-delete::before { background: #ef4444; }
+.activity-item.action-publish::before { background: #10b981; }
+.activity-item.action-unpublish::before { background: #f59e0b; }
+.activity-item.action-edit::before { background: #3b82f6; }
+.activity-item.action-tag::before { background: #8b5cf6; }
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.activity-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.activity-text {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.activity-text strong {
+  color: var(--gold-400);
+  font-weight: 600;
+}
+
+.activity-time {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+/* ============================================================
+   KEYBOARD SHORTCUTS MODAL
+   ============================================================ */
+.shortcuts-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.shortcuts-overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.shortcuts-card {
+  background: rgba(20, 13, 6, 0.95);
+  border: 1px solid var(--admin-border-hover);
+  border-radius: 20px;
+  padding: 2rem 2.5rem;
+  max-width: 480px;
+  width: 90%;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(245, 158, 11, 0.08);
+  transform: scale(0.92);
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shortcuts-overlay.visible .shortcuts-card {
+  transform: scale(1);
+}
+
+.shortcuts-card h3 {
+  font-family: var(--font-en);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-white);
+  margin: 0 0 0.25rem;
+}
+
+.shortcuts-card .shortcuts-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.shortcut-row:last-child {
+  border-bottom: none;
+}
+
+.shortcut-label {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.shortcut-keys {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.shortcut-keys kbd {
+  font-family: var(--font-en);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--gold-300);
+  line-height: 1;
+}
+
+/* ============================================================
+   SHORTCUTS HINT BUTTON (Topbar)
+   ============================================================ */
+.admin-shortcuts-hint {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.4rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-shortcuts-hint:hover {
+  color: var(--gold-400);
+  border-color: var(--admin-border-hover);
+  background: rgba(245, 158, 11, 0.08);
+}
+
+/* ============================================================
+   INLINE QUICK-EDIT
+   ============================================================ */
+.inline-edit-input {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--gold-400);
+  border-radius: 6px;
+  color: var(--text-white);
+  font-size: 0.88rem;
+  font-family: var(--font-gu-sans);
+  padding: 0.3rem 0.5rem;
+  width: 100%;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.inline-edit-input:focus {
+  border-color: var(--saffron-400);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.25);
+}
+
+.title-cell {
+  cursor: default;
+}
+
+.title-cell[title] {
+  cursor: text;
+}
+

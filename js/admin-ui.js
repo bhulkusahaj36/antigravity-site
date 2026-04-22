@@ -20,6 +20,7 @@ const PANEL_LABELS = {
     'panel-manage':    'Manage',
     'panel-quotes':    'Quotes',
     'panel-tasks':     'Tasks',
+    'panel-activity':  'Activity Log',
     'panel-sync':      'Maintenance',
 };
 
@@ -63,6 +64,8 @@ function initSidebarNav() {
             if (typeof initQuotesPanel === 'function') initQuotesPanel();
         } else if (targetPanelId === 'panel-tasks') {
             if (typeof renderTasks === 'function') renderTasks();
+        } else if (targetPanelId === 'panel-activity') {
+            if (typeof renderActivityLog === 'function') renderActivityLog();
         } else if (targetPanelId === 'panel-sync') {
             if (typeof initSyncTool === 'function') initSyncTool();
         }

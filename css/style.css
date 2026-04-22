@@ -14614,3 +14614,297 @@ body.light-mode .nav-search-btn:hover {
 .carousel-3d-card:hover .carousel-3d-excerpt-inner {
   color: rgba(255, 255, 255, 0.95) !important;
 }
+
+/* ============================================================
+   SCROLL-TO-TOP BUTTON (Public Site)
+   ============================================================ */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: rgba(15, 10, 5, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--gold-400);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease,
+              background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 900;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: var(--gold-400);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(245, 158, 11, 0.3);
+  transform: translateY(-2px);
+}
+
+.scroll-to-top svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  fill: none;
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 5.5rem;
+    right: 1rem;
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* ============================================================
+   PREMIUM LIGHT MODE THEME
+   A warm, elegant cream palette that feels as intentional
+   and polished as the dark mode.
+   ============================================================ */
+body.light-mode {
+  --bg-primary: #FDF8F0;
+  --bg-secondary: #F5EDE0;
+  --bg-card: #FFFFFF;
+  --text-primary: #2C1810;
+  --text-secondary: #5C4033;
+  --text-muted: #8B7355;
+  --text-white: #1A0F0A;
+  --gold-100: #FFF8E7;
+  --gold-200: #F5DEB3;
+  --gold-300: #C8952D;
+  --gold-400: #A67B1E;
+  --gold-500: #8B6914;
+  --saffron-300: #B8860B;
+  --saffron-400: #946B0A;
+  --saffron-500: #7A5808;
+  --saffron-600: #634806;
+  background-color: #FDF8F0 !important;
+  color: #2C1810 !important;
+}
+
+/* Navbar */
+body.light-mode .navbar {
+  background: rgba(253, 248, 240, 0.92) !important;
+  border-bottom: 1px solid rgba(139, 105, 20, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 1px 8px rgba(44, 24, 16, 0.06) !important;
+}
+
+body.light-mode .navbar .logo,
+body.light-mode .navbar .nav-link {
+  color: #2C1810 !important;
+}
+
+body.light-mode .navbar .nav-link:hover {
+  color: #A67B1E !important;
+}
+
+/* Cards & Surfaces */
+body.light-mode .card,
+body.light-mode .article-card,
+body.light-mode .organic-card {
+  background: #FFFFFF !important;
+  border-color: rgba(139, 105, 20, 0.12) !important;
+  box-shadow: 0 2px 12px rgba(44, 24, 16, 0.06) !important;
+}
+
+body.light-mode .card:hover,
+body.light-mode .article-card:hover,
+body.light-mode .organic-card:hover {
+  border-color: rgba(139, 105, 20, 0.25) !important;
+  box-shadow: 0 8px 32px rgba(44, 24, 16, 0.1) !important;
+}
+
+/* Hero Section */
+body.light-mode .hero {
+  background: linear-gradient(135deg, #FDF8F0 0%, #F5EDE0 50%, #EDE0CC 100%) !important;
+}
+
+body.light-mode .hero-quote-capsule {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(139, 105, 20, 0.2) !important;
+  color: #2C1810 !important;
+}
+
+/* Footer */
+body.light-mode footer,
+body.light-mode .site-footer {
+  background: #2C1810 !important;
+  color: #F5EDE0 !important;
+}
+
+/* Buttons */
+body.light-mode .btn-primary {
+  background: linear-gradient(135deg, #A67B1E, #8B6914) !important;
+  color: #FFF !important;
+  box-shadow: 0 2px 8px rgba(139, 105, 20, 0.25) !important;
+}
+
+body.light-mode .btn-primary:hover {
+  background: linear-gradient(135deg, #8B6914, #7A5808) !important;
+  box-shadow: 0 4px 16px rgba(139, 105, 20, 0.35) !important;
+}
+
+body.light-mode .btn-outline {
+  border-color: rgba(139, 105, 20, 0.3) !important;
+  color: #5C4033 !important;
+}
+
+body.light-mode .btn-outline:hover {
+  border-color: #A67B1E !important;
+  background: rgba(166, 123, 30, 0.06) !important;
+}
+
+/* Inputs & Selects */
+body.light-mode .feed-input,
+body.light-mode .feed-select,
+body.light-mode input[type="text"],
+body.light-mode input[type="search"],
+body.light-mode textarea,
+body.light-mode select {
+  background: #FFFFFF !important;
+  border-color: rgba(139, 105, 20, 0.18) !important;
+  color: #2C1810 !important;
+}
+
+body.light-mode .feed-input:focus,
+body.light-mode .feed-select:focus {
+  border-color: #A67B1E !important;
+  box-shadow: 0 0 0 3px rgba(166, 123, 30, 0.12) !important;
+}
+
+body.light-mode .feed-input::placeholder {
+  color: #8B7355 !important;
+}
+
+/* Search Page */
+body.light-mode .search-overlay,
+body.light-mode .search-box {
+  background: #FFFFFF !important;
+  border-color: rgba(139, 105, 20, 0.15) !important;
+}
+
+/* Theme Toggle in Light Mode */
+body.light-mode .theme-toggle {
+  background: rgba(44, 24, 16, 0.06) !important;
+  border-color: rgba(139, 105, 20, 0.2) !important;
+  color: #A67B1E !important;
+}
+
+body.light-mode .theme-toggle:hover {
+  background: rgba(166, 123, 30, 0.12) !important;
+  border-color: #A67B1E !important;
+}
+
+/* Scroll-to-Top in Light Mode */
+body.light-mode .scroll-to-top {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(139, 105, 20, 0.2) !important;
+  color: #A67B1E !important;
+  box-shadow: 0 4px 16px rgba(44, 24, 16, 0.1) !important;
+}
+
+body.light-mode .scroll-to-top:hover {
+  background: rgba(166, 123, 30, 0.08) !important;
+  border-color: #A67B1E !important;
+  box-shadow: 0 8px 24px rgba(44, 24, 16, 0.15) !important;
+}
+
+/* Category & Filter Pills */
+body.light-mode .category-pill,
+body.light-mode .filter-pill {
+  background: rgba(166, 123, 30, 0.08) !important;
+  border-color: rgba(139, 105, 20, 0.15) !important;
+  color: #5C4033 !important;
+}
+
+body.light-mode .category-pill.active,
+body.light-mode .filter-pill.active {
+  background: #A67B1E !important;
+  color: #FFF !important;
+}
+
+/* Back Button */
+body.light-mode .modern-back-btn {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(139, 105, 20, 0.2) !important;
+  color: #2C1810 !important;
+}
+
+/* Canvas (particle bg) tone down */
+body.light-mode #bgCanvas {
+  opacity: 0.15 !important;
+}
+
+/* Admin Light Mode Overrides */
+body.light-mode.admin-page .admin-topbar {
+  background: rgba(253, 248, 240, 0.92) !important;
+  border-bottom-color: rgba(139, 105, 20, 0.1) !important;
+}
+
+body.light-mode.admin-page .admin-sidebar {
+  background: rgba(253, 248, 240, 0.88) !important;
+  border-right-color: rgba(139, 105, 20, 0.1) !important;
+}
+
+body.light-mode.admin-page .admin-stat-card,
+body.light-mode.admin-page .admin-chart-card,
+body.light-mode.admin-page .admin-form-card,
+body.light-mode.admin-page .admin-table-card,
+body.light-mode.admin-page .admin-task-create-card,
+body.light-mode.admin-page .admin-task-card,
+body.light-mode.admin-page .admin-maintenance-card {
+  background: #FFFFFF !important;
+  border-color: rgba(139, 105, 20, 0.1) !important;
+}
+
+body.light-mode.admin-page .admin-table thead th {
+  background: rgba(245, 237, 224, 0.6) !important;
+  color: #5C4033 !important;
+}
+
+body.light-mode.admin-page .admin-table tbody tr:hover {
+  background: rgba(166, 123, 30, 0.04) !important;
+}
+
+body.light-mode.admin-page .admin-nav-item {
+  color: #5C4033 !important;
+}
+
+body.light-mode.admin-page .admin-nav-item.active {
+  color: #A67B1E !important;
+  background: rgba(166, 123, 30, 0.1) !important;
+  border-color: rgba(139, 105, 20, 0.2) !important;
+}
+
+body.light-mode.admin-page .admin-nav-item:hover {
+  background: rgba(166, 123, 30, 0.06) !important;
+}
+
+body.light-mode.admin-page .admin-login-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 20px 60px rgba(44, 24, 16, 0.12) !important;
+}
+
+body.light-mode.admin-page .admin-mobile-nav {
+  background: rgba(253, 248, 240, 0.95) !important;
+  border-top-color: rgba(139, 105, 20, 0.1) !important;
+}
+
