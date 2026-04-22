@@ -12,9 +12,30 @@ function initNav() {
         navbar.classList.toggle('scrolled', window.scrollY > 20);
     });
 
-    if (toggle) {
-        toggle.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
+    if (toggle && navLinks) {
+        toggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = navLinks.classList.toggle('open');
+            toggle.innerHTML = isOpen ? '&#10005;' : '&#9776;';
+            toggle.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && e.target !== toggle) {
+                navLinks.classList.remove('open');
+                toggle.innerHTML = '&#9776;';
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                toggle.innerHTML = '&#9776;';
+                toggle.setAttribute('aria-expanded', 'false');
+            });
         });
     }
 }
