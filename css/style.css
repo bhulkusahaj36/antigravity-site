@@ -14576,11 +14576,5 @@ body.light-mode .nav-search-btn:hover {
    ============================================================ */
 .hero-top-img {
   opacity: 0.8 !important;
-  transition: opacity 0.5s ease, transform 0.5s ease !important;
   filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3)) !important;
-}
-
-.hero-branding-area:hover .hero-top-img {
-  opacity: 0.9 !important;
-  transform: scale(1.02) !important;
 }
