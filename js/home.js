@@ -333,12 +333,13 @@ async function loadHomeArticles() {
     // If local data logic or filtering returns an empty array, provide some robust mock articles.
     if (!ALL_ARTICLES || ALL_ARTICLES.length === 0) {
         ALL_ARTICLES = [
-            { id: '1000', title: 'ભગવાને રચી અનોખી લીલા: ભક્તોના હૃદયમાં વાસ', excerpt: 'મહારાજે સોમલા ખાચરના દરબારમાં જે લીલા કરી તેની સ્મૃતિ ભક્તો સદાય સંઘરી રાખે છે.', prasang: 'bhagwan', featured: true },
-            { id: '1001', title: 'સત્સંગની મધુરતા: સ્વામીની વાતોનું અમૃત', excerpt: 'ગુણાતીતાનંદ સ્વામીએ જે વાતો કરી તે જીવના કલ્યાણ માટે છે.', prasang: 'gunatit', featured: true },
-            { id: '1002', title: 'નિષ્ઠાનો પાયો: શાસ્ત્રીજી મહારાજની ગુરુભક્તિ', excerpt: 'શાસ્ત્રીજી મહારાજે જે અટલ નિષ્ઠા રાખી — એ ભક્તિ માર્ગ આજે પણ પ્રેરણા આપે છે.', prasang: 'shastriji', featured: true },
-            { id: '1003', title: 'આત્મીયતાનો મંત્ર: હરિપ્રસાદ સ્વામીજીની શીખ', excerpt: 'સહુના દિલ જીતવાનો એક જ રસ્તો છે — આત્મીયતા.', prasang: 'hariprasad', featured: true },
-            { id: '1004', title: 'સેવા જ સંસ્કાર: ભક્તોની લાઇફલાઇન', excerpt: 'સેવા દ્વારા જ અહંકાર ઓગળે છે અને હરિ રાજી થાય છે.', prasang: 'bhakto', featured: true },
-            { id: '1005', title: 'સરળતાની મૂર્તિ: યોગીબાપાના ચરિત્ર', excerpt: 'યોગીબાપાની સાદગી અને નિખાલસ સ્વભાવ — ભક્ત જીવનનો ઉત્તમ નમૂનો.', prasang: 'yogiji', featured: true },
+            { id: '1000', title: 'ભગવાને રચી અનોખી લીલા: ભક્તોના હૃદયમાં વાસ', excerpt: 'મહારાજે સોમલા ખાચરના દરબારમાં જે લીલા કરી તેની સ્મૃતિ ભક્તો સદાય સંઘરી રાખે છે.', prasang: 'bhagwan', category: 'katha', topic: 'mahima', featured: true },
+            { id: '1001', title: 'સત્સંગની મધુરતા: સ્વામીની વાતોનું અમૃત', excerpt: 'ગુણાતીતાનંદ સ્વામીએ જે વાતો કરી તે જીવના કલ્યાણ માટે છે.', prasang: 'gunatit', category: 'gyan', topic: 'vachanamrut', featured: true },
+            { id: '1002', title: 'નિષ્ઠાનો પાયો: શાસ્ત્રીજી મહારાજની ગુરુભક્તિ', excerpt: 'શાસ્ત્રીજી મહારાજે જે અટલ નિષ્ઠા રાખી — એ ભક્તિ માર્ગ આજે પણ પ્રેરણા આપે છે.', prasang: 'shastriji', category: 'charitra', topic: 'nishtha', featured: true },
+            { id: '1003', title: 'આત્મીયતાનો મંત્ર: હરિપ્રસાદ સ્વામીજીની શીખ', excerpt: 'સહુના દિલ જીતવાનો એક જ રસ્તો છે — આત્મીયતા.', prasang: 'hariprasad', category: 'charitra', topic: 'atmiyata', featured: true },
+            { id: '1004', title: 'સેવા જ સંસ્કાર: ભક્તોની લાઇફલાઇન', excerpt: 'સેવા દ્વારા જ અહંકાર ઓગળે છે અને હરિ રાજી થાય છે.', prasang: 'bhakto', category: 'bhakti', topic: 'seva', featured: true },
+            { id: '1005', title: 'સરળતાની મૂર્તિ: યોગીબાપાના ચરિત્ર', excerpt: 'યોગીબાપાની સાદગી અને નિખાલસ સ્વભાવ — ભક્ત જીવનનો ઉત્તમ નમૂનો.', prasang: 'yogiji', category: 'charitra', topic: 'saralata', featured: true },
+            { id: '1006', title: 'ભક્તિ — ભગવાનને ઓળખવાની ચાવી', excerpt: 'ભક્તિ વિના જ્ઞાન અધૂરું છે; ભક્તિ જ ભગવાનનો સાચો માર્ગ છે.', prasang: 'bhagatji', category: 'bhakti', topic: 'bhakti', featured: false },
         ];
         console.log("Injected mock articles to prevent empty carousel locally.");
     }

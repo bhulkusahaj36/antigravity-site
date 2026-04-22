@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     if (listRes.ok) {
-        ALL_ARTICLES = await listRes.json();
+        const listData = await listRes.json();
+        // Handle both raw array (no limit) and { items, nextToken } (with limit)
+        ALL_ARTICLES = Array.isArray(listData) ? listData : (listData.items || []);
         rawArticles = [...ALL_ARTICLES];
     } else {
         if (typeof ARTICLES !== 'undefined') ALL_ARTICLES = [...ARTICLES];
