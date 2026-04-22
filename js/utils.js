@@ -844,3 +844,16 @@ window.addEventListener('load', () => {
         }, 650);
     }
 });
+
+// Smart Back Button Logic
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.modern-back-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // Check if there's history and it's from our own site
+            if (window.history.length > 1 && document.referrer.includes(window.location.host)) {
+                e.preventDefault();
+                window.history.back();
+            }
+        });
+    });
+});
