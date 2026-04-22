@@ -133,7 +133,7 @@ function buildCard(article, isLatest = false) {
         excerptText = article.excerpt;
     } else {
         const plainText = article.excerpt ? article.excerpt : (article.content ? article.content.replace(/<[^>]*>?/gm, '') : '');
-        excerptText = plainText.substring(0, 100).trim() + (plainText.length > 100 ? '...' : '');
+        excerptText = plainText.substring(0, 200).trim() + (plainText.length > 200 ? '...' : '');
     }
     
     // Ensure every card has a visible label (Fall back to category if Prasang is missing)
