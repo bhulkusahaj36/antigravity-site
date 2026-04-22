@@ -114,9 +114,10 @@ async function init() {
     setHeader();
 
     try {
-        const res = await fetch('/api/articles?compact=true');
+        const res = await fetch('/api/articles?compact=1');
         if (res.ok) {
-            ALL_ARTICLES_PG = await res.json();
+            const data = await res.json();
+            ALL_ARTICLES_PG = Array.isArray(data) ? data : (data.items || []);
         } else {
             if (typeof ARTICLES !== 'undefined') ALL_ARTICLES_PG = ARTICLES;
         }
