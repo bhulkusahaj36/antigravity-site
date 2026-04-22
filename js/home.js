@@ -75,6 +75,7 @@ function renderFeatured() {
         'yogiji',       // યોગીજી મહારાજ
         'hariprasad',   // હ. સ્વામીજી મહારાજ
         'prabodh',      // પ્રબોધ સ્વમીજી મહારાજ
+        'prabhudasbhai',// પ્રભુદાસભાઈ
         'bhakto'        // ભક્તો
     ];
 
@@ -94,17 +95,45 @@ function renderCategoryChips() {
     container.innerHTML = '';
     container.className = 'avatar-row';
 
-    // Count articles per topic
     const topicCount = {};
+
+    // 1. Pre-fill all predefined CATEGORIES
+    if (typeof CATEGORIES !== 'undefined') {
+        CATEGORIES.forEach(c => {
+            topicCount[c.id] = 0;
+        });
+    }
+
+    // 2. Pre-fill all predefined TOPIC_LABELS (skip 'other')
+    if (typeof TOPIC_LABELS !== 'undefined') {
+        Object.keys(TOPIC_LABELS).forEach(t => {
+            if (t !== 'other') topicCount[t] = 0;
+        });
+    }
+
+    // 3. Add dynamically created tags from localStorage
+    try {
+        const customTags = JSON.parse(localStorage.getItem('hk_custom_tags') || '[]');
+        customTags.forEach(tag => {
+            topicCount[tag.id] = 0;
+        });
+    } catch(e) {}
+
+    // 4. Count articles per topic/category
     ALL_ARTICLES.forEach(a => {
         const vals = (a.topic || a.category || '').split(',').map(s => s.trim()).filter(Boolean);
-        vals.forEach(t => { topicCount[t] = (topicCount[t] || 0) + 1; });
+        vals.forEach(t => { 
+            // Only add if it's not 'other'
+            if (t !== 'other') topicCount[t] = (topicCount[t] || 0) + 1; 
+        });
     });
 
-    // Get top topics with most articles
+    // 5. Sort: items with articles first (descending), then alphabetical
     const topTopics = Object.entries(topicCount)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 20)
+        .sort((a, b) => {
+            if (b[1] !== a[1]) return b[1] - a[1];
+            return a[0].localeCompare(b[0]);
+        })
         .map(([t]) => t);
 
     topTopics.forEach(topicId => {
