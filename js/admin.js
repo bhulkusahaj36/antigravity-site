@@ -676,6 +676,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     await fetch('/api/articles', { method: 'DELETE', headers: await adminHeaders(), body: JSON.stringify({ ids }) });
                 } catch (e) { console.error('Bulk delete error', e); }
+            } else if (action === 'tag' && type === 'prasang') {
+                const newTag = prompt(`Enter a topic/tag (e.g. mahima) to append to the ${ids.length} selected prasang(s):\nNote: This will not overwrite existing tags.`);
+                if (!newTag) return;
+                
+                let successCount = 0;
+                for (const id of ids) {
+                    try {
+                        const res = await fetch(`/api/articles?id=${id}&t=${Date.now()}`);
+                        const data = await res.json();
+                        const art = Array.isArray(data) ? data[0] : data;
+                        if (art) {
+                            let topics = (art.topic || '').split(',').map(t => t.trim()).filter(Boolean);
+                            if (!topics.includes(newTag)) {
+                                topics.push(newTag);
+                                art.topic = topics.join(', ');
+                            }
+                            const saveRes = await fetch('/api/articles', {
+                                method: 'POST',
+                                headers: await adminHeaders(),
+                                body: JSON.stringify(art)
+                            });
+                            if (saveRes.ok) successCount++;
+                        }
+                    } catch (e) { console.error('Bulk tag error on item', id, e); }
+                }
+                alert(`Successfully processed and tagged ${successCount} article(s).`);
+            } else if (action === 'album' && type === 'paravani') {
+                const newAlbum = prompt(`Enter the exact album name to assign to the ${ids.length} selected paravani(s):`);
+                if (!newAlbum) return;
+                
+                let successCount = 0;
+                for (const id of ids) {
+                    try {
+                        const res = await fetch(`/api/articles?id=${id}&t=${Date.now()}`);
+                        const data = await res.json();
+                        const art = Array.isArray(data) ? data[0] : data;
+                        if (art) {
+                            art.album = newAlbum;
+                            const saveRes = await fetch('/api/articles', {
+                                method: 'POST',
+                                headers: await adminHeaders(),
+                                body: JSON.stringify(art)
+                            });
+                            if (saveRes.ok) successCount++;
+                        }
+                    } catch (e) { console.error('Bulk album error on item', id, e); }
+                }
+                alert(`Successfully assigned ${successCount} article(s) to album "${newAlbum}".`);
             } else {
                 const updates = action === 'publish' ? { public: true, status: 'published' } : { public: false, status: 'draft' };
                 const label = action === 'publish' ? 'Publish' : 'Unpublish';
@@ -751,11 +799,13 @@ document.addEventListener('DOMContentLoaded', () => {
             // Bulk action buttons
             document.getElementById('bulkPublishPrasang')?.addEventListener('click', () => bulkAction('prasang', 'publish'));
             document.getElementById('bulkUnpublishPrasang')?.addEventListener('click', () => bulkAction('prasang', 'unpublish'));
+            document.getElementById('bulkTagPrasang')?.addEventListener('click', () => bulkAction('prasang', 'tag'));
             document.getElementById('bulkDeletePrasang')?.addEventListener('click', () => bulkAction('prasang', 'delete'));
             document.getElementById('bulkDeselectPrasang')?.addEventListener('click', () => { selectedPrasangs.clear(); document.getElementById('selectAllPrasangs').checked = false; document.querySelectorAll('#adminPrasangsList .row-checkbox').forEach(cb => cb.checked = false); updateBulkBar('prasang'); });
 
             document.getElementById('bulkPublishParavani')?.addEventListener('click', () => bulkAction('paravani', 'publish'));
             document.getElementById('bulkUnpublishParavani')?.addEventListener('click', () => bulkAction('paravani', 'unpublish'));
+            document.getElementById('bulkAlbumParavani')?.addEventListener('click', () => bulkAction('paravani', 'album'));
             document.getElementById('bulkDeleteParavani')?.addEventListener('click', () => bulkAction('paravani', 'delete'));
             document.getElementById('bulkDeselectParavani')?.addEventListener('click', () => { selectedParavanis.clear(); document.getElementById('selectAllParavanis').checked = false; document.querySelectorAll('#adminParavanisList .row-checkbox').forEach(cb => cb.checked = false); updateBulkBar('paravani'); });
 
