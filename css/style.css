@@ -14499,3 +14499,88 @@ body.light-mode .nav-search-btn:hover {
   letter-spacing: 2px;
   font-weight: 600;
 }
+
+/* ============================================================
+   PREMIUM BACK BUTTON (Override)
+   ============================================================ */
+.modern-back-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  padding: 0.6rem 1.25rem 0.6rem 0.6rem !important;
+  border-radius: 100px !important;
+  background: rgba(24, 18, 8, 0.4) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(245, 158, 11, 0.15) !important;
+  color: var(--text-primary) !important;
+  font-size: 1.1rem !important;
+  text-decoration: none !important;
+  font-family: var(--font-gu-sans) !important;
+  margin-bottom: 2.5rem !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  width: fit-content !important;
+  height: auto !important;
+}
+
+.modern-back-btn .icon-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: rgba(245, 158, 11, 0.1) !important;
+  color: var(--gold-500) !important;
+  transition: all 0.3s ease !important;
+  position: static !important; /* overrides absolute */
+}
+
+.modern-back-btn .btn-text {
+  font-weight: 500 !important;
+  transition: color 0.3s ease !important;
+  transform: none !important;
+  position: static !important;
+  width: auto !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+}
+
+.modern-back-btn:hover {
+  background: rgba(24, 18, 8, 0.8) !important;
+  border-color: var(--gold-500) !important;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+.modern-back-btn:hover .icon-container {
+  background: var(--gold-500) !important;
+  color: var(--bg-900) !important;
+  transform: translateX(-4px) !important;
+  width: 32px !important; /* override the 100% stretch */
+}
+
+.modern-back-btn:hover .btn-text {
+  color: var(--gold-500) !important;
+}
+
+.modern-back-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  stroke-width: 2.5 !important;
+}
+
+/* ============================================================
+   RIGHT-MAIN IMAGE EFFECTS (Hero)
+   ============================================================ */
+.hero-top-img {
+  opacity: 0.8 !important;
+  transition: opacity 0.5s ease, transform 0.5s ease !important;
+  filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.3)) !important;
+}
+
+.hero-branding-area:hover .hero-top-img {
+  opacity: 0.9 !important;
+  transform: scale(1.02) !important;
+}
