@@ -45,7 +45,7 @@ async function doSearch() {
     // Combine static ARTICLES and dynamically added hk_articles
     let dynamicArticles = [];
     try {
-        const res = await fetch('/api/articles?compact=true');
+        const res = await fetch('/api/articles');
         if (res.ok) {
             const data = await res.json();
             // Handle both raw array and { items, nextToken } response shapes

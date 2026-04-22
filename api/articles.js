@@ -63,6 +63,7 @@ module.exports = async (req, res) => {
 
             const cacheSeconds = compact ? 300 : 60;
             res.setHeader('Cache-Control', `public, max-age=${cacheSeconds}, stale-while-revalidate=${cacheSeconds * 3}`);
+            res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
             if (limit > 0) {
                 const skip = parseInt(continuationToken) || 0;
