@@ -291,7 +291,7 @@ input:checked + .slider:before {
 .auto-grow {
     overflow: hidden;
     resize: none;
-    line-height: 1.5;
+    line-height: 1.65;
 }
 
 .date-picker-reveal {
@@ -556,7 +556,8 @@ input:checked + .slider:before {
     color: var(--text-primary);
     font-family: var(--font-gu-sans);
     font-size: 0.95rem;
-    padding: 0.7rem 1rem;
+    padding: 0.85rem 1.1rem;
+    min-height: 48px;
 }
 
 .feed-input:focus,
