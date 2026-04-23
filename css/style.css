@@ -14864,6 +14864,8 @@ body.light-mode .nav-search-btn:hover {
   }
 }
 
+
+
 /* ============================================================
    PREMIUM LIGHT MODE THEME
    A warm, elegant cream palette that feels as intentional
@@ -15122,13 +15124,13 @@ body.light-mode.admin-page .admin-mobile-nav {
 .album-card .content,
 .paravani-card .content,
 .mobile-strip-card {
-  padding: 1.1rem 1.25rem !important; /* Decreased unutilized space */
+  padding: 1.1rem 1.25rem !important;
   background: var(--glass-bg) !important;
   backdrop-filter: var(--glass-blur) !important;
   -webkit-backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--glass-border) !important;
   border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 30px 4px 30px 4px !important; /* Sacred geometry cut */
+  border-radius: 4px 24px 4px 24px !important; /* Matched to quote box */
   box-shadow: var(--glass-shadow) !important;
 }
 
@@ -15137,7 +15139,7 @@ body.light-mode.admin-page .admin-mobile-nav {
 .card-img,
 .article-card img,
 .neon-latest-card img {
-  border-radius: 28px 2px 2px 2px !important;
+  border-radius: 4px 24px 0 0 !important;
 }
 
 /* 4. Ensure titles are centered with no awkward bottom gaps now that texts below are removed */
@@ -15207,3 +15209,4 @@ body.light-mode .paravani-card .content {
 
 /* Fix mobile close button visibility */
 .nav-toggle { position: relative !important; z-index: 9999 !important; }
+
