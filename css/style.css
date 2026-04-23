@@ -4202,12 +4202,12 @@ body.light-mode #particles-js {
 .carousel-3d-card {
   position: absolute;
   inset: 0;
-  background: rgba(14, 10, 8, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 16px;
+  border-radius: 30px 4px 30px 4px; /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
   transform:
@@ -4240,8 +4240,8 @@ body.light-mode #particles-js {
     rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(calc(var(--translateZ) + 22px))
     translateY(-8px);
-  background: rgba(255, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.4);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-glow);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 20px 45px rgba(0, 0, 0, 0.75),
@@ -8841,12 +8841,12 @@ body.light-mode #particles-js {
 .carousel-3d-card {
   position: absolute;
   inset: 0;
-  background: rgba(14, 10, 8, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 16px;
+  border-radius: 30px 4px 30px 4px; /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
   transform:
@@ -8879,8 +8879,8 @@ body.light-mode #particles-js {
     rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(calc(var(--translateZ) + 22px))
     translateY(-8px);
-  background: rgba(255, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.4);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-glow);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 20px 45px rgba(0, 0, 0, 0.75),
@@ -13442,12 +13442,12 @@ body.light-mode #particles-js {
 .carousel-3d-card {
   position: absolute;
   inset: 0;
-  background: rgba(14, 10, 8, 0.82);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 16px;
+  border-radius: 30px 4px 30px 4px; /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
   transform:
@@ -13480,8 +13480,8 @@ body.light-mode #particles-js {
     rotateY(calc((360deg / var(--quantity)) * var(--index)))
     translateZ(calc(var(--translateZ) + 22px))
     translateY(-8px);
-  background: rgba(255, 158, 11, 0.1);
-  border-color: rgba(245, 158, 11, 0.4);
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-glow);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.2),
     0 20px 45px rgba(0, 0, 0, 0.75),
@@ -13942,17 +13942,27 @@ body.light-mode .carousel-3d-label {
 /* ΓöÇΓöÇ 2. HERO QUOTE BAR ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
 
 .hero-quote {
-  background: rgba(8, 5, 2, 0.88) !important;
-  backdrop-filter: blur(30px) !important;
-  -webkit-backdrop-filter: blur(30px) !important;
-  border: 1px solid rgba(245, 158, 11, 0.22) !important;
-  border-bottom: 5px solid #f59e0b !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-bottom: 3px solid var(--saffron-500) !important;
+  border-radius: 4px 24px 4px 24px !important; /* Geometric Plaque */
   box-shadow:
     0 24px 80px rgba(0, 0, 0, 0.9),
     0 0 0 1px rgba(245, 158, 11, 0.06),
     0 0 40px rgba(245, 158, 11, 0.08) !important;
   padding: 1.35rem 3rem !important;
   max-width: 820px !important;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s ease !important;
+}
+
+.hero-quote:hover {
+  transform: translateY(-8px) scale(1.02) !important;
+  box-shadow:
+    0 30px 90px rgba(0, 0, 0, 0.95),
+    0 0 0 1px rgba(251, 191, 36, 0.2),
+    0 0 60px rgba(251, 191, 36, 0.15) !important;
 }
 
 /* Quote text ΓÇö brighter, easier to read */
@@ -14206,17 +14216,18 @@ body.light-mode .carousel-3d-label {
 /* ΓöÇΓöÇ 10. 3D CAROUSEL CARDS ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
 
 .carousel-3d-card {
-  background: rgba(10, 6, 3, 0.85) !important;
-  border: 1px solid rgba(255, 255, 255, 0.06) !important;
-  border-bottom: 3px solid rgba(245, 158, 11, 0.75) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 16px 40px rgba(0, 0, 0, 0.75) !important;
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-bottom: 3px solid var(--saffron-500) !important;
+  border-radius: 30px 4px 30px 4px !important; /* Asymmetric geometric glass cut */
+  box-shadow: var(--glass-shadow) !important;
 }
 
 .carousel-3d-card:hover {
-  border-color: rgba(245, 158, 11, 0.5) !important;
-  background: rgba(245, 158, 11, 0.09) !important;
+  background: var(--glass-bg-hover) !important;
+  border-color: var(--glass-border-glow) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.18),
     0 22px 50px rgba(0, 0, 0, 0.8),
@@ -14465,34 +14476,34 @@ body.light-mode .nav-search-btn:hover {
 .hero-top-img {
   animation: none !important; /* Stop the floating effect */
   filter: 
-    drop-shadow(0 0 25px rgba(245, 158, 11, 0.25))
-    drop-shadow(0 0 60px rgba(245, 158, 11, 0.1)) !important;
+    drop-shadow(0 0 25px rgba(245, 158, 11, 0.35))
+    drop-shadow(0 0 60px rgba(245, 158, 11, 0.15)) !important;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease !important;
 }
 
-/* Sublte interaction on hover (even if pointer-events are none, parent can trigger) */
+/* Subtle interaction on hover (even if pointer-events are none, parent can trigger) */
 .hero-branding-area:hover .hero-top-img {
   filter: 
-    drop-shadow(0 0 35px rgba(245, 158, 11, 0.4))
-    drop-shadow(0 0 80px rgba(245, 158, 11, 0.15))
-    brightness(1.04) !important;
+    drop-shadow(0 0 35px rgba(245, 158, 11, 0.5))
+    drop-shadow(0 0 80px rgba(245, 158, 11, 0.25))
+    brightness(1.05) !important;
 }
 
 /* Calligraphy — Golden Radiance */
 .hero-calligraphy {
   filter: 
-    drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5))
-    drop-shadow(0 0 30px rgba(251, 191, 36, 0.6))
-    drop-shadow(0 0 60px rgba(251, 191, 36, 0.4)) !important;
+    drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6))
+    drop-shadow(0 0 35px rgba(251, 191, 36, 0.7))
+    drop-shadow(0 0 70px rgba(251, 191, 36, 0.5)) !important;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease !important;
 }
 
 .hero-branding-area:hover .hero-calligraphy {
   filter: 
-    drop-shadow(0 4px 15px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 0 40px rgba(251, 191, 36, 0.7))
-    drop-shadow(0 0 70px rgba(251, 191, 36, 0.5))
-    brightness(1.08) !important;
+    drop-shadow(0 4px 15px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 50px rgba(251, 191, 36, 0.8))
+    drop-shadow(0 0 90px rgba(251, 191, 36, 0.6))
+    brightness(1.1) !important;
   transform: scale(1.98) translateY(4.8rem) !important; /* Slight lift/scale boost */
 }
 
