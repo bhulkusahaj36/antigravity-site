@@ -1248,7 +1248,7 @@ body.page-exiting {
 body.light-mode .form-input {
   background: rgba(255, 248, 235, 0.7);
   border-color: rgba(180, 120, 30, 0.25);
-  color: var(--bg-700);
+  color: var(--text-primary);
 }
 
 body.light-mode .form-input::placeholder {
@@ -1291,7 +1291,7 @@ body.light-mode .form-input::placeholder {
 body.light-mode .form-select {
   background-color: rgba(255, 248, 235, 0.7);
   border-color: rgba(180, 120, 30, 0.25);
-  color: var(--bg-700);
+  color: var(--text-primary);
 }
 
 /* ΓöÇΓöÇ Textarea ΓöÇΓöÇ */
@@ -2226,11 +2226,11 @@ body.light-mode .form-select {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(2.4) translateY(12%);
+  transform: scale(3.2) translateY(24%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(2.5) translateY(12%);
+  transform: scale(3.3) translateY(24%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
@@ -3662,11 +3662,11 @@ body.light-mode::before {
 }
 
 body.light-mode::after {
-  /* LIGHT OVERLAY: drastically reduced from 0.95 to 0.2 to remove "obstacle" masking the image */
+  /* LIGHT OVERLAY: restored to high opacity so dark text is readable */
   background: linear-gradient(135deg,
-      rgba(240, 186, 154, 0.25) 0%,
-      rgba(246, 235, 227, 0.20) 45%,
-      rgba(238, 239, 241, 0.15) 100%) !important;
+      rgba(255, 250, 245, 0.95) 0%,
+      rgba(246, 235, 227, 0.90) 45%,
+      rgba(238, 239, 241, 0.90) 100%) !important;
   opacity: 1 !important;
 }
 
@@ -5803,7 +5803,7 @@ body.page-exiting {
 body.light-mode .form-input {
   background: rgba(255, 248, 235, 0.7);
   border-color: rgba(180, 120, 30, 0.25);
-  color: var(--bg-700);
+  color: var(--text-primary);
 }
 
 body.light-mode .form-input::placeholder {
@@ -5846,7 +5846,7 @@ body.light-mode .form-input::placeholder {
 body.light-mode .form-select {
   background-color: rgba(255, 248, 235, 0.7);
   border-color: rgba(180, 120, 30, 0.25);
-  color: var(--bg-700);
+  color: var(--text-primary);
 }
 
 /* ΓöÇΓöÇ Textarea ΓöÇΓöÇ */
@@ -6819,11 +6819,11 @@ body.light-mode .form-select {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(2.4) translateY(12%);
+  transform: scale(3.2) translateY(24%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(2.5) translateY(12%);
+  transform: scale(3.3) translateY(24%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
@@ -8255,11 +8255,11 @@ body.light-mode::before {
 }
 
 body.light-mode::after {
-  /* LIGHT OVERLAY: drastically reduced from 0.95 to 0.2 to remove "obstacle" masking the image */
+  /* LIGHT OVERLAY: restored to high opacity so dark text is readable */
   background: linear-gradient(135deg,
-      rgba(240, 186, 154, 0.25) 0%,
-      rgba(246, 235, 227, 0.20) 45%,
-      rgba(238, 239, 241, 0.15) 100%) !important;
+      rgba(255, 250, 245, 0.95) 0%,
+      rgba(246, 235, 227, 0.90) 45%,
+      rgba(238, 239, 241, 0.90) 100%) !important;
   opacity: 1 !important;
 }
 
@@ -10396,7 +10396,7 @@ body.page-exiting {
 body.light-mode .form-input {
   background: rgba(255, 248, 235, 0.7);
   border-color: rgba(180, 120, 30, 0.25);
-  color: var(--bg-700);
+  color: var(--text-primary);
 }
 
 body.light-mode .form-input::placeholder {
@@ -10439,7 +10439,7 @@ body.light-mode .form-input::placeholder {
 body.light-mode .form-select {
   background-color: rgba(255, 248, 235, 0.7);
   border-color: rgba(180, 120, 30, 0.25);
-  color: var(--bg-700);
+  color: var(--text-primary);
 }
 
 /* G÷╟G÷╟ Textarea G÷╟G÷╟ */
@@ -11374,11 +11374,11 @@ body.light-mode .form-select {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(2.4) translateY(12%);
+  transform: scale(3.2) translateY(24%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(2.5) translateY(12%);
+  transform: scale(3.3) translateY(24%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
@@ -12810,11 +12810,11 @@ body.light-mode::before {
 }
 
 body.light-mode::after {
-  /* LIGHT OVERLAY: drastically reduced from 0.95 to 0.2 to remove "obstacle" masking the image */
+  /* LIGHT OVERLAY: restored to high opacity so dark text is readable */
   background: linear-gradient(135deg,
-      rgba(240, 186, 154, 0.25) 0%,
-      rgba(246, 235, 227, 0.20) 45%,
-      rgba(238, 239, 241, 0.15) 100%) !important;
+      rgba(255, 250, 245, 0.95) 0%,
+      rgba(246, 235, 227, 0.90) 45%,
+      rgba(238, 239, 241, 0.90) 100%) !important;
   opacity: 1 !important;
 }
 
@@ -14297,14 +14297,16 @@ body.light-mode .nav-search-btn:hover {
 .hero-calligraphy {
   filter: 
     drop-shadow(0 2px 10px rgba(0, 0, 0, 0.5))
-    drop-shadow(0 0 15px rgba(251, 191, 36, 0.3)) !important;
+    drop-shadow(0 0 30px rgba(251, 191, 36, 0.6))
+    drop-shadow(0 0 60px rgba(251, 191, 36, 0.4)) !important;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease !important;
 }
 
 .hero-branding-area:hover .hero-calligraphy {
   filter: 
     drop-shadow(0 4px 15px rgba(0, 0, 0, 0.6))
-    drop-shadow(0 0 25px rgba(251, 191, 36, 0.5))
+    drop-shadow(0 0 40px rgba(251, 191, 36, 0.7))
+    drop-shadow(0 0 70px rgba(251, 191, 36, 0.5))
     brightness(1.08) !important;
   transform: scale(1.98) translateY(4.8rem) !important; /* Slight lift/scale boost */
 }
@@ -14318,7 +14320,9 @@ body.light-mode .nav-search-btn:hover {
   }
   
   .hero-calligraphy {
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)) !important;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)
+    drop-shadow(0 0 30px rgba(251, 191, 36, 0.65))
+    drop-shadow(0 0 60px rgba(251, 191, 36, 0.45))) !important;
   }
 }
 
