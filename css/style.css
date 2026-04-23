@@ -121,6 +121,14 @@
   --form-placeholder:   var(--text-muted);
   --form-radius:        var(--radius-sm);
   --form-focus-ring:    0 0 0 3px rgba(251, 191, 36, 0.15);
+
+  /* Glassmorphism Concept Variables */
+  --glass-bg:           rgba(26, 18, 11, 0.45);
+  --glass-bg-hover:     rgba(43, 28, 20, 0.65);
+  --glass-border:       rgba(245, 158, 11, 0.25);
+  --glass-border-glow:  rgba(252, 211, 77, 0.4);
+  --glass-blur:         blur(16px);
+  --glass-shadow:       0 8px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Global Typography Hierarchy */
@@ -288,16 +296,26 @@ body::before {
     ),
     radial-gradient(
       circle at 20px 20px,
-      rgba(245, 158, 11, 0.06) 2px,
-      transparent 2px
+      rgba(245, 158, 11, 0.08) 2px,
+      transparent 3px
     ),
     radial-gradient(
       circle at 40px 40px,
-      rgba(245, 158, 11, 0.06) 2px,
+      rgba(245, 158, 11, 0.06) 1px,
       transparent 2px
     );
-  background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px;
+  background-size: 40px 40px, 40px 40px, 60px 60px, 80px 80px;
+  animation: driftParticles 90s linear infinite;
   display: block;
+}
+
+@keyframes driftParticles {
+  0% {
+    background-position: 0 0, 0 0, 0 0, 0 0;
+  }
+  100% {
+    background-position: 0 0, 0 0, 600px 600px, -800px 800px;
+  }
 }
 
 body.light-mode::before {
