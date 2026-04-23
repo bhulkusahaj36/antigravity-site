@@ -155,52 +155,43 @@ function renderCategoryChips() {
 function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
-    // Keep top 10 latest
-    const sorted = getSorted(ALL_ARTICLES).slice(0, 10);
+    // Keep top 6 latest to perfectly surround the center hexagon
+    const sorted = getSorted(ALL_ARTICLES).slice(0, 6);
 
     grid.innerHTML = '';
-    // Remove old class if any
-    grid.className = 'carousel-3d-inner';
+    grid.className = 'honeycomb-orbit';
 
     const count = sorted.length;
-    // Set the quantity CSS variable on the inner element so card transforms work correctly
     grid.style.setProperty('--quantity', count);
 
     sorted.forEach((a, i) => {
         if (!a || !a.title) return; // Skip invalid entries
         
         const item = document.createElement('div');
-        item.className = 'carousel-3d-card';
+        item.className = 'honeycomb-card';
         item.style.setProperty('--index', i);
 
-        // Card label — only show "Prasang Of" person name; neutral default if not set
         const prasangSlug = (a.prasang || '').trim();
         const displayLabel = (typeof PRASANG_LABELS !== 'undefined' && prasangSlug && PRASANG_LABELS[prasangSlug])
             ? PRASANG_LABELS[prasangSlug]
             : 'ભક્તિ';
 
-        // Excerpt text
         const plainText = a.excerpt ? a.excerpt : (a.content ? a.content.replace(/<[^>]*>?/gm, '') : '');
-        const excerptText = plainText.substring(0, 300).trim() + (plainText.length > 300 ? '...' : '');
+        const excerptText = plainText.substring(0, 80).trim() + (plainText.length > 80 ? '...' : '');
 
-        // Clean title: Topic of the article
         const isPlaceholderTitle = /^[\s._-]+$/.test(a.title || '');
         let cleanTitle = isPlaceholderTitle ? '' : (a.title || '');
         
-        // SMART FALLBACK: If the title is empty (or a placeholder), 
-        // use a snippet of the content as the title so the card isn't empty.
         if (!cleanTitle || cleanTitle.trim() === displayLabel.trim()) {
-            // Take first ~45 chars of plain content as a topic fallback
-            const snippet = plainText.substring(0, 45).trim();
-            cleanTitle = snippet + (plainText.length > 45 ? '...' : '');
+            const snippet = plainText.substring(0, 25).trim();
+            cleanTitle = snippet + (plainText.length > 25 ? '...' : '');
         }
 
         item.innerHTML = `
-            <div class="carousel-3d-content">
-                <p class="carousel-3d-label" title="Prasang">${displayLabel}</p>
-                <h3 class="carousel-3d-title">${cleanTitle}</h3>
-                <div class="carousel-3d-divider"></div>
-                <div class="carousel-3d-excerpt-container"><p class="carousel-3d-excerpt-inner">${excerptText}</p></div>
+            <div class="honeycomb-card-inner">
+                <div class="honeycomb-icon">✨</div>
+                <h3 class="honeycomb-title">${cleanTitle}</h3>
+                <p class="honeycomb-excerpt">${excerptText}</p>
             </div>
         `;
 

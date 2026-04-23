@@ -15208,3 +15208,209 @@ body.light-mode .paravani-card .content {
   border-color: rgba(245, 158, 11, 0.6) !important;
   box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
+
+/* ============================================================
+   ORBITAL HONEYCOMB LAYOUT (HERO LEFT SIDE)
+   ============================================================ */
+.hero-latest-area {
+  position: relative;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.honeycomb-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Central Hexagon */
+.honeycomb-center {
+  position: relative;
+  z-index: 10;
+  width: 260px;
+  height: 300px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(24, 18, 8, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.4s ease;
+}
+
+/* Simulated border glow since clip-path cuts off normal borders */
+.honeycomb-center::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.4), rgba(245, 158, 11, 0.1), transparent);
+  z-index: -1;
+}
+
+.honeycomb-core-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.honeycomb-core-content h3 {
+  font-family: var(--font-en);
+  color: var(--gold-400);
+  letter-spacing: 0.1em;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+}
+
+.honeycomb-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.honeycomb-btn {
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  color: var(--gold-200);
+  font-family: var(--font-gu-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 160px;
+}
+
+.honeycomb-btn:hover {
+  background: rgba(251, 191, 36, 0.25);
+  border-color: var(--gold-400);
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+}
+
+/* Orbiting Hexagons */
+.honeycomb-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 5;
+}
+
+.honeycomb-card {
+  position: absolute;
+  width: 180px;
+  height: 208px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(24, 18, 8, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  /* Center origins */
+  left: 0;
+  top: 0;
+  margin-left: -90px;
+  margin-top: -104px;
+  
+  /* The Magic Orbit Math: 
+     Rotate outwards, translate by radius (220px), counter-rotate so content is upright */
+  transform: rotate(calc(var(--index) * (360deg / var(--quantity)))) 
+             translateY(-230px) 
+             rotate(calc(var(--index) * (-360deg / var(--quantity))));
+             
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.honeycomb-card::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(255, 255, 255, 0.03);
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+.honeycomb-card-inner {
+  padding: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.honeycomb-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.7;
+}
+
+.honeycomb-title {
+  font-family: var(--font-gu);
+  color: var(--gold-200);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.honeycomb-excerpt {
+  font-family: var(--font-gu-sans);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Hover Effect on Orbiting Cards */
+.honeycomb-card:hover {
+  transform: rotate(calc(var(--index) * (360deg / var(--quantity)))) 
+             translateY(-230px) 
+             rotate(calc(var(--index) * (-360deg / var(--quantity)))) 
+             scale(1.15);
+  background: rgba(245, 158, 11, 0.15);
+  z-index: 20;
+}
+.honeycomb-card:hover::before {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), transparent);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 992px) {
+  .hero-split-container {
+    flex-direction: column !important;
+  }
+  .honeycomb-wrapper {
+    transform: scale(0.7);
+  }
+}
