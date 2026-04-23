@@ -15204,3 +15204,6 @@ body.light-mode .paravani-card .content {
   border-color: rgba(245, 158, 11, 0.6) !important;
   box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
+
+/* Fix mobile close button visibility */
+.nav-toggle { position: relative !important; z-index: 9999 !important; }
