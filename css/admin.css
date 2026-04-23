@@ -5,6 +5,10 @@
    ============================================================ */
 
 /* ── Layout Tokens ───────────────────────────────────────── */
+body.admin-page {
+  font-family: var(--font-en) !important;
+}
+
 :root {
   --admin-sidebar-w: 220px;
   --admin-topbar-h: 60px;
@@ -60,9 +64,11 @@ body.admin-page .navbar {
 }
 
 .admin-login-subtitle {
-  font-size: 0.75rem;
+  font-family: var(--font-en);
+  font-size: 0.7rem;
   color: var(--text-muted);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
+  font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 2.5rem;
 }
@@ -833,7 +839,11 @@ body.admin-page .navbar {
 }
 
 @media (max-width: 1024px) {
-  :root {
+  body.admin-page {
+  font-family: var(--font-en) !important;
+}
+
+:root {
     --admin-sidebar-w: 195px;
     --admin-content-pad: 1.25rem;
   }
@@ -956,7 +966,11 @@ body.admin-page .navbar {
     grid-template-columns: 1fr;
   }
 
-  :root {
+  body.admin-page {
+  font-family: var(--font-en) !important;
+}
+
+:root {
     --admin-content-pad: 0.85rem;
   }
 
