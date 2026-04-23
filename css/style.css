@@ -2265,11 +2265,11 @@ body.light-mode .form-select {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(3.2) translateY(-12%);
+  transform: scale(3.2) translateY(2%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(3.3) translateY(-12%);
+  transform: scale(3.3) translateY(2%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
@@ -6904,11 +6904,11 @@ body.light-mode .form-select {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(3.2) translateY(-12%);
+  transform: scale(3.2) translateY(2%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(3.3) translateY(-12%);
+  transform: scale(3.3) translateY(2%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
@@ -11505,11 +11505,11 @@ body.light-mode .form-select {
 
 /* Specific adjustment to crop/fill the Prabhudasbhai SVG which has extra empty space */
 .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(3.2) translateY(-12%);
+  transform: scale(3.2) translateY(2%);
 }
 
 .avatar-card:hover .avatar-img-wrap img[src*="prabhudasbhai"] {
-  transform: scale(3.3) translateY(-12%);
+  transform: scale(3.3) translateY(2%);
 }
 
 /* Specific adjustment for Bhakto image (which is text) so it's not cut off */
