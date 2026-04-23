@@ -11,7 +11,57 @@ document.addEventListener('DOMContentLoaded', () => {
     initAutoGrowTextarea();
     initUnsavedIndicator();
     insertFieldIcons();
+    initAdminTheme();
 });
+
+/**
+ * Handles Light/Dark mode toggle for the admin panel.
+ * Consistently applies theme based on localStorage.
+ */
+function initAdminTheme() {
+    const toggleBtn = document.getElementById('adminThemeToggle');
+    if (!toggleBtn) return;
+
+    const root = document.documentElement;
+    const STORAGE_KEY = 'adminTheme';
+
+    const setIcons = (mode) => {
+        const sun = toggleBtn.querySelector('.sun-icon');
+        const moon = toggleBtn.querySelector('.moon-icon');
+        if (!sun || !moon) return;
+        if (mode === 'dark') {
+            sun.style.display = 'none';
+            moon.style.display = 'block';
+        } else {
+            sun.style.display = 'block';
+            moon.style.display = 'none';
+        }
+    };
+
+    // Initialize
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'dark') {
+        root.dataset.theme = 'dark';
+        setIcons('dark');
+    } else {
+        root.dataset.theme = '';
+        setIcons('light');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        const isDark = root.dataset.theme === 'dark';
+        if (isDark) {
+            root.dataset.theme = '';
+            localStorage.setItem(STORAGE_KEY, 'light');
+            setIcons('light');
+        } else {
+            root.dataset.theme = 'dark';
+            localStorage.setItem(STORAGE_KEY, 'dark');
+            setIcons('dark');
+        }
+    });
+}
+
 
 // ── Panel/Breadcrumb labels ─────────────────────────────────
 const PANEL_LABELS = {
