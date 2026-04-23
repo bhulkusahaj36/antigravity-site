@@ -15107,13 +15107,9 @@ body.light-mode.admin-page .admin-mobile-nav {
    GLOBAL CARDS: SACRED GEOMETRY & GLASSMORPHISM UPGRADE
    ============================================================ */
 
-/* 1. Hide excerpt and metadata to keep cards clean and focused on title */
-.card-excerpt,
-.card-prasang-label,
+/* 1. Hide extra metadata to keep cards cleaner */
 .card-date,
 .category-badge,
-.carousel-3d-excerpt-inner,
-.carousel-3d-label,
 .card-featured-tag,
 .card-top {
   display: none !important;
