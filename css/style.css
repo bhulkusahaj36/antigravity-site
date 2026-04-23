@@ -14475,9 +14475,9 @@ body.light-mode .nav-search-btn:hover {
 /* Subtle interaction on hover (even if pointer-events are none, parent can trigger) */
 .hero-branding-area:hover .hero-top-img {
   filter: 
-    drop-shadow(0 0 35px rgba(245, 158, 11, 0.5))
-    drop-shadow(0 0 80px rgba(245, 158, 11, 0.25))
-    brightness(1.05) !important;
+    drop-shadow(0 0 28px rgba(245, 158, 11, 0.4))
+    drop-shadow(0 0 65px rgba(245, 158, 11, 0.18))
+    brightness(1.02) !important;
 }
 
 /* Calligraphy — Golden Radiance */
