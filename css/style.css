@@ -9014,7 +9014,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 30px 4px 30px 4px;
+  border-radius: 4px 35px 4px 35px !important;
   /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
@@ -14396,7 +14396,7 @@ body.light-mode .carousel-3d-label {
   -webkit-backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--glass-border) !important;
   border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 30px 4px 30px 4px !important;
+  border-radius: 4px 35px 4px 35px !important !important;
   /* Asymmetric geometric glass cut */
   box-shadow: var(--glass-shadow) !important;
 }
