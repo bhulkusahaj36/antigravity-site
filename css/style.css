@@ -258,7 +258,7 @@ html {
   --w: 180px !important;
   --h: 275px !important;
   /* Increased from 250px to comfortably fit Gujarati text */
-  --translateZ: 220px !important;
+  --translateZ: 180px !important;
   --rotateX: 0deg !important;
 }
 
@@ -4495,7 +4495,7 @@ body.light-mode #particles-js {
   .carousel-3d-inner {
     --w: 155px;
     --h: 176px;
-    --translateZ: 150px;
+    --translateZ: 100px;
   }
 }
 
@@ -5016,7 +5016,7 @@ html {
   --w: 180px !important;
   --h: 275px !important;
   /* Increased from 250px to comfortably fit Gujarati text */
-  --translateZ: 220px !important;
+  --translateZ: 180px !important;
   --rotateX: 0deg !important;
 }
 
@@ -8971,7 +8971,7 @@ body.light-mode #particles-js {
 .carousel-3d-inner {
   --w: 320px;
   --h: 340px;
-  --translateZ: 220px;
+  --translateZ: 180px;
   --rotateX: -10deg;
   --perspective: 1200px;
   position: absolute;
@@ -9147,7 +9147,7 @@ body.light-mode #particles-js {
   .carousel-3d-inner {
     --w: 155px;
     --h: 176px;
-    --translateZ: 150px;
+    --translateZ: 100px;
   }
 }
 
@@ -9668,7 +9668,7 @@ html {
   --w: 180px !important;
   --h: 275px !important;
   /* Increased from 250px to comfortably fit Gujarati text */
-  --translateZ: 220px !important;
+  --translateZ: 180px !important;
   --rotateX: 0deg !important;
 }
 
@@ -13585,7 +13585,7 @@ body.light-mode #particles-js {
 .carousel-3d-inner {
   --w: 320px;
   --h: 340px;
-  --translateZ: 220px;
+  --translateZ: 180px;
   --rotateX: -10deg;
   --perspective: 1200px;
   position: absolute;
@@ -13761,7 +13761,7 @@ body.light-mode #particles-js {
   .carousel-3d-inner {
     --w: 155px;
     --h: 176px;
-    --translateZ: 150px;
+    --translateZ: 100px;
   }
 }
 
