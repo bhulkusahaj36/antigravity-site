@@ -14453,9 +14453,9 @@ body.light-mode .nav-search-btn:hover {
 /* Subtle interaction on hover (even if pointer-events are none, parent can trigger) */
 .hero-branding-area:hover .hero-top-img {
   filter: 
-    drop-shadow(0 0 28px rgba(245, 158, 11, 0.4))
-    drop-shadow(0 0 65px rgba(245, 158, 11, 0.18))
-    brightness(1.02) !important;
+    drop-shadow(0 0 26px rgba(245, 158, 11, 0.38))
+    drop-shadow(0 0 62px rgba(245, 158, 11, 0.16))
+    brightness(1.01) !important;
 }
 
 /* Calligraphy — Golden Radiance */
@@ -14469,11 +14469,11 @@ body.light-mode .nav-search-btn:hover {
 
 .hero-branding-area:hover .hero-calligraphy {
   filter: 
-    drop-shadow(0 4px 15px rgba(0, 0, 0, 0.7))
-    drop-shadow(0 0 50px rgba(251, 191, 36, 0.8))
-    drop-shadow(0 0 90px rgba(251, 191, 36, 0.6))
-    brightness(1.1) !important;
-  transform: scale(1.98) translateY(4.8rem) !important; /* Slight lift/scale boost */
+    drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65))
+    drop-shadow(0 0 40px rgba(251, 191, 36, 0.75))
+    drop-shadow(0 0 75px rgba(251, 191, 36, 0.55))
+    brightness(1.05) !important;
+  transform: scale(1.96) translateY(4.9rem) !important; /* Slight lift/scale boost */
 }
 
 /* Mobile specific overrides for enhanced images */
@@ -14485,9 +14485,23 @@ body.light-mode .nav-search-btn:hover {
   }
   
   .hero-calligraphy {
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5))
     drop-shadow(0 0 30px rgba(251, 191, 36, 0.65))
-    drop-shadow(0 0 60px rgba(251, 191, 36, 0.45))) !important;
+    drop-shadow(0 0 60px rgba(251, 191, 36, 0.45)) !important;
+  }
+
+  /* Remove hover effect on mobile */
+  .hero-branding-area:hover .hero-top-img {
+    filter: 
+        drop-shadow(0 0 20px rgba(245, 158, 11, 0.3))
+        drop-shadow(0 0 40px rgba(0, 0, 0, 0.4)) !important;
+  }
+  
+  .hero-branding-area:hover .hero-calligraphy {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 30px rgba(251, 191, 36, 0.65))
+    drop-shadow(0 0 60px rgba(251, 191, 36, 0.45)) !important;
+    transform: scale(2.8) translateY(1.2rem) !important; /* Maintain mobile scale/position */
   }
 }
 
@@ -15188,3 +15202,41 @@ body.light-mode .paravani-card .content {
 /* Fix mobile close button visibility */
 .nav-toggle { position: relative !important; z-index: 9999 !important; }
 
+/* ============================================================
+   PHASE 2: GLOBAL GEOMETRIC CARD STYLE
+   Apply Quote Box geometric style to all types of boxes across Web & Admin
+   ============================================================ */
+.neon-latest-card .content,
+.carousel-3d-content,
+.feed-card,
+.card,
+.feed-panel,
+.feed-form,
+.admin-stat-card,
+.admin-chart-card,
+.admin-form-card,
+.admin-table-card,
+.admin-task-create-card,
+.admin-task-card,
+.admin-maintenance-card,
+.admin-login-card,
+.m-card-content {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--glass-blur) !important;
+  -webkit-backdrop-filter: var(--glass-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-bottom: 3px solid var(--saffron-500) !important;
+  border-radius: 4px 24px 4px 24px !important; /* Geometric Plaque */
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(245, 158, 11, 0.06),
+    0 0 40px rgba(245, 158, 11, 0.08) !important;
+}
+
+.neon-latest-card:hover .content,
+.carousel-3d-card:hover .carousel-3d-content,
+.feed-card:hover,
+.card:hover {
+  background: rgba(26, 18, 11, 0.6) !important;
+  border-color: rgba(251, 191, 36, 0.45) !important;
+}
