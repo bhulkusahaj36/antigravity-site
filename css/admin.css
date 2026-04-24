@@ -554,7 +554,7 @@ body.admin-page .navbar {
   content: '';
   width: 5px;
   height: 5px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   flex-shrink: 0;
 }
 
@@ -1009,7 +1009,7 @@ body.admin-page .navbar {
   top: 1.1rem;
   width: 8px;
   height: 8px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: var(--saffron-500);
   border: 2px solid var(--bg-primary, #0c0803);
 }
@@ -1079,7 +1079,7 @@ body.admin-page .navbar {
 .shortcuts-card {
   background: rgba(20, 13, 6, 0.95);
   border: 1px solid var(--admin-border-hover);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 2rem 2.5rem;
   max-width: 480px;
   width: 90%;

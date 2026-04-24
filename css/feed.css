@@ -100,7 +100,7 @@
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(245, 158, 11, 0.15);
     border-bottom: 3px solid var(--saffron-600);
-    border-radius: 4px 35px 4px 35px !important;
+    border-radius: 4px 24px 4px 24px !important;
     padding: 1.5rem 2rem;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
 }
@@ -139,7 +139,7 @@
     width: 6px;
     height: 6px;
     background: var(--saffron-500);
-    border-radius: 4px 35px 4px 35px !important;
+    border-radius: 4px 24px 4px 24px !important;
     box-shadow: 0 0 10px var(--saffron-glow);
     animation: pulse 2s infinite;
 }
@@ -202,11 +202,11 @@ input:checked + .slider:before {
 }
 
 .slider.round {
-    border-radius: 4px 35px 4px 35px !important;
+    border-radius: 4px 24px 4px 24px !important;
 }
 
 .slider.round:before {
-    border-radius: 4px 35px 4px 35px !important;
+    border-radius: 4px 24px 4px 24px !important;
 }
 
 .toggle-text {

@@ -53,8 +53,8 @@
   --card-hover-border: rgba(245, 158, 11, 0.4);
 
   /* ΓöÇΓöÇ Border Radius ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --radius-sm: 4px 35px 4px 35px;
-  --radius-md: 4px 35px 4px 35px;
+  --radius-sm: 4px 12px 4px 12px;
+  --radius-md: 4px 24px 4px 24px;
   --radius-lg: 32px;
   --radius-organic: 40% 60% 70% 30% / 40% 50% 60% 50%;
   --radius-pill: 999px;
@@ -441,7 +441,7 @@ body.page-exiting {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(245, 158, 11, 0.2);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -534,7 +534,7 @@ body.page-exiting {
 .nav-search-btn {
   background: rgba(245, 158, 11, 0.1);
   border: 1px solid rgba(245, 158, 11, 0.25);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 7px 18px;
   font-size: 0.8rem;
   font-weight: 800;
@@ -575,7 +575,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -1020,7 +1020,7 @@ body.page-exiting {
   /* Darker, more glassmorphism-friendly */
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid rgba(245, 158, 11, 0.2);
   border-bottom: 6px solid var(--gold-500);
   /* Thicker bottom border from screenshot */
@@ -1086,7 +1086,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -1181,7 +1181,7 @@ body.page-exiting {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.75rem 2rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all var(--transition);
@@ -1536,7 +1536,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -1555,7 +1555,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -1567,7 +1567,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .prasang-banner-fallback {
@@ -1974,7 +1974,7 @@ body.light-mode .form-select {
   color: var(--bg-900);
   background: linear-gradient(135deg, var(--saffron-300), var(--saffron-500));
   padding: 0.25rem 0.75rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   letter-spacing: 0.03em;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
@@ -2047,7 +2047,7 @@ body.light-mode .form-select {
   background-color: rgba(245, 158, 11, 0.08);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-bottom: 3px solid rgba(251, 191, 36, 0.9);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 0px 15px;
   gap: 8px;
   transition: all 0.4s;
@@ -2152,7 +2152,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2249,7 +2249,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -2274,7 +2274,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -2300,7 +2300,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -2406,7 +2406,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -2429,7 +2429,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -2456,7 +2456,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -2624,7 +2624,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -2846,7 +2846,7 @@ body.light-mode .form-select {
   background: rgba(245, 166, 35, 0.1);
   border: 1px solid rgba(245, 166, 35, 0.25);
   padding: 0.25rem 0.9rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .article-location-badge {
@@ -3500,7 +3500,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3771,14 +3771,14 @@ body::after {
 }
 
 .article-card {
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 4px 35px 4px 35px !important 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 4px 24px 4px 24px !important 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -3903,7 +3903,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .theme-toggle:hover {
@@ -4148,7 +4148,7 @@ body.light-mode .navbar.scrolled {
   top: 12px;
   left: 3%;
   right: 3%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 /* Fix Chip & Button Visibility in Light Mode */
@@ -4362,7 +4362,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Uniform professional corners */
   overflow: hidden !important;
   cursor: pointer;
@@ -5207,7 +5207,7 @@ body.page-exiting {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(245, 158, 11, 0.2);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -5309,7 +5309,7 @@ body.page-exiting {
 .nav-search-btn {
   background: rgba(245, 158, 11, 0.1);
   border: 1px solid rgba(245, 158, 11, 0.25);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 7px 18px;
   font-size: 0.7rem;
   font-weight: 700;
@@ -5350,7 +5350,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -5796,7 +5796,7 @@ body.page-exiting {
   /* Darker, more glassmorphism-friendly */
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid rgba(245, 158, 11, 0.2);
   border-bottom: 6px solid var(--gold-500);
   /* Thicker bottom border from screenshot */
@@ -5862,7 +5862,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -5957,7 +5957,7 @@ body.page-exiting {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.75rem 2rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all var(--transition);
@@ -6312,7 +6312,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -6331,7 +6331,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -6343,7 +6343,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .prasang-banner-fallback {
@@ -6788,7 +6788,7 @@ body.light-mode .form-select {
   color: var(--bg-900);
   background: linear-gradient(135deg, var(--saffron-300), var(--saffron-500));
   padding: 0.25rem 0.75rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   letter-spacing: 0.03em;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
@@ -6861,7 +6861,7 @@ body.light-mode .form-select {
   background-color: rgba(245, 158, 11, 0.08);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-bottom: 3px solid rgba(251, 191, 36, 0.9);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 0px 15px;
   gap: 8px;
   transition: all 0.4s;
@@ -6966,7 +6966,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -7063,7 +7063,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -7088,7 +7088,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -7114,7 +7114,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -7220,7 +7220,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -7243,7 +7243,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -7270,7 +7270,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -7438,7 +7438,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -7660,7 +7660,7 @@ body.light-mode .form-select {
   background: rgba(245, 166, 35, 0.1);
   border: 1px solid rgba(245, 166, 35, 0.25);
   padding: 0.25rem 0.9rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .article-location-badge {
@@ -8152,7 +8152,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8423,14 +8423,14 @@ body::after {
 }
 
 .article-card {
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 4px 35px 4px 35px !important 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 4px 24px 4px 24px !important 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -8555,7 +8555,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .theme-toggle:hover {
@@ -8800,7 +8800,7 @@ body.light-mode .navbar.scrolled {
   top: 12px;
   left: 3%;
   right: 3%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 /* Fix Chip & Button Visibility in Light Mode */
@@ -9014,7 +9014,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
@@ -9859,7 +9859,7 @@ body.page-exiting {
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
   border: 1px solid rgba(245, 158, 11, 0.2);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
 }
 
@@ -9961,7 +9961,7 @@ body.page-exiting {
 .nav-search-btn {
   background: rgba(245, 158, 11, 0.1);
   border: 1px solid rgba(245, 158, 11, 0.25);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 7px 18px;
   font-size: 0.7rem;
   font-weight: 700;
@@ -10002,7 +10002,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -10448,7 +10448,7 @@ body.page-exiting {
   /* Darker, more glassmorphism-friendly */
   backdrop-filter: blur(25px);
   -webkit-backdrop-filter: blur(25px);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid rgba(245, 158, 11, 0.2);
   border-bottom: 6px solid var(--gold-500);
   /* Thicker bottom border from screenshot */
@@ -10514,7 +10514,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -10609,7 +10609,7 @@ body.page-exiting {
   font-size: 1rem;
   font-weight: 600;
   padding: 0.75rem 2rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid transparent;
   cursor: pointer;
   transition: all var(--transition);
@@ -10964,7 +10964,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -10983,7 +10983,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -10995,7 +10995,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .prasang-banner-fallback {
@@ -11402,7 +11402,7 @@ body.light-mode .form-select {
   color: var(--bg-900);
   background: linear-gradient(135deg, var(--saffron-300), var(--saffron-500));
   padding: 0.25rem 0.75rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   letter-spacing: 0.03em;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
@@ -11475,7 +11475,7 @@ body.light-mode .form-select {
   background-color: rgba(245, 158, 11, 0.08);
   border: 1px solid rgba(251, 191, 36, 0.3);
   border-bottom: 3px solid rgba(251, 191, 36, 0.9);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   padding: 0px 15px;
   gap: 8px;
   transition: all 0.4s;
@@ -11580,7 +11580,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -11677,7 +11677,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -11702,7 +11702,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -11728,7 +11728,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -11834,7 +11834,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -11857,7 +11857,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -11884,7 +11884,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -12052,7 +12052,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -12274,7 +12274,7 @@ body.light-mode .form-select {
   background: rgba(245, 166, 35, 0.1);
   border: 1px solid rgba(245, 166, 35, 0.25);
   padding: 0.25rem 0.9rem;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .article-location-badge {
@@ -12766,7 +12766,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13037,14 +13037,14 @@ body::after {
 }
 
 .article-card {
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 4px 35px 4px 35px !important 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 4px 24px 4px 24px !important 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -13169,7 +13169,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .theme-toggle:hover {
@@ -13414,7 +13414,7 @@ body.light-mode .navbar.scrolled {
   top: 12px;
   left: 3%;
   right: 3%;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 /* Fix Chip & Button Visibility in Light Mode */
@@ -13628,7 +13628,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
@@ -14067,7 +14067,7 @@ body.light-mode .carousel-3d-label {
 .navbar.scrolled {
   background: rgba(10, 7, 3, 0.92) !important;
   border: 1px solid rgba(245, 158, 11, 0.28) !important;
-  border-radius: 4px 35px 4px 35px !important !important;
+  border-radius: 4px 24px 4px 24px !important;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.7),
     0 0 0 1px rgba(245, 158, 11, 0.08),
@@ -14130,7 +14130,7 @@ body.light-mode .carousel-3d-label {
   -webkit-backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--glass-border) !important;
   border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Geometric Plaque */
   box-shadow:
     0 24px 80px rgba(0, 0, 0, 0.9),
@@ -14396,9 +14396,10 @@ body.light-mode .carousel-3d-label {
   -webkit-backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--glass-border) !important;
   border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 4px 35px 4px 35px !important !important;
+  border-radius: 4px 24px 4px 24px !important;
   /* Asymmetric geometric glass cut */
   box-shadow: var(--glass-shadow) !important;
+  background-clip: padding-box !important;
 }
 
 .carousel-3d-card:hover {
@@ -14785,7 +14786,7 @@ body.light-mode .nav-search-btn:hover {
   height: 20px;
   border: 2px solid var(--gold-500);
   border-right-color: transparent;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   animation: spin 0.75s linear infinite;
 }
 
@@ -14869,7 +14870,7 @@ body.light-mode .nav-search-btn:hover {
 .feed-conditional {
   padding: 0.8rem 1.2rem !important;
   /* no search icon here */
-  border-radius: 4px 35px 4px 35px !important !important;
+  border-radius: 4px 24px 4px 24px !important;
 }
 
 .premium-input:focus,
@@ -14945,7 +14946,7 @@ body.light-mode .nav-search-btn:hover {
   justify-content: center !important;
   width: 32px !important;
   height: 32px !important;
-  border-radius: 4px 35px 4px 35px !important !important;
+  border-radius: 4px 24px 4px 24px !important;
   background: rgba(245, 158, 11, 0.1) !important;
   color: var(--gold-500) !important;
   transition: all 0.3s ease !important;
@@ -15039,7 +15040,7 @@ body.light-mode .nav-search-btn:hover {
   right: 2rem;
   width: 48px;
   height: 48px;
-  border-radius: 4px 35px 4px 35px !important;
+  border-radius: 4px 24px 4px 24px !important;
   border: 1px solid rgba(245, 158, 11, 0.3);
   background: rgba(15, 10, 5, 0.85);
   backdrop-filter: blur(12px);
@@ -15482,3 +15483,7 @@ body.light-mode .paravani-card .content {
   background: rgba(26, 18, 11, 0.6) !important;
   border-color: rgba(251, 191, 36, 0.45) !important;
 }
+
+/* Force Button and Small Box Geometry */
+.btn, .read-more, .ps-filter-select, .search-input-wrap { border-radius: 4px 12px 4px 12px !important; }
+.carousel-3d-card { background-clip: padding-box !important; }
