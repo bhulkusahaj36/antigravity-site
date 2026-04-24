@@ -4219,7 +4219,7 @@ body.light-mode #particles-js {
 .carousel-3d-inner {
   --w: 320px;
   --h: 340px;
-  --translateZ: 550px;
+  --translateZ: 350px;
   --rotateX: -10deg;
   --perspective: 1200px;
   position: absolute;
@@ -4261,7 +4261,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 30px 4px 30px 4px; /* Asymmetric geometric glass cut */
+  border-radius: 12px; /* Uniform professional corners */
   overflow: hidden !important;
   cursor: pointer;
   transform:
