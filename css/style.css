@@ -3688,14 +3688,13 @@ body::after {
 }
 
 .article-card {
-  border-radius: var(--radius-organic) !important;
+  border-radius: 12px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
