@@ -293,29 +293,9 @@ body::before {
       transparent 39px,
       rgba(245, 158, 11, 0.03) 39px,
       rgba(245, 158, 11, 0.03) 40px
-    ),
-    radial-gradient(
-      circle at 20px 20px,
-      rgba(245, 158, 11, 0.08) 2px,
-      transparent 3px
-    ),
-    radial-gradient(
-      circle at 40px 40px,
-      rgba(245, 158, 11, 0.06) 1px,
-      transparent 2px
     );
-  background-size: 40px 40px, 40px 40px, 60px 60px, 80px 80px;
-  animation: driftParticles 90s linear infinite;
+  background-size: 40px 40px, 40px 40px;
   display: block;
-}
-
-@keyframes driftParticles {
-  0% {
-    background-position: 0 0, 0 0, 0 0, 0 0;
-  }
-  100% {
-    background-position: 0 0, 0 0, 600px 600px, -800px 800px;
-  }
 }
 
 body.light-mode::before {
@@ -325,9 +305,7 @@ body.light-mode::before {
     ),
     repeating-linear-gradient(
       90deg, transparent, transparent 19px, rgba(0, 0, 0, 0.02) 19px, rgba(0, 0, 0, 0.02) 20px, transparent 20px, transparent 39px, rgba(0, 0, 0, 0.02) 39px, rgba(0, 0, 0, 0.02) 40px
-    ),
-    radial-gradient(circle at 20px 20px, rgba(0, 0, 0, 0.04) 2px, transparent 2px),
-    radial-gradient(circle at 40px 40px, rgba(0, 0, 0, 0.04) 2px, transparent 2px);
+    );
 }
 
 /* Dark gradient overlay: transparent in hero, dark in content */
