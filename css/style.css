@@ -53,8 +53,8 @@
   --card-hover-border: rgba(245, 158, 11, 0.4);
 
   /* ΓöÇΓöÇ Border Radius ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --radius-sm: 12px;
-  --radius-md: 20px;
+  --radius-sm: 4px 35px 4px 35px;
+  --radius-md: 4px 35px 4px 35px;
   --radius-lg: 32px;
   --radius-organic: 40% 60% 70% 30% / 40% 50% 60% 50%;
   --radius-pill: 999px;
