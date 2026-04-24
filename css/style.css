@@ -554,7 +554,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -1031,7 +1031,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 12px;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -1481,7 +1481,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 12px;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -1500,7 +1500,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 12px;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -1512,7 +1512,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .prasang-banner-fallback {
@@ -1691,7 +1691,7 @@ body.light-mode .form-select {
    ============================================================ */
 .cards-grid {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
   overflow-x: auto;
   padding: 2.5rem 60px 1.5rem 60px;
   /* Increased top padding to prevent glow clipping */
@@ -2096,7 +2096,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: 12px;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2193,7 +2193,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -2218,7 +2218,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 12px;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -2244,7 +2244,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 12px;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -2568,7 +2568,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 12px;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -3427,7 +3427,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3818,7 +3818,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .theme-toggle:hover {
@@ -5229,7 +5229,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -5707,7 +5707,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 12px;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -6157,7 +6157,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 12px;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -6176,7 +6176,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 12px;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -6188,7 +6188,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .prasang-banner-fallback {
@@ -6810,7 +6810,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: 12px;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -6907,7 +6907,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -6932,7 +6932,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 12px;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -6958,7 +6958,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 12px;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -7282,7 +7282,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 12px;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -7994,7 +7994,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8262,7 +8262,7 @@ body::after {
 }
 
 .article-card:hover {
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 12px 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -8386,7 +8386,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .theme-toggle:hover {
@@ -9797,7 +9797,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 50%;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -10275,7 +10275,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 50%;
+  border-radius: 12px;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -10725,7 +10725,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 50%;
+  border-radius: 12px;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -10744,7 +10744,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 12px;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -10756,7 +10756,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .prasang-banner-fallback {
@@ -11340,7 +11340,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: 12px;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -11437,7 +11437,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -11462,7 +11462,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 50%;
+  border-radius: 12px;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -11488,7 +11488,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 12px;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -11812,7 +11812,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 12px;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -12524,7 +12524,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12792,7 +12792,7 @@ body::after {
 }
 
 .article-card:hover {
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 12px 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -12916,7 +12916,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 50%;
+  border-radius: 12px;
 }
 
 .theme-toggle:hover {
@@ -14516,7 +14516,7 @@ body.light-mode .nav-search-btn:hover {
   height: 20px;
   border: 2px solid var(--gold-500);
   border-right-color: transparent;
-  border-radius: 50%;
+  border-radius: 12px;
   animation: spin 0.75s linear infinite;
 }
 
@@ -14646,7 +14646,7 @@ body.light-mode .nav-search-btn:hover {
   justify-content: center !important;
   width: 32px !important;
   height: 32px !important;
-  border-radius: 50% !important;
+  border-radius: 12px !important;
   background: rgba(245, 158, 11, 0.1) !important;
   color: var(--gold-500) !important;
   transition: all 0.3s ease !important;
@@ -14740,7 +14740,7 @@ body.light-mode .nav-search-btn:hover {
   right: 2rem;
   width: 48px;
   height: 48px;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 1px solid rgba(245, 158, 11, 0.3);
   background: rgba(15, 10, 5, 0.85);
   backdrop-filter: blur(12px);
