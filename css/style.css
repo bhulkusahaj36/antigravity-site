@@ -575,7 +575,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -1086,7 +1086,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -1536,7 +1536,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -1555,7 +1555,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -1567,7 +1567,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
 }
 
 .prasang-banner-fallback {
@@ -2152,7 +2152,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2249,7 +2249,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -2274,7 +2274,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -2300,7 +2300,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -2406,7 +2406,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -2429,7 +2429,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -2456,7 +2456,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -2624,7 +2624,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -3500,7 +3500,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3771,14 +3771,14 @@ body::after {
 }
 
 .article-card {
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 4px 60px 4px 60px !important 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 4px 35px 4px 35px !important 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -3903,7 +3903,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
 }
 
 .theme-toggle:hover {
@@ -4362,7 +4362,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Uniform professional corners */
   overflow: hidden !important;
   cursor: pointer;
@@ -5350,7 +5350,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -5862,7 +5862,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -6312,7 +6312,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -6331,7 +6331,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -6343,7 +6343,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
 }
 
 .prasang-banner-fallback {
@@ -6966,7 +6966,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -7063,7 +7063,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -7088,7 +7088,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -7114,7 +7114,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -7220,7 +7220,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -7243,7 +7243,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -7270,7 +7270,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -7438,7 +7438,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -8152,7 +8152,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8423,14 +8423,14 @@ body::after {
 }
 
 .article-card {
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 4px 60px 4px 60px !important 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 4px 35px 4px 35px !important 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -8555,7 +8555,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
 }
 
 .theme-toggle:hover {
@@ -10002,7 +10002,7 @@ body.page-exiting {
 
 .theme-toggle {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: none;
   cursor: pointer;
   color: var(--gold-500);
@@ -10514,7 +10514,7 @@ body.page-exiting {
 .quote-dot {
   width: 6px;
   height: 6px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: rgba(245, 158, 11, 0.3);
   transition: background 0.3s;
 }
@@ -10964,7 +10964,7 @@ body.light-mode .form-select {
 .prasang-banner-avatar {
   width: 120px;
   height: 120px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border-top: 1px solid rgba(245, 158, 11, 0.25);
   border-left: 1px solid rgba(245, 158, 11, 0.25);
   border-right: 1px solid rgba(245, 158, 11, 0.25);
@@ -10983,7 +10983,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   box-shadow:
     inset 0 -22px 35px rgba(245, 158, 11, 0.4),
     inset 0 0 15px rgba(0, 0, 0, 0.4);
@@ -10995,7 +10995,7 @@ body.light-mode .form-select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
 }
 
 .prasang-banner-fallback {
@@ -11580,7 +11580,7 @@ body.light-mode .form-select {
 .scroll-btn {
   width: 44px;
   height: 44px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: rgba(12, 10, 4, 0.65);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -11677,7 +11677,7 @@ body.light-mode .form-select {
 .avatar-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: 1.5px solid rgba(245, 158, 11, 0.4);
   background: rgba(3, 4, 6, 0.6);
   padding: 0;
@@ -11702,7 +11702,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
     inset 0 5px 15px rgba(0, 0, 0, 0.5);
@@ -11728,7 +11728,7 @@ body.light-mode .form-select {
 .avatar-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Clip the image tightly */
   object-fit: cover;
   object-position: top center;
@@ -11834,7 +11834,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -11857,7 +11857,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -11884,7 +11884,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -12052,7 +12052,7 @@ body.light-mode .form-select {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -12766,7 +12766,7 @@ body.light-mode .form-select {
   color: var(--text-muted);
   width: 40px;
   height: 40px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13037,14 +13037,14 @@ body::after {
 }
 
 .article-card {
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
 }
 
 .article-card:hover {
-  border-radius: 4px 60px 4px 60px !important 50% 50% 50% / 60% 60% 40% 40% !important;
+  border-radius: 4px 35px 4px 35px !important 50% 50% 50% / 60% 60% 40% 40% !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
   transform: translateY(-8px) scale(1.02) !important;
   box-shadow: none !important;
@@ -13169,7 +13169,7 @@ body.light-mode .nav-link {
   align-items: center;
   justify-content: center;
   transition: all var(--transition);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
 }
 
 .theme-toggle:hover {
@@ -13628,7 +13628,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
@@ -14130,7 +14130,7 @@ body.light-mode .carousel-3d-label {
   -webkit-backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--glass-border) !important;
   border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   /* Geometric Plaque */
   box-shadow:
     0 24px 80px rgba(0, 0, 0, 0.9),
@@ -14785,7 +14785,7 @@ body.light-mode .nav-search-btn:hover {
   height: 20px;
   border: 2px solid var(--gold-500);
   border-right-color: transparent;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   animation: spin 0.75s linear infinite;
 }
 
@@ -14869,7 +14869,7 @@ body.light-mode .nav-search-btn:hover {
 .feed-conditional {
   padding: 0.8rem 1.2rem !important;
   /* no search icon here */
-  border-radius: 4px 60px 4px 60px !important !important;
+  border-radius: 4px 35px 4px 35px !important !important;
 }
 
 .premium-input:focus,
@@ -14945,7 +14945,7 @@ body.light-mode .nav-search-btn:hover {
   justify-content: center !important;
   width: 32px !important;
   height: 32px !important;
-  border-radius: 4px 60px 4px 60px !important !important;
+  border-radius: 4px 35px 4px 35px !important !important;
   background: rgba(245, 158, 11, 0.1) !important;
   color: var(--gold-500) !important;
   transition: all 0.3s ease !important;
@@ -15039,7 +15039,7 @@ body.light-mode .nav-search-btn:hover {
   right: 2rem;
   width: 48px;
   height: 48px;
-  border-radius: 4px 60px 4px 60px !important;
+  border-radius: 4px 35px 4px 35px !important;
   border: 1px solid rgba(245, 158, 11, 0.3);
   background: rgba(15, 10, 5, 0.85);
   backdrop-filter: blur(12px);
