@@ -234,7 +234,7 @@ html {
 .hero-latest-area .carousel-3d-inner {
   --w: 180px !important;    
   --h: 275px !important; /* Increased from 250px to comfortably fit Gujarati text */
-  --translateZ: 160px !important; 
+  --translateZ: 320px !important; 
   --rotateX: 0deg !important;
 }
 
@@ -4817,7 +4817,7 @@ html {
 .hero-latest-area .carousel-3d-inner {
   --w: 180px !important;    
   --h: 275px !important; /* Increased from 250px to comfortably fit Gujarati text */
-  --translateZ: 160px !important; 
+  --translateZ: 320px !important; 
   --rotateX: 0deg !important;
 }
 
@@ -9456,7 +9456,7 @@ html {
 .hero-latest-area .carousel-3d-inner {
   --w: 180px !important;    
   --h: 275px !important; /* Increased from 250px to comfortably fit Gujarati text */
-  --translateZ: 160px !important; 
+  --translateZ: 320px !important; 
   --rotateX: 0deg !important;
 }
 

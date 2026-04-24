@@ -155,8 +155,8 @@ function renderCategoryChips() {
 function renderArticles() {
     const grid = document.getElementById('articlesGrid');
     if (!grid) return;
-    // Keep top 5 latest
-    const sorted = getSorted(ALL_ARTICLES).slice(0, 5);
+    // Keep top 10 latest
+    const sorted = getSorted(ALL_ARTICLES).slice(0, 10);
 
     grid.innerHTML = '';
     // Remove old class if any
