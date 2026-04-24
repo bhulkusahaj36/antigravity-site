@@ -2406,7 +2406,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -2429,7 +2429,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -2456,7 +2456,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -3771,7 +3771,7 @@ body::after {
 }
 
 .article-card {
-  border-radius: var(--radius-organic) !important;
+  border-radius: 4px 60px 4px 60px !important;
   background: var(--card-bg) !important;
   border: 1px solid rgba(255, 255, 255, 0.03) !important;
   box-shadow: none !important;
@@ -4362,7 +4362,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Uniform professional corners */
   overflow: hidden !important;
   cursor: pointer;
@@ -7220,7 +7220,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -7243,7 +7243,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -7270,7 +7270,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -11834,7 +11834,7 @@ body.light-mode .form-select {
 .album-img-wrap {
   width: 154px;
   height: 154px;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Square with rounded corners */
   border: 1px solid rgba(245, 158, 11, 0.3);
   border-bottom: 5px solid rgba(255, 179, 15, 0.98);
@@ -11857,7 +11857,7 @@ body.light-mode .form-select {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Match wrap radius */
   box-shadow:
     inset 0 -30px 50px rgba(245, 158, 11, 0.55),
@@ -11884,7 +11884,7 @@ body.light-mode .form-select {
 .album-img-wrap img {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Match wrap radius */
   object-fit: cover;
   object-position: center;
@@ -13628,7 +13628,7 @@ body.light-mode #particles-js {
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-bottom: 3px solid var(--saffron-500);
-  border-radius: 30px 4px 30px 4px;
+  border-radius: 4px 60px 4px 60px !important;
   /* Asymmetric geometric glass cut */
   overflow: hidden !important;
   cursor: pointer;
@@ -14130,7 +14130,7 @@ body.light-mode .carousel-3d-label {
   -webkit-backdrop-filter: var(--glass-blur) !important;
   border: 1px solid var(--glass-border) !important;
   border-bottom: 3px solid var(--saffron-500) !important;
-  border-radius: 4px 24px 4px 24px !important;
+  border-radius: 4px 60px 4px 60px !important;
   /* Geometric Plaque */
   box-shadow:
     0 24px 80px rgba(0, 0, 0, 0.9),
