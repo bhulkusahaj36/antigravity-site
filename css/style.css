@@ -3205,73 +3205,149 @@ body.light-mode .form-select {
 
 @media (max-width: 700px) {
 
-  /* Mobile Menu Styles with Staggered Animation */
-  .nav-links {
+  /* ── Backdrop overlay ── */
+  .nav-backdrop {
     display: none;
     position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1999;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .nav-backdrop.active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* ── Slide-in drawer from right ── */
+  .nav-links {
+    display: flex !important; /* always flex so transform works */
+    position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(3, 4, 6, 0.92);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    right: 0;
+    left: auto;
+    width: min(85vw, 320px);
+    height: 100dvh; /* dynamic viewport height for mobile browsers */
+    background: linear-gradient(160deg, rgba(15, 10, 5, 0.97) 0%, rgba(26, 18, 11, 0.99) 100%);
+    backdrop-filter: blur(30px) saturate(1.5);
+    -webkit-backdrop-filter: blur(30px) saturate(1.5);
+    border-left: 1px solid rgba(245, 158, 11, 0.18);
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    gap: 2.2rem;
-    z-index: 2000; /* Above the navbar */
-    border-bottom: none;
+    justify-content: flex-start;
+    align-items: stretch;
+    padding: 0;
+    gap: 0;
+    z-index: 2000;
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7), -1px 0 0 rgba(245, 158, 11, 0.1);
+    transform: translateX(110%);
+    transition: transform 0.42s cubic-bezier(0.23, 1, 0.32, 1);
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   .nav-links.open {
-    display: flex;
-    animation: fadeInMenu 0.4s ease forwards;
+    transform: translateX(0);
   }
 
+  /* ── Close button inside drawer ── */
+  .nav-mobile-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    margin: 0;
+    padding: 1.1rem 1.2rem;
+    background: rgba(15, 10, 5, 0.95);
+    border: none;
+    border-bottom: 1px solid rgba(245, 158, 11, 0.12);
+    cursor: pointer;
+    color: var(--gold-500);
+    align-self: flex-end;
+    width: 100%;
+    z-index: 10;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  .nav-mobile-close:hover,
+  .nav-mobile-close:active {
+    background: rgba(245, 158, 11, 0.12);
+    color: var(--text-white);
+  }
+
+  .nav-mobile-close svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2.2;
+  }
+
+  /* Gold decorative line under close bar */
+  .nav-mobile-close::after {
+    content: none;
+  }
+
+  /* ── Nav link items ── */
   .nav-links li {
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translateX(24px);
+    transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+                transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    border-bottom: 1px solid rgba(245, 158, 11, 0.07);
+    padding: 0;
   }
 
   .nav-links.open li {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 
   /* Staggered transition delays for nav items */
-  .nav-links.open li:nth-child(1) {
-    transition-delay: 0.1s;
+  .nav-links.open li:nth-child(2) { transition-delay: 0.08s; }
+  .nav-links.open li:nth-child(3) { transition-delay: 0.14s; }
+  .nav-links.open li:nth-child(4) { transition-delay: 0.20s; }
+  .nav-links.open li:nth-child(5) { transition-delay: 0.26s; }
+  .nav-links.open li:nth-child(6) { transition-delay: 0.32s; }
+
+  /* Override .nav-link for the drawer */
+  .nav-links li .nav-link {
+    display: block;
+    padding: 1.1rem 1.5rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(255, 230, 160, 0.9);
+    text-decoration: none;
+    transition: color 0.2s ease, background 0.2s ease, padding-left 0.2s ease;
   }
 
-  .nav-links.open li:nth-child(2) {
-    transition-delay: 0.15s;
+  .nav-links li .nav-link:hover,
+  .nav-links li .nav-link.active {
+    color: var(--gold-400);
+    background: rgba(245, 158, 11, 0.08);
+    padding-left: 1.9rem;
   }
 
-  .nav-links.open li:nth-child(3) {
-    transition-delay: 0.2s;
+  .nav-links li .nav-link::after {
+    display: none; /* No underline animation in drawer */
   }
 
-  .nav-links.open li:nth-child(4) {
-    transition-delay: 0.25s;
+  /* Search button in drawer */
+  .nav-links li .nav-search-btn {
+    display: flex;
+    margin: 0.5rem 1.5rem;
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+    width: calc(100% - 3rem);
+    justify-content: center;
   }
 
-  .nav-links.open li:nth-child(5) {
-    transition-delay: 0.3s;
-  }
-
-  @keyframes fadeInMenu {
-    from {
-      opacity: 0;
-      background: rgba(3, 4, 6, 0);
-    }
-
-    to {
-      opacity: 1;
-      background: rgba(3, 4, 6, 0.98);
-    }
+  /* Theme toggle in drawer */
+  .nav-links li .theme-toggle {
+    margin: 0.5rem 1.5rem;
   }
 
   .nav-toggle {
@@ -7844,80 +7920,9 @@ body.light-mode .form-select {
 
 @media (max-width: 700px) {
 
-  /* Mobile Menu Styles with Staggered Animation */
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(3, 4, 6, 0.92);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    gap: 2.2rem;
-    z-index: 2000; /* Above the navbar */
-    border-bottom: none;
-  }
+  /* Mobile nav drawer — see main block earlier in this file */
+  .nav-toggle { display: block; }
 
-  .nav-links.open {
-    display: flex;
-    animation: fadeInMenu 0.4s ease forwards;
-  }
-
-  .nav-links li {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .nav-links.open li {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Staggered transition delays for nav items */
-  .nav-links.open li:nth-child(1) {
-    transition-delay: 0.1s;
-  }
-
-  .nav-links.open li:nth-child(2) {
-    transition-delay: 0.15s;
-  }
-
-  .nav-links.open li:nth-child(3) {
-    transition-delay: 0.2s;
-  }
-
-  .nav-links.open li:nth-child(4) {
-    transition-delay: 0.25s;
-  }
-
-  .nav-links.open li:nth-child(5) {
-    transition-delay: 0.3s;
-  }
-
-  @keyframes fadeInMenu {
-    from {
-      opacity: 0;
-      background: rgba(3, 4, 6, 0);
-    }
-
-    to {
-      opacity: 1;
-      background: rgba(3, 4, 6, 0.98);
-    }
-  }
-
-  .nav-toggle {
-    display: block;
-  }
-
-  /* .section-header horizontal layout persists neatly for arrows */
 }
 
 @media (max-width: 480px) {
@@ -12445,80 +12450,9 @@ body.light-mode .form-select {
 
 @media (max-width: 700px) {
 
-  /* Mobile Menu Styles with Staggered Animation */
-  .nav-links {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(3, 4, 6, 0.92);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    gap: 2.2rem;
-    z-index: 2000; /* Above the navbar */
-    border-bottom: none;
-  }
+  /* Mobile nav drawer — see main block earlier in this file */
+  .nav-toggle { display: block; }
 
-  .nav-links.open {
-    display: flex;
-    animation: fadeInMenu 0.4s ease forwards;
-  }
-
-  .nav-links li {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .nav-links.open li {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Staggered transition delays for nav items */
-  .nav-links.open li:nth-child(1) {
-    transition-delay: 0.1s;
-  }
-
-  .nav-links.open li:nth-child(2) {
-    transition-delay: 0.15s;
-  }
-
-  .nav-links.open li:nth-child(3) {
-    transition-delay: 0.2s;
-  }
-
-  .nav-links.open li:nth-child(4) {
-    transition-delay: 0.25s;
-  }
-
-  .nav-links.open li:nth-child(5) {
-    transition-delay: 0.3s;
-  }
-
-  @keyframes fadeInMenu {
-    from {
-      opacity: 0;
-      background: rgba(3, 4, 6, 0);
-    }
-
-    to {
-      opacity: 1;
-      background: rgba(3, 4, 6, 0.98);
-    }
-  }
-
-  .nav-toggle {
-    display: block;
-  }
-
-  /* .section-header horizontal layout persists neatly for arrows */
 }
 
 @media (max-width: 480px) {
@@ -15199,8 +15133,11 @@ body.light-mode .paravani-card .content {
   box-shadow: 0 0 15px rgba(245, 158, 11, 0.15), inset 0 2px 10px rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Fix mobile close button visibility */
-.nav-toggle { position: relative !important; z-index: 9999 !important; }
+/* Hide mobile-only nav elements on desktop */
+.nav-backdrop,
+.nav-mobile-close {
+  display: none;
+}
 
 /* ============================================================
    PHASE 2: GLOBAL GEOMETRIC CARD STYLE

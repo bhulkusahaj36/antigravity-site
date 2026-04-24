@@ -3,7 +3,9 @@
 // ── Auth Header helper ────────────────────────────────────────────────────────
 async function adminHeaders(extra = {}) {
     const user = firebase.auth().currentUser;
-    const token = user ? await user.getIdToken() : '';
+    // forceRefresh: true ensures we always send a valid, non-expired token
+    // even if the browser has been idle for a while (token lifetime is 1h).
+    const token = user ? await user.getIdToken(/* forceRefresh */ true) : '';
     // We send BOTH headers during the transition to ensure backend compatibility
     return { 
         'Content-Type': 'application/json', 

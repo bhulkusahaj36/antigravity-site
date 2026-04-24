@@ -113,13 +113,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // ==========================================
     // ADMIN AUTHENTICATION GUARD
+    // NOTE: Firebase auth is async — we do NOT block here.
+    // The form submit handler itself calls adminHeaders() which
+    // awaits a fresh Firebase token, so unauthenticated POSTs
+    // are rejected server-side. Edit-mode loading is gated below
+    // via onAuthStateChanged to ensure the user is really signed in.
     // ==========================================
     const adminOverlay = document.getElementById('admin-login-overlay');
-    if (adminOverlay && adminOverlay.style.display !== 'none') {
-        if (localStorage.getItem('hk_isAdmin') !== 'true') {
-            return; // Stop initialization of feed logic
-        }
-    }
 
     wireDateRadio('add');
     wireDateRadio('br');
@@ -138,8 +138,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     /* ── Admin Edit Mode Initialization ──────────────────── */
     let editingArticleId = null;
     const editId = getParam('editId');
-    if (editId && localStorage.getItem('hk_isAdmin') === 'true') {
-        editingArticleId = editId;
+    // Gate edit-mode loading on Firebase auth so we always have
+    // a valid token before hitting the API.
+    if (editId && typeof firebase !== 'undefined') {
+        firebase.auth().onAuthStateChanged(user => {
+            if (!user) return; // not signed in — login overlay handles this
+            editingArticleId = editId;
         const titleEl = document.querySelector('.page-title');
         if (titleEl) titleEl.textContent = 'પ્રસંગ સંપાદિત કરો (Edit)';
         const submitBtn = document.querySelector('#addForm button[type="submit"]');
@@ -273,6 +277,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             })
             .catch(err => console.error("Error loading article for editing:", err));
+        }); // end onAuthStateChanged
     }
 
     let forceSave = false;
