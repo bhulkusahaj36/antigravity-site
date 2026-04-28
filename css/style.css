@@ -704,7 +704,7 @@ body.page-exiting {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-600), transparent);
+  background: var(--gold-600);
 }
 
 /* Global particle canvas ΓÇö fixed behind everything */
@@ -767,8 +767,8 @@ body.page-exiting {
   object-fit: contain;
   filter: none;
   /* Removed calligraphy glow for web view */
-  transform: scale(1.95) translateY(5rem);
-  /* Larger and raised further for web view */
+  transform: scale(1.95) translateY(7.5rem);
+  /* Larger and lowered further for web view */
   z-index: 5;
   position: absolute;
   bottom: 0%;
@@ -834,8 +834,8 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(1.2rem) !important;
-    /* Brought bit UP */
+    transform: scale(2.8) translateY(3.5rem) !important;
+    /* Lowered bit */
     margin-top: 0.8rem !important;
     /* Tighter separation */
     z-index: 10 !important;
@@ -1413,7 +1413,7 @@ body.light-mode .form-select {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold-600), transparent);
+  background: var(--gold-600);
 }
 
 .page-title {
@@ -1760,12 +1760,12 @@ body.light-mode .form-select {
   /* Hide for IE/Edge */
   scroll-snap-type: x mandatory;
   /* Edge fade: 120px fade zones matching the padding */
-  -webkit-mask-image: linear-gradient(to right,
+  -webkit-mask-image: none !important; /* disabled: 120px fade zone */
       transparent 0px,
       black 120px,
       black calc(100% - 120px),
       transparent 100%);
-  mask-image: linear-gradient(to right,
+  mask-image: none !important; /* disabled: 120px fade zone */
       transparent 0px,
       black 120px,
       black calc(100% - 120px),
@@ -3168,7 +3168,7 @@ body.light-mode .form-select {
   left: 10%;
   right: 10%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.45), transparent);
+  background: rgba(245, 158, 11, 0.45);
   box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
 }
 
@@ -5610,7 +5610,7 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(1.2rem) !important;
+    transform: scale(2.8) translateY(2.5rem) !important;
     /* Brought bit UP */
     margin-top: 0.8rem !important;
     /* Tighter separation */
@@ -10262,7 +10262,7 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(1.2rem) !important;
+    transform: scale(2.8) translateY(2.5rem) !important;
     /* Brought bit UP */
     margin-top: 0.8rem !important;
     /* Tighter separation */
@@ -14702,7 +14702,7 @@ body.light-mode .nav-search-btn:hover {
 .hero-branding-area:hover .hero-calligraphy {
   filter:
     drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 40px rgba(251, 191, 36, 0.75)) drop-shadow(0 0 75px rgba(251, 191, 36, 0.55)) brightness(1.05) !important;
-  transform: scale(1.96) translateY(4.9rem) !important;
+  transform: scale(1.96) translateY(5.9rem) !important;
   /* Slight lift/scale boost */
 }
 
@@ -14725,7 +14725,7 @@ body.light-mode .nav-search-btn:hover {
 
   .hero-branding-area:hover .hero-calligraphy {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(251, 191, 36, 0.65)) drop-shadow(0 0 60px rgba(251, 191, 36, 0.45)) !important;
-    transform: scale(2.8) translateY(1.2rem) !important;
+    transform: scale(2.8) translateY(2.5rem) !important;
     /* Maintain mobile scale/position */
   }
 }
@@ -14770,7 +14770,7 @@ body.light-mode .nav-search-btn:hover {
 .load-more-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.3), transparent);
+  background: rgba(245, 158, 11, 0.3);
 }
 
 .load-more-btn {
@@ -15520,3 +15520,19 @@ body.light-mode .paravani-card .content {
 
 /* Mobile Strip Layout Enhancements */
 #mobileArticleStrip { gap: 1rem !important; padding: 1rem 0.5rem !important; }
+
+/* ============================================================
+   GLOBAL OVERRIDE: REMOVE SIDE FADES
+   As requested, removing the gradient masks that fade content on the left/right edges.
+   This applies to carousels, horizontal scrolling sections, and other grids.
+   ============================================================ */
+.cards-grid, 
+.avatar-row, 
+.carousel-3d-wrapper, 
+.mobile-article-strip,
+#articlesGrid,
+.avatar-row-wrapper,
+.stacked-grid {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
