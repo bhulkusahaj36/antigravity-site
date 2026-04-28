@@ -15585,10 +15585,10 @@ body.light-mode .paravani-card .content {
 }
 
 .nav-logo-img {
-    height: 36px !important;
-    max-height: 36px !important;
+    height: 46px !important;
+    max-height: 46px !important;
     width: auto !important;
-    max-width: 120px !important;
+    max-width: 150px !important;
     object-fit: contain;
     flex-shrink: 0;
     filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.3));
@@ -15608,10 +15608,10 @@ body.light-mode .paravani-card .content {
 }
 
 .footer-logo-img {
-    height: 52px !important;
-    max-height: 52px !important;
+    height: 66px !important;
+    max-height: 66px !important;
     width: auto !important;
-    max-width: 160px !important;
+    max-width: 200px !important;
     object-fit: contain;
     margin-bottom: 0.6rem;
     filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.25));
@@ -15620,10 +15620,10 @@ body.light-mode .paravani-card .content {
 /* --- Admin Login Logo Image --- */
 .admin-login-logo-img {
     display: block;
-    height: 72px !important;
-    max-height: 72px !important;
+    height: 90px !important;
+    max-height: 90px !important;
     width: auto !important;
-    max-width: 200px !important;
+    max-width: 240px !important;
     margin: 0 auto 1rem auto;
     object-fit: contain;
     filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.4));
@@ -15631,10 +15631,10 @@ body.light-mode .paravani-card .content {
 
 /* --- Admin Topbar Logo Image --- */
 .admin-topbar-logo-img {
-    height: 28px !important;
-    max-height: 28px !important;
+    height: 36px !important;
+    max-height: 36px !important;
     width: auto !important;
-    max-width: 90px !important;
+    max-width: 110px !important;
     object-fit: contain;
     margin-right: 0.4rem;
     vertical-align: middle;
@@ -15649,12 +15649,12 @@ body.light-mode .paravani-card .content {
 /* --- Mobile Responsive --- */
 @media (max-width: 900px) {
     .nav-logo-img {
-        height: 30px;
+        height: 38px !important;
     }
     .footer-logo-img {
-        height: 44px;
+        height: 54px !important;
     }
     .admin-login-logo-img {
-        height: 60px;
+        height: 72px !important;
     }
 }
