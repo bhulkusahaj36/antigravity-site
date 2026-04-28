@@ -15546,12 +15546,10 @@ body.light-mode .paravani-card .content {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5) !important;
 }
 
-.article-card::before, .article-card::after, .neon-latest-card::before, .neon-latest-card::after {
-    transition: transform 0.38s ease !important;
-}
-
-.article-card:hover::before, .article-card:hover::after, .neon-latest-card:hover::before, .neon-latest-card:hover::after {
-    transform: translateY(-8px) !important;
+.article-card:hover, .neon-latest-card:hover, .album-card:hover, .avatar-card:hover,
+.article-card:hover::before, .article-card:hover::after, .neon-latest-card:hover::before, .neon-latest-card:hover::after,
+.btn:hover, .read-more:hover, .ps-clear-btn:hover {
+    transform: none !important;
 }
 
 .avatar-img-wrap img, .album-img-wrap img, .article-card img {
