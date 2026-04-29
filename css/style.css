@@ -15723,7 +15723,7 @@ body.light-mode .paravani-card .content {
 .timeline-track::before {
     content: '';
     position: absolute;
-    top: 60px; /* middle of the avatar (120px height) */
+    top: 77px; /* middle of the avatar (154px height) */
     left: 5vw;
     right: 5vw;
     height: 3px;
@@ -15750,10 +15750,10 @@ body.light-mode .paravani-card .content {
 }
 
 .timeline-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 3px solid rgba(245, 158, 11, 0.4);
+    width: 154px;
+    height: 154px;
+    border-radius: 4px 24px 4px 24px !important;
+    border: 1.5px solid rgba(245, 158, 11, 0.4);
     background: rgba(3, 4, 6, 0.8);
     box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
     object-fit: cover;
@@ -15766,27 +15766,19 @@ body.light-mode .paravani-card .content {
     box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
 }
 
-.timeline-name-en {
-    font-family: var(--font-en);
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--text-white);
-    margin-bottom: 0.25rem;
-    letter-spacing: 0.05em;
-    transition: color 0.3s ease;
-}
-
 .timeline-name-gu {
     font-family: var(--font-gu-sans);
-    font-weight: 600;
-    font-size: 0.85rem;
-    color: var(--saffron-400);
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-white);
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+    transition: color 0.3s ease;
 }
 
 .timeline-period {
     font-family: var(--font-en);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
     background: rgba(245, 158, 11, 0.1);
     padding: 0.2rem 0.6rem;
@@ -15794,7 +15786,7 @@ body.light-mode .paravani-card .content {
     border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
-.timeline-node:hover .timeline-name-en {
+.timeline-node:hover .timeline-name-gu {
     color: var(--gold-400);
 }
 
@@ -15804,10 +15796,10 @@ body.light-mode .timeline-avatar {
     border-color: rgba(245, 158, 11, 0.3);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
-body.light-mode .timeline-name-en {
+body.light-mode .timeline-name-gu {
     color: var(--text-primary);
 }
-body.light-mode .timeline-name-gu {
+body.light-mode .timeline-node:hover .timeline-name-gu {
     color: var(--saffron-600);
 }
 body.light-mode .timeline-period {

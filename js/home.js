@@ -111,9 +111,8 @@ function renderTimeline() {
         node.href = `prasang.html?prasang=${saint.id}`;
         
         node.innerHTML = `
-            <img src="images/prasang/${saint.id}.webp" alt="${saint.nameEn}" class="timeline-avatar" loading="lazy" onerror="this.src='images/prasang/${saint.id}.svg'; this.onerror=null;">
+            <img src="images/prasang/${saint.id}.webp" alt="${saint.nameGu}" class="timeline-avatar" loading="lazy" onerror="this.src='images/prasang/${saint.id}.svg'; this.onerror=null;">
             <span class="timeline-name-gu">${saint.nameGu}</span>
-            <span class="timeline-name-en">${saint.nameEn}</span>
             <span class="timeline-period">${saint.period}</span>
         `;
         track.appendChild(node);
