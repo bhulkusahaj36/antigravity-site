@@ -89,35 +89,6 @@ function renderFeatured() {
     });
 }
 
-function renderTimeline() {
-    const track = document.getElementById('timelineTrack');
-    if (!track) return;
-    
-    const GURU_PARAMPARA = [
-        { id: 'bhagwan', nameEn: 'Bhagwan Swaminarayan', nameGu: 'ભગવાન સ્વામિનારાયણ', period: '1781 - 1830' },
-        { id: 'gunatit', nameEn: 'Gunatitanand Swami', nameGu: 'ગુણાતીતાનંદ સ્વામી', period: '1785 - 1867' },
-        { id: 'bhagatji', nameEn: 'Bhagatji Maharaj', nameGu: 'ભગતજી મહારાજ', period: '1829 - 1897' },
-        { id: 'shastriji', nameEn: 'Shastriji Maharaj', nameGu: 'શાસ્ત્રીજી મહારાજ', period: '1865 - 1951' },
-        { id: 'yogiji', nameEn: 'Yogiji Maharaj', nameGu: 'યોગીજી મહારાજ', period: '1892 - 1971' },
-        { id: 'hariprasad', nameEn: 'Hariprasad Swamiji', nameGu: 'હરિપ્રસાદ સ્વામીજી', period: '1934 - 2021' },
-        { id: 'prabodh', nameEn: 'Prabodh Swamiji', nameGu: 'પ્રબોધ સ્વામીજી', period: 'Present' }
-    ];
-
-    track.innerHTML = '';
-
-    GURU_PARAMPARA.forEach(saint => {
-        const node = document.createElement('a');
-        node.className = 'timeline-node';
-        node.href = `prasang.html?prasang=${saint.id}`;
-        
-        node.innerHTML = `
-            <img src="images/prasang/${saint.id}.webp" alt="${saint.nameGu}" class="timeline-avatar" loading="lazy" onerror="this.src='images/prasang/${saint.id}.svg'; this.onerror=null;">
-            <span class="timeline-name-gu">${saint.nameGu}</span>
-            <span class="timeline-period">${saint.period}</span>
-        `;
-        track.appendChild(node);
-    });
-}
 
 function renderCategoryChips() {
     const container = document.getElementById('categoryChips');
@@ -413,7 +384,7 @@ async function loadHomeArticles() {
         renderCategoryChips(); 
         renderArticles();
         renderFeatured();
-        renderTimeline();
+
         
         // Re-initialize scroll buttons multiple times to ensure we catch the final layout paint
         if (window.initAvatarScrollButtons) {
@@ -462,8 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = section.querySelector('.avatar-row') || 
                         section.querySelector('.cards-grid') || 
                         section.querySelector('.category-chips') ||
-                        section.querySelector('.avatar-row-wrapper .featured-grid') ||
-                        section.querySelector('.timeline-track');
+                        section.querySelector('.avatar-row-wrapper .featured-grid');
 
             if (prevBtn && nextBtn && row) {
                 const updateButtons = () => {
