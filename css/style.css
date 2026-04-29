@@ -1916,7 +1916,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content {
-  transform: translateY(-8px);
+  transform: none !important;
   background: rgba(24, 18, 8, 0.85);
   border-top-color: rgba(245, 158, 11, 0.45);
 }
@@ -1928,7 +1928,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content {
-  transform: translateY(-6px);
+  transform: none !important;
   background: rgba(24, 18, 8, 0.9);
   border-top-color: rgba(245, 158, 11, 0.6);
   box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.25), 0 12px 32px rgba(245, 158, 11, 0.15) !important;
@@ -2554,7 +2554,7 @@ body.light-mode .form-select {
 
 .category-card:hover {
   border-color: rgba(251, 191, 36, 0.4);
-  transform: translateY(-6px);
+  transform: none !important;
   box-shadow: none !important;
   background: var(--card-hover);
 }
@@ -3784,7 +3784,7 @@ body::after {
 .article-card:hover {
   border-radius: 4px 24px 4px 24px !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
-  transform: translateY(-8px) scale(1.02) !important;
+  transform: none !important;
   box-shadow: none !important;
 }
 
@@ -6695,7 +6695,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content {
-  transform: translateY(-8px);
+  transform: none !important;
   background: rgba(24, 18, 8, 0.85);
   border-top-color: rgba(245, 158, 11, 0.45);
 }
@@ -7368,7 +7368,7 @@ body.light-mode .form-select {
 
 .category-card:hover {
   border-color: rgba(251, 191, 36, 0.4);
-  transform: translateY(-6px);
+  transform: none !important;
   box-shadow: none !important;
   background: var(--card-hover);
 }
@@ -8436,7 +8436,7 @@ body::after {
 .article-card:hover {
   border-radius: 4px 24px 4px 24px !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
-  transform: translateY(-8px) scale(1.02) !important;
+  transform: none !important;
   box-shadow: none !important;
 }
 
@@ -11347,7 +11347,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content {
-  transform: translateY(-8px);
+  transform: none !important;
   background: rgba(24, 18, 8, 0.85);
   border-top-color: rgba(245, 158, 11, 0.45);
 }
@@ -11359,7 +11359,7 @@ body.light-mode .form-select {
 }
 
 .neon-latest-card:hover .content {
-  transform: translateY(-6px);
+  transform: none !important;
   background: rgba(24, 18, 8, 0.9);
   border-top-color: rgba(245, 158, 11, 0.6);
   box-shadow: 0 0 0 1px rgba(245, 158, 11, 0.25), 0 12px 32px rgba(245, 158, 11, 0.15) !important;
@@ -11982,7 +11982,7 @@ body.light-mode .form-select {
 
 .category-card:hover {
   border-color: rgba(251, 191, 36, 0.4);
-  transform: translateY(-6px);
+  transform: none !important;
   box-shadow: none !important;
   background: var(--card-hover);
 }
@@ -13050,7 +13050,7 @@ body::after {
 .article-card:hover {
   border-radius: 4px 24px 4px 24px !important;
   background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(5, 5, 5, 1)) !important;
-  transform: translateY(-8px) scale(1.02) !important;
+  transform: none !important;
   box-shadow: none !important;
 }
 
@@ -15658,3 +15658,23 @@ body.light-mode .paravani-card .content {
         height: 72px !important;
     }
 }
+
+/* ============================================================
+   LOGO REMOVAL — Per User Request
+   Hides all visible logos from the website while preserving
+   the browser tab icon (favicon).
+   ============================================================ */
+
+.nav-logo,
+.nav-logo-img,
+.logo-gu,
+.footer-logo-img,
+.footer-logo,
+.admin-login-logo-img,
+.admin-login-logo,
+.admin-topbar-logo-img,
+.admin-topbar-logo,
+.admin-topbar-sep {
+  display: none !important;
+}
+

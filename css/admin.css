@@ -1191,3 +1191,17 @@ body.admin-page .navbar {
   cursor: text;
 }
 
+
+/* ============================================================
+   LOGO REMOVAL — Per User Request
+   Hides all visible logos from the admin dashboard.
+   ============================================================ */
+
+.admin-login-logo-img,
+.admin-login-logo,
+.admin-topbar-logo-img,
+.admin-topbar-logo,
+.admin-topbar-sep {
+  display: none !important;
+}
+
