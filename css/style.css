@@ -15678,3 +15678,140 @@ body.light-mode .paravani-card .content {
   display: none !important;
 }
 
+/* ============================================================
+   GURU PARAMPARA TIMELINE
+   ============================================================ */
+.timeline-section {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    padding: 2rem 1rem 4rem 1rem;
+}
+
+/* Add mask image for fade effect on edges */
+@media (min-width: 768px) {
+    .timeline-wrapper {
+        mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+        -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    }
+}
+
+.timeline-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.timeline-track {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-width: max-content;
+    gap: 0;
+    padding: 0 5vw; /* Start with some offset */
+}
+
+/* The connecting line */
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 60px; /* middle of the avatar (120px height) */
+    left: 5vw;
+    right: 5vw;
+    height: 3px;
+    background: linear-gradient(to right, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.6), rgba(245, 158, 11, 0.1));
+    z-index: 0;
+}
+
+.timeline-node {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 220px;
+    flex-shrink: 0;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.timeline-node:hover {
+    transform: translateY(-8px);
+}
+
+.timeline-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid rgba(245, 158, 11, 0.4);
+    background: rgba(3, 4, 6, 0.8);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.1);
+    object-fit: cover;
+    margin-bottom: 1.25rem;
+    transition: all 0.4s ease;
+}
+
+.timeline-node:hover .timeline-avatar {
+    border-color: var(--gold-400);
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+}
+
+.timeline-name-en {
+    font-family: var(--font-en);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-white);
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+}
+
+.timeline-name-gu {
+    font-family: var(--font-gu-sans);
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--saffron-400);
+    margin-bottom: 0.5rem;
+}
+
+.timeline-period {
+    font-family: var(--font-en);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    background: rgba(245, 158, 11, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.timeline-node:hover .timeline-name-en {
+    color: var(--gold-400);
+}
+
+/* Light mode support */
+body.light-mode .timeline-avatar {
+    background: #fff;
+    border-color: rgba(245, 158, 11, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+body.light-mode .timeline-name-en {
+    color: var(--text-primary);
+}
+body.light-mode .timeline-name-gu {
+    color: var(--saffron-600);
+}
+body.light-mode .timeline-period {
+    background: rgba(245, 158, 11, 0.05);
+    color: var(--text-secondary);
+}
+
