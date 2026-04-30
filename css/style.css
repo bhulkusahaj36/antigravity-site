@@ -15676,3 +15676,10 @@ body.light-mode .nav-links li .nav-link.active {
   color: var(--gold-400) !important;
   background: rgba(245, 158, 11, 0.08) !important;
 }
+
+/* FIX: Uplift calligraphy image in mobile view */
+@media (max-width: 768px) {
+  .hero-calligraphy {
+    transform: scale(2.8) translateY(0rem) !important;
+  }
+}
