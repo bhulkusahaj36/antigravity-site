@@ -14703,12 +14703,6 @@ body.light-mode .nav-search-btn:hover {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease !important;
 }
 
-.hero-branding-area:hover .hero-calligraphy {
-  filter:
-    drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 40px rgba(251, 191, 36, 0.75)) drop-shadow(0 0 75px rgba(251, 191, 36, 0.55)) brightness(1.05) !important;
-  transform: scale(1.96) translateY(5.9rem) !important;
-  /* Slight lift/scale boost */
-}
 
 /* Mobile specific overrides for enhanced images */
 @media (max-width: 900px) {
@@ -14727,11 +14721,6 @@ body.light-mode .nav-search-btn:hover {
       drop-shadow(0 0 20px rgba(245, 158, 11, 0.3)) drop-shadow(0 0 40px rgba(0, 0, 0, 0.4)) !important;
   }
 
-  .hero-branding-area:hover .hero-calligraphy {
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.5)) drop-shadow(0 0 30px rgba(251, 191, 36, 0.65)) drop-shadow(0 0 60px rgba(251, 191, 36, 0.45)) !important;
-    transform: scale(2.8) translateY(2.5rem) !important;
-    /* Maintain mobile scale/position */
-  }
 }
 
 /* ============================================================
