@@ -15650,19 +15650,13 @@ body.light-mode .paravani-card .content {
 
 /* ============================================================
    LOGO REMOVAL — Per User Request
-   Hides all visible logos from the website while preserving
-   the browser tab icon (favicon).
+   Hides logo images from the website while preserving text.
    ============================================================ */
 
-.nav-logo,
 .nav-logo-img,
-.logo-gu,
 .footer-logo-img,
-.footer-logo,
 .admin-login-logo-img,
-.admin-login-logo,
 .admin-topbar-logo-img,
-.admin-topbar-logo,
 .admin-topbar-sep {
   display: none !important;
 }
