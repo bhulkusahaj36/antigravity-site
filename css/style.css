@@ -834,7 +834,7 @@ body.page-exiting {
     position: relative !important;
     bottom: auto !important;
     max-width: 85% !important;
-    transform: scale(2.8) translateY(3.5rem) !important;
+    transform: scale(2.8) translateY(1rem) !important;
     /* Lowered bit */
     margin-top: 0.8rem !important;
     /* Tighter separation */
@@ -15462,9 +15462,11 @@ body.light-mode .paravani-card .content {
 }
 
 /* Hide mobile-only nav elements on desktop */
-.nav-backdrop,
-.nav-mobile-close {
-  display: none;
+@media (min-width: 769px) {
+  .nav-backdrop,
+  .nav-mobile-close {
+    display: none !important;
+  }
 }
 
 /* ============================================================
@@ -15663,3 +15665,14 @@ body.light-mode .paravani-card .content {
 
 
 
+
+/* FIX: Force drawer text to be visible against dark gradient in light mode */
+body.light-mode .nav-links li .nav-link,
+body.light-mode .nav-links li .nav-search-btn {
+  color: rgba(255, 230, 160, 0.9) !important;
+}
+body.light-mode .nav-links li .nav-link:hover,
+body.light-mode .nav-links li .nav-link.active {
+  color: var(--gold-400) !important;
+  background: rgba(245, 158, 11, 0.08) !important;
+}
