@@ -4804,41 +4804,41 @@ body.light-mode .carousel-3d-label {
   --font-scale: 1;
 
   /* ΓöÇΓöÇ Backgrounds ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --bg-900: #1a120b;
-  --bg-800: #2b1c14;
-  --bg-700: #402216;
-  --bg-600: #543224;
-  --bg-500: #6b4436;
+  --bg-900: #170b24;
+  --bg-800: #2e1065;
+  --bg-700: #3b0764;
+  --bg-600: #4c1d95;
+  --bg-500: #5b21b6;
 
-  /* ΓöÇΓöÇ Saffron / Amber Accent ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --saffron-200: #fef3c7;
-  --saffron-300: #fde68a;
-  --saffron-400: #fbbf24;
-  --saffron-500: #f59e0b;
-  --saffron-600: #d97706;
-  --saffron-700: #b45309;
-  --saffron-glow: rgba(245, 158, 11, 0.4);
+  /* ── Saffron Accent (Replaced with Amethyst/Magenta) ── */
+  --saffron-200: #fae8ff;
+  --saffron-300: #f5d0fe;
+  --saffron-400: #e879f9;
+  --saffron-500: #d946ef;
+  --saffron-600: #c026d3;
+  --saffron-700: #a21caf;
+  --saffron-glow: rgba(232, 121, 249, 0.4);
 
-  /* ΓöÇΓöÇ Gold / Metallic ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --gold-200: #fde68a;
-  --gold-300: #fce38a;
-  --gold-400: #fcd34d;
-  --gold-500: #fbbf24;
-  --gold-600: #d4af37;
-  --gold-gradient: linear-gradient(135deg, #fcd34d, #f59e0b);
+  /* ── Gold (Replaced with Rose Gold) ── */
+  --gold-200: #fce7f3;
+  --gold-300: #fbcfe8;
+  --gold-400: #f9a8d4;
+  --gold-500: #f472b6;
+  --gold-600: #db2777;
+  --gold-gradient: linear-gradient(135deg, #fbcfe8, #d946ef);
 
-  /* ΓöÇΓöÇ Text Hierarchy ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --text-white: #fdfaf5;
-  --text-title: #f8f0e0;
-  --text-primary: #e8dfd0;
-  --text-secondary: #c8b89a;
-  --text-muted: #8a7d6e;
+  /* ── Text ── */
+  --text-white: #faf5ff;
+  --text-title: #f3e8ff;
+  --text-primary: #e9d5ff;
+  --text-secondary: #d8b4fe;
+  --text-muted: #c084fc;
 
-  /* ΓöÇΓöÇ Cards ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
-  --card-bg: rgba(43, 28, 20, 0.7);
-  --card-border: rgba(245, 158, 11, 0.15);
-  --card-hover-bg: rgba(64, 34, 22, 0.85);
-  --card-hover-border: rgba(245, 158, 11, 0.4);
+  /* ── Cards ── */
+  --card-bg: rgba(46, 16, 101, 0.7);
+  --card-border: rgba(232, 121, 249, 0.15);
+  --card-hover-bg: rgba(23, 11, 36, 0.85);
+  --card-hover-border: rgba(232, 121, 249, 0.4);
 
   /* ΓöÇΓöÇ Border Radius ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
   --radius-sm: 12px;
@@ -9456,41 +9456,41 @@ body.light-mode .carousel-3d-label {
   --font-scale: 1;
 
   /* G÷╟G÷╟ Backgrounds G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟ */
-  --bg-900: #1a120b;
-  --bg-800: #2b1c14;
-  --bg-700: #402216;
-  --bg-600: #543224;
-  --bg-500: #6b4436;
+  --bg-900: #170b24;
+  --bg-800: #2e1065;
+  --bg-700: #3b0764;
+  --bg-600: #4c1d95;
+  --bg-500: #5b21b6;
 
-  /* G÷╟G÷╟ Saffron / Amber Accent G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟ */
-  --saffron-200: #fef3c7;
-  --saffron-300: #fde68a;
-  --saffron-400: #fbbf24;
-  --saffron-500: #f59e0b;
-  --saffron-600: #d97706;
-  --saffron-700: #b45309;
-  --saffron-glow: rgba(245, 158, 11, 0.4);
+  /* ── Saffron Accent (Replaced with Amethyst/Magenta) ── */
+  --saffron-200: #fae8ff;
+  --saffron-300: #f5d0fe;
+  --saffron-400: #e879f9;
+  --saffron-500: #d946ef;
+  --saffron-600: #c026d3;
+  --saffron-700: #a21caf;
+  --saffron-glow: rgba(232, 121, 249, 0.4);
 
-  /* G÷╟G÷╟ Gold / Metallic G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟ */
-  --gold-200: #fde68a;
-  --gold-300: #fce38a;
-  --gold-400: #fcd34d;
-  --gold-500: #fbbf24;
-  --gold-600: #d4af37;
-  --gold-gradient: linear-gradient(135deg, #fcd34d, #f59e0b);
+  /* ── Gold (Replaced with Rose Gold) ── */
+  --gold-200: #fce7f3;
+  --gold-300: #fbcfe8;
+  --gold-400: #f9a8d4;
+  --gold-500: #f472b6;
+  --gold-600: #db2777;
+  --gold-gradient: linear-gradient(135deg, #fbcfe8, #d946ef);
 
-  /* G÷╟G÷╟ Text Hierarchy G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟ */
-  --text-white: #fdfaf5;
-  --text-title: #f8f0e0;
-  --text-primary: #e8dfd0;
-  --text-secondary: #c8b89a;
-  --text-muted: #8a7d6e;
+  /* ── Text ── */
+  --text-white: #faf5ff;
+  --text-title: #f3e8ff;
+  --text-primary: #e9d5ff;
+  --text-secondary: #d8b4fe;
+  --text-muted: #c084fc;
 
-  /* G÷╟G÷╟ Cards G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟ */
-  --card-bg: rgba(43, 28, 20, 0.7);
-  --card-border: rgba(245, 158, 11, 0.15);
-  --card-hover-bg: rgba(64, 34, 22, 0.85);
-  --card-hover-border: rgba(245, 158, 11, 0.4);
+  /* ── Cards ── */
+  --card-bg: rgba(46, 16, 101, 0.7);
+  --card-border: rgba(232, 121, 249, 0.15);
+  --card-hover-bg: rgba(23, 11, 36, 0.85);
+  --card-hover-border: rgba(232, 121, 249, 0.4);
 
   /* G÷╟G÷╟ Border Radius G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟G÷╟ */
   --radius-sm: 12px;
