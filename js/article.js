@@ -123,11 +123,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     <header class="article-header">
       <div class="article-toolbar">
         <div style="display: flex; align-items: center; gap: 1rem;">
-          <button class="modern-back-btn" style="background:transparent;border:none;padding:0;cursor:pointer;" onclick="history.back()">
+          <button class="modern-back-btn" onclick="history.back()">
             <div class="icon-container">
-              <svg width="25px" height="25px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M224 480h640a32 32 0 1 1 0 64H224a32 32 0 0 1 0-64z"></path>
-                <path fill="currentColor" d="m237.248 512 265.408 265.344a32 32 0 0 1-45.312 45.312l-288-288a32 32 0 0 1 0-45.312l288-288a32 32 0 1 1 45.312 45.312L237.248 512z"></path>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
               </svg>
             </div>
             <p class="btn-text">Back</p>
@@ -303,21 +303,7 @@ function initZenMode() {
   const zenBtn = document.getElementById('zenModeBtn');
   if (!zenBtn) return;
 
-  // Create floating exit button if it doesn't exist
-  let exitBtn = document.querySelector('.zen-exit-btn');
-  if (!exitBtn) {
-    exitBtn = document.createElement('button');
-    exitBtn.className = 'zen-exit-btn';
-    exitBtn.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      <span>Exit Zen Mode</span>
-    `;
-    document.body.appendChild(exitBtn);
-    exitBtn.addEventListener('click', () => {
-      document.body.classList.remove('zen-mode');
-      updateZenIcon();
-    });
-  }
+
 
   function updateZenIcon() {
     if (document.body.classList.contains('zen-mode')) {
