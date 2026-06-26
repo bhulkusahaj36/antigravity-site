@@ -1,10 +1,4 @@
-.env
-node_modules/
-.DS_Store
-Thumbs.db
-.gemini/
-api/local.settings.json
-api/host.json
-staticwebapp.config.json
-
-scripts/data/
+node_modules
+.vscode
+local.settings.json
+*.env

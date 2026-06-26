@@ -7,6 +7,33 @@
   padding: 0;
 }
 
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+  animation: noiseAnimation 0.2s infinite;
+}
+
+@keyframes noiseAnimation {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -5%); }
+  20% { transform: translate(-10%, 5%); }
+  30% { transform: translate(5%, -10%); }
+  40% { transform: translate(-5%, 15%); }
+  50% { transform: translate(-10%, 5%); }
+  60% { transform: translate(15%, 0); }
+  70% { transform: translate(0, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+  100% { transform: translate(0, 0); }
+}
+
 /* ============================================================
    DESIGN TOKENS ΓÇö Single source of truth for the Organic Saffron
    design system. Edit here; all components inherit automatically.
@@ -47,10 +74,11 @@
   --text-muted: #8a7d6e;
 
   /* ── Cards ── */
-  --card-bg: rgba(43, 28, 20, 0.7);
-  --card-border: rgba(245, 158, 11, 0.15);
-  --card-hover-bg: rgba(64, 34, 22, 0.85);
-  --card-hover-border: rgba(245, 158, 11, 0.4);
+  --card-bg: rgba(43, 28, 20, 0.45);
+  --card-backdrop: blur(16px);
+  --card-border: rgba(245, 158, 11, 0.2);
+  --card-hover-bg: rgba(64, 34, 22, 0.6);
+  --card-hover-border: rgba(245, 158, 11, 0.5);
   /* ΓöÇΓöÇ Border Radius ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ */
   --radius-sm: 4px 12px 4px 12px;
   --radius-md: 4px 24px 4px 24px;
@@ -1174,6 +1202,7 @@ body.page-exiting {
 
 .skeleton-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -1691,6 +1720,7 @@ body.light-mode .form-select {
 /* Sidebar */
 .prasang-sidebar {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: 4px 24px 4px 24px !important;
   border-bottom: 6px solid var(--gold-500) !important;
@@ -2190,6 +2220,7 @@ body.light-mode .form-select {
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border-top: 1px solid rgba(245, 158, 11, 0.15);
   border-left: 1px solid rgba(245, 158, 11, 0.15);
   border-right: 1px solid rgba(245, 158, 11, 0.15);
@@ -2606,6 +2637,7 @@ body.light-mode .form-select {
 
 .category-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
@@ -2703,6 +2735,7 @@ body.light-mode .form-select {
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition);
@@ -3012,6 +3045,7 @@ body.light-mode .form-select {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   color: var(--text-secondary);
   font-size: 0.9rem;
   font-family: var(--font-gu-sans);
@@ -3032,6 +3066,7 @@ body.light-mode .form-select {
 
 .sidebar-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -6071,6 +6106,7 @@ body.page-exiting {
 
 .skeleton-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -6588,6 +6624,7 @@ body.light-mode .form-select {
 /* Sidebar */
 .prasang-sidebar {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -7121,6 +7158,7 @@ body.light-mode .form-select {
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border-top: 1px solid rgba(245, 158, 11, 0.15);
   border-left: 1px solid rgba(245, 158, 11, 0.15);
   border-right: 1px solid rgba(245, 158, 11, 0.15);
@@ -7534,6 +7572,7 @@ body.light-mode .form-select {
 
 .category-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
@@ -7631,6 +7670,7 @@ body.light-mode .form-select {
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition);
@@ -7940,6 +7980,7 @@ body.light-mode .form-select {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   color: var(--text-secondary);
   font-size: 0.9rem;
   font-family: var(--font-gu-sans);
@@ -7960,6 +8001,7 @@ body.light-mode .form-select {
 
 .sidebar-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -10833,6 +10875,7 @@ body.page-exiting {
 
 .skeleton-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -11350,6 +11393,7 @@ body.light-mode .form-select {
 /* Sidebar */
 .prasang-sidebar {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -11847,6 +11891,7 @@ body.light-mode .form-select {
   padding: 0.5rem 1.25rem;
   border-radius: 999px;
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border-top: 1px solid rgba(245, 158, 11, 0.15);
   border-left: 1px solid rgba(245, 158, 11, 0.15);
   border-right: 1px solid rgba(245, 158, 11, 0.15);
@@ -12260,6 +12305,7 @@ body.light-mode .form-select {
 
 .category-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--card-border);
@@ -12357,6 +12403,7 @@ body.light-mode .form-select {
   /* Modern circle shape */
   border: 1px solid var(--card-border);
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition);
@@ -12666,6 +12713,7 @@ body.light-mode .form-select {
   border: 1px solid var(--card-border);
   border-radius: var(--radius-sm);
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   color: var(--text-secondary);
   font-size: 0.9rem;
   font-family: var(--font-gu-sans);
@@ -12686,6 +12734,7 @@ body.light-mode .form-select {
 
 .sidebar-card {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   border: 1px solid var(--card-border);
   border-radius: var(--radius-md);
   padding: 1.5rem;
@@ -15170,6 +15219,7 @@ body.light-mode .nav-search-btn:hover {
 
 .search-skeleton {
   background: var(--card-bg);
+  backdrop-filter: var(--card-backdrop);
   padding: 1.5rem;
   border-radius: 1.5rem;
   border: 1px solid var(--card-border);

@@ -1,15 +1,14 @@
 {
-  "name": "antigravity-site",
-  "version": "1.0.0",
-  "description": "Antigravity Premium Site",
-  "main": "dev.js",
-  "scripts": {
-    "dev": "node dev.js",
-    "start": "node dev.js"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "dotenv": "^16.3.1",
-    "mongodb": "^6.3.0"
-  }
+    "name": "antigravity-api",
+    "version": "1.0.0",
+    "description": "Serverless API for Antigravity",
+    "main": "src/functions/*.js",
+    "scripts": {
+        "start": "func start"
+    },
+    "dependencies": {
+        "@azure/functions": "^4.0.0",
+        "firebase-admin": "^12.0.0",
+        "mongodb": "^7.1.1"
+    }
 }
